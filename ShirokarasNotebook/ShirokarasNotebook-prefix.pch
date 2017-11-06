@@ -1,0 +1,16 @@
+//
+//  ShirokarasNotebook-prefix.pch
+//  ShirokarasNotebook
+//
+//  Created by SinLemon on 2017/11/6.
+//  Copyright © 2017年 SinLemon. All rights reserved.
+//
+
+#ifndef ShirokarasNotebook_prefix_pch
+#define ShirokarasNotebook_prefix_pch
+
+#import <Foundation/Foundation.h>
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* ShirokarasNotebook_prefix_pch */

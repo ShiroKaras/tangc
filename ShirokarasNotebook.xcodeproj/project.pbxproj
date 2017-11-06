@@ -124,6 +124,7 @@
 		1130401B1FB06F900020C93D /* NSObject+MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJProperty.m"; sourceTree = "<group>"; };
 		1130401C1FB06F900020C93D /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
 		1130401D1FB06F900020C93D /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
+		1130402A1FB070850020C93D /* ShirokarasNotebook-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShirokarasNotebook-prefix.pch"; sourceTree = "<group>"; };
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
 		11D9AA1B1FB06141008D32E9 /* ShirokarasNotebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShirokarasNotebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA1E1FB06142008D32E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -358,6 +359,7 @@
 				11D9AA2F1FB06142008D32E9 /* Info.plist */,
 				11D9AA301FB06142008D32E9 /* main.m */,
 				11D9AA271FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld */,
+				1130402A1FB070850020C93D /* ShirokarasNotebook-prefix.pch */,
 			);
 			path = ShirokarasNotebook;
 			sourceTree = "<group>";
@@ -881,6 +883,7 @@
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/Required",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/ShirokarasNotebook-prefix.pch";
 				INFOPLIST_FILE = ShirokarasNotebook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -909,6 +912,7 @@
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/Required",
 				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/ShirokarasNotebook-prefix.pch";
 				INFOPLIST_FILE = ShirokarasNotebook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
