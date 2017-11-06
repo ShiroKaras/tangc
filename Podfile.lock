@@ -26,6 +26,11 @@ PODS:
   - MBProgressHUD+BWMExtension (1.0.1):
     - MBProgressHUD (~> 0.9.1)
   - MJRefresh (3.1.12)
+  - Pingpp/Alipay (2.2.13):
+    - Pingpp/Core
+  - Pingpp/Core (2.2.13)
+  - Pingpp/Wx (2.2.13):
+    - Pingpp/Core
   - PSCarouselView (1.4.1):
     - SDWebImage
   - Reachability (3.2)
@@ -45,6 +50,8 @@ DEPENDENCIES:
   - Masonry
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - MJRefresh
+  - Pingpp/Alipay
+  - Pingpp/Wx
   - PSCarouselView
   - Reachability
   - SDWebImage (~> 3.7.3)
@@ -62,6 +69,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MBProgressHUD+BWMExtension: d0603a1c0b03ef74cae6a0986d63c0bdf34bedfe
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  Pingpp: 12e2579e0d6e084a5f3d9d1821946f0a5b8f34f8
   PSCarouselView: ba326d737bb157608e28e53e525af50ce0606fd8
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
@@ -70,6 +78,6 @@ SPEC CHECKSUMS:
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 80610b7c58d6c2b64c1217f7e470f4c168af35f0
+PODFILE CHECKSUM: e158f087a3df46200d44b5e8fa53167adf9818df
 
 COCOAPODS: 1.1.1

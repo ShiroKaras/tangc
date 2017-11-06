@@ -19,6 +19,9 @@ target 'ShirokarasNotebook' do
   pod 'CHTCollectionViewWaterfallLayout'
   pod 'PSCarouselView'
   
+  pod 'Pingpp/Alipay'
+  pod 'Pingpp/Wx'
+  
 end
 
 target 'ShirokarasNotebookTests' do
