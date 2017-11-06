@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02A3631700824E110904A968 /* libPods-ShirokarasNotebookTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ABAEC3F029BAF396076F28 /* libPods-ShirokarasNotebookTests.a */; };
 		11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA1F1FB06142008D32E9 /* AppDelegate.m */; };
 		11D9AA231FB06142008D32E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA221FB06142008D32E9 /* ViewController.m */; };
 		11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA241FB06142008D32E9 /* Main.storyboard */; };
@@ -16,6 +17,8 @@
 		11D9AA311FB06142008D32E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA301FB06142008D32E9 /* main.m */; };
 		11D9AA3B1FB06143008D32E9 /* ShirokarasNotebookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA3A1FB06143008D32E9 /* ShirokarasNotebookTests.m */; };
 		11D9AA461FB06143008D32E9 /* ShirokarasNotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA451FB06143008D32E9 /* ShirokarasNotebookUITests.m */; };
+		D340443EE5B0C54A8A38F4FD /* libPods-ShirokarasNotebookUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB0878A33164D7DFE8BE3BC8 /* libPods-ShirokarasNotebookUITests.a */; };
+		DD8921FB7AB33A4F8A2857E6 /* libPods-ShirokarasNotebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86500B7B570A24B74CF17CC6 /* libPods-ShirokarasNotebook.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
 		11D9AA1B1FB06141008D32E9 /* ShirokarasNotebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShirokarasNotebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA1E1FB06142008D32E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		11D9AA1F1FB06142008D32E9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,6 +57,14 @@
 		11D9AA411FB06143008D32E9 /* ShirokarasNotebookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShirokarasNotebookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA451FB06143008D32E9 /* ShirokarasNotebookUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShirokarasNotebookUITests.m; sourceTree = "<group>"; };
 		11D9AA471FB06143008D32E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		401A52AB8343B21779DEC99D /* Pods-ShirokarasNotebookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests.debug.xcconfig"; sourceTree = "<group>"; };
+		40ABAEC3F029BAF396076F28 /* libPods-ShirokarasNotebookTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShirokarasNotebookTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AD69E51AC31CC15E29CD0AC /* Pods-ShirokarasNotebookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests.release.xcconfig"; sourceTree = "<group>"; };
+		86500B7B570A24B74CF17CC6 /* libPods-ShirokarasNotebook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShirokarasNotebook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CD6D414B54DE7A4C3ACB3F3 /* Pods-ShirokarasNotebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.release.xcconfig"; sourceTree = "<group>"; };
+		96DA3AA320E6C3E87B13B00C /* Pods-ShirokarasNotebookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookUITests/Pods-ShirokarasNotebookUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C442071CB0AA3663A5EF7E62 /* Pods-ShirokarasNotebookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookUITests/Pods-ShirokarasNotebookUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FB0878A33164D7DFE8BE3BC8 /* libPods-ShirokarasNotebookUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShirokarasNotebookUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD8921FB7AB33A4F8A2857E6 /* libPods-ShirokarasNotebook.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02A3631700824E110904A968 /* libPods-ShirokarasNotebookTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D340443EE5B0C54A8A38F4FD /* libPods-ShirokarasNotebookUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +102,8 @@
 				11D9AA391FB06143008D32E9 /* ShirokarasNotebookTests */,
 				11D9AA441FB06143008D32E9 /* ShirokarasNotebookUITests */,
 				11D9AA1C1FB06141008D32E9 /* Products */,
+				4086F9C6777F8E02E51074CD /* Pods */,
+				2DAB1A0B9D9E1AA8269C3A3B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -135,6 +152,29 @@
 			path = ShirokarasNotebookUITests;
 			sourceTree = "<group>";
 		};
+		2DAB1A0B9D9E1AA8269C3A3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86500B7B570A24B74CF17CC6 /* libPods-ShirokarasNotebook.a */,
+				40ABAEC3F029BAF396076F28 /* libPods-ShirokarasNotebookTests.a */,
+				FB0878A33164D7DFE8BE3BC8 /* libPods-ShirokarasNotebookUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4086F9C6777F8E02E51074CD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */,
+				8CD6D414B54DE7A4C3ACB3F3 /* Pods-ShirokarasNotebook.release.xcconfig */,
+				401A52AB8343B21779DEC99D /* Pods-ShirokarasNotebookTests.debug.xcconfig */,
+				6AD69E51AC31CC15E29CD0AC /* Pods-ShirokarasNotebookTests.release.xcconfig */,
+				C442071CB0AA3663A5EF7E62 /* Pods-ShirokarasNotebookUITests.debug.xcconfig */,
+				96DA3AA320E6C3E87B13B00C /* Pods-ShirokarasNotebookUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -142,9 +182,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11D9AA4A1FB06143008D32E9 /* Build configuration list for PBXNativeTarget "ShirokarasNotebook" */;
 			buildPhases = (
+				CCDCE72BCC3C9D1B38B1ACB9 /* [CP] Check Pods Manifest.lock */,
 				11D9AA171FB06141008D32E9 /* Sources */,
 				11D9AA181FB06141008D32E9 /* Frameworks */,
 				11D9AA191FB06141008D32E9 /* Resources */,
+				F7880644183D460476CFD82D /* [CP] Embed Pods Frameworks */,
+				FB3112488D2E97C4A90A8729 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -159,9 +202,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11D9AA4D1FB06143008D32E9 /* Build configuration list for PBXNativeTarget "ShirokarasNotebookTests" */;
 			buildPhases = (
+				9DA57CC3D350FD6C0BFD3996 /* [CP] Check Pods Manifest.lock */,
 				11D9AA321FB06143008D32E9 /* Sources */,
 				11D9AA331FB06143008D32E9 /* Frameworks */,
 				11D9AA341FB06143008D32E9 /* Resources */,
+				B0CB671402AF15883817DE62 /* [CP] Embed Pods Frameworks */,
+				C8A944823C4EE4CC53E5B748 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,9 +223,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11D9AA501FB06143008D32E9 /* Build configuration list for PBXNativeTarget "ShirokarasNotebookUITests" */;
 			buildPhases = (
+				E256ED8E554B3C643EC33E7B /* [CP] Check Pods Manifest.lock */,
 				11D9AA3D1FB06143008D32E9 /* Sources */,
 				11D9AA3E1FB06143008D32E9 /* Frameworks */,
 				11D9AA3F1FB06143008D32E9 /* Resources */,
+				74E322A6CB9AEE9C8C567960 /* [CP] Embed Pods Frameworks */,
+				6D79E35BFDD61F8554E49BA1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -262,6 +311,144 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6D79E35BFDD61F8554E49BA1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShirokarasNotebookUITests/Pods-ShirokarasNotebookUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		74E322A6CB9AEE9C8C567960 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShirokarasNotebookUITests/Pods-ShirokarasNotebookUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DA57CC3D350FD6C0BFD3996 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B0CB671402AF15883817DE62 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8A944823C4EE4CC53E5B748 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCDCE72BCC3C9D1B38B1ACB9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E256ED8E554B3C643EC33E7B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F7880644183D460476CFD82D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB3112488D2E97C4A90A8729 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		11D9AA171FB06141008D32E9 /* Sources */ = {
@@ -432,11 +619,13 @@
 		};
 		11D9AA4B1FB06143008D32E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				INFOPLIST_FILE = ShirokarasNotebook/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shirokaras.ShirokarasNotebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -446,11 +635,13 @@
 		};
 		11D9AA4C1FB06143008D32E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CD6D414B54DE7A4C3ACB3F3 /* Pods-ShirokarasNotebook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				INFOPLIST_FILE = ShirokarasNotebook/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shirokaras.ShirokarasNotebook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -460,6 +651,7 @@
 		};
 		11D9AA4E1FB06143008D32E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 401A52AB8343B21779DEC99D /* Pods-ShirokarasNotebookTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -475,6 +667,7 @@
 		};
 		11D9AA4F1FB06143008D32E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AD69E51AC31CC15E29CD0AC /* Pods-ShirokarasNotebookTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -490,6 +683,7 @@
 		};
 		11D9AA511FB06143008D32E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C442071CB0AA3663A5EF7E62 /* Pods-ShirokarasNotebookUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
@@ -504,6 +698,7 @@
 		};
 		11D9AA521FB06143008D32E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96DA3AA320E6C3E87B13B00C /* Pods-ShirokarasNotebookUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
