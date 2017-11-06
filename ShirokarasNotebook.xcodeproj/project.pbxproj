@@ -38,6 +38,7 @@
 		113040261FB06F900020C93D /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040191FB06F900020C93D /* NSObject+MJKeyValue.m */; };
 		113040271FB06F900020C93D /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130401B1FB06F900020C93D /* NSObject+MJProperty.m */; };
 		113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130401D1FB06F900020C93D /* NSString+MJExtension.m */; };
+		113040301FB0765F0020C93D /* environment in Resources */ = {isa = PBXBuildFile; fileRef = 1130402F1FB0765E0020C93D /* environment */; };
 		11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA1F1FB06142008D32E9 /* AppDelegate.m */; };
 		11D9AA231FB06142008D32E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA221FB06142008D32E9 /* ViewController.m */; };
 		11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA241FB06142008D32E9 /* Main.storyboard */; };
@@ -125,6 +126,7 @@
 		1130401C1FB06F900020C93D /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
 		1130401D1FB06F900020C93D /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
 		1130402A1FB070850020C93D /* ShirokarasNotebook-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShirokarasNotebook-prefix.pch"; sourceTree = "<group>"; };
+		1130402F1FB0765E0020C93D /* environment */ = {isa = PBXFileReference; lastKnownFileType = folder; path = environment; sourceTree = "<group>"; };
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
 		11D9AA1B1FB06141008D32E9 /* ShirokarasNotebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShirokarasNotebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA1E1FB06142008D32E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				11D9AA301FB06142008D32E9 /* main.m */,
 				11D9AA271FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld */,
 				1130402A1FB070850020C93D /* ShirokarasNotebook-prefix.pch */,
+				1130402F1FB0765E0020C93D /* environment */,
 			);
 			path = ShirokarasNotebook;
 			sourceTree = "<group>";
@@ -424,6 +427,8 @@
 				11D9AA191FB06141008D32E9 /* Resources */,
 				F7880644183D460476CFD82D /* [CP] Embed Pods Frameworks */,
 				FB3112488D2E97C4A90A8729 /* [CP] Copy Pods Resources */,
+				113040311FB0766F0020C93D /* Client Config */,
+				113040321FB076A40020C93D /* Server Config */,
 			);
 			buildRules = (
 			);
@@ -534,6 +539,7 @@
 				11303FF91FB06B3E0020C93D /* ShareSDK.bundle in Resources */,
 				11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */,
 				11303FF51FB06B3E0020C93D /* WeiboSDK.bundle in Resources */,
+				113040301FB0765F0020C93D /* environment in Resources */,
 				11303FF71FB06B3E0020C93D /* read_me.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,6 +561,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		113040311FB0766F0020C93D /* Client Config */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Client Config";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ". $SRCROOT/$TARGET_NAME/environment/client/clientconfig.sh";
+		};
+		113040321FB076A40020C93D /* Server Config */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Server Config";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ". $SRCROOT/$TARGET_NAME/environment/server/serverconfig.sh";
+		};
 		6D79E35BFDD61F8554E49BA1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
