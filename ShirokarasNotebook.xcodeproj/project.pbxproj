@@ -39,6 +39,7 @@
 		113040271FB06F900020C93D /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130401B1FB06F900020C93D /* NSObject+MJProperty.m */; };
 		113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130401D1FB06F900020C93D /* NSString+MJExtension.m */; };
 		113040301FB0765F0020C93D /* environment in Resources */ = {isa = PBXBuildFile; fileRef = 1130402F1FB0765E0020C93D /* environment */; };
+		113040361FB19AC70020C93D /* CommonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040341FB19AC70020C93D /* CommonUI.m */; };
 		11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA1F1FB06142008D32E9 /* AppDelegate.m */; };
 		11D9AA231FB06142008D32E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA221FB06142008D32E9 /* ViewController.m */; };
 		11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA241FB06142008D32E9 /* Main.storyboard */; };
@@ -127,6 +128,9 @@
 		1130401D1FB06F900020C93D /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
 		1130402A1FB070850020C93D /* ShirokarasNotebook-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShirokarasNotebook-prefix.pch"; sourceTree = "<group>"; };
 		1130402F1FB0765E0020C93D /* environment */ = {isa = PBXFileReference; lastKnownFileType = folder; path = environment; sourceTree = "<group>"; };
+		113040341FB19AC70020C93D /* CommonUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUI.m; sourceTree = "<group>"; };
+		113040351FB19AC70020C93D /* CommonUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUI.h; sourceTree = "<group>"; };
+		113040371FB19B8F0020C93D /* CommonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonDefine.h; sourceTree = "<group>"; };
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
 		11D9AA1B1FB06141008D32E9 /* ShirokarasNotebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShirokarasNotebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA1E1FB06142008D32E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -325,6 +329,16 @@
 			path = MJExtension;
 			sourceTree = "<group>";
 		};
+		113040331FB19A8A0020C93D /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				113040351FB19AC70020C93D /* CommonUI.h */,
+				113040341FB19AC70020C93D /* CommonUI.m */,
+				113040371FB19B8F0020C93D /* CommonDefine.h */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		11D9AA121FB06141008D32E9 = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +365,7 @@
 		11D9AA1D1FB06141008D32E9 /* ShirokarasNotebook */ = {
 			isa = PBXGroup;
 			children = (
+				113040331FB19A8A0020C93D /* Utility */,
 				11D9AA1E1FB06142008D32E9 /* AppDelegate.h */,
 				11D9AA1F1FB06142008D32E9 /* AppDelegate.m */,
 				11D9AA211FB06142008D32E9 /* ViewController.h */,
@@ -744,6 +759,7 @@
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
 				11D9AA311FB06142008D32E9 /* main.m in Sources */,
 				11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */,
+				113040361FB19AC70020C93D /* CommonUI.m in Sources */,
 				113040221FB06F900020C93D /* MJPropertyKey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
