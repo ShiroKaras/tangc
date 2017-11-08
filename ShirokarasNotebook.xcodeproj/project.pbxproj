@@ -46,6 +46,7 @@
 		113040871FB1A5F60020C93D /* SKStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040841FB1A5F50020C93D /* SKStorageDefine.m */; };
 		113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040861FB1A5F50020C93D /* SKStorageManager.m */; };
 		1130408C1FB1A6200020C93D /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130408B1FB1A6200020C93D /* SKModel.m */; };
+		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA1F1FB06142008D32E9 /* AppDelegate.m */; };
 		11D9AA231FB06142008D32E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA221FB06142008D32E9 /* ViewController.m */; };
 		11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA241FB06142008D32E9 /* Main.storyboard */; };
@@ -149,6 +150,8 @@
 		1130408A1FB1A6200020C93D /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKModel.h; sourceTree = "<group>"; };
 		1130408B1FB1A6200020C93D /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKModel.m; sourceTree = "<group>"; };
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
+		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
+		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11D9AA1B1FB06141008D32E9 /* ShirokarasNotebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShirokarasNotebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA1E1FB06142008D32E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		11D9AA1F1FB06142008D32E9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -381,6 +384,23 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		11CDDE851FB1BFC8004A0812 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				11CDDE861FB1C09F004A0812 /* Homepage */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		11CDDE861FB1C09F004A0812 /* Homepage */ = {
+			isa = PBXGroup;
+			children = (
+				11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */,
+				11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */,
+			);
+			path = Homepage;
+			sourceTree = "<group>";
+		};
 		11D9AA121FB06141008D32E9 = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +427,7 @@
 		11D9AA1D1FB06141008D32E9 /* ShirokarasNotebook */ = {
 			isa = PBXGroup;
 			children = (
+				11CDDE851FB1BFC8004A0812 /* UI */,
 				113040891FB1A6200020C93D /* Model */,
 				113040821FB1A5F50020C93D /* Storage */,
 				113040331FB19A8A0020C93D /* Utility */,
@@ -546,6 +567,7 @@
 		11D9AA131FB06141008D32E9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SK;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = SinLemon;
 				TargetAttributes = {
@@ -794,6 +816,7 @@
 				113040231FB06F900020C93D /* MJPropertyType.m in Sources */,
 				11D9AA231FB06142008D32E9 /* ViewController.m in Sources */,
 				1130403D1FB1A3370020C93D /* UIImage+Extension.m in Sources */,
+				11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */,
 				1130408C1FB1A6200020C93D /* SKModel.m in Sources */,
 				1130401F1FB06F900020C93D /* MJExtensionConst.m in Sources */,
 				113040241FB06F900020C93D /* NSObject+MJClass.m in Sources */,
