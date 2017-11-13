@@ -47,6 +47,11 @@
 		113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040861FB1A5F50020C93D /* SKStorageManager.m */; };
 		1130408C1FB1A6200020C93D /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130408B1FB1A6200020C93D /* SKModel.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
+		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
+		11CDDE8F1FB59730004A0812 /* SKHomepageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8E1FB59730004A0812 /* SKHomepageDetailViewController.m */; };
+		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
+		11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5D66F1FB9511500ACB521 /* SKLoginRootViewController.m */; };
+		11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5D6721FB9512B00ACB521 /* SKLoginVerifyMobileViewController.m */; };
 		11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA1F1FB06142008D32E9 /* AppDelegate.m */; };
 		11D9AA231FB06142008D32E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA221FB06142008D32E9 /* ViewController.m */; };
 		11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA241FB06142008D32E9 /* Main.storyboard */; };
@@ -152,6 +157,17 @@
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
+		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
+		11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageTableViewCell.m; sourceTree = "<group>"; };
+		11CDDE8D1FB59730004A0812 /* SKHomepageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageDetailViewController.h; sourceTree = "<group>"; };
+		11CDDE8E1FB59730004A0812 /* SKHomepageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageDetailViewController.m; sourceTree = "<group>"; };
+		11CDDE911FB597A9004A0812 /* SKNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNavigationController.h; sourceTree = "<group>"; };
+		11CDDE921FB597A9004A0812 /* SKNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNavigationController.m; sourceTree = "<group>"; };
+		11D5D66E1FB9511500ACB521 /* SKLoginRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLoginRootViewController.h; sourceTree = "<group>"; };
+		11D5D66F1FB9511500ACB521 /* SKLoginRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLoginRootViewController.m; sourceTree = "<group>"; };
+		11D5D6711FB9512B00ACB521 /* SKLoginVerifyMobileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLoginVerifyMobileViewController.h; sourceTree = "<group>"; };
+		11D5D6721FB9512B00ACB521 /* SKLoginVerifyMobileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLoginVerifyMobileViewController.m; sourceTree = "<group>"; };
+		11D5D6741FB953D900ACB521 /* SKLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLog.h; sourceTree = "<group>"; };
 		11D9AA1B1FB06141008D32E9 /* ShirokarasNotebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShirokarasNotebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA1E1FB06142008D32E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		11D9AA1F1FB06142008D32E9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -360,6 +376,7 @@
 				113040351FB19AC70020C93D /* CommonUI.h */,
 				113040341FB19AC70020C93D /* CommonUI.m */,
 				113040371FB19B8F0020C93D /* CommonDefine.h */,
+				11D5D6741FB953D900ACB521 /* SKLog.h */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -387,6 +404,8 @@
 		11CDDE851FB1BFC8004A0812 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				11D5D66D1FB950FA00ACB521 /* Login */,
+				11CDDE901FB59784004A0812 /* Common */,
 				11CDDE861FB1C09F004A0812 /* Homepage */,
 			);
 			path = UI;
@@ -397,8 +416,32 @@
 			children = (
 				11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */,
 				11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */,
+				11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */,
+				11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */,
+				11CDDE8D1FB59730004A0812 /* SKHomepageDetailViewController.h */,
+				11CDDE8E1FB59730004A0812 /* SKHomepageDetailViewController.m */,
 			);
 			path = Homepage;
+			sourceTree = "<group>";
+		};
+		11CDDE901FB59784004A0812 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				11CDDE911FB597A9004A0812 /* SKNavigationController.h */,
+				11CDDE921FB597A9004A0812 /* SKNavigationController.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		11D5D66D1FB950FA00ACB521 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				11D5D66E1FB9511500ACB521 /* SKLoginRootViewController.h */,
+				11D5D66F1FB9511500ACB521 /* SKLoginRootViewController.m */,
+				11D5D6711FB9512B00ACB521 /* SKLoginVerifyMobileViewController.h */,
+				11D5D6721FB9512B00ACB521 /* SKLoginVerifyMobileViewController.m */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		11D9AA121FB06141008D32E9 = {
@@ -815,6 +858,8 @@
 			files = (
 				113040231FB06F900020C93D /* MJPropertyType.m in Sources */,
 				11D9AA231FB06142008D32E9 /* ViewController.m in Sources */,
+				11CDDE8F1FB59730004A0812 /* SKHomepageDetailViewController.m in Sources */,
+				11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */,
 				1130403D1FB1A3370020C93D /* UIImage+Extension.m in Sources */,
 				11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */,
 				1130408C1FB1A6200020C93D /* SKModel.m in Sources */,
@@ -826,13 +871,16 @@
 				113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */,
 				113040211FB06F900020C93D /* MJProperty.m in Sources */,
 				11D9AA291FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld in Sources */,
+				11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */,
 				113040251FB06F900020C93D /* NSObject+MJCoding.m in Sources */,
 				113040201FB06F900020C93D /* MJFoundation.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
+				11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */,
 				1130403C1FB1A3370020C93D /* NSDate+TimeAgo.m in Sources */,
 				11D9AA311FB06142008D32E9 /* main.m in Sources */,
 				11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */,
 				113040361FB19AC70020C93D /* CommonUI.m in Sources */,
+				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,
 				113040221FB06F900020C93D /* MJPropertyKey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1009,7 +1057,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/ShirokarasNotebook-prefix.pch";
 				INFOPLIST_FILE = ShirokarasNotebook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1039,7 +1087,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/ShirokarasNotebook-prefix.pch";
 				INFOPLIST_FILE = ShirokarasNotebook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
