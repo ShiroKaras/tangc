@@ -11,12 +11,12 @@
 
 #import <Foundation/Foundation.h>
 #import "CommonDefine.h"
-
+#import "SKLog.h"
 //UI
 #import <Masonry.h>
 #import "CommonUI.h"
 
 //Data
-
+#import "SKModel.h"
 
 #endif /* ShirokarasNotebook_prefix_pch */
