@@ -19,7 +19,6 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = COMMON_BG_COLOR;
         
         _avatarImageView = [UIImageView new];
         _avatarImageView.backgroundColor = [UIColor greenColor];
