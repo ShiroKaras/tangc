@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, strong) UIView *titleView;
+@property (nonatomic, strong) UIButton *button_follow;
+@property (nonatomic, strong) UIButton *button_hot;
 @end
 
 @implementation SKHomepageViewController
@@ -51,8 +53,16 @@
     [self.tableView registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     [self.view addSubview:_tableView];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(200))];
-    headerView.backgroundColor = [UIColor lightGrayColor];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(220))];
+    headerView.backgroundColor = [UIColor whiteColor];
+    
+    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
+    headerImageView.backgroundColor = [UIColor blackColor];
+    [headerView addSubview:headerImageView];
+    
+    UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(20))];
+    [headerView addSubview:blankView];
     self.tableView.tableHeaderView = headerView;
     
 #ifdef __IPHONE_11_0
@@ -64,11 +74,29 @@
     //TitleView
     _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)];
     _titleView.layer.cornerRadius = 5;
-    _titleView.backgroundColor = [UIColor redColor];
+    _titleView.backgroundColor = [UIColor lightGrayColor];
     _titleView.top = ROUND_HEIGHT_FLOAT(HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2);
     _titleView.centerX = self.view.centerX;
-    [self.tableView addSubview:_titleView];
     _titleView.userInteractionEnabled = YES;
+    [self.tableView addSubview:_titleView];
+    
+    _button_follow = [UIButton new];
+    [_button_follow setTitle:@"关注" forState:UIControlStateNormal];
+    [_button_follow setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    _button_follow.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
+    _button_follow.size = CGSizeMake(TITLEVIEW_HEIGHT, TITLEVIEW_HEIGHT);
+    _button_follow.centerY = _titleView.height/2;
+    _button_follow.centerX = _titleView.width/2-60;
+    [_titleView addSubview:_button_follow];
+    
+    _button_hot = [UIButton new];
+    [_button_hot setTitle:@"热门" forState:UIControlStateNormal];
+    [_button_hot setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    _button_hot.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
+    _button_hot.size = CGSizeMake(TITLEVIEW_HEIGHT, TITLEVIEW_HEIGHT);
+    _button_hot.centerY = _titleView.height/2;
+    _button_hot.centerX = _titleView.width/2+60;
+    [_titleView addSubview:_button_hot];
 }
 
 #pragma mark - UITableView Delegate
@@ -112,6 +140,11 @@
             _titleView.height = TITLEVIEW_HEIGHT;
             _titleView.width = TITLEVIEW_WIDTH;
             _titleView.layer.cornerRadius = 5;
+            
+            _button_follow.centerX = _titleView.width/2-60;
+            _button_follow.top = 0;
+            _button_hot.centerX = _titleView.width/2 +60;
+            _button_hot.top = 0;
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
@@ -122,6 +155,11 @@
             _titleView.left = 0;
             _titleView.width = SCREEN_WIDTH;
             _titleView.layer.cornerRadius = 0;
+            
+            _button_follow.centerX = _titleView.width/2-60;
+            _button_follow.top = 20;
+            _button_hot.centerX = _titleView.width/2 +60;
+            _button_hot.top = 20;
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
