@@ -8,6 +8,7 @@
 
 #import "SKLoginRootViewController.h"
 #import "SKHomepageViewController.h"
+#import "SKLoginVerifyMobileViewController.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
@@ -50,6 +51,7 @@
     
     //login buttons
     UIButton *login_weibo = [UIButton new];
+    [login_weibo addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [login_weibo setTitle:@"微博登录" forState:UIControlStateNormal];
     [login_weibo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     login_weibo.backgroundColor = [UIColor darkGrayColor];
@@ -61,6 +63,7 @@
     [self.view addSubview:login_weibo];
     
     UIButton *login_qq = [UIButton new];
+    [login_weibo addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [login_qq setTitle:@"QQ登录" forState:UIControlStateNormal];
     [login_qq setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     login_qq.width = ROUND_WIDTH_FLOAT(100);
@@ -70,6 +73,7 @@
     [self.view addSubview:login_qq];
     
     UIButton *login_weixin = [UIButton new];
+    [login_weibo addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [login_weixin setTitle:@"微信登录" forState:UIControlStateNormal];
     [login_weixin setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     login_weixin.width = ROUND_WIDTH_FLOAT(100);
@@ -77,6 +81,12 @@
     login_weixin.left = login_qq.right+ROUND_WIDTH_FLOAT(20);
     login_weixin.top = login_weibo.bottom +20;
     [self.view addSubview:login_weixin];
+}
+
+//Test
+- (void)didclickWeiboButton {
+    SKLoginVerifyMobileViewController *controller = [[SKLoginVerifyMobileViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didClickLoginButton:(UIButton*)sender {
