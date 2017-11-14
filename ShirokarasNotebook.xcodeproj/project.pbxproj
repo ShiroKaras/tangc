@@ -46,9 +46,9 @@
 		113040871FB1A5F60020C93D /* SKStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040841FB1A5F50020C93D /* SKStorageDefine.m */; };
 		113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040861FB1A5F50020C93D /* SKStorageManager.m */; };
 		1130408C1FB1A6200020C93D /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130408B1FB1A6200020C93D /* SKModel.m */; };
+		11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
-		11CDDE8F1FB59730004A0812 /* SKHomepageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8E1FB59730004A0812 /* SKHomepageDetailViewController.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
 		11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5D66F1FB9511500ACB521 /* SKLoginRootViewController.m */; };
 		11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5D6721FB9512B00ACB521 /* SKLoginVerifyMobileViewController.m */; };
@@ -155,12 +155,12 @@
 		1130408A1FB1A6200020C93D /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKModel.h; sourceTree = "<group>"; };
 		1130408B1FB1A6200020C93D /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKModel.m; sourceTree = "<group>"; };
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
+		11B82D981FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageMorePicDetailViewController.h; sourceTree = "<group>"; };
+		11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageMorePicDetailViewController.m; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
 		11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageTableViewCell.m; sourceTree = "<group>"; };
-		11CDDE8D1FB59730004A0812 /* SKHomepageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageDetailViewController.h; sourceTree = "<group>"; };
-		11CDDE8E1FB59730004A0812 /* SKHomepageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageDetailViewController.m; sourceTree = "<group>"; };
 		11CDDE911FB597A9004A0812 /* SKNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNavigationController.h; sourceTree = "<group>"; };
 		11CDDE921FB597A9004A0812 /* SKNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNavigationController.m; sourceTree = "<group>"; };
 		11D5D66E1FB9511500ACB521 /* SKLoginRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLoginRootViewController.h; sourceTree = "<group>"; };
@@ -401,6 +401,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		11B82D971FBAE76A006D9A26 /* HomepageDetail */ = {
+			isa = PBXGroup;
+			children = (
+				11B82D981FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.h */,
+				11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */,
+			);
+			path = HomepageDetail;
+			sourceTree = "<group>";
+		};
 		11CDDE851FB1BFC8004A0812 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -418,8 +427,7 @@
 				11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */,
 				11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */,
 				11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */,
-				11CDDE8D1FB59730004A0812 /* SKHomepageDetailViewController.h */,
-				11CDDE8E1FB59730004A0812 /* SKHomepageDetailViewController.m */,
+				11B82D971FBAE76A006D9A26 /* HomepageDetail */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -858,7 +866,6 @@
 			files = (
 				113040231FB06F900020C93D /* MJPropertyType.m in Sources */,
 				11D9AA231FB06142008D32E9 /* ViewController.m in Sources */,
-				11CDDE8F1FB59730004A0812 /* SKHomepageDetailViewController.m in Sources */,
 				11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */,
 				1130403D1FB1A3370020C93D /* UIImage+Extension.m in Sources */,
 				11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */,
@@ -878,6 +885,7 @@
 				11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */,
 				1130403C1FB1A3370020C93D /* NSDate+TimeAgo.m in Sources */,
 				11D9AA311FB06142008D32E9 /* main.m in Sources */,
+				11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */,
 				11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */,
 				113040361FB19AC70020C93D /* CommonUI.m in Sources */,
 				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,
