@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKHomepageTableViewCell : UITableViewCell
+typedef NS_ENUM(NSInteger, SKHomepageTableViewCellType) {
+    SKHomepageTableViewCellTypeOnePic,
+    SKHomepageTableViewCellTypeMorePic,
+    SKHomepageTableViewCellTypeArticle,
+};
 
+@interface SKHomepageTableViewCell : UITableViewCell
+@property (nonatomic, assign) SKHomepageTableViewCellType type;
 @property (nonatomic, assign) float cellHeight;
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier type:(SKHomepageTableViewCellType)type;
 @end
