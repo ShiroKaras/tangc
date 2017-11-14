@@ -7,11 +7,10 @@
 //
 
 #import "SKHomepageTableViewCell.h"
+#import "SKTitleBaseView.h"
 
 @interface SKHomepageTableViewCell ()
-@property (nonatomic, strong) UIImageView *avatarImageView;
-@property (nonatomic, strong) UILabel *usernameLabel;
-@property (nonatomic, strong) UIButton *followButton;
+@property (nonatomic, strong) SKTitleBaseView *baseInfoView;
 
 //OnePic
 @property (nonatomic, strong) UIImageView *imageViewOnePic;
@@ -30,35 +29,9 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.layer.cornerRadius = 5;
         
-        _avatarImageView = [UIImageView new];
-        _avatarImageView.backgroundColor = [UIColor greenColor];
-        _avatarImageView.layer.cornerRadius = 20;
-        _avatarImageView.top = 10;
-        _avatarImageView.left = 10;
-        _avatarImageView.size = CGSizeMake(40, 40);
-        [self.contentView addSubview:_avatarImageView];
-        
-        _usernameLabel = [UILabel new];
-        _usernameLabel.text = @"username";
-        _usernameLabel.textColor = [UIColor greenColor];
-        [_usernameLabel sizeToFit];
-        _usernameLabel.left = _avatarImageView.right +20;
-        _usernameLabel.centerY = _avatarImageView.centerY;
-        [self.contentView addSubview:_usernameLabel];
-        
-        //关注按钮
-        _followButton = [UIButton new];
-        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
-        [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _followButton.backgroundColor = [UIColor lightGrayColor];
-        _followButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-        _followButton.layer.cornerRadius = 12;
-        _followButton.size = CGSizeMake(40, 24);
-        _followButton.left = SCREEN_WIDTH-20-_followButton.width -20;
-        _followButton.centerY = _avatarImageView.centerY;
-        [self.contentView addSubview:_followButton];
+        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-10, 60)];
+        [self.contentView addSubview:_baseInfoView];
     }
-    
     return self;
 }
 
@@ -80,7 +53,7 @@
     
     switch (type) {
         case SKHomepageTableViewCellTypeOnePic:{
-            _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(0, _avatarImageView.bottom+10, SCREEN_WIDTH-10, (SCREEN_WIDTH-10)/4*3)];
+            _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(0, _baseInfoView.bottom, SCREEN_WIDTH-10, (SCREEN_WIDTH-10)/4*3)];
             _imageViewOnePic.backgroundColor = [UIColor yellowColor];
             [self.contentView addSubview:_imageViewOnePic];
             
@@ -99,7 +72,7 @@
         case SKHomepageTableViewCellTypeMorePic:{
             UIScrollView *scrollView = [UIScrollView new];
             scrollView.backgroundColor = [UIColor greenColor];
-            scrollView.top = _avatarImageView.bottom+10;
+            scrollView.top = _baseInfoView.bottom;
             scrollView.left = 0;
             scrollView.size = CGSizeMake(SCREEN_WIDTH-10, 200);
             scrollView.contentSize = CGSizeMake(scrollView.width*2, 200);
@@ -128,7 +101,7 @@
             break;
         }
         case SKHomepageTableViewCellTypeArticle:{
-            _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(10, _avatarImageView.bottom+10, SCREEN_WIDTH-30, 200)];
+            _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(10, _baseInfoView.bottom, SCREEN_WIDTH-30, 200)];
             _imageViewArticle.backgroundColor = [UIColor orangeColor];
             _imageViewArticle.layer.cornerRadius = 5;
             [self.contentView addSubview:_imageViewArticle];
