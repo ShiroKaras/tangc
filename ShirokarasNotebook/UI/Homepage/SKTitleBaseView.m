@@ -48,7 +48,7 @@
         _followButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
         _followButton.layer.cornerRadius = 12;
         _followButton.size = CGSizeMake(40, 24);
-        _followButton.left = SCREEN_WIDTH-20-_followButton.width -20;
+        _followButton.left = self.width-20-_followButton.width -20;
         _followButton.centerY = _avatarImageView.centerY;
         [self addSubview:_followButton];
     }
