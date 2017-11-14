@@ -18,5 +18,4 @@ typedef NS_ENUM(NSInteger, SKHomepageTableViewCellType) {
 @property (nonatomic, assign) SKHomepageTableViewCellType type;
 @property (nonatomic, assign) float cellHeight;
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier type:(SKHomepageTableViewCellType)type;
 @end

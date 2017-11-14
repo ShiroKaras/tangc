@@ -8,7 +8,7 @@
 
 #import "SKHomepageViewController.h"
 #import "SKHomepageTableViewCell.h"
-#import "SKHomepageDetailViewController.h"
+#import "SKHomepageMorePicDetailViewController.h"
 
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(200)
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(280)
@@ -116,7 +116,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKHomepageDetailViewController *controller = [[SKHomepageDetailViewController alloc] init];
+    SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

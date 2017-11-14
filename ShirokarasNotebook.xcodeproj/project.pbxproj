@@ -47,6 +47,7 @@
 		113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040861FB1A5F50020C93D /* SKStorageManager.m */; };
 		1130408C1FB1A6200020C93D /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130408B1FB1A6200020C93D /* SKModel.m */; };
 		11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */; };
+		11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
@@ -157,6 +158,8 @@
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
 		11B82D981FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageMorePicDetailViewController.h; sourceTree = "<group>"; };
 		11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageMorePicDetailViewController.m; sourceTree = "<group>"; };
+		11B82D9B1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageDetaillTableViewCell.h; sourceTree = "<group>"; };
+		11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageDetaillTableViewCell.m; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
@@ -406,6 +409,8 @@
 			children = (
 				11B82D981FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.h */,
 				11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */,
+				11B82D9B1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.h */,
+				11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */,
 			);
 			path = HomepageDetail;
 			sourceTree = "<group>";
@@ -882,6 +887,7 @@
 				113040251FB06F900020C93D /* NSObject+MJCoding.m in Sources */,
 				113040201FB06F900020C93D /* MJFoundation.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
+				11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */,
 				11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */,
 				1130403C1FB1A3370020C93D /* NSDate+TimeAgo.m in Sources */,
 				11D9AA311FB06142008D32E9 /* main.m in Sources */,
