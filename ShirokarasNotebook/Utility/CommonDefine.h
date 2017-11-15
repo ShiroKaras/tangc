@@ -33,11 +33,11 @@
 #define WS(weakSelf) __weak __typeof(&*self) weakSelf = self;
 
 // 布局换算比例
-#define ROUND_WIDTH(w) @(((w) / 375.0) * SCREEN_WIDTH)
-#define ROUND_HEIGHT(h) @(((h) / 667.0) * SCREEN_HEIGHT)
+#define ROUND_WIDTH(w) @(((w) / 320.0) * SCREEN_WIDTH)
+#define ROUND_HEIGHT(h) @(((h) / 568.0) * SCREEN_HEIGHT)
 
-#define ROUND_WIDTH_FLOAT(w) ((w) / 375.0) * SCREEN_WIDTH
-#define ROUND_HEIGHT_FLOAT(h) ((h) / 667.0) * SCREEN_HEIGHT
+#define ROUND_WIDTH_FLOAT(w) ((w) / 320.0) * SCREEN_WIDTH
+#define ROUND_HEIGHT_FLOAT(h) ((h) / 568.0) * SCREEN_HEIGHT
 
 //#define ARTICLE_URL_STRING @"http://101.201.39.169:8001/views/article.html"
 //#define ANSWER_URL_STRING @"http://101.201.39.169:8001/views/answer.html"
@@ -56,9 +56,8 @@
 #define COMMON_BG_COLOR [UIColor colorWithHex:0x0E0E0E]
 #define COMMON_TITLE_BG_COLOR [UIColor colorWithHex:0x1F1F1F]
 
-#define COMMON_TEXT_COLOR   [UIColor colorWithHex:0x505050]
-#define COMMON_TEXT_2_COLOR [UIColor colorWithHex:0x9C9C9C]
-#define COMMON_TEXT_3_COLOR [UIColor colorWithHex:0x3C3C3C]
+#define COMMON_TEXT_COLOR   [UIColor colorWithHex:0x1F4035]
+#define COMMON_TEXT_PLACEHOLDER_COLOR [UIColor colorWithHex:0xBCCCC7]
 
 #define PLACEHOLDER_IMAGE [UIImage imageNamed:@"img_mascot_article_list_cover_default"]
 
