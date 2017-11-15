@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self createUI];
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
@@ -60,13 +60,13 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.backgroundColor = COMMON_SEPARATOR_COLOR;
     [self.tableView registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     [self.view addSubview:_tableView];
     
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(202))];
-    headerView.backgroundColor = [UIColor lightGrayColor];
+    headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
     headerImageView.backgroundColor = [UIColor blackColor];
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if (cell==nil) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
-    cell.type = SKHomepageTableViewCellTypeArticle;
+    cell.type = SKHomepageTableViewCellTypeMorePic;
     return cell;
 }
 

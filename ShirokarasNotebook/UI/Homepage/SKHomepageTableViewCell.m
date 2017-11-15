@@ -27,9 +27,9 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.layer.cornerRadius = 5;
+        self.layer.cornerRadius = 3;
         
-        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-10, 60)];
+        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-10, ROUND_WIDTH_FLOAT(50))];
         [self.contentView addSubview:_baseInfoView];
     }
     return self;
@@ -47,8 +47,8 @@
     
     UIView *underLine = [UIView new];
     underLine.backgroundColor = COMMON_SEPARATOR_COLOR;
-    underLine.size = CGSizeMake(SCREEN_WIDTH-10, 0.5);
-    underLine.left = 0;
+    underLine.size = CGSizeMake(SCREEN_WIDTH-30, 0.5);
+    underLine.left = 10;
     [self.contentView addSubview:underLine];
     
     switch (type) {
@@ -58,11 +58,13 @@
             [self.contentView addSubview:_imageViewOnePic];
             
             _introduceLabel = [UILabel new];
-            _introduceLabel.text = @"test\ntest";
-            _introduceLabel.numberOfLines = 2;
+            _introduceLabel.text = @"卓大王 星空系列开放预售啦！\n成品价45，预售价40，数量有限先到先得！";
+            _introduceLabel.textColor = COMMON_TEXT_COLOR;
+            _introduceLabel.numberOfLines = 0;
             _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(13);
             [_introduceLabel sizeToFit];
-            _introduceLabel.top = _imageViewOnePic.bottom+3;
+            _introduceLabel.width = _imageViewOnePic.width-20;
+            _introduceLabel.top = _imageViewOnePic.bottom+7;
             _introduceLabel.left = 10;
             [self.contentView addSubview:_introduceLabel];
             
@@ -70,29 +72,34 @@
             break;
         }
         case SKHomepageTableViewCellTypeMorePic:{
+            self.imageUrlArray = @[@"1",@"1",@"1",@"1",@"1"];
+            
             UIScrollView *scrollView = [UIScrollView new];
-            scrollView.backgroundColor = [UIColor greenColor];
+            scrollView.backgroundColor = [UIColor clearColor];
             scrollView.top = _baseInfoView.bottom;
-            scrollView.left = 0;
-            scrollView.size = CGSizeMake(SCREEN_WIDTH-10, 200);
-            scrollView.contentSize = CGSizeMake(scrollView.width*2, 200);
+            scrollView.left = 10;
+            scrollView.size = CGSizeMake(SCREEN_WIDTH-30, ROUND_WIDTH_FLOAT(121));
+            scrollView.contentSize = CGSizeMake(self.imageUrlArray.count*ROUND_WIDTH_FLOAT(131)-ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(121));
             scrollView.showsVerticalScrollIndicator = NO;
+            scrollView.showsHorizontalScrollIndicator = NO;
             [self.contentView addSubview:scrollView];
             
             //添加图片
             for (int i=0; i<5; i++) {
-                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10+190*i, 10, 180, 180)];
-                imageView.backgroundColor = [UIColor yellowColor];
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(131)*i, 0, ROUND_WIDTH_FLOAT(121), ROUND_WIDTH_FLOAT(121))];
+                imageView.layer.cornerRadius = 3;
+                imageView.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
                 [scrollView addSubview:imageView];
             }
             
             //文字介绍
             _introduceLabel = [UILabel new];
-            _introduceLabel.text = @"test\ntest";
-            _introduceLabel.numberOfLines = 2;
+            _introduceLabel.text = @"卓大王 星空系列开放预售啦！\n成品价45，预售价40，数量有限先到先得！";
+            _introduceLabel.textColor = COMMON_TEXT_COLOR;
+            _introduceLabel.numberOfLines = 0;
             _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(13);
             [_introduceLabel sizeToFit];
-            _introduceLabel.top = scrollView.bottom+3;
+            _introduceLabel.top = scrollView.bottom+7;
             _introduceLabel.left = 10;
             [self.contentView addSubview:_introduceLabel];
             
@@ -123,11 +130,39 @@
             break;
     }
     
-    //评论转发
-    
+    //转发
+    UIButton *repeaterButton = [UIButton new];
+    [repeaterButton setTitle:@"转发" forState:UIControlStateNormal];
+    [repeaterButton setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
+    [repeaterButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
+    repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    repeaterButton.size = CGSizeMake((SCREEN_WIDTH-10)/3, 42);
+    repeaterButton.left = 0;
+    repeaterButton.top = underLine.bottom;
+    [self.contentView addSubview:repeaterButton];
+    //评论
+    UIButton *commentButton = [UIButton new];
+    [commentButton setTitle:@"评论" forState:UIControlStateNormal];
+    [commentButton setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
+    [commentButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
+    commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    commentButton.size = CGSizeMake((SCREEN_WIDTH-10)/3, 42);
+    commentButton.left = repeaterButton.right;
+    commentButton.top = underLine.bottom;
+    [self.contentView addSubview:commentButton];
+    //点赞
+    UIButton *favButton = [UIButton new];
+    [favButton setTitle:@"点赞" forState:UIControlStateNormal];
+    [favButton setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
+    [favButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
+    favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    favButton.size = CGSizeMake((SCREEN_WIDTH-10)/3, 42);
+    favButton.left = commentButton.right;
+    favButton.top = underLine.bottom;
+    [self.contentView addSubview:favButton];
     
     [self layoutIfNeeded];
-    self.cellHeight = underLine.bottom+50;
+    self.cellHeight = underLine.bottom+ROUND_WIDTH_FLOAT(42);
 }
 
 @end

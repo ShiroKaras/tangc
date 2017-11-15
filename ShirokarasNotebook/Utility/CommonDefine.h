@@ -51,7 +51,7 @@
 #define COMMON_RED_COLOR [UIColor colorWithHex:0xed203b]
 
 #define COMMON_SELECTED_COLOR [UIColor colorWithHex:0x505050]
-#define COMMON_SEPARATOR_COLOR [UIColor colorWithHex:0x303030]
+#define COMMON_SEPARATOR_COLOR [UIColor colorWithHex:0xE6E6E6]
 
 #define COMMON_BG_COLOR [UIColor colorWithHex:0x0E0E0E]
 #define COMMON_TITLE_BG_COLOR [UIColor colorWithHex:0x1F1F1F]
