@@ -44,8 +44,8 @@
     
     UITextField *mobileTextField = [[UITextField alloc] initWithFrame:CGRectMake(14, kLabel.bottom+32, self.view.width-60, 60)];
     mobileTextField.placeholder = @"请输入手机号";
-    mobileTextField.textColor = COMMON_TEXT_2_COLOR;
-    [mobileTextField setValue:COMMON_TEXT_2_COLOR forKeyPath:@"_placeholderLabel.textColor"];
+    mobileTextField.textColor = COMMON_TEXT_COLOR;
+    [mobileTextField setValue:COMMON_TEXT_COLOR forKeyPath:@"_placeholderLabel.textColor"];
     mobileTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 60)];
     mobileTextField.leftViewMode = UITextFieldViewModeAlways;
     mobileTextField.keyboardType = UIKeyboardTypePhonePad;
@@ -54,8 +54,8 @@
     
     UITextField *verifyCodeTextField = [[UITextField alloc] initWithFrame:CGRectMake(14, mobileTextField.bottom+10, self.view.width-60, 60)];
     verifyCodeTextField.placeholder = @"请输入验证码";
-    verifyCodeTextField.textColor = COMMON_TEXT_2_COLOR;
-    [verifyCodeTextField setValue:COMMON_TEXT_2_COLOR forKeyPath:@"_placeholderLabel.textColor"];
+    verifyCodeTextField.textColor = COMMON_TEXT_COLOR;
+    [verifyCodeTextField setValue:COMMON_TEXT_COLOR forKeyPath:@"_placeholderLabel.textColor"];
     verifyCodeTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 60)];
     verifyCodeTextField.leftViewMode = UITextFieldViewModeAlways;
     verifyCodeTextField.keyboardType = UIKeyboardTypeNumberPad;

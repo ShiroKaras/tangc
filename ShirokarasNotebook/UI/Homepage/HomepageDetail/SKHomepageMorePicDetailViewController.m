@@ -8,6 +8,7 @@
 
 #import "SKHomepageMorePicDetailViewController.h"
 #import "SKHomepageDetaillTableViewCell.h"
+#import "SKTitleBaseView.h"
 
 @interface SKHomepageMorePicDetailViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -33,6 +34,11 @@
     backView.backgroundColor = [UIColor whiteColor];
     backView.layer.cornerRadius = 5;
     [headerView addSubview:backView];
+    
+    SKTitleBaseView *baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, 60)];
+    [backView addSubview:baseInfoView];
+    
+    
     
     self.tableView.tableHeaderView = headerView;
 }
@@ -80,15 +86,35 @@
     return headerView;
 }
 
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+//    footerView.backgroundColor = [UIColor clearColor];
+//
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, 0, SCREEN_WIDTH-10, 10)];
+//    view.backgroundColor = [UIColor whiteColor];
+//    [footerView addSubview:view];
+//    //指定圆角
+//    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5,5)];
+//    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//    maskLayer.frame = view.bounds;
+//    maskLayer.path = maskPath.CGPath;
+//    view.layer.mask = maskLayer;
+//
+//    return footerView;
+//}
 #pragma mark - UITableView DataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 30;
 }
 
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+//    return 10;
+//}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //    return _dataArray.count;
-    return 5;
+    return 15;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

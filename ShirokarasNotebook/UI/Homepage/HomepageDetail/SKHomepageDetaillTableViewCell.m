@@ -50,6 +50,7 @@
         _contentLabel.text = @"text\ntext";
         _contentLabel.textColor = [UIColor blackColor];
         _contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
+        _contentLabel.numberOfLines = 0;
         [_contentLabel sizeToFit];
         _contentLabel.top = _avatarImageView.bottom+3;
         _contentLabel.left = _usernameLabel.left;

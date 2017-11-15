@@ -10,9 +10,9 @@
 #import "SKHomepageTableViewCell.h"
 #import "SKHomepageMorePicDetailViewController.h"
 
-#define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(200)
-#define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(280)
-#define TITLEVIEW_HEIGHT ROUND_HEIGHT_FLOAT(50)
+#define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
+#define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
+#define TITLEVIEW_HEIGHT ROUND_HEIGHT_FLOAT(44)
 
 @interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIView *titleView;
 @property (nonatomic, strong) UIButton *button_follow;
 @property (nonatomic, strong) UIButton *button_hot;
+@property (nonatomic, strong) UIView *markLine;
 @end
 
 @implementation SKHomepageViewController
@@ -54,14 +55,14 @@
     [self.view addSubview:_tableView];
     
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(220))];
-    headerView.backgroundColor = [UIColor whiteColor];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(202))];
+    headerView.backgroundColor = [UIColor lightGrayColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
     headerImageView.backgroundColor = [UIColor blackColor];
     [headerView addSubview:headerImageView];
     
-    UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(20))];
+    UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
     [headerView addSubview:blankView];
     self.tableView.tableHeaderView = headerView;
     
@@ -73,30 +74,36 @@
     
     //TitleView
     _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)];
-    _titleView.layer.cornerRadius = 5;
-    _titleView.backgroundColor = [UIColor lightGrayColor];
-    _titleView.top = ROUND_HEIGHT_FLOAT(HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2);
+    _titleView.layer.cornerRadius = 3;
+    _titleView.backgroundColor = [UIColor whiteColor];
+    _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
     [self.tableView addSubview:_titleView];
     
     _button_follow = [UIButton new];
     [_button_follow setTitle:@"关注" forState:UIControlStateNormal];
-    [_button_follow setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_button_follow setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
     _button_follow.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     _button_follow.size = CGSizeMake(TITLEVIEW_HEIGHT, TITLEVIEW_HEIGHT);
     _button_follow.centerY = _titleView.height/2;
-    _button_follow.centerX = _titleView.width/2-60;
+    _button_follow.left = ROUND_WIDTH_FLOAT(60);
     [_titleView addSubview:_button_follow];
     
     _button_hot = [UIButton new];
     [_button_hot setTitle:@"热门" forState:UIControlStateNormal];
-    [_button_hot setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_button_hot setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
     _button_hot.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     _button_hot.size = CGSizeMake(TITLEVIEW_HEIGHT, TITLEVIEW_HEIGHT);
     _button_hot.centerY = _titleView.height/2;
-    _button_hot.centerX = _titleView.width/2+60;
+    _button_hot.right = _titleView.width-ROUND_WIDTH_FLOAT(60);
     [_titleView addSubview:_button_hot];
+    
+    _markLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(20), 1)];
+    _markLine.backgroundColor = [UIColor colorWithHex:0x37ECBA];
+    _markLine.centerX = _button_follow.centerX;
+    _markLine.bottom = _titleView.height;
+    [_titleView addSubview:_markLine];
 }
 
 #pragma mark - UITableView Delegate
