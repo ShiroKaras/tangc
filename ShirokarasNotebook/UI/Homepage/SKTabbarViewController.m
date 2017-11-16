@@ -8,6 +8,8 @@
 
 #import "SKTabbarViewController.h"
 #import "SKHomepageViewController.h"
+#import "SKTopicsViewController.h"
+
 @interface SKTabbarViewController ()
 
 @end
@@ -26,8 +28,7 @@
     c1.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_task_highlight"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     
-    UIViewController *c2 = [[UIViewController alloc] init];
-    c2.view.backgroundColor = [UIColor redColor];
+    SKTopicsViewController *c2 = [[SKTopicsViewController alloc] init];
     c2.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c2.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_puzzle"];
     c2.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_puzzle_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

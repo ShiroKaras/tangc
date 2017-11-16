@@ -50,6 +50,10 @@
 		11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */; };
 		11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */; };
 		11B82DA31FBC5448006D9A26 /* SKTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA21FBC5448006D9A26 /* SKTabbarViewController.m */; };
+		11B82DA61FBD37DB006D9A26 /* SKTopicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA51FBD37DB006D9A26 /* SKTopicsViewController.m */; };
+		11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA91FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m */; };
+		11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAA1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m */; };
+		11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
@@ -166,6 +170,14 @@
 		11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTitleBaseView.m; sourceTree = "<group>"; };
 		11B82DA11FBC5448006D9A26 /* SKTabbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTabbarViewController.h; sourceTree = "<group>"; };
 		11B82DA21FBC5448006D9A26 /* SKTabbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTabbarViewController.m; sourceTree = "<group>"; };
+		11B82DA41FBD37DB006D9A26 /* SKTopicsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTopicsViewController.h; sourceTree = "<group>"; };
+		11B82DA51FBD37DB006D9A26 /* SKTopicsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTopicsViewController.m; sourceTree = "<group>"; };
+		11B82DA81FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallFooter.h; sourceTree = "<group>"; };
+		11B82DA91FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallFooter.m; sourceTree = "<group>"; };
+		11B82DAA1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallHeader.m; sourceTree = "<group>"; };
+		11B82DAB1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallHeader.h; sourceTree = "<group>"; };
+		11B82DAE1FBD3A53006D9A26 /* SKTopicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTopicCell.h; sourceTree = "<group>"; };
+		11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTopicCell.m; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
@@ -421,6 +433,17 @@
 			path = HomepageDetail;
 			sourceTree = "<group>";
 		};
+		11B82DA71FBD3855006D9A26 /* WaterFlow */ = {
+			isa = PBXGroup;
+			children = (
+				11B82DA81FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.h */,
+				11B82DA91FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m */,
+				11B82DAB1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.h */,
+				11B82DAA1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m */,
+			);
+			path = WaterFlow;
+			sourceTree = "<group>";
+		};
 		11CDDE851FB1BFC8004A0812 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +457,8 @@
 		11CDDE861FB1C09F004A0812 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+				11B82DA71FBD3855006D9A26 /* WaterFlow */,
+				11B82D971FBAE76A006D9A26 /* HomepageDetail */,
 				11B82DA11FBC5448006D9A26 /* SKTabbarViewController.h */,
 				11B82DA21FBC5448006D9A26 /* SKTabbarViewController.m */,
 				11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */,
@@ -442,7 +467,10 @@
 				11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */,
 				11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */,
 				11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */,
-				11B82D971FBAE76A006D9A26 /* HomepageDetail */,
+				11B82DA41FBD37DB006D9A26 /* SKTopicsViewController.h */,
+				11B82DA51FBD37DB006D9A26 /* SKTopicsViewController.m */,
+				11B82DAE1FBD3A53006D9A26 /* SKTopicCell.h */,
+				11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -882,8 +910,10 @@
 				113040231FB06F900020C93D /* MJPropertyType.m in Sources */,
 				11D9AA231FB06142008D32E9 /* ViewController.m in Sources */,
 				11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */,
+				11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */,
 				1130403D1FB1A3370020C93D /* UIImage+Extension.m in Sources */,
 				11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */,
+				11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */,
 				1130408C1FB1A6200020C93D /* SKModel.m in Sources */,
 				1130401F1FB06F900020C93D /* MJExtensionConst.m in Sources */,
 				113040241FB06F900020C93D /* NSObject+MJClass.m in Sources */,
@@ -904,9 +934,11 @@
 				1130403C1FB1A3370020C93D /* NSDate+TimeAgo.m in Sources */,
 				11D9AA311FB06142008D32E9 /* main.m in Sources */,
 				11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */,
+				11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */,
 				11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */,
 				113040361FB19AC70020C93D /* CommonUI.m in Sources */,
 				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,
+				11B82DA61FBD37DB006D9A26 /* SKTopicsViewController.m in Sources */,
 				113040221FB06F900020C93D /* MJPropertyKey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
