@@ -56,7 +56,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)createUI {
     //TableView
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -65,7 +65,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     [self.view addSubview:_tableView];
     
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(202))];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
     headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if (cell==nil) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
-    cell.type = SKHomepageTableViewCellTypeMorePic;
+    cell.type = SKHomepageTableViewCellTypeArticle;
     return cell;
 }
 
