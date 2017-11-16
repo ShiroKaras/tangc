@@ -9,6 +9,8 @@
 #import "SKHomepageTableViewCell.h"
 #import "SKTitleBaseView.h"
 
+#define CELL_WIDTH (SCREEN_WIDTH-10)
+
 @interface SKHomepageTableViewCell ()
 @property (nonatomic, strong) SKTitleBaseView *baseInfoView;
 
@@ -29,7 +31,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.layer.cornerRadius = 3;
         
-        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-10, ROUND_WIDTH_FLOAT(50))];
+        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, ROUND_WIDTH_FLOAT(50))];
         [self.contentView addSubview:_baseInfoView];
     }
     return self;
@@ -44,16 +46,21 @@
 }
 
 - (void)setType:(SKHomepageTableViewCellType)type {
+    for (UIView *view in self.contentView.subviews) {
+        if (![view isKindOfClass:[SKTitleBaseView class]]) {
+            [view removeFromSuperview];
+        }
+    }
     
     UIView *underLine = [UIView new];
-    underLine.backgroundColor = COMMON_SEPARATOR_COLOR;
-    underLine.size = CGSizeMake(SCREEN_WIDTH-30, 0.5);
-    underLine.left = 10;
     [self.contentView addSubview:underLine];
+    underLine.backgroundColor = COMMON_SEPARATOR_COLOR;
+    underLine.size = CGSizeMake(CELL_WIDTH -20, 0.5);
+    underLine.left = 10;
     
     switch (type) {
         case SKHomepageTableViewCellTypeOnePic:{
-            _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(0, _baseInfoView.bottom, SCREEN_WIDTH-10, (SCREEN_WIDTH-10)/4*3)];
+            _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(0, _baseInfoView.bottom, CELL_WIDTH, CELL_WIDTH/4*3)];
             _imageViewOnePic.backgroundColor = [UIColor yellowColor];
             [self.contentView addSubview:_imageViewOnePic];
             
@@ -78,7 +85,7 @@
             scrollView.backgroundColor = [UIColor clearColor];
             scrollView.top = _baseInfoView.bottom;
             scrollView.left = 10;
-            scrollView.size = CGSizeMake(SCREEN_WIDTH-30, ROUND_WIDTH_FLOAT(121));
+            scrollView.size = CGSizeMake(CELL_WIDTH-20, ROUND_WIDTH_FLOAT(121));
             scrollView.contentSize = CGSizeMake(self.imageUrlArray.count*ROUND_WIDTH_FLOAT(131)-ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(121));
             scrollView.showsVerticalScrollIndicator = NO;
             scrollView.showsHorizontalScrollIndicator = NO;
@@ -108,7 +115,7 @@
             break;
         }
         case SKHomepageTableViewCellTypeArticle:{
-            _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(10, _baseInfoView.bottom, SCREEN_WIDTH-30, 200)];
+            _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(10, _baseInfoView.bottom, CELL_WIDTH-20, 200)];
             _imageViewArticle.backgroundColor = [UIColor orangeColor];
             _imageViewArticle.layer.cornerRadius = 5;
             [self.contentView addSubview:_imageViewArticle];
@@ -136,7 +143,7 @@
     [repeaterButton setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
     [repeaterButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
     repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-    repeaterButton.size = CGSizeMake((SCREEN_WIDTH-10)/3, 42);
+    repeaterButton.size = CGSizeMake(CELL_WIDTH/3, 42);
     repeaterButton.left = 0;
     repeaterButton.top = underLine.bottom;
     [self.contentView addSubview:repeaterButton];
@@ -146,7 +153,7 @@
     [commentButton setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
     [commentButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
     commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-    commentButton.size = CGSizeMake((SCREEN_WIDTH-10)/3, 42);
+    commentButton.size = CGSizeMake(CELL_WIDTH/3, 42);
     commentButton.left = repeaterButton.right;
     commentButton.top = underLine.bottom;
     [self.contentView addSubview:commentButton];
@@ -156,7 +163,7 @@
     [favButton setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
     [favButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateHighlighted];
     favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-    favButton.size = CGSizeMake((SCREEN_WIDTH-10)/3, 42);
+    favButton.size = CGSizeMake(CELL_WIDTH/3, 42);
     favButton.left = commentButton.right;
     favButton.top = underLine.bottom;
     [self.contentView addSubview:favButton];
