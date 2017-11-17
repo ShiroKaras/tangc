@@ -54,6 +54,8 @@
 		11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA91FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m */; };
 		11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAA1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m */; };
 		11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */; };
+		11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DB31FBEAFA3006D9A26 /* SKMarketViewController.m */; };
+		11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
@@ -178,6 +180,10 @@
 		11B82DAB1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallHeader.h; sourceTree = "<group>"; };
 		11B82DAE1FBD3A53006D9A26 /* SKTopicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTopicCell.h; sourceTree = "<group>"; };
 		11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTopicCell.m; sourceTree = "<group>"; };
+		11B82DB21FBEAFA3006D9A26 /* SKMarketViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKMarketViewController.h; sourceTree = "<group>"; };
+		11B82DB31FBEAFA3006D9A26 /* SKMarketViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMarketViewController.m; sourceTree = "<group>"; };
+		11B82DB51FBEB101006D9A26 /* SKTicketTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTicketTableViewCell.h; sourceTree = "<group>"; };
+		11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTicketTableViewCell.m; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
@@ -444,12 +450,24 @@
 			path = WaterFlow;
 			sourceTree = "<group>";
 		};
+		11B82DB11FBEAF76006D9A26 /* Market */ = {
+			isa = PBXGroup;
+			children = (
+				11B82DB21FBEAFA3006D9A26 /* SKMarketViewController.h */,
+				11B82DB31FBEAFA3006D9A26 /* SKMarketViewController.m */,
+				11B82DB51FBEB101006D9A26 /* SKTicketTableViewCell.h */,
+				11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */,
+			);
+			path = Market;
+			sourceTree = "<group>";
+		};
 		11CDDE851FB1BFC8004A0812 /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				11D5D66D1FB950FA00ACB521 /* Login */,
 				11CDDE901FB59784004A0812 /* Common */,
 				11CDDE861FB1C09F004A0812 /* Homepage */,
+				11B82DB11FBEAF76006D9A26 /* Market */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -921,12 +939,14 @@
 				113040871FB1A5F60020C93D /* SKStorageDefine.m in Sources */,
 				11B82DA31FBC5448006D9A26 /* SKTabbarViewController.m in Sources */,
 				113040261FB06F900020C93D /* NSObject+MJKeyValue.m in Sources */,
+				11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */,
 				113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */,
 				113040211FB06F900020C93D /* MJProperty.m in Sources */,
 				11D9AA291FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld in Sources */,
 				11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */,
 				113040251FB06F900020C93D /* NSObject+MJCoding.m in Sources */,
 				113040201FB06F900020C93D /* MJFoundation.m in Sources */,
+				11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,
 				11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */,

@@ -9,6 +9,7 @@
 #import "SKTabbarViewController.h"
 #import "SKHomepageViewController.h"
 #import "SKTopicsViewController.h"
+#import "SKMarketViewController.h"
 
 @interface SKTabbarViewController ()
 
@@ -33,7 +34,7 @@
     c2.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_puzzle"];
     c2.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_puzzle_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UIViewController *c3 = [[UIViewController alloc] init];
+    SKMarketViewController *c3 = [[SKMarketViewController alloc] init];
     c3.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c3.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_lingzai"];
     c3.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
