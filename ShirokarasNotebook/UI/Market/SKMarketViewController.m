@@ -8,7 +8,6 @@
 
 #import "SKMarketViewController.h"
 #import "SKTicketTableViewCell.h"
-#import "SKHomepageMorePicDetailViewController.h"
 
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
@@ -41,7 +40,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = COMMON_SEPARATOR_COLOR;
+    self.view.backgroundColor = COMMON_BG_COLOR;
     [self createUI];
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
@@ -60,7 +59,8 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[SKTicketTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
     [self.view addSubview:_tableView];
     
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     _button_follow.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     _button_follow.size = CGSizeMake(TITLEVIEW_HEIGHT*2, TITLEVIEW_HEIGHT);
     _button_follow.centerY = _titleView.height/2;
-    _button_follow.left = ROUND_WIDTH_FLOAT(60);
+    _button_follow.centerX = _titleView.width/2-60;
     [_titleView addSubview:_button_follow];
     
     _button_hot = [UIButton new];
@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     _button_hot.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     _button_hot.size = CGSizeMake(TITLEVIEW_HEIGHT*2, TITLEVIEW_HEIGHT);
     _button_hot.centerY = _titleView.height/2;
-    _button_hot.right = _titleView.width-ROUND_WIDTH_FLOAT(60);
+    _button_hot.centerX = _titleView.width/2 +60;
     [_titleView addSubview:_button_hot];
     
     _markLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(20), 2)];
@@ -144,11 +144,6 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SKTicketTableViewCell *cell = (SKTicketTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
     return cell.cellHeight+15;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UITableView DataSource

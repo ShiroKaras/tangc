@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = COMMON_SEPARATOR_COLOR;
+    self.view.backgroundColor = COMMON_BG_COLOR;
     [self createUI];
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
@@ -60,7 +60,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = COMMON_SEPARATOR_COLOR;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     [self.view addSubview:_tableView];
     

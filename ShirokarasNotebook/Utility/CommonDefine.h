@@ -58,6 +58,7 @@
 
 #define COMMON_TEXT_COLOR   [UIColor colorWithHex:0x1F4035]
 #define COMMON_TEXT_PLACEHOLDER_COLOR [UIColor colorWithHex:0xBCCCC7]
+#define COMMON_TEXT_CONTENT_COLOR [UIColor colorWithHex:0x6B827A]
 
 #define PLACEHOLDER_IMAGE [UIImage imageNamed:@"img_mascot_article_list_cover_default"]
 
