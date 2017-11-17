@@ -56,6 +56,9 @@
 		11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */; };
 		11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DB31FBEAFA3006D9A26 /* SKMarketViewController.m */; };
 		11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */; };
+		11B82DBB1FBEC998006D9A26 /* SKNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DBA1FBEC998006D9A26 /* SKNotificationViewController.m */; };
+		11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DBD1FBECA43006D9A26 /* SKNotificationTableViewCell.m */; };
+		11B82DC11FBED5AD006D9A26 /* SKSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
@@ -184,6 +187,12 @@
 		11B82DB31FBEAFA3006D9A26 /* SKMarketViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMarketViewController.m; sourceTree = "<group>"; };
 		11B82DB51FBEB101006D9A26 /* SKTicketTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTicketTableViewCell.h; sourceTree = "<group>"; };
 		11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTicketTableViewCell.m; sourceTree = "<group>"; };
+		11B82DB91FBEC998006D9A26 /* SKNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNotificationViewController.h; sourceTree = "<group>"; };
+		11B82DBA1FBEC998006D9A26 /* SKNotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationViewController.m; sourceTree = "<group>"; };
+		11B82DBC1FBECA43006D9A26 /* SKNotificationTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNotificationTableViewCell.h; sourceTree = "<group>"; };
+		11B82DBD1FBECA43006D9A26 /* SKNotificationTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationTableViewCell.m; sourceTree = "<group>"; };
+		11B82DBF1FBED5AC006D9A26 /* SKSegmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKSegmentView.h; sourceTree = "<group>"; };
+		11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKSegmentView.m; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
@@ -461,9 +470,23 @@
 			path = Market;
 			sourceTree = "<group>";
 		};
+		11B82DB81FBEC973006D9A26 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				11B82DB91FBEC998006D9A26 /* SKNotificationViewController.h */,
+				11B82DBA1FBEC998006D9A26 /* SKNotificationViewController.m */,
+				11B82DBC1FBECA43006D9A26 /* SKNotificationTableViewCell.h */,
+				11B82DBD1FBECA43006D9A26 /* SKNotificationTableViewCell.m */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		11CDDE851FB1BFC8004A0812 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				11B82DA11FBC5448006D9A26 /* SKTabbarViewController.h */,
+				11B82DA21FBC5448006D9A26 /* SKTabbarViewController.m */,
+				11B82DB81FBEC973006D9A26 /* Notification */,
 				11D5D66D1FB950FA00ACB521 /* Login */,
 				11CDDE901FB59784004A0812 /* Common */,
 				11CDDE861FB1C09F004A0812 /* Homepage */,
@@ -477,8 +500,6 @@
 			children = (
 				11B82DA71FBD3855006D9A26 /* WaterFlow */,
 				11B82D971FBAE76A006D9A26 /* HomepageDetail */,
-				11B82DA11FBC5448006D9A26 /* SKTabbarViewController.h */,
-				11B82DA21FBC5448006D9A26 /* SKTabbarViewController.m */,
 				11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */,
 				11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */,
 				11B82D9E1FBAF56A006D9A26 /* SKTitleBaseView.h */,
@@ -496,6 +517,8 @@
 		11CDDE901FB59784004A0812 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				11B82DBF1FBED5AC006D9A26 /* SKSegmentView.h */,
+				11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */,
 				11CDDE911FB597A9004A0812 /* SKNavigationController.h */,
 				11CDDE921FB597A9004A0812 /* SKNavigationController.m */,
 			);
@@ -926,15 +949,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				113040231FB06F900020C93D /* MJPropertyType.m in Sources */,
+				11B82DBB1FBEC998006D9A26 /* SKNotificationViewController.m in Sources */,
 				11D9AA231FB06142008D32E9 /* ViewController.m in Sources */,
 				11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */,
 				11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */,
 				1130403D1FB1A3370020C93D /* UIImage+Extension.m in Sources */,
 				11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */,
+				11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */,
 				11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */,
 				1130408C1FB1A6200020C93D /* SKModel.m in Sources */,
 				1130401F1FB06F900020C93D /* MJExtensionConst.m in Sources */,
 				113040241FB06F900020C93D /* NSObject+MJClass.m in Sources */,
+				11B82DC11FBED5AD006D9A26 /* SKSegmentView.m in Sources */,
 				113040271FB06F900020C93D /* NSObject+MJProperty.m in Sources */,
 				113040871FB1A5F60020C93D /* SKStorageDefine.m in Sources */,
 				11B82DA31FBC5448006D9A26 /* SKTabbarViewController.m in Sources */,

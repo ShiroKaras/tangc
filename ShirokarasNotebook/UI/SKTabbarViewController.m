@@ -10,6 +10,7 @@
 #import "SKHomepageViewController.h"
 #import "SKTopicsViewController.h"
 #import "SKMarketViewController.h"
+#import "SKNotificationViewController.h"
 
 @interface SKTabbarViewController ()
 
@@ -39,7 +40,7 @@
     c3.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_lingzai"];
     c3.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_lingzai_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UIViewController *c4 = [[UIViewController alloc] init];
+    SKNotificationViewController *c4 = [[SKNotificationViewController alloc] init];
     c4.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c4.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_lab"];
     c4.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_lab_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
