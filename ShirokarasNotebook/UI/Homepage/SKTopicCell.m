@@ -16,6 +16,8 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
+        self.layer.masksToBounds = YES;
+        self.layer.cornerRadius = 3;
         [self.contentView addSubview:self.mCoverImageView];
         [self.contentView addSubview:self.mTitleLabel];
         [self.contentView addSubview:self.mAvatarImageView];
@@ -27,7 +29,7 @@
 - (UIImageView *)mCoverImageView {
     if (!_mCoverImageView) {
         _mCoverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_WIDTH)];
-        _mCoverImageView.backgroundColor = [UIColor redColor];
+        _mCoverImageView.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
     }
     return _mCoverImageView;
 }
@@ -67,6 +69,8 @@
     return _mUsernameLabel;
 }
 
-
+- (void)setTopic:(NSString *)topic {
+    //TODO
+}
 
 @end
