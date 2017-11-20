@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		02A3631700824E110904A968 /* libPods-ShirokarasNotebookTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ABAEC3F029BAF396076F28 /* libPods-ShirokarasNotebookTests.a */; };
+		1120B0EA1FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0E91FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m */; };
+		1120B0ED1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */; };
 		11303FEE1FB06B3E0020C93D /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCC1FB06B3E0020C93D /* ShareSDK.framework */; };
 		11303FEF1FB06B3E0020C93D /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */; };
 		11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */; };
@@ -95,6 +97,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1120B0E81FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNotificationCommentTableViewCell.h; sourceTree = "<group>"; };
+		1120B0E91FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationCommentTableViewCell.m; sourceTree = "<group>"; };
+		1120B0EB1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNotificationBaseInfoTableViewCell.h; sourceTree = "<group>"; };
+		1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationBaseInfoTableViewCell.m; sourceTree = "<group>"; };
 		11303FCC1FB06B3E0020C93D /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -477,6 +483,10 @@
 				11B82DBA1FBEC998006D9A26 /* SKNotificationViewController.m */,
 				11B82DBC1FBECA43006D9A26 /* SKNotificationTableViewCell.h */,
 				11B82DBD1FBECA43006D9A26 /* SKNotificationTableViewCell.m */,
+				1120B0E81FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.h */,
+				1120B0E91FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m */,
+				1120B0EB1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.h */,
+				1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -979,8 +989,10 @@
 				11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */,
 				1130403C1FB1A3370020C93D /* NSDate+TimeAgo.m in Sources */,
 				11D9AA311FB06142008D32E9 /* main.m in Sources */,
+				1120B0ED1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m in Sources */,
 				11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */,
 				11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */,
+				1120B0EA1FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m in Sources */,
 				11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */,
 				113040361FB19AC70020C93D /* CommonUI.m in Sources */,
 				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,

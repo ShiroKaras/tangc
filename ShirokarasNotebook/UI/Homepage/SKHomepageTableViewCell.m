@@ -95,6 +95,7 @@
             //添加图片
             for (int i=0; i<5; i++) {
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(129)*i, 0, ROUND_WIDTH_FLOAT(121), ROUND_WIDTH_FLOAT(121))];
+                imageView.image = [UIImage imageNamed:@"MaskCopy"];
                 imageView.layer.cornerRadius = 3;
                 imageView.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
                 [scrollView addSubview:imageView];

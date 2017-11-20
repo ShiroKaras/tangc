@@ -10,4 +10,6 @@
 
 @interface SKNotificationTableViewCell : UITableViewCell
 
+@property (nonatomic, assign) float cellHeight;
+
 @end

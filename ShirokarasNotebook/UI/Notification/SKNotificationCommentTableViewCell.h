@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SKNotificationCommentTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) NSString *userName;
+@property (nonatomic, assign) float cellHeight;
 @end

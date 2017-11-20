@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SKNotificationBaseInfoTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) UILabel *usernameAppendLabel;
+@property (nonatomic, assign) float cellHeight;
 @end

@@ -56,6 +56,12 @@
 
 - (void)createUI {
      [self.view addSubview:self.collectionView];
+    
+#ifdef __IPHONE_11_0
+    if ([self.collectionView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+#endif
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

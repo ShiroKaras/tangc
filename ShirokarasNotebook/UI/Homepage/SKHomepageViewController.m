@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if (cell==nil) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
-    cell.type = SKHomepageTableViewCellTypeArticle;
+    cell.type = SKHomepageTableViewCellTypeOnePic;
     return cell;
 }
 

@@ -46,8 +46,10 @@
 }
 
 - (void)didClickButton:(UIButton*)sender {
-    NSLog(@"点击第%ld个标签", sender.tag-100);
     self.selectedIndex = sender.tag-100;
+    if ([self.delegate respondsToSelector:@selector(segmentView:didClickIndex:)]) {
+        [self.delegate segmentView:self didClickIndex:self.selectedIndex];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {

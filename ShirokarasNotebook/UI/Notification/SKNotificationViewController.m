@@ -7,20 +7,28 @@
 //
 
 #import "SKNotificationViewController.h"
-#import "SKNotificationTableViewCell.h"
 #import "SKSegmentView.h"
+#import "SKNotificationTableViewCell.h"
+#import "SKNotificationCommentTableViewCell.h"
+#import "SKNotificationBaseInfoTableViewCell.h"
 
 #define HEADERVIEW_HEIGHT (64+ROUND_HEIGHT_FLOAT(22))
 #define TITLEVIEW_WIDTH SCREEN_WIDTH
 #define TITLEVIEW_HEIGHT ROUND_HEIGHT_FLOAT(44)
 
 typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
-    SKMarketSelectedTypeTicket,
-    SKMarketSelectedTypeShop
+    SKNotificationSelectedTypeNotification,
+    SKNotificationSelectedTypeComment,
+    SKNotificationSelectedTypeLike,
+    SKNotificationSelectedTypeCallMe
 };
 
-@interface SKNotificationViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) UITableView *tableView;
+@interface SKNotificationViewController () <UITableViewDelegate, UITableViewDataSource, SKSegmentViewDelegate>
+@property (nonatomic, strong) UITableView *tableView_notification;
+@property (nonatomic, strong) UITableView *tableView_comment;
+@property (nonatomic, strong) UITableView *tableView_like;
+@property (nonatomic, strong) UITableView *tableView_callme;
+
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, strong) SKSegmentView *titleView;
@@ -56,14 +64,16 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 
 - (void)createUI {
     //TableView
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = COMMON_BG_COLOR;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    [self.tableView registerClass:[SKNotificationTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKNotificationTableViewCell class])];
-    [self.view addSubview:_tableView];
+    _tableView_notification = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49) style:UITableViewStylePlain];
+    _tableView_notification.delegate = self;
+    _tableView_notification.dataSource = self;
+    _tableView_notification.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView_notification.backgroundColor = COMMON_BG_COLOR;
+    _tableView_notification.showsVerticalScrollIndicator = NO;
+    [_tableView_notification registerClass:[SKNotificationTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKNotificationTableViewCell class])];
+    [_tableView_notification registerClass:[SKNotificationCommentTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKNotificationCommentTableViewCell class])];
+    [_tableView_notification registerClass:[SKNotificationBaseInfoTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKNotificationBaseInfoTableViewCell class])];
+    [self.view addSubview:_tableView_notification];
     
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT+40)];
@@ -75,12 +85,12 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
     
     UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
     [headerView addSubview:blankView];
-    self.tableView.tableHeaderView = headerView;
+    _tableView_notification.tableHeaderView = headerView;
     
 #ifdef __IPHONE_11_0
-    if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+    if ([_tableView_notification respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
         if (@available(iOS 11.0, *)) {
-            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _tableView_notification.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
             // Fallback on earlier versions
         }
@@ -89,35 +99,92 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
     
     //TitleView
     _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT) titleNameArray:@[@"通知", @"评论", @"赞", @"@我"]];
+    _titleView.delegate = self;
     _titleView.layer.cornerRadius = 3;
     _titleView.backgroundColor = [UIColor whiteColor];
     _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
-    [self.tableView addSubview:_titleView];
+    [_tableView_notification addSubview:_titleView];
 }
 
-- (void)didClickFollowButton:(UIButton*)sender {
-    self.selectedType = SKMarketSelectedTypeTicket;
-}
-
-- (void)didClickHotButton:(UIButton*)sender {
-    self.selectedType = SKMarketSelectedTypeShop;
+- (void)segmentView:(UIView *)view didClickIndex:(NSInteger)index {
+    NSLog(@"点击第%ld个标签", index);
+    self.selectedType = index;
 }
 
 #pragma mark - UITableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKNotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKNotificationTableViewCell class])];
-    if (cell==nil) {
-        cell = [[SKNotificationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationTableViewCell class])];
+    switch (self.selectedType) {
+        case SKNotificationSelectedTypeNotification: {
+            SKNotificationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKNotificationTableViewCell class])];
+            if (cell==nil) {
+                cell = [[SKNotificationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationTableViewCell class])];
+            }
+            return cell;
+            break;
+        }
+        case SKNotificationSelectedTypeComment:{
+            SKNotificationCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKNotificationCommentTableViewCell class])];
+            if (cell==nil) {
+                cell = [[SKNotificationCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationCommentTableViewCell class])];
+            }
+            return cell;
+            break;
+        }
+        case SKNotificationSelectedTypeLike:{
+            SKNotificationBaseInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKNotificationBaseInfoTableViewCell class])];
+            if (cell==nil) {
+                cell = [[SKNotificationBaseInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationBaseInfoTableViewCell class])];
+            }
+            cell.usernameAppendLabel.text = @"赞了你";
+            [cell.usernameAppendLabel sizeToFit];
+            return cell;
+            break;
+        }
+        case SKNotificationSelectedTypeCallMe:{
+            SKNotificationBaseInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKNotificationBaseInfoTableViewCell class])];
+            if (cell==nil) {
+                cell = [[SKNotificationBaseInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationBaseInfoTableViewCell class])];
+            }
+            cell.usernameAppendLabel.text = @"在他的发布中@了你";
+            [cell.usernameAppendLabel sizeToFit];
+            return cell;
+            break;
+        }
+        default:
+            return nil;
+            break;
     }
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKNotificationTableViewCell *cell = (SKNotificationTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return cell.cellHeight+15;
+    switch (self.selectedType) {
+        case SKNotificationSelectedTypeNotification:{
+            SKNotificationTableViewCell *cell = (SKNotificationTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+            return cell.cellHeight;
+            break;
+        }
+        case SKNotificationSelectedTypeComment:{
+            SKNotificationCommentTableViewCell *cell = (SKNotificationCommentTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+            return cell.cellHeight;
+            break;
+        }
+        case SKNotificationSelectedTypeLike:{
+            SKNotificationTableViewCell *cell = (SKNotificationTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+            return cell.cellHeight;
+            break;
+        }
+        case SKNotificationSelectedTypeCallMe:{
+            SKNotificationTableViewCell *cell = (SKNotificationTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+            return cell.cellHeight;
+            break;
+        }
+        default:
+            return 0;
+            break;
+    }
 }
 
 #pragma mark - UITableView DataSource
@@ -152,7 +219,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
-            [self.tableView addSubview:_titleView];
+            [_tableView_notification addSubview:_titleView];
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -177,7 +244,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
-        
+        [self.tableView_notification reloadData];
     }
 }
 @end

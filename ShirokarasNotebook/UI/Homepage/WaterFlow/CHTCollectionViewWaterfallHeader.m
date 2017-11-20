@@ -16,6 +16,7 @@
       _mImageView = [[UIImageView alloc] initWithFrame:self.frame];
       _mImageView.contentMode = UIViewContentModeScaleAspectFill;
       _mImageView.layer.masksToBounds = YES;
+      _mImageView.image = [UIImage imageNamed:@"MaskCopy"];
       [self addSubview:_mImageView];
   }
   return self;
