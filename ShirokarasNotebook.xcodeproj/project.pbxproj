@@ -10,6 +10,8 @@
 		02A3631700824E110904A968 /* libPods-ShirokarasNotebookTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ABAEC3F029BAF396076F28 /* libPods-ShirokarasNotebookTests.a */; };
 		1120B0EA1FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0E91FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m */; };
 		1120B0ED1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */; };
+		1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */; };
+		1120B0F31FC2DC5A003FF376 /* SKPersonalIndexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1120B0F11FC2DC5A003FF376 /* SKPersonalIndexViewController.xib */; };
 		11303FEE1FB06B3E0020C93D /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCC1FB06B3E0020C93D /* ShareSDK.framework */; };
 		11303FEF1FB06B3E0020C93D /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */; };
 		11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */; };
@@ -101,6 +103,9 @@
 		1120B0E91FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationCommentTableViewCell.m; sourceTree = "<group>"; };
 		1120B0EB1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNotificationBaseInfoTableViewCell.h; sourceTree = "<group>"; };
 		1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationBaseInfoTableViewCell.m; sourceTree = "<group>"; };
+		1120B0EF1FC2DC5A003FF376 /* SKPersonalIndexViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPersonalIndexViewController.h; sourceTree = "<group>"; };
+		1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPersonalIndexViewController.m; sourceTree = "<group>"; };
+		1120B0F11FC2DC5A003FF376 /* SKPersonalIndexViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SKPersonalIndexViewController.xib; sourceTree = "<group>"; };
 		11303FCC1FB06B3E0020C93D /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -279,6 +284,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1120B0EE1FC2DC21003FF376 /* Personal */ = {
+			isa = PBXGroup;
+			children = (
+				1120B0EF1FC2DC5A003FF376 /* SKPersonalIndexViewController.h */,
+				1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */,
+				1120B0F11FC2DC5A003FF376 /* SKPersonalIndexViewController.xib */,
+			);
+			path = Personal;
+			sourceTree = "<group>";
+		};
 		11303FC81FB06ADA0020C93D /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +516,7 @@
 				11CDDE901FB59784004A0812 /* Common */,
 				11CDDE861FB1C09F004A0812 /* Homepage */,
 				11B82DB11FBEAF76006D9A26 /* Market */,
+				1120B0EE1FC2DC21003FF376 /* Personal */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -758,6 +774,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */,
+				1120B0F31FC2DC5A003FF376 /* SKPersonalIndexViewController.xib in Resources */,
 				11D9AA2E1FB06142008D32E9 /* LaunchScreen.storyboard in Resources */,
 				1130401E1FB06F900020C93D /* Info.plist in Resources */,
 				11D9AA2B1FB06142008D32E9 /* Assets.xcassets in Resources */,
@@ -984,6 +1001,7 @@
 				113040201FB06F900020C93D /* MJFoundation.m in Sources */,
 				11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
+				1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,
 				11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */,
 				11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */,

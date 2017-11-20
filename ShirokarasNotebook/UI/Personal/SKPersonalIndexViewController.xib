@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,10 +18,112 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAT-tZ-Ugc" userLabel="login">
+                    <rect key="frame" x="0.0" y="64" width="320" height="153"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="ZAT-tZ-Ugc" secondAttribute="height" multiplier="320:153" id="anF-re-SP6"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSm-uY-6HF" userLabel="follow">
+                    <rect key="frame" x="0.0" y="227" width="320" height="44"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="img_personalpage_myfollow" translatesAutoresizingMaskIntoConstraints="NO" id="MBo-6K-KSp">
+                            <rect key="frame" x="15" y="11" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="DSm-uY-6HF" secondAttribute="height" multiplier="80:11" id="FoR-X7-1iq"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyH-gx-RXN" userLabel="fans">
+                    <rect key="frame" x="0.0" y="271" width="320" height="44"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="img_personalpage_myfans" translatesAutoresizingMaskIntoConstraints="NO" id="UWD-ON-rps">
+                            <rect key="frame" x="15" y="11" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBR-77-6vc" userLabel="notification">
+                    <rect key="frame" x="0.0" y="325" width="320" height="44"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="img_personalpage_push" translatesAutoresizingMaskIntoConstraints="NO" id="m1D-pG-1Nb">
+                            <rect key="frame" x="15" y="11" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="34R-jh-MeL" userLabel="clearcache">
+                    <rect key="frame" x="0.0" y="369" width="320" height="44"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="img_personalpage_clean" translatesAutoresizingMaskIntoConstraints="NO" id="e6t-dz-MMP">
+                            <rect key="frame" x="15" y="11" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPA-1b-bBq" userLabel="about">
+                    <rect key="frame" x="0.0" y="413" width="320" height="44"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="img_personalpage_about" translatesAutoresizingMaskIntoConstraints="NO" id="Cgz-5l-40P">
+                            <rect key="frame" x="15" y="11" width="22" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9a-qP-ah8" userLabel="link">
+                    <rect key="frame" x="0.0" y="467.5" width="320" height="44"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </view>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="34R-jh-MeL" firstAttribute="top" secondItem="FBR-77-6vc" secondAttribute="bottom" id="0LA-Rt-dZ0"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jyH-gx-RXN" secondAttribute="trailing" id="1Nh-Ap-q71"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="DSm-uY-6HF" secondAttribute="trailing" id="5I5-2d-lHQ"/>
+                <constraint firstItem="W9a-qP-ah8" firstAttribute="top" secondItem="IPA-1b-bBq" secondAttribute="bottom" constant="10" id="5NM-8o-P1N"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ZAT-tZ-Ugc" secondAttribute="trailing" id="8wY-B3-4Dq"/>
+                <constraint firstItem="34R-jh-MeL" firstAttribute="width" secondItem="34R-jh-MeL" secondAttribute="height" multiplier="80:11" id="B88-hn-G4H"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="W9a-qP-ah8" secondAttribute="trailing" id="G3X-Dl-klK"/>
+                <constraint firstItem="IPA-1b-bBq" firstAttribute="top" secondItem="34R-jh-MeL" secondAttribute="bottom" id="GNt-Mx-slH"/>
+                <constraint firstItem="ZAT-tZ-Ugc" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="HOR-lg-V2b"/>
+                <constraint firstItem="ZAT-tZ-Ugc" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="44" id="IT9-SN-J3N"/>
+                <constraint firstItem="FBR-77-6vc" firstAttribute="width" secondItem="FBR-77-6vc" secondAttribute="height" multiplier="80:11" id="OAj-ti-W8a"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="FBR-77-6vc" secondAttribute="trailing" id="QEv-nW-JKJ"/>
+                <constraint firstItem="34R-jh-MeL" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="QeE-IK-7ZX"/>
+                <constraint firstItem="FBR-77-6vc" firstAttribute="top" secondItem="jyH-gx-RXN" secondAttribute="bottom" constant="10" id="RMw-Y0-peN"/>
+                <constraint firstItem="W9a-qP-ah8" firstAttribute="width" secondItem="W9a-qP-ah8" secondAttribute="height" multiplier="80:11" id="UNW-od-PXt"/>
+                <constraint firstItem="jyH-gx-RXN" firstAttribute="width" secondItem="jyH-gx-RXN" secondAttribute="height" multiplier="80:11" id="WkR-Yn-sOJ"/>
+                <constraint firstItem="DSm-uY-6HF" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="aRj-6t-SEg"/>
+                <constraint firstItem="IPA-1b-bBq" firstAttribute="width" secondItem="IPA-1b-bBq" secondAttribute="height" multiplier="80:11" id="cUn-iO-eiN"/>
+                <constraint firstItem="W9a-qP-ah8" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="czb-Zz-Ig0"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="34R-jh-MeL" secondAttribute="trailing" id="ePx-LQ-WSP"/>
+                <constraint firstItem="jyH-gx-RXN" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="fBz-hH-mx2"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="IPA-1b-bBq" secondAttribute="trailing" id="j5k-0i-A8u"/>
+                <constraint firstItem="FBR-77-6vc" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="lF9-gb-Udz"/>
+                <constraint firstItem="DSm-uY-6HF" firstAttribute="top" secondItem="ZAT-tZ-Ugc" secondAttribute="bottom" constant="10" id="ov2-b8-iz3"/>
+                <constraint firstItem="jyH-gx-RXN" firstAttribute="top" secondItem="DSm-uY-6HF" secondAttribute="bottom" id="xNx-k3-94c"/>
+                <constraint firstItem="IPA-1b-bBq" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="ypF-Gh-xpU"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="33" y="54"/>
         </view>
     </objects>
+    <resources>
+        <image name="img_personalpage_about" width="22" height="22"/>
+        <image name="img_personalpage_clean" width="20" height="20"/>
+        <image name="img_personalpage_myfans" width="20" height="20"/>
+        <image name="img_personalpage_myfollow" width="22" height="14"/>
+        <image name="img_personalpage_push" width="22" height="21"/>
+    </resources>
 </document>
