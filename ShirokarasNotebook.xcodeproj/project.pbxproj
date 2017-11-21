@@ -11,6 +11,10 @@
 		1120B0EA1FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0E91FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m */; };
 		1120B0ED1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */; };
 		1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */; };
+		1120B0F61FC3E275003FF376 /* SKPersonalMyPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0F51FC3E274003FF376 /* SKPersonalMyPageViewController.m */; };
+		1120B0F91FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0F81FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m */; };
+		1120B0FC1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0FB1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m */; };
+		1120B1001FC42646003FF376 /* SKMyPageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0FF1FC42646003FF376 /* SKMyPageHeader.m */; };
 		11303FEE1FB06B3E0020C93D /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCC1FB06B3E0020C93D /* ShareSDK.framework */; };
 		11303FEF1FB06B3E0020C93D /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */; };
 		11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */; };
@@ -104,6 +108,14 @@
 		1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationBaseInfoTableViewCell.m; sourceTree = "<group>"; };
 		1120B0EF1FC2DC5A003FF376 /* SKPersonalIndexViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPersonalIndexViewController.h; sourceTree = "<group>"; };
 		1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPersonalIndexViewController.m; sourceTree = "<group>"; };
+		1120B0F41FC3E274003FF376 /* SKPersonalMyPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPersonalMyPageViewController.h; sourceTree = "<group>"; };
+		1120B0F51FC3E274003FF376 /* SKPersonalMyPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPersonalMyPageViewController.m; sourceTree = "<group>"; };
+		1120B0F71FC4212B003FF376 /* SKPersonalPicCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPersonalPicCollectionViewCell.h; sourceTree = "<group>"; };
+		1120B0F81FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPersonalPicCollectionViewCell.m; sourceTree = "<group>"; };
+		1120B0FA1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPersonalArticleCollectionViewCell.h; sourceTree = "<group>"; };
+		1120B0FB1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPersonalArticleCollectionViewCell.m; sourceTree = "<group>"; };
+		1120B0FE1FC42646003FF376 /* SKMyPageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKMyPageHeader.h; sourceTree = "<group>"; };
+		1120B0FF1FC42646003FF376 /* SKMyPageHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMyPageHeader.m; sourceTree = "<group>"; };
 		11303FCC1FB06B3E0020C93D /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -287,8 +299,24 @@
 			children = (
 				1120B0EF1FC2DC5A003FF376 /* SKPersonalIndexViewController.h */,
 				1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */,
+				1120B0FD1FC4261A003FF376 /* Mypage */,
 			);
 			path = Personal;
+			sourceTree = "<group>";
+		};
+		1120B0FD1FC4261A003FF376 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				1120B0F41FC3E274003FF376 /* SKPersonalMyPageViewController.h */,
+				1120B0F51FC3E274003FF376 /* SKPersonalMyPageViewController.m */,
+				1120B0F71FC4212B003FF376 /* SKPersonalPicCollectionViewCell.h */,
+				1120B0F81FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m */,
+				1120B0FA1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.h */,
+				1120B0FB1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m */,
+				1120B0FE1FC42646003FF376 /* SKMyPageHeader.h */,
+				1120B0FF1FC42646003FF376 /* SKMyPageHeader.m */,
+			);
+			path = Mypage;
 			sourceTree = "<group>";
 		};
 		11303FC81FB06ADA0020C93D /* ThirdPart */ = {
@@ -990,15 +1018,18 @@
 				113040261FB06F900020C93D /* NSObject+MJKeyValue.m in Sources */,
 				11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */,
 				113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */,
+				1120B0F91FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m in Sources */,
 				113040211FB06F900020C93D /* MJProperty.m in Sources */,
 				11D9AA291FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld in Sources */,
 				11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */,
 				113040251FB06F900020C93D /* NSObject+MJCoding.m in Sources */,
 				113040201FB06F900020C93D /* MJFoundation.m in Sources */,
+				1120B0FC1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m in Sources */,
 				11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
 				1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,
+				1120B1001FC42646003FF376 /* SKMyPageHeader.m in Sources */,
 				11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */,
 				11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */,
 				1130403C1FB1A3370020C93D /* NSDate+TimeAgo.m in Sources */,
@@ -1007,6 +1038,7 @@
 				11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */,
 				11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */,
 				1120B0EA1FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m in Sources */,
+				1120B0F61FC3E275003FF376 /* SKPersonalMyPageViewController.m in Sources */,
 				11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */,
 				113040361FB19AC70020C93D /* CommonUI.m in Sources */,
 				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,

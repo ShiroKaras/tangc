@@ -8,6 +8,8 @@
 
 #import "SKPersonalIndexViewController.h"
 
+#import "SKPersonalMyPageViewController.h"
+
 #define AUTH_BACK_VIEW_TAG 100
 #define AUTH_LABEL 101
 
@@ -98,6 +100,10 @@
         self.authTextLabel.left = 10;
         self.authTextLabel.centerY = orangeView.height/2;
         [orangeView addSubview:self.authTextLabel];
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enterMyPage:)];
+        tapGesture.numberOfTapsRequired = 1;
+        [_authBackView addGestureRecognizer:tapGesture];
     }
     return _authBackView;
 }
@@ -191,6 +197,13 @@
 - (UIImageView*)arrowImageView {
     UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_personalpage_nextpage"]];
     return arrow;
+}
+
+#pragma mark - Actions
+
+- (void)enterMyPage:(UIGestureRecognizer *)sender {
+    SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

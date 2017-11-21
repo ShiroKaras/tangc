@@ -28,7 +28,7 @@
     [self.navigationController.navigationBar addSubview:statusBarView];
     
     //自定义返回按钮
-    UIImage *backButtonImage = [[UIImage imageNamed:@"btn_profile_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
+    UIImage *backButtonImage = [[UIImage imageNamed:@"btn_detailpage_back_white"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     //将返回按钮的文字position设置不在屏幕上显示
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin) forBarMetrics:UIBarMetricsDefault];
@@ -44,11 +44,11 @@
     if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = 9001;
-        [button setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
+        [button setImage:[UIImage imageNamed:@"btn_detailpage_back_white"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"btn_detailpage_back"] forState:UIControlStateHighlighted];
         [button sizeToFit];
-        button.top += 28;
-        button.left += 13.5;
+        button.top += 32;
+        button.left += 15;
         [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
         //        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
         [viewController.view addSubview:button];

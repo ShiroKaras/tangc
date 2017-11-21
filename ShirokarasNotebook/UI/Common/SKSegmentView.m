@@ -38,9 +38,9 @@
         _markLine.bottom = frame.size.height;
         _markLine.centerX = [self viewWithTag:100].centerX;
         [self addSubview:_markLine];
-        self.selectedIndex = 0;
-        
         [self addObserver:self forKeyPath:@"selectedIndex" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        
+        self.selectedIndex = 0;
     }
     return self;
 }
