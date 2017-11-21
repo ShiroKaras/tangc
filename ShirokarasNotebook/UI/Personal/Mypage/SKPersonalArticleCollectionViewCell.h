@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SKPersonalArticleCollectionViewCell : UICollectionViewCell
-
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, assign) float cellHeight;
 @end
