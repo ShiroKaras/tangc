@@ -10,7 +10,10 @@
 
 #define PADDING 15
 
-@interface SKSegmentView ()
+@interface SKSegmentView () {
+    NSArray *_titleArray;
+    NSMutableArray *_cXdistanceArray;
+}
 @property (nonatomic, assign) NSInteger selectedIndex;
 @end
 
@@ -18,6 +21,8 @@
 
 - (instancetype)initWithFrame:(CGRect)frame titleNameArray:(NSArray<NSString*>*)titleArray {
     self = [super initWithFrame:frame];
+    _titleArray = titleArray;
+    _cXdistanceArray = [NSMutableArray array];
     if (self) {
         for (int i=0; i<titleArray.count; i++) {
             UIButton *button = [UIButton new];
@@ -31,6 +36,9 @@
             button.left = PADDING+button.width*i;
             button.top = 0;
             [self addSubview:button];
+            float cXdistance = self.width/2- button.centerX;
+            NSLog(@"cXdistance: %lf", cXdistance);
+            [_cXdistanceArray addObject:@(cXdistance)];
         }
         _markLine = [UIView new];
         _markLine.backgroundColor = [UIColor colorWithHex:0x37ECBA];
@@ -43,6 +51,17 @@
         self.selectedIndex = 0;
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [UIView animateWithDuration:0.2 animations:^{
+        for (int i=0; i<_titleArray.count; i++){
+            [self viewWithTag:100+i].centerX = self.width/2 - [_cXdistanceArray[i] floatValue];
+            [self viewWithTag:100+i].bottom = self.height;
+        }
+        _markLine.centerX = [self viewWithTag:100+self.selectedIndex].centerX;
+        _markLine.bottom = self.height;
+    }];
 }
 
 - (void)didClickButton:(UIButton*)sender {

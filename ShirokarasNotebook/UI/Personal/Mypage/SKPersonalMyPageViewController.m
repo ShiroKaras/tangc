@@ -160,6 +160,33 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     return CGSizeMake(ITEM_WIDTH, ITEM_WIDTH);
 }
 
+#pragma mark - ScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
+            _titleView.height = TITLEVIEW_HEIGHT;
+            _titleView.width = TITLEVIEW_WIDTH;
+            _titleView.layer.cornerRadius = 3;
+        } completion:^(BOOL finished) {
+            [_titleView removeFromSuperview];
+            _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
+            [self.collectionView addSubview:_titleView];
+        }];
+    } else {
+        [UIView animateWithDuration:0.2 animations:^{
+            _titleView.left = 0;
+            _titleView.width = SCREEN_WIDTH;
+            _titleView.layer.cornerRadius = 0;
+        } completion:^(BOOL finished) {
+            [_titleView removeFromSuperview];
+            _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT*2);
+            [self.view addSubview:_titleView];
+        }];
+    }
+}
+
 #pragma mark - Observer
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {

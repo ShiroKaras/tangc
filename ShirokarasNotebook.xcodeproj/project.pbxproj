@@ -536,10 +536,10 @@
 			children = (
 				11B82DA11FBC5448006D9A26 /* SKTabbarViewController.h */,
 				11B82DA21FBC5448006D9A26 /* SKTabbarViewController.m */,
+				11CDDE861FB1C09F004A0812 /* Homepage */,
 				11B82DB81FBEC973006D9A26 /* Notification */,
 				11D5D66D1FB950FA00ACB521 /* Login */,
 				11CDDE901FB59784004A0812 /* Common */,
-				11CDDE861FB1C09F004A0812 /* Homepage */,
 				11B82DB11FBEAF76006D9A26 /* Market */,
 				1120B0EE1FC2DC21003FF376 /* Personal */,
 			);

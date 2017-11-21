@@ -169,7 +169,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
             _titleView.height = TITLEVIEW_HEIGHT;
             _titleView.width = TITLEVIEW_WIDTH;
-            _titleView.layer.cornerRadius = 5;
+            _titleView.layer.cornerRadius = 3;
             
             _button_follow.centerX = _titleView.width/2-60;
             _button_follow.top = 0;
