@@ -11,7 +11,6 @@
 		1120B0EA1FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0E91FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m */; };
 		1120B0ED1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */; };
 		1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */; };
-		1120B0F31FC2DC5A003FF376 /* SKPersonalIndexViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1120B0F11FC2DC5A003FF376 /* SKPersonalIndexViewController.xib */; };
 		11303FEE1FB06B3E0020C93D /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCC1FB06B3E0020C93D /* ShareSDK.framework */; };
 		11303FEF1FB06B3E0020C93D /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */; };
 		11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */; };
@@ -105,7 +104,6 @@
 		1120B0EC1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationBaseInfoTableViewCell.m; sourceTree = "<group>"; };
 		1120B0EF1FC2DC5A003FF376 /* SKPersonalIndexViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPersonalIndexViewController.h; sourceTree = "<group>"; };
 		1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPersonalIndexViewController.m; sourceTree = "<group>"; };
-		1120B0F11FC2DC5A003FF376 /* SKPersonalIndexViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SKPersonalIndexViewController.xib; sourceTree = "<group>"; };
 		11303FCC1FB06B3E0020C93D /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -289,7 +287,6 @@
 			children = (
 				1120B0EF1FC2DC5A003FF376 /* SKPersonalIndexViewController.h */,
 				1120B0F01FC2DC5A003FF376 /* SKPersonalIndexViewController.m */,
-				1120B0F11FC2DC5A003FF376 /* SKPersonalIndexViewController.xib */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -774,7 +771,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */,
-				1120B0F31FC2DC5A003FF376 /* SKPersonalIndexViewController.xib in Resources */,
 				11D9AA2E1FB06142008D32E9 /* LaunchScreen.storyboard in Resources */,
 				1130401E1FB06F900020C93D /* Info.plist in Resources */,
 				11D9AA2B1FB06142008D32E9 /* Assets.xcassets in Resources */,

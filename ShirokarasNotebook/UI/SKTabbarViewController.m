@@ -11,6 +11,7 @@
 #import "SKTopicsViewController.h"
 #import "SKMarketViewController.h"
 #import "SKNotificationViewController.h"
+#import "SKPersonalIndexViewController.h"
 
 @interface SKTabbarViewController ()
 
@@ -29,7 +30,6 @@
     c1.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_home"];
     c1.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_home_highlight"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    
     SKTopicsViewController *c2 = [[SKTopicsViewController alloc] init];
     c2.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c2.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_mall"];
@@ -45,13 +45,12 @@
     c4.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_message"];
     c4.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_message_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    UIViewController *c5 = [[UIViewController alloc] init];
+    SKPersonalIndexViewController *c5 = [[SKPersonalIndexViewController alloc] init];
     c5.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c5.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_me"];
     c5.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_me_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    SKNavigationController *controller = [[SKNavigationController alloc] initWithRootViewController:c5];
     
-    self.viewControllers = @[c1, c2, c3, c4, controller];
+    self.viewControllers = @[c1, c2, c3, c4, c5];
 }
 
 - (void)didReceiveMemoryWarning {
