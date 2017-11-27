@@ -7,14 +7,11 @@
 //
 
 #import "SKPersonalMyPageViewController.h"
-#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
-#import "CHTCollectionViewWaterfallFooter.h"
 
-#import "SKPersonalPicCollectionViewCell.h"
-#import "SKPersonalArticleCollectionViewCell.h"
-#import "SKMyPageHeader.h"
-
+#import "SKMypagePicTableViewCell.h"
+#import "SKMypageArticleTableViewCell.h"
 #import "SKSegmentView.h"
+#import "SKMyPageHeader.h"
 
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
@@ -32,8 +29,8 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     SKMyPageSelectedTypeArticle
 };
 
-@interface SKPersonalMyPageViewController () <UICollectionViewDelegate, UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, SKSegmentViewDelegate>
-@property (nonatomic, strong) UICollectionView *collectionView;
+@interface SKPersonalMyPageViewController () <UITableViewDelegate, UITableViewDataSource, SKSegmentViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, strong) SKSegmentView *titleView;
@@ -54,8 +51,8 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"selectedType"];
-    _collectionView.delegate = nil;
-    _collectionView.dataSource = nil;
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,12 +60,32 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 }
 
 - (void)createUI {
-    [self.view addSubview:self.collectionView];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)  style:UITableViewStylePlain];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.showsHorizontalScrollIndicator = NO;
+    [_tableView registerClass:[SKMypagePicTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKMypagePicTableViewCell class])];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
+    headerView.backgroundColor = [UIColor clearColor];
+    
+    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
+    headerImageView.backgroundColor = [UIColor blackColor];
+    [headerView addSubview:headerImageView];
+    
+    UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
+    [headerView addSubview:blankView];
+    _tableView.tableHeaderView = headerView;
+    
+    [self.view addSubview:_tableView];
     
 #ifdef __IPHONE_11_0
-    if ([_collectionView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+    if ([_tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
         if (@available(iOS 11.0, *)) {
-            _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
             // Fallback on earlier versions
         }
@@ -83,42 +100,8 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
-    [_collectionView addSubview:_titleView];
+    [_tableView addSubview:_titleView];
     self.selectedType = SKMyPageSelectedTypePic;
-}
-
-- (UICollectionView *)collectionView {
-    if (!_collectionView) {
-        CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
-        
-        layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-        layout.headerHeight = HEADERVIEW_HEIGHT+TITLEVIEW_HEIGHT/2;
-        layout.footerHeight = 0;
-        //列间距
-        layout.minimumColumnSpacing = 6;
-        //行间距
-        layout.minimumInteritemSpacing = 6;
-        layout.columnCount =3;
-        
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) collectionViewLayout:layout];
-        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor clearColor];
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        [_collectionView registerClass:[SKPersonalPicCollectionViewCell class]
-            forCellWithReuseIdentifier:CELL_PIC_IDENTIFIER];
-        [_collectionView registerClass:[SKPersonalArticleCollectionViewCell class]
-            forCellWithReuseIdentifier:CELL_ARTICLE_IDENTIFIER];
-        [_collectionView registerClass:[SKMyPageHeader class]
-            forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader
-                   withReuseIdentifier:HEADER_IDENTIFIER];
-        [_collectionView registerClass:[CHTCollectionViewWaterfallFooter class]
-            forSupplementaryViewOfKind:CHTCollectionElementKindSectionFooter
-                   withReuseIdentifier:FOOTER_IDENTIFIER];
-    }
-    return _collectionView;
 }
 
 #pragma mark - SKSegment Delegate
@@ -127,41 +110,43 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     self.selectedType = index;
 }
 
-#pragma mark - UICollectionViewDataSource
+#pragma mark - UITableView Delegate
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (self.selectedType) {
+            case SKMyPageSelectedTypePic:{
+                SKMypagePicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKMypagePicTableViewCell class])];
+                if (cell==nil) {
+                    cell = [[SKMypagePicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKMypagePicTableViewCell class])];
+                }
+                return cell;
+            }
+            case SKMyPageSelectedTypeArticle :{
+                SKMypageArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKMypageArticleTableViewCell class])];
+                if (cell==nil) {
+                    cell = [[SKMypageArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKMypageArticleTableViewCell class])];
+                }
+                return cell;
+            }
+        default:
+            return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return ROUND_WIDTH_FLOAT(102);
+}
+
+#pragma mark - UITableView DataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 25;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    SKPersonalPicCollectionViewCell *cell =(SKPersonalPicCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_PIC_IDENTIFIER forIndexPath:indexPath];
-    return cell;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    UICollectionReusableView *reusableView = nil;
-    
-    if ([kind isEqualToString:CHTCollectionElementKindSectionHeader]) {
-        reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                                          withReuseIdentifier:HEADER_IDENTIFIER
-                                                                 forIndexPath:indexPath];
-    } else if ([kind isEqualToString:CHTCollectionElementKindSectionFooter]) {
-        reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                                          withReuseIdentifier:FOOTER_IDENTIFIER
-                                                                 forIndexPath:indexPath];
-    }
-    
-    return reusableView;
-}
-
-#pragma mark - CHTCollectionViewDelegateWaterfallLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(ITEM_WIDTH, ITEM_WIDTH);
-}
 
 #pragma mark - ScrollView Delegate
 
@@ -176,7 +161,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
-            [_collectionView addSubview:_titleView];
+            [_tableView addSubview:_titleView];
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -194,9 +179,9 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 #pragma mark - Observer
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
+        [_tableView reloadData];
         switch (_selectedType) {
             case SKMyPageSelectedTypePic:{
-                [_collectionView reloadData];
                 break;
             }
             case SKMyPageSelectedTypeArticle:{
@@ -206,7 +191,6 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             default:
                 break;
         }
-
     }
 }
 

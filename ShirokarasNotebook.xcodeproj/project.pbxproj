@@ -15,6 +15,8 @@
 		1120B0F91FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0F81FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m */; };
 		1120B0FC1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0FB1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m */; };
 		1120B1001FC42646003FF376 /* SKMyPageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B0FF1FC42646003FF376 /* SKMyPageHeader.m */; };
+		1120B1031FC459D1003FF376 /* SKMypagePicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B1021FC459D1003FF376 /* SKMypagePicTableViewCell.m */; };
+		1120B1061FC459E3003FF376 /* SKMypageArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1120B1051FC459E3003FF376 /* SKMypageArticleTableViewCell.m */; };
 		11303FEE1FB06B3E0020C93D /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCC1FB06B3E0020C93D /* ShareSDK.framework */; };
 		11303FEF1FB06B3E0020C93D /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */; };
 		11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */; };
@@ -116,6 +118,10 @@
 		1120B0FB1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPersonalArticleCollectionViewCell.m; sourceTree = "<group>"; };
 		1120B0FE1FC42646003FF376 /* SKMyPageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKMyPageHeader.h; sourceTree = "<group>"; };
 		1120B0FF1FC42646003FF376 /* SKMyPageHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMyPageHeader.m; sourceTree = "<group>"; };
+		1120B1011FC459D1003FF376 /* SKMypagePicTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKMypagePicTableViewCell.h; sourceTree = "<group>"; };
+		1120B1021FC459D1003FF376 /* SKMypagePicTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMypagePicTableViewCell.m; sourceTree = "<group>"; };
+		1120B1041FC459E3003FF376 /* SKMypageArticleTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKMypageArticleTableViewCell.h; sourceTree = "<group>"; };
+		1120B1051FC459E3003FF376 /* SKMypageArticleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMypageArticleTableViewCell.m; sourceTree = "<group>"; };
 		11303FCC1FB06B3E0020C93D /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11303FCF1FB06B3E0020C93D /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11303FD01FB06B3E0020C93D /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -315,6 +321,10 @@
 				1120B0FB1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m */,
 				1120B0FE1FC42646003FF376 /* SKMyPageHeader.h */,
 				1120B0FF1FC42646003FF376 /* SKMyPageHeader.m */,
+				1120B1011FC459D1003FF376 /* SKMypagePicTableViewCell.h */,
+				1120B1021FC459D1003FF376 /* SKMypagePicTableViewCell.m */,
+				1120B1041FC459E3003FF376 /* SKMypageArticleTableViewCell.h */,
+				1120B1051FC459E3003FF376 /* SKMypageArticleTableViewCell.m */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -1018,6 +1028,7 @@
 				113040261FB06F900020C93D /* NSObject+MJKeyValue.m in Sources */,
 				11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */,
 				113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */,
+				1120B1031FC459D1003FF376 /* SKMypagePicTableViewCell.m in Sources */,
 				1120B0F91FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m in Sources */,
 				113040211FB06F900020C93D /* MJProperty.m in Sources */,
 				11D9AA291FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld in Sources */,
@@ -1027,6 +1038,7 @@
 				1120B0FC1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m in Sources */,
 				11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
+				1120B1061FC459E3003FF376 /* SKMypageArticleTableViewCell.m in Sources */,
 				1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,
 				1120B1001FC42646003FF376 /* SKMyPageHeader.m in Sources */,
