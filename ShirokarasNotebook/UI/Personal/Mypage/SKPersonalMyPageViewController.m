@@ -7,6 +7,7 @@
 //
 
 #import "SKPersonalMyPageViewController.h"
+#import "SKUserInfoViewController.h"
 
 #import "SKMypagePicTableViewCell.h"
 #import "SKMypageArticleTableViewCell.h"
@@ -102,6 +103,24 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _titleView.userInteractionEnabled = YES;
     [_tableView addSubview:_titleView];
     self.selectedType = SKMyPageSelectedTypePic;
+    
+    //编辑资料
+    UIButton *editInfoButton = [UIButton new];
+    [editInfoButton addTarget:self action:@selector(didClickEditInfoButton) forControlEvents:UIControlEventTouchUpInside];
+    [editInfoButton setTitle:@"编辑资料" forState:UIControlStateNormal];
+    [editInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    editInfoButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
+    editInfoButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(21));
+    editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
+    editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
+    [self.view addSubview:editInfoButton];
+}
+
+#pragma mark - Actions
+
+- (void)didClickEditInfoButton {
+    SKUserInfoViewController *controller = [[SKUserInfoViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - SKSegment Delegate

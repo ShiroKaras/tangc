@@ -67,7 +67,7 @@
             
             _introduceLabel = [UILabel new];
             _introduceLabel.text = @"卓大王 星空系列开放预售啦！\n成品价45，预售价40，数量有限先到先得！";
-            _introduceLabel.textColor = [UIColor colorWithHex:0x1F4035];
+            _introduceLabel.textColor = COMMON_TEXT_COLOR;
             _introduceLabel.numberOfLines = 2;
             _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
             [_introduceLabel sizeToFit];
@@ -104,7 +104,7 @@
             //文字介绍
             _introduceLabel = [UILabel new];
             _introduceLabel.text = @"卓大王 星空系列开放预售啦！\n成品价45，预售价40，数量有限先到先得！";
-            _introduceLabel.textColor = [UIColor colorWithHex:0x1F4035];
+            _introduceLabel.textColor = COMMON_TEXT_COLOR;
             _introduceLabel.numberOfLines = 0;
             _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
             [_introduceLabel sizeToFit];

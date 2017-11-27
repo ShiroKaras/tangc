@@ -7,6 +7,7 @@
 //
 
 #import "SKNavigationController.h"
+#import "SKUserInfoViewController.h"
 
 @interface SKNavigationController ()
 
@@ -42,16 +43,21 @@
     [super pushViewController:viewController animated:animated];
     
     if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.tag = 9001;
-        [button setImage:[UIImage imageNamed:@"btn_detailpage_back_white"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"btn_detailpage_back"] forState:UIControlStateHighlighted];
-        [button sizeToFit];
-        button.top += 32;
-        button.left += 15;
-        [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _backButton.tag = 9001;
+        if ([viewController isKindOfClass:[SKUserInfoViewController class]]) {
+            [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back"] forState:UIControlStateNormal];
+            [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back_white"] forState:UIControlStateHighlighted];
+        } else {
+            [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back_white"] forState:UIControlStateNormal];
+            [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back"] forState:UIControlStateHighlighted];
+        }
+        [_backButton sizeToFit];
+        _backButton.top += 32;
+        _backButton.left += 15;
+        [_backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
         //        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        [viewController.view addSubview:button];
+        [viewController.view addSubview:_backButton];
     }
 }
 

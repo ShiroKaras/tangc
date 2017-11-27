@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SKNavigationController : UINavigationController
-
+@property (nonatomic, strong) UIButton *backButton;
 @end
