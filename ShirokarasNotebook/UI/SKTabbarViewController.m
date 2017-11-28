@@ -10,6 +10,7 @@
 #import "SKHomepageViewController.h"
 #import "SKTopicsViewController.h"
 #import "SKMarketViewController.h"
+#import "SKPublishNewContentViewController.h"
 #import "SKNotificationViewController.h"
 #import "SKPersonalIndexViewController.h"
 
@@ -35,7 +36,7 @@
     c2.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_mall"];
     c2.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_mall_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    SKMarketViewController *c3 = [[SKMarketViewController alloc] init];
+    SKPublishNewContentViewController *c3 = [[SKPublishNewContentViewController alloc] init];
     c3.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c3.tabBarItem.image = [UIImage imageNamed:@""];
     c3.tabBarItem.selectedImage = [[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

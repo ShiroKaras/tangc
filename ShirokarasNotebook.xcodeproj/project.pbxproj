@@ -57,6 +57,7 @@
 		113040871FB1A5F60020C93D /* SKStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040841FB1A5F50020C93D /* SKStorageDefine.m */; };
 		113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040861FB1A5F50020C93D /* SKStorageManager.m */; };
 		1130408C1FB1A6200020C93D /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130408B1FB1A6200020C93D /* SKModel.m */; };
+		11A1E5A51FCD43FA000D4D5B /* SKPublishNewContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */; };
 		11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */; };
 		11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */; };
 		11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */; };
@@ -203,6 +204,8 @@
 		1130408A1FB1A6200020C93D /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKModel.h; sourceTree = "<group>"; };
 		1130408B1FB1A6200020C93D /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKModel.m; sourceTree = "<group>"; };
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
+		11A1E5A31FCD43FA000D4D5B /* SKPublishNewContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPublishNewContentViewController.h; sourceTree = "<group>"; };
+		11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPublishNewContentViewController.m; sourceTree = "<group>"; };
 		11B82D981FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageMorePicDetailViewController.h; sourceTree = "<group>"; };
 		11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageMorePicDetailViewController.m; sourceTree = "<group>"; };
 		11B82D9B1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageDetaillTableViewCell.h; sourceTree = "<group>"; };
@@ -574,6 +577,8 @@
 		11CDDE861FB1C09F004A0812 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+				11A1E5A31FCD43FA000D4D5B /* SKPublishNewContentViewController.h */,
+				11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */,
 				11B82DA71FBD3855006D9A26 /* WaterFlow */,
 				11B82D971FBAE76A006D9A26 /* HomepageDetail */,
 				11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */,
@@ -1068,6 +1073,7 @@
 				11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */,
 				1120B0EA1FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m in Sources */,
 				1120B0F61FC3E275003FF376 /* SKPersonalMyPageViewController.m in Sources */,
+				11A1E5A51FCD43FA000D4D5B /* SKPublishNewContentViewController.m in Sources */,
 				11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */,
 				113040361FB19AC70020C93D /* CommonUI.m in Sources */,
 				111C5CB71FCC1AC200581AE0 /* SKUserListTableViewCell.m in Sources */,
