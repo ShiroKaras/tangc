@@ -20,6 +20,13 @@
     
     [self createTitleView];
     
+//    [RACObserve(self, someString) distinctUntilChanged] subscribeNext:^(NSString *string) {
+//        // Do a bunch of things here, just like you would with KVO
+//    }];
+    
+    UITextField *test = [UITextField new];
+    [self.view addSubview:test];
+    
     
 }
 

@@ -23,7 +23,9 @@ target 'ShirokarasNotebook' do
   pod 'Pingpp/Wx'
   
   pod 'ReactiveCocoa'
-  
+  pod 'ReactiveObjC'
+#  pod 'ReactiveObjCBridge'
+
 end
 
 target 'ShirokarasNotebookTests' do

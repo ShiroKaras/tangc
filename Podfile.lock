@@ -36,6 +36,7 @@ PODS:
   - Reachability (3.2)
   - ReactiveCocoa (7.0.1):
     - ReactiveSwift (~> 3.0)
+  - ReactiveObjC (3.0.0)
   - ReactiveSwift (3.0.0):
     - Result (~> 3.2)
   - Result (3.2.4)
@@ -60,6 +61,7 @@ DEPENDENCIES:
   - PSCarouselView
   - Reachability
   - ReactiveCocoa
+  - ReactiveObjC
   - SDWebImage (~> 3.7.3)
   - TTTAttributedLabel
   - UIImage+animatedGif (~> 0.1.0)
@@ -79,6 +81,7 @@ SPEC CHECKSUMS:
   PSCarouselView: ba326d737bb157608e28e53e525af50ce0606fd8
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: a1b5d502d0d1534f9a72981a485b297b17127f83
+  ReactiveObjC: ce79989e8684b9086b5f8d0c74bc7b81a8729c9e
   ReactiveSwift: d9fe0db33c1aaabecb092e8de83cf52875c0de6f
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
@@ -87,6 +90,6 @@ SPEC CHECKSUMS:
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 14eecd330c338c6ab02428e86dc20bfafbb7693d
+PODFILE CHECKSUM: '09dc3ac86f119bcd269a70ea61c2c53cc4907bd4'
 
 COCOAPODS: 1.1.1
