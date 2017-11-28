@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02A3631700824E110904A968 /* libPods-ShirokarasNotebookTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ABAEC3F029BAF396076F28 /* libPods-ShirokarasNotebookTests.a */; };
 		111C5CB11FCC00BB00581AE0 /* SKUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C5CB01FCC00BA00581AE0 /* SKUserInfoViewController.m */; };
 		111C5CB41FCC12EF00581AE0 /* SKUserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C5CB31FCC12EF00581AE0 /* SKUserListViewController.m */; };
 		111C5CB71FCC1AC200581AE0 /* SKUserListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C5CB61FCC1AC200581AE0 /* SKUserListTableViewCell.m */; };
@@ -94,9 +95,8 @@
 		11D9AA311FB06142008D32E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA301FB06142008D32E9 /* main.m */; };
 		11D9AA3B1FB06143008D32E9 /* ShirokarasNotebookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA3A1FB06143008D32E9 /* ShirokarasNotebookTests.m */; };
 		11D9AA461FB06143008D32E9 /* ShirokarasNotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA451FB06143008D32E9 /* ShirokarasNotebookUITests.m */; };
-		76557518BBC2AD9BD0387594 /* Pods_ShirokarasNotebookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D018A3A78ACDAF46502E0 /* Pods_ShirokarasNotebookUITests.framework */; };
-		87693B860445E3E905C0543F /* Pods_ShirokarasNotebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F5C66FB3AEE075403E0441 /* Pods_ShirokarasNotebook.framework */; };
-		900D0F54A8D9488A19D2F9BB /* Pods_ShirokarasNotebookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CC1E6A02BBE48B32738FF5 /* Pods_ShirokarasNotebookTests.framework */; };
+		D340443EE5B0C54A8A38F4FD /* libPods-ShirokarasNotebookUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB0878A33164D7DFE8BE3BC8 /* libPods-ShirokarasNotebookUITests.a */; };
+		DD8921FB7AB33A4F8A2857E6 /* libPods-ShirokarasNotebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86500B7B570A24B74CF17CC6 /* libPods-ShirokarasNotebook.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -288,13 +288,13 @@
 		11D9AA451FB06143008D32E9 /* ShirokarasNotebookUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShirokarasNotebookUITests.m; sourceTree = "<group>"; };
 		11D9AA471FB06143008D32E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		401A52AB8343B21779DEC99D /* Pods-ShirokarasNotebookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests.debug.xcconfig"; sourceTree = "<group>"; };
-		40F5C66FB3AEE075403E0441 /* Pods_ShirokarasNotebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShirokarasNotebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		40ABAEC3F029BAF396076F28 /* libPods-ShirokarasNotebookTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShirokarasNotebookTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD69E51AC31CC15E29CD0AC /* Pods-ShirokarasNotebookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests.release.xcconfig"; sourceTree = "<group>"; };
-		803D018A3A78ACDAF46502E0 /* Pods_ShirokarasNotebookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShirokarasNotebookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		86500B7B570A24B74CF17CC6 /* libPods-ShirokarasNotebook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShirokarasNotebook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CD6D414B54DE7A4C3ACB3F3 /* Pods-ShirokarasNotebook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.release.xcconfig"; sourceTree = "<group>"; };
 		96DA3AA320E6C3E87B13B00C /* Pods-ShirokarasNotebookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookUITests/Pods-ShirokarasNotebookUITests.release.xcconfig"; sourceTree = "<group>"; };
-		C2CC1E6A02BBE48B32738FF5 /* Pods_ShirokarasNotebookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShirokarasNotebookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C442071CB0AA3663A5EF7E62 /* Pods-ShirokarasNotebookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookUITests/Pods-ShirokarasNotebookUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FB0878A33164D7DFE8BE3BC8 /* libPods-ShirokarasNotebookUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShirokarasNotebookUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,11 +312,11 @@
 				11303FF61FB06B3E0020C93D /* libWeChatSDK.a in Frameworks */,
 				11303FF21FB06B3E0020C93D /* TencentOpenAPI.framework in Frameworks */,
 				11303FF41FB06B3E0020C93D /* libWeiboSDK.a in Frameworks */,
+				DD8921FB7AB33A4F8A2857E6 /* libPods-ShirokarasNotebook.a in Frameworks */,
 				11303FEE1FB06B3E0020C93D /* ShareSDK.framework in Frameworks */,
 				11303FEF1FB06B3E0020C93D /* ShareSDKExtension.framework in Frameworks */,
 				11303FFA1FB06B3E0020C93D /* ShareSDKConnector.framework in Frameworks */,
 				11303FF11FB06B3E0020C93D /* ShareSDKUI.framework in Frameworks */,
-				87693B860445E3E905C0543F /* Pods_ShirokarasNotebook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +324,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				900D0F54A8D9488A19D2F9BB /* Pods_ShirokarasNotebookTests.framework in Frameworks */,
+				02A3631700824E110904A968 /* libPods-ShirokarasNotebookTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,7 +332,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76557518BBC2AD9BD0387594 /* Pods_ShirokarasNotebookUITests.framework in Frameworks */,
+				D340443EE5B0C54A8A38F4FD /* libPods-ShirokarasNotebookUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,9 +759,9 @@
 				11303FFF1FB06C5A0020C93D /* libstdc++.tbd */,
 				11303FFD1FB06C500020C93D /* libz.tbd */,
 				11303FFB1FB06C450020C93D /* libicucore.tbd */,
-				40F5C66FB3AEE075403E0441 /* Pods_ShirokarasNotebook.framework */,
-				C2CC1E6A02BBE48B32738FF5 /* Pods_ShirokarasNotebookTests.framework */,
-				803D018A3A78ACDAF46502E0 /* Pods_ShirokarasNotebookUITests.framework */,
+				86500B7B570A24B74CF17CC6 /* libPods-ShirokarasNotebook.a */,
+				40ABAEC3F029BAF396076F28 /* libPods-ShirokarasNotebookTests.a */,
+				FB0878A33164D7DFE8BE3BC8 /* libPods-ShirokarasNotebookUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

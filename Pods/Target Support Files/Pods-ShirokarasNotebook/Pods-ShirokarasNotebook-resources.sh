@@ -74,10 +74,16 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "MBProgressHUD+BWMExtension/Example/MBProgressHUD+BWMExtension/MBProgressHUD+BWMExtension.xcassets"
+  install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "PSCarouselView/CarouselDemo/PSCarouselView/PSCarouselCollectionCell.xib"
   install_resource "Pingpp/lib/Channels/Alipay/AlipaySDK.bundle"
   install_resource "Pingpp/lib/Pingpp.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "MBProgressHUD+BWMExtension/Example/MBProgressHUD+BWMExtension/MBProgressHUD+BWMExtension.xcassets"
+  install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "PSCarouselView/CarouselDemo/PSCarouselView/PSCarouselCollectionCell.xib"
   install_resource "Pingpp/lib/Channels/Alipay/AlipaySDK.bundle"
   install_resource "Pingpp/lib/Pingpp.bundle"
 fi
