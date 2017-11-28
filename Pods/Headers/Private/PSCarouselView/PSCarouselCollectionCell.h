@@ -1,1 +1,0 @@
-../../../PSCarouselView/CarouselDemo/PSCarouselView/PSCarouselCollectionCell.h
