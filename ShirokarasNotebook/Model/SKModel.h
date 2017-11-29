@@ -27,6 +27,8 @@
 @property (nonatomic, copy) NSString *open_id;     // 第三方平台ID
 @property (nonatomic, copy) NSString *plant_id;    // 微信 1
 @property (nonatomic, copy) NSString *user_id;
+@property (nonatomic, copy) NSString *user_name;
+@property (nonatomic, copy) NSString *user_password;
 @end
 
 //用户基本信息

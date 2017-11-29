@@ -7,7 +7,7 @@
 //
 
 #import "FileService.h"
-#import "HTUIHeader.h"
+#import <SDWebImage/SDImageCache.h>
 
 @implementation FileService
 
@@ -22,7 +22,7 @@
 
 +(float)folderSizeAtPath:(NSString *)path {
     NSFileManager *fileManager=[NSFileManager defaultManager];
-    float folderSize;
+    float folderSize=0;
     if ([fileManager fileExistsAtPath:path]) {
         NSArray *childerFiles=[fileManager subpathsAtPath:path];
         for (NSString *fileName in childerFiles) {
@@ -46,7 +46,7 @@
             [fileManager removeItemAtPath:absolutePath error:nil];
         }
     }
-    [[SDImageCache sharedImageCache] cleanDisk];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{ }];
 }
 
 + (void)listFileAtPath:(NSString *)path {
