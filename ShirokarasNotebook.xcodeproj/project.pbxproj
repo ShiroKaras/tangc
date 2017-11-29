@@ -58,6 +58,11 @@
 		113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040861FB1A5F50020C93D /* SKStorageManager.m */; };
 		1130408C1FB1A6200020C93D /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130408B1FB1A6200020C93D /* SKModel.m */; };
 		11A1E5A51FCD43FA000D4D5B /* SKPublishNewContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */; };
+		11A1E5B71FCD66BB000D4D5B /* NSString+WPAttributedMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5A81FCD66B9000D4D5B /* NSString+WPAttributedMarkup.m */; };
+		11A1E5B81FCD66BB000D4D5B /* NSMutableString+TagReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5AA1FCD66B9000D4D5B /* NSMutableString+TagReplace.m */; };
+		11A1E5B91FCD66BB000D4D5B /* WPHotspotLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5AF1FCD66BA000D4D5B /* WPHotspotLabel.m */; };
+		11A1E5BA1FCD66BB000D4D5B /* WPTappableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5B01FCD66BA000D4D5B /* WPTappableLabel.m */; };
+		11A1E5BB1FCD66BB000D4D5B /* WPAttributedStyleAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5B11FCD66BA000D4D5B /* WPAttributedStyleAction.m */; };
 		11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */; };
 		11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */; };
 		11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */; };
@@ -206,6 +211,16 @@
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
 		11A1E5A31FCD43FA000D4D5B /* SKPublishNewContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPublishNewContentViewController.h; sourceTree = "<group>"; };
 		11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPublishNewContentViewController.m; sourceTree = "<group>"; };
+		11A1E5A71FCD66B9000D4D5B /* NSMutableString+TagReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+TagReplace.h"; sourceTree = "<group>"; };
+		11A1E5A81FCD66B9000D4D5B /* NSString+WPAttributedMarkup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WPAttributedMarkup.m"; sourceTree = "<group>"; };
+		11A1E5A91FCD66B9000D4D5B /* NSString+WPAttributedMarkup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WPAttributedMarkup.h"; sourceTree = "<group>"; };
+		11A1E5AA1FCD66B9000D4D5B /* NSMutableString+TagReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+TagReplace.m"; sourceTree = "<group>"; };
+		11A1E5AC1FCD66BA000D4D5B /* WPTappableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTappableLabel.h; sourceTree = "<group>"; };
+		11A1E5AD1FCD66BA000D4D5B /* WPHotspotLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPHotspotLabel.h; sourceTree = "<group>"; };
+		11A1E5AE1FCD66BA000D4D5B /* WPAttributedStyleAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAttributedStyleAction.h; sourceTree = "<group>"; };
+		11A1E5AF1FCD66BA000D4D5B /* WPHotspotLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPHotspotLabel.m; sourceTree = "<group>"; };
+		11A1E5B01FCD66BA000D4D5B /* WPTappableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTappableLabel.m; sourceTree = "<group>"; };
+		11A1E5B11FCD66BA000D4D5B /* WPAttributedStyleAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAttributedStyleAction.m; sourceTree = "<group>"; };
 		11B82D981FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageMorePicDetailViewController.h; sourceTree = "<group>"; };
 		11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageMorePicDetailViewController.m; sourceTree = "<group>"; };
 		11B82D9B1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageDetaillTableViewCell.h; sourceTree = "<group>"; };
@@ -275,12 +290,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11303FFC1FB06C450020C93D /* libicucore.tbd in Frameworks */,
 				113040061FB06C7B0020C93D /* ImageIO.framework in Frameworks */,
 				113040041FB06C730020C93D /* libsqlite3.tbd in Frameworks */,
 				113040021FB06C620020C93D /* JavaScriptCore.framework in Frameworks */,
 				113040001FB06C5A0020C93D /* libstdc++.tbd in Frameworks */,
 				11303FFE1FB06C500020C93D /* libz.tbd in Frameworks */,
-				11303FFC1FB06C450020C93D /* libicucore.tbd in Frameworks */,
 				11303FF81FB06B3E0020C93D /* MOBFoundation.framework in Frameworks */,
 				11303FF61FB06B3E0020C93D /* libWeChatSDK.a in Frameworks */,
 				11303FF21FB06B3E0020C93D /* TencentOpenAPI.framework in Frameworks */,
@@ -350,6 +365,8 @@
 		11303FC81FB06ADA0020C93D /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				11A1E5AB1FCD66BA000D4D5B /* Extras */,
+				11A1E5A61FCD66B9000D4D5B /* WPAttributedMarkup */,
 				113040071FB06F900020C93D /* MJExtension */,
 				11303FCB1FB06B3E0020C93D /* ShareSDK */,
 			);
@@ -509,6 +526,30 @@
 				1130408B1FB1A6200020C93D /* SKModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		11A1E5A61FCD66B9000D4D5B /* WPAttributedMarkup */ = {
+			isa = PBXGroup;
+			children = (
+				11A1E5A71FCD66B9000D4D5B /* NSMutableString+TagReplace.h */,
+				11A1E5A81FCD66B9000D4D5B /* NSString+WPAttributedMarkup.m */,
+				11A1E5A91FCD66B9000D4D5B /* NSString+WPAttributedMarkup.h */,
+				11A1E5AA1FCD66B9000D4D5B /* NSMutableString+TagReplace.m */,
+			);
+			path = WPAttributedMarkup;
+			sourceTree = "<group>";
+		};
+		11A1E5AB1FCD66BA000D4D5B /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				11A1E5AC1FCD66BA000D4D5B /* WPTappableLabel.h */,
+				11A1E5AD1FCD66BA000D4D5B /* WPHotspotLabel.h */,
+				11A1E5AE1FCD66BA000D4D5B /* WPAttributedStyleAction.h */,
+				11A1E5AF1FCD66BA000D4D5B /* WPHotspotLabel.m */,
+				11A1E5B01FCD66BA000D4D5B /* WPTappableLabel.m */,
+				11A1E5B11FCD66BA000D4D5B /* WPAttributedStyleAction.m */,
+			);
+			path = Extras;
 			sourceTree = "<group>";
 		};
 		11B82D971FBAE76A006D9A26 /* HomepageDetail */ = {
@@ -1030,6 +1071,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				113040231FB06F900020C93D /* MJPropertyType.m in Sources */,
+				11A1E5BA1FCD66BB000D4D5B /* WPTappableLabel.m in Sources */,
+				11A1E5BB1FCD66BB000D4D5B /* WPAttributedStyleAction.m in Sources */,
 				11B82DBB1FBEC998006D9A26 /* SKNotificationViewController.m in Sources */,
 				11D9AA231FB06142008D32E9 /* ViewController.m in Sources */,
 				11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */,
@@ -1058,11 +1101,13 @@
 				1120B0FC1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m in Sources */,
 				11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
+				11A1E5B91FCD66BB000D4D5B /* WPHotspotLabel.m in Sources */,
 				111C5CB11FCC00BB00581AE0 /* SKUserInfoViewController.m in Sources */,
 				1120B1061FC459E3003FF376 /* SKMypageArticleTableViewCell.m in Sources */,
 				1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,
 				1120B1001FC42646003FF376 /* SKMyPageHeader.m in Sources */,
+				11A1E5B81FCD66BB000D4D5B /* NSMutableString+TagReplace.m in Sources */,
 				111C5CB41FCC12EF00581AE0 /* SKUserListViewController.m in Sources */,
 				11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */,
 				11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */,
@@ -1079,6 +1124,7 @@
 				111C5CB71FCC1AC200581AE0 /* SKUserListTableViewCell.m in Sources */,
 				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,
 				11B82DA61FBD37DB006D9A26 /* SKTopicsViewController.m in Sources */,
+				11A1E5B71FCD66BB000D4D5B /* NSString+WPAttributedMarkup.m in Sources */,
 				113040221FB06F900020C93D /* MJPropertyKey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

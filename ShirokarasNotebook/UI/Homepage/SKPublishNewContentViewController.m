@@ -20,14 +20,32 @@
     
     [self createTitleView];
     
-//    [RACObserve(self, someString) distinctUntilChanged] subscribeNext:^(NSString *string) {
-//        // Do a bunch of things here, just like you would with KVO
-//    }];
     
-    UITextField *test = [UITextField new];
-    [self.view addSubview:test];
-    
-    
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 100, 300, 300)];
+    _textView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_textView];
+    [[_textView.rac_textSignal filter:^BOOL(NSString *value) {
+        return value;
+    }]
+     subscribeNext:^(NSString *x) {
+         // 话题的规则
+         NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
+         // @的规则
+         NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5]+";
+         
+         NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
+         NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+         //匹配集合
+         NSArray *results = [regex matchesInString:x options:0 range:NSMakeRange(0, x.length)];
+         // 3.遍历结果
+         for (NSTextCheckingResult *result in results) {
+             NSLog(@"%@  %@",NSStringFromRange(result.range),[x substringWithRange:result.range]);
+             NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[x dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+             // 设置颜色
+             [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:result.range];
+             self.textView.attributedText = attrStr;
+         }
+     }];
 }
 
 - (void)didReceiveMemoryWarning {

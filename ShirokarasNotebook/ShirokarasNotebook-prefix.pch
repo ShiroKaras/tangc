@@ -14,7 +14,7 @@
 #import "SKLog.h"
 //UI
 #import <Masonry/Masonry.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 #import "CommonUI.h"
 #import "UIImage+Extension.h"
 #import "SKNavigationController.h"
