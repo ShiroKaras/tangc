@@ -63,6 +63,24 @@
 		11A1E5B91FCD66BB000D4D5B /* WPHotspotLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5AF1FCD66BA000D4D5B /* WPHotspotLabel.m */; };
 		11A1E5BA1FCD66BB000D4D5B /* WPTappableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5B01FCD66BA000D4D5B /* WPTappableLabel.m */; };
 		11A1E5BB1FCD66BB000D4D5B /* WPAttributedStyleAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5B11FCD66BA000D4D5B /* WPAttributedStyleAction.m */; };
+		11A1E5D71FCEC041000D4D5B /* SKProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5C61FCEC040000D4D5B /* SKProfileService.m */; };
+		11A1E5D91FCEC041000D4D5B /* SKCommonService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5CD1FCEC040000D4D5B /* SKCommonService.m */; };
+		11A1E5DA1FCEC041000D4D5B /* SKLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5CE1FCEC040000D4D5B /* SKLoginService.m */; };
+		11A1E5DB1FCEC041000D4D5B /* SKServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5CF1FCEC040000D4D5B /* SKServiceManager.m */; };
+		11A1E5DC1FCEC041000D4D5B /* ServerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5D41FCEC041000D4D5B /* ServerConfiguration.m */; };
+		11A1E5DD1FCEC041000D4D5B /* SKCGIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5D51FCEC041000D4D5B /* SKCGIManager.m */; };
+		11A1E5E11FCEC2AD000D4D5B /* CustomSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5DF1FCEC2AD000D4D5B /* CustomSecurityPolicy.m */; };
+		11A1E5E51FCEC2E0000D4D5B /* BaseConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5E41FCEC2E0000D4D5B /* BaseConfiguration.m */; };
+		11A1E5E81FCEC352000D4D5B /* NSString+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5E61FCEC351000D4D5B /* NSString+Utility.m */; };
+		11A1E5EC1FCEC3C5000D4D5B /* NSString+DES.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5EA1FCEC3C5000D4D5B /* NSString+DES.m */; };
+		11A1E5EF1FCEC3F7000D4D5B /* ClientConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5ED1FCEC3F7000D4D5B /* ClientConfiguration.m */; };
+		11A1E5F21FCEC41B000D4D5B /* CustomSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5F11FCEC41B000D4D5B /* CustomSecurityPolicy.m */; };
+		11A1E5FF1FCEC43F000D4D5B /* FileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5F31FCEC43D000D4D5B /* FileService.m */; };
+		11A1E6001FCEC43F000D4D5B /* SKImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5F41FCEC43D000D4D5B /* SKImageHelper.m */; };
+		11A1E6011FCEC43F000D4D5B /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5F71FCEC43E000D4D5B /* UIButton+EnlargeTouchArea.m */; };
+		11A1E6021FCEC43F000D4D5B /* NSTimer+FXWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5F91FCEC43E000D4D5B /* NSTimer+FXWeakTimer.m */; };
+		11A1E6031FCEC43F000D4D5B /* NSDate+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5FA1FCEC43E000D4D5B /* NSDate+Utility.m */; };
+		11A1E6041FCEC43F000D4D5B /* NSObject+FXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5FD1FCEC43F000D4D5B /* NSObject+FXAlertView.m */; };
 		11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */; };
 		11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */; };
 		11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */; };
@@ -221,6 +239,44 @@
 		11A1E5AF1FCD66BA000D4D5B /* WPHotspotLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPHotspotLabel.m; sourceTree = "<group>"; };
 		11A1E5B01FCD66BA000D4D5B /* WPTappableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTappableLabel.m; sourceTree = "<group>"; };
 		11A1E5B11FCD66BA000D4D5B /* WPAttributedStyleAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAttributedStyleAction.m; sourceTree = "<group>"; };
+		11A1E5C61FCEC040000D4D5B /* SKProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKProfileService.m; sourceTree = "<group>"; };
+		11A1E5C71FCEC040000D4D5B /* SKCommonService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCommonService.h; sourceTree = "<group>"; };
+		11A1E5C91FCEC040000D4D5B /* SKLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLoginService.h; sourceTree = "<group>"; };
+		11A1E5CA1FCEC040000D4D5B /* SKServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKServiceManager.h; sourceTree = "<group>"; };
+		11A1E5CB1FCEC040000D4D5B /* SKProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKProfileService.h; sourceTree = "<group>"; };
+		11A1E5CD1FCEC040000D4D5B /* SKCommonService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCommonService.m; sourceTree = "<group>"; };
+		11A1E5CE1FCEC040000D4D5B /* SKLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLoginService.m; sourceTree = "<group>"; };
+		11A1E5CF1FCEC040000D4D5B /* SKServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKServiceManager.m; sourceTree = "<group>"; };
+		11A1E5D01FCEC040000D4D5B /* SKLogicHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLogicHeader.h; sourceTree = "<group>"; };
+		11A1E5D21FCEC041000D4D5B /* ServerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfiguration.h; sourceTree = "<group>"; };
+		11A1E5D31FCEC041000D4D5B /* SKCGIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKCGIManager.h; sourceTree = "<group>"; };
+		11A1E5D41FCEC041000D4D5B /* ServerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfiguration.m; sourceTree = "<group>"; };
+		11A1E5D51FCEC041000D4D5B /* SKCGIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKCGIManager.m; sourceTree = "<group>"; };
+		11A1E5D61FCEC041000D4D5B /* SKNetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKNetworkDefine.h; sourceTree = "<group>"; };
+		11A1E5DF1FCEC2AD000D4D5B /* CustomSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPolicy.m; sourceTree = "<group>"; };
+		11A1E5E01FCEC2AD000D4D5B /* CustomSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPolicy.h; sourceTree = "<group>"; };
+		11A1E5E31FCEC2E0000D4D5B /* BaseConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseConfiguration.h; path = Configuration/BaseConfiguration.h; sourceTree = "<group>"; };
+		11A1E5E41FCEC2E0000D4D5B /* BaseConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseConfiguration.m; path = Configuration/BaseConfiguration.m; sourceTree = "<group>"; };
+		11A1E5E61FCEC351000D4D5B /* NSString+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utility.m"; sourceTree = "<group>"; };
+		11A1E5E71FCEC351000D4D5B /* NSString+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utility.h"; sourceTree = "<group>"; };
+		11A1E5EA1FCEC3C5000D4D5B /* NSString+DES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DES.m"; sourceTree = "<group>"; };
+		11A1E5EB1FCEC3C5000D4D5B /* NSString+DES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DES.h"; sourceTree = "<group>"; };
+		11A1E5ED1FCEC3F7000D4D5B /* ClientConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConfiguration.m; sourceTree = "<group>"; };
+		11A1E5EE1FCEC3F7000D4D5B /* ClientConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConfiguration.h; sourceTree = "<group>"; };
+		11A1E5F01FCEC41B000D4D5B /* CustomSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSecurityPolicy.h; sourceTree = "<group>"; };
+		11A1E5F11FCEC41B000D4D5B /* CustomSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSecurityPolicy.m; sourceTree = "<group>"; };
+		11A1E5F31FCEC43D000D4D5B /* FileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileService.m; sourceTree = "<group>"; };
+		11A1E5F41FCEC43D000D4D5B /* SKImageHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKImageHelper.m; sourceTree = "<group>"; };
+		11A1E5F51FCEC43E000D4D5B /* NSObject+FXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+FXAlertView.h"; sourceTree = "<group>"; };
+		11A1E5F61FCEC43E000D4D5B /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
+		11A1E5F71FCEC43E000D4D5B /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		11A1E5F81FCEC43E000D4D5B /* FileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileService.h; sourceTree = "<group>"; };
+		11A1E5F91FCEC43E000D4D5B /* NSTimer+FXWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+FXWeakTimer.m"; sourceTree = "<group>"; };
+		11A1E5FA1FCEC43E000D4D5B /* NSDate+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utility.m"; sourceTree = "<group>"; };
+		11A1E5FB1FCEC43F000D4D5B /* NSTimer+FXWeakTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+FXWeakTimer.h"; sourceTree = "<group>"; };
+		11A1E5FC1FCEC43F000D4D5B /* NSDate+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utility.h"; sourceTree = "<group>"; };
+		11A1E5FD1FCEC43F000D4D5B /* NSObject+FXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+FXAlertView.m"; sourceTree = "<group>"; };
+		11A1E5FE1FCEC43F000D4D5B /* SKImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKImageHelper.h; sourceTree = "<group>"; };
 		11B82D981FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageMorePicDetailViewController.h; sourceTree = "<group>"; };
 		11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageMorePicDetailViewController.m; sourceTree = "<group>"; };
 		11B82D9B1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageDetaillTableViewCell.h; sourceTree = "<group>"; };
@@ -495,6 +551,27 @@
 		113040331FB19A8A0020C93D /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				11A1E5E91FCEC3C5000D4D5B /* DES */,
+				11A1E5EE1FCEC3F7000D4D5B /* ClientConfiguration.h */,
+				11A1E5ED1FCEC3F7000D4D5B /* ClientConfiguration.m */,
+				11A1E5E31FCEC2E0000D4D5B /* BaseConfiguration.h */,
+				11A1E5E41FCEC2E0000D4D5B /* BaseConfiguration.m */,
+				11A1E5F81FCEC43E000D4D5B /* FileService.h */,
+				11A1E5F31FCEC43D000D4D5B /* FileService.m */,
+				11A1E5FC1FCEC43F000D4D5B /* NSDate+Utility.h */,
+				11A1E5FA1FCEC43E000D4D5B /* NSDate+Utility.m */,
+				11A1E5F51FCEC43E000D4D5B /* NSObject+FXAlertView.h */,
+				11A1E5FD1FCEC43F000D4D5B /* NSObject+FXAlertView.m */,
+				11A1E5FB1FCEC43F000D4D5B /* NSTimer+FXWeakTimer.h */,
+				11A1E5F91FCEC43E000D4D5B /* NSTimer+FXWeakTimer.m */,
+				11A1E5FE1FCEC43F000D4D5B /* SKImageHelper.h */,
+				11A1E5F41FCEC43D000D4D5B /* SKImageHelper.m */,
+				11A1E5F61FCEC43E000D4D5B /* UIButton+EnlargeTouchArea.h */,
+				11A1E5F71FCEC43E000D4D5B /* UIButton+EnlargeTouchArea.m */,
+				11A1E5F01FCEC41B000D4D5B /* CustomSecurityPolicy.h */,
+				11A1E5F11FCEC41B000D4D5B /* CustomSecurityPolicy.m */,
+				11A1E5E71FCEC351000D4D5B /* NSString+Utility.h */,
+				11A1E5E61FCEC351000D4D5B /* NSString+Utility.m */,
 				1130403B1FB1A3370020C93D /* NSDate+TimeAgo.h */,
 				113040381FB1A3360020C93D /* NSDate+TimeAgo.m */,
 				1130403E1FB1A4BC0020C93D /* NSDateTimeAgo.bundle */,
@@ -550,6 +627,45 @@
 				11A1E5B11FCD66BA000D4D5B /* WPAttributedStyleAction.m */,
 			);
 			path = Extras;
+			sourceTree = "<group>";
+		};
+		11A1E5C51FCEC040000D4D5B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				11A1E5E01FCEC2AD000D4D5B /* CustomSecurityPolicy.h */,
+				11A1E5DF1FCEC2AD000D4D5B /* CustomSecurityPolicy.m */,
+				11A1E5CA1FCEC040000D4D5B /* SKServiceManager.h */,
+				11A1E5CF1FCEC040000D4D5B /* SKServiceManager.m */,
+				11A1E5D01FCEC040000D4D5B /* SKLogicHeader.h */,
+				11A1E5C91FCEC040000D4D5B /* SKLoginService.h */,
+				11A1E5CE1FCEC040000D4D5B /* SKLoginService.m */,
+				11A1E5CB1FCEC040000D4D5B /* SKProfileService.h */,
+				11A1E5C61FCEC040000D4D5B /* SKProfileService.m */,
+				11A1E5C71FCEC040000D4D5B /* SKCommonService.h */,
+				11A1E5CD1FCEC040000D4D5B /* SKCommonService.m */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		11A1E5D11FCEC041000D4D5B /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				11A1E5D61FCEC041000D4D5B /* SKNetworkDefine.h */,
+				11A1E5D31FCEC041000D4D5B /* SKCGIManager.h */,
+				11A1E5D51FCEC041000D4D5B /* SKCGIManager.m */,
+				11A1E5D21FCEC041000D4D5B /* ServerConfiguration.h */,
+				11A1E5D41FCEC041000D4D5B /* ServerConfiguration.m */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		11A1E5E91FCEC3C5000D4D5B /* DES */ = {
+			isa = PBXGroup;
+			children = (
+				11A1E5EA1FCEC3C5000D4D5B /* NSString+DES.m */,
+				11A1E5EB1FCEC3C5000D4D5B /* NSString+DES.h */,
+			);
+			path = DES;
 			sourceTree = "<group>";
 		};
 		11B82D971FBAE76A006D9A26 /* HomepageDetail */ = {
@@ -686,6 +802,8 @@
 			children = (
 				11CDDE851FB1BFC8004A0812 /* UI */,
 				113040891FB1A6200020C93D /* Model */,
+				11A1E5D11FCEC041000D4D5B /* Network */,
+				11A1E5C51FCEC040000D4D5B /* Service */,
 				113040821FB1A5F50020C93D /* Storage */,
 				113040331FB19A8A0020C93D /* Utility */,
 				11D9AA1E1FB06142008D32E9 /* AppDelegate.h */,
@@ -1071,6 +1189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				113040231FB06F900020C93D /* MJPropertyType.m in Sources */,
+				11A1E5D71FCEC041000D4D5B /* SKProfileService.m in Sources */,
 				11A1E5BA1FCD66BB000D4D5B /* WPTappableLabel.m in Sources */,
 				11A1E5BB1FCD66BB000D4D5B /* WPAttributedStyleAction.m in Sources */,
 				11B82DBB1FBEC998006D9A26 /* SKNotificationViewController.m in Sources */,
@@ -1079,10 +1198,14 @@
 				11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */,
 				1130403D1FB1A3370020C93D /* UIImage+Extension.m in Sources */,
 				11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */,
+				11A1E5E51FCEC2E0000D4D5B /* BaseConfiguration.m in Sources */,
+				11A1E5EF1FCEC3F7000D4D5B /* ClientConfiguration.m in Sources */,
 				11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */,
 				11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */,
 				1130408C1FB1A6200020C93D /* SKModel.m in Sources */,
 				1130401F1FB06F900020C93D /* MJExtensionConst.m in Sources */,
+				11A1E6021FCEC43F000D4D5B /* NSTimer+FXWeakTimer.m in Sources */,
+				11A1E6041FCEC43F000D4D5B /* NSObject+FXAlertView.m in Sources */,
 				113040241FB06F900020C93D /* NSObject+MJClass.m in Sources */,
 				11B82DC11FBED5AD006D9A26 /* SKSegmentView.m in Sources */,
 				113040271FB06F900020C93D /* NSObject+MJProperty.m in Sources */,
@@ -1091,9 +1214,11 @@
 				113040261FB06F900020C93D /* NSObject+MJKeyValue.m in Sources */,
 				11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */,
 				113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */,
+				11A1E6031FCEC43F000D4D5B /* NSDate+Utility.m in Sources */,
 				1120B1031FC459D1003FF376 /* SKMypagePicTableViewCell.m in Sources */,
 				1120B0F91FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m in Sources */,
 				113040211FB06F900020C93D /* MJProperty.m in Sources */,
+				11A1E5D91FCEC041000D4D5B /* SKCommonService.m in Sources */,
 				11D9AA291FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld in Sources */,
 				11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */,
 				113040251FB06F900020C93D /* NSObject+MJCoding.m in Sources */,
@@ -1103,29 +1228,40 @@
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
 				11A1E5B91FCD66BB000D4D5B /* WPHotspotLabel.m in Sources */,
 				111C5CB11FCC00BB00581AE0 /* SKUserInfoViewController.m in Sources */,
+				11A1E5DD1FCEC041000D4D5B /* SKCGIManager.m in Sources */,
 				1120B1061FC459E3003FF376 /* SKMypageArticleTableViewCell.m in Sources */,
+				11A1E6001FCEC43F000D4D5B /* SKImageHelper.m in Sources */,
 				1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,
+				11A1E5DB1FCEC041000D4D5B /* SKServiceManager.m in Sources */,
 				1120B1001FC42646003FF376 /* SKMyPageHeader.m in Sources */,
 				11A1E5B81FCD66BB000D4D5B /* NSMutableString+TagReplace.m in Sources */,
 				111C5CB41FCC12EF00581AE0 /* SKUserListViewController.m in Sources */,
 				11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */,
 				11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */,
+				11A1E5F21FCEC41B000D4D5B /* CustomSecurityPolicy.m in Sources */,
 				1130403C1FB1A3370020C93D /* NSDate+TimeAgo.m in Sources */,
 				11D9AA311FB06142008D32E9 /* main.m in Sources */,
 				1120B0ED1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m in Sources */,
+				11A1E6011FCEC43F000D4D5B /* UIButton+EnlargeTouchArea.m in Sources */,
 				11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */,
+				11A1E5FF1FCEC43F000D4D5B /* FileService.m in Sources */,
 				11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */,
 				1120B0EA1FC2C0B3003FF376 /* SKNotificationCommentTableViewCell.m in Sources */,
+				11A1E5E11FCEC2AD000D4D5B /* CustomSecurityPolicy.m in Sources */,
 				1120B0F61FC3E275003FF376 /* SKPersonalMyPageViewController.m in Sources */,
 				11A1E5A51FCD43FA000D4D5B /* SKPublishNewContentViewController.m in Sources */,
 				11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */,
 				113040361FB19AC70020C93D /* CommonUI.m in Sources */,
+				11A1E5E81FCEC352000D4D5B /* NSString+Utility.m in Sources */,
+				11A1E5DC1FCEC041000D4D5B /* ServerConfiguration.m in Sources */,
 				111C5CB71FCC1AC200581AE0 /* SKUserListTableViewCell.m in Sources */,
+				11A1E5DA1FCEC041000D4D5B /* SKLoginService.m in Sources */,
 				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,
 				11B82DA61FBD37DB006D9A26 /* SKTopicsViewController.m in Sources */,
 				11A1E5B71FCD66BB000D4D5B /* NSString+WPAttributedMarkup.m in Sources */,
 				113040221FB06F900020C93D /* MJPropertyKey.m in Sources */,
+				11A1E5EC1FCEC3C5000D4D5B /* NSString+DES.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

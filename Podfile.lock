@@ -40,9 +40,9 @@ PODS:
   - ReactiveSwift (3.0.0):
     - Result (~> 3.2)
   - Result (3.2.4)
-  - SDWebImage (3.7.6):
-    - SDWebImage/Core (= 3.7.6)
-  - SDWebImage/Core (3.7.6)
+  - SDWebImage (4.2.2):
+    - SDWebImage/Core (= 4.2.2)
+  - SDWebImage/Core (4.2.2)
   - TTTAttributedLabel (2.0.0)
   - UIImage+animatedGif (0.1.0)
   - YLGIFImage (0.11)
@@ -62,7 +62,7 @@ DEPENDENCIES:
   - Reachability
   - ReactiveCocoa
   - ReactiveObjC
-  - SDWebImage (~> 3.7.3)
+  - SDWebImage (~> 4.2.2)
   - TTTAttributedLabel
   - UIImage+animatedGif (~> 0.1.0)
   - YLGIFImage
@@ -84,12 +84,12 @@ SPEC CHECKSUMS:
   ReactiveObjC: ce79989e8684b9086b5f8d0c74bc7b81a8729c9e
   ReactiveSwift: d9fe0db33c1aaabecb092e8de83cf52875c0de6f
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIImage+animatedGif: 21cff7203edfb45ca0dd035505a4988cc0156356
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: '09dc3ac86f119bcd269a70ea61c2c53cc4907bd4'
+PODFILE CHECKSUM: 1710e8db290abf4fab97af4b514995b9eb0ef331
 
 COCOAPODS: 1.1.1
