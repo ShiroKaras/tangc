@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SKLogicHeader.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface CustomSecurityPolicy : NSObject
+
++ (AFSecurityPolicy *)customSecurityPolicy;
 
 @end
