@@ -31,4 +31,7 @@
 //关注用户
 + (NSString *)comuserFollows;
 
+//发布文章
++ (NSString *)postArticle;
+
 @end

@@ -14,6 +14,6 @@ typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList);
 @interface SKTopicService : NSObject
 
 - (void)getTopicListWithCallback:(SKTopicListCallback)callback;
-- (void)comuserFollowsWithCallback:(SKResponseCallback)callback;
+- (void)postArticleWith:(SKTopic *)topic callback:(SKResponseCallback)callback;
 
 @end

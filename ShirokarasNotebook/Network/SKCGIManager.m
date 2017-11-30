@@ -40,4 +40,8 @@
     return [NSString stringWithFormat:@"%@/api/comuser/follows", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)postArticle {
+    return [NSString stringWithFormat:@"%@/api/article/add", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end

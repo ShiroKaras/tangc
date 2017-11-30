@@ -45,4 +45,19 @@
     }];
 }
 
+- (void)postArticleWith:(SKTopic *)topic callback:(SKResponseCallback)callback {
+    NSMutableDictionary *param = @{
+                            @"title" : topic.title,
+                            @"content" : topic.content,
+                            @"type" : @(topic.type)
+                            };
+    [param setObject:topic.images forKey:@"images"];
+    [param setObject:topic.tags forKey:@"tags"];
+    [param setObject:topic.follows forKey:@"follows"];
+    [self baseRequestWithParam:param url:[SKCGIManager postArticle] callback:^(BOOL success, SKResponsePackage *response) {
+        
+    }];
+    
+}
+
 @end
