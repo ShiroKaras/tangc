@@ -17,18 +17,19 @@
 // 基本返回包
 @interface SKResponsePackage : NSObject
 @property (nonatomic, copy) NSString *method;   // 方法名
-@property (nonatomic, assign) NSInteger code; // 结果信息
-@property (nonatomic, copy) NSString *message; // 结果信息
+@property (nonatomic, assign) NSInteger errcode; // 结果信息
+@property (nonatomic, copy) NSString *errmsg; // 结果信息
 @property (nonatomic, strong) id data;          // 返回数据
 @end
 
 //登录信息
 @interface SKLoginUser : NSObject
-@property (nonatomic, copy) NSString *open_id;     // 第三方平台ID
-@property (nonatomic, copy) NSString *plant_id;    // 微信 1
 @property (nonatomic, copy) NSString *user_id;
+@property (nonatomic, copy) NSString *open_id;     // 第三方平台ID
+@property (nonatomic, copy) NSString *plant_type;    // weibo | qq | weixin
 @property (nonatomic, copy) NSString *user_name;
-@property (nonatomic, copy) NSString *user_password;
+@property (nonatomic, copy) NSString *user_avatar;
+//@property (nonatomic, copy) NSString *user_password;
 @end
 
 //用户基本信息

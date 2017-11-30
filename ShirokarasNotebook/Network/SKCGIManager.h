@@ -20,6 +20,8 @@
 
 + (NSString *)shareBaseCGIKey;
 
-+ (NSString *)scanningBaseCGIKey;
+#pragma mark -
+
++ (NSString *)login_thirdLogin;
 
 @end

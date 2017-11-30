@@ -11,7 +11,7 @@
 @implementation SKCGIManager
 
 + (NSString *)loginBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/ArtLogin/appIndex", [[ServerConfiguration sharedInstance] appHost]];
+	return [NSString stringWithFormat:@"%@/api", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)profileBaseCGIKey {
@@ -26,8 +26,10 @@
 	return [NSString stringWithFormat:@"%@/Share/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
-+ (NSString *)scanningBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/ArtScanning/appIndex", [[ServerConfiguration sharedInstance] appHost]];
+#pragma mark -
+
++ (NSString *)login_thirdLogin {
+    return [NSString stringWithFormat:@"%@/api/third_login", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 @end

@@ -33,11 +33,11 @@
 		progress:nil
 		success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
 		    SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
-		    if (package.code == 0) {
+		    if (package.errcode == 0) {
 			    callback(YES, package);
 		    } else {
 			    callback(YES, package);
-			    DLog(@"%ld", (long)package.code);
+			    DLog(@"%ld", (long)package.errcode);
 		    }
 
 		}

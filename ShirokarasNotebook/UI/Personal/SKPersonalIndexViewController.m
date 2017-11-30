@@ -7,8 +7,9 @@
 //
 
 #import "SKPersonalIndexViewController.h"
-
 #import "SKPersonalMyPageViewController.h"
+
+#import "SKServiceManager.h"
 
 #define AUTH_BACK_VIEW_TAG 100
 #define AUTH_LABEL 101
@@ -202,6 +203,16 @@
 #pragma mark - Actions
 
 - (void)enterMyPage:(UIGestureRecognizer *)sender {
+    SKLoginUser *user = [SKLoginUser new];
+    user.open_id = @"ios_test";
+    user.user_name = @"ios_testname";
+    user.user_avatar = @"http://avatar.csdn.net/F/A/7/3_sinat_34137390.jpg";
+    user.plant_type = @"weixin";
+    
+    [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:user callback:^(BOOL success, SKResponsePackage *response) {
+        DLog(@"%@", response.data);
+    }];
+    
     SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
