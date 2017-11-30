@@ -34,5 +34,11 @@
 
 //用户基本信息
 @interface SKUserInfo : NSObject
-@property (nonatomic, copy) NSString *user_id;
+@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *uuid;
+@end
+
+@interface SKTopic : NSObject
+@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, copy) NSString *name;
 @end

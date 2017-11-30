@@ -11,13 +11,7 @@
 
 @interface SKLoginService : NSObject
 
-- (void)loginBaseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
-
-//注册
-- (void)registerWith:(SKLoginUser *)user callback:(SKResponseCallback)callback;
-
-//登录
-- (void)loginWith:(SKLoginUser *)user callback:(SKResponseCallback)callback;
+- (void)baseRequestWithParam:(NSDictionary*)dict callback:(SKResponseCallback)callback;
 
 //第三方登录
 - (void)loginWithThirdPlatform:(SKLoginUser *)user callback:(SKResponseCallback)callback;
@@ -30,7 +24,6 @@
 
 //验证手机是否注册
 - (void)checkMobileRegisterStatus:(NSString *)mobile callback:(SKResponseCallback)callback;
-
 
 - (SKLoginUser *)loginUser;
 

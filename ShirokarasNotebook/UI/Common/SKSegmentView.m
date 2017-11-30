@@ -37,7 +37,6 @@
             button.top = 0;
             [self addSubview:button];
             float cXdistance = self.width/2- button.centerX;
-            NSLog(@"cXdistance: %lf", cXdistance);
             [_cXdistanceArray addObject:@(cXdistance)];
         }
         _markLine = [UIView new];

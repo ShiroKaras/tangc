@@ -32,4 +32,12 @@
     return [NSString stringWithFormat:@"%@/api/third_login", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)topicList {
+    return [NSString stringWithFormat:@"%@/api/topic/list", [[ServerConfiguration sharedInstance] appHost]];
+}
+
++ (NSString *)comuserFollows {
+    return [NSString stringWithFormat:@"%@/api/comuser/follows", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end

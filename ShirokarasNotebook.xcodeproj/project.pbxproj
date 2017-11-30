@@ -113,6 +113,7 @@
 		11EE40961FCED10400039E3F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE408C1FCED10300039E3F /* AESCrypt.m */; };
 		11EE40971FCED10400039E3F /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE40911FCED10300039E3F /* NSData+CommonCrypto.m */; };
 		11EE40981FCED10400039E3F /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE40921FCED10300039E3F /* NSData+Base64.m */; };
+		11F6B1E11FCFFEB400B21B07 /* SKTopicService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F6B1E01FCFFEB400B21B07 /* SKTopicService.m */; };
 		76557518BBC2AD9BD0387594 /* Pods_ShirokarasNotebookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D018A3A78ACDAF46502E0 /* Pods_ShirokarasNotebookUITests.framework */; };
 		87693B860445E3E905C0543F /* Pods_ShirokarasNotebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F5C66FB3AEE075403E0441 /* Pods_ShirokarasNotebook.framework */; };
 		900D0F54A8D9488A19D2F9BB /* Pods_ShirokarasNotebookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CC1E6A02BBE48B32738FF5 /* Pods_ShirokarasNotebookTests.framework */; };
@@ -346,6 +347,8 @@
 		11EE40901FCED10300039E3F /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		11EE40911FCED10300039E3F /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		11EE40921FCED10300039E3F /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		11F6B1DF1FCFFEB400B21B07 /* SKTopicService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTopicService.h; sourceTree = "<group>"; };
+		11F6B1E01FCFFEB400B21B07 /* SKTopicService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTopicService.m; sourceTree = "<group>"; };
 		401A52AB8343B21779DEC99D /* Pods-ShirokarasNotebookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		40F5C66FB3AEE075403E0441 /* Pods_ShirokarasNotebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShirokarasNotebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD69E51AC31CC15E29CD0AC /* Pods-ShirokarasNotebookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -651,13 +654,15 @@
 				11A1E5DF1FCEC2AD000D4D5B /* CustomSecurityPolicy.m */,
 				11A1E5CA1FCEC040000D4D5B /* SKServiceManager.h */,
 				11A1E5CF1FCEC040000D4D5B /* SKServiceManager.m */,
-				11A1E5D01FCEC040000D4D5B /* SKLogicHeader.h */,
 				11A1E5C91FCEC040000D4D5B /* SKLoginService.h */,
 				11A1E5CE1FCEC040000D4D5B /* SKLoginService.m */,
-				11A1E5CB1FCEC040000D4D5B /* SKProfileService.h */,
-				11A1E5C61FCEC040000D4D5B /* SKProfileService.m */,
+				11F6B1DF1FCFFEB400B21B07 /* SKTopicService.h */,
+				11F6B1E01FCFFEB400B21B07 /* SKTopicService.m */,
+				11A1E5D01FCEC040000D4D5B /* SKLogicHeader.h */,
 				11A1E5C71FCEC040000D4D5B /* SKCommonService.h */,
 				11A1E5CD1FCEC040000D4D5B /* SKCommonService.m */,
+				11A1E5CB1FCEC040000D4D5B /* SKProfileService.h */,
+				11A1E5C61FCEC040000D4D5B /* SKProfileService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1254,6 +1259,7 @@
 				113040871FB1A5F60020C93D /* SKStorageDefine.m in Sources */,
 				11B82DA31FBC5448006D9A26 /* SKTabbarViewController.m in Sources */,
 				113040261FB06F900020C93D /* NSObject+MJKeyValue.m in Sources */,
+				11F6B1E11FCFFEB400B21B07 /* SKTopicService.m in Sources */,
 				11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */,
 				113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */,
 				11A1E6031FCEC43F000D4D5B /* NSDate+Utility.m in Sources */,

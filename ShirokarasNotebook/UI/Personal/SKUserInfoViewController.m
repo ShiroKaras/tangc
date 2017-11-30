@@ -17,7 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    
 }
 
 - (void)didReceiveMemoryWarning {

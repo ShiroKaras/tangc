@@ -22,6 +22,13 @@
 
 #pragma mark -
 
+//第三方登录
 + (NSString *)login_thirdLogin;
+
+//话题列表
++ (NSString *)topicList;
+
+//关注用户
++ (NSString *)comuserFollows;
 
 @end

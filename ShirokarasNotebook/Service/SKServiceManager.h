@@ -10,6 +10,7 @@
 #import "SKLogicHeader.h"
 
 #import "SKLoginService.h"
+#import "SKTopicService.h"
 #import "SKProfileService.h"
 #import "SKCommonService.h"
 #import <Qiniu/QiniuSDK.h>
@@ -20,6 +21,9 @@
 
 /** loginService，负责登录相关业务 */
 - (SKLoginService *)loginService;
+
+/** loginService，负责文章相关业务 */
+- (SKTopicService *)topicService;
 
 /** profileService, 负责个人主页相关业务 */
 - (SKProfileService *)profileService;

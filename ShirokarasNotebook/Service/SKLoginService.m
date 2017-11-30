@@ -12,25 +12,16 @@
 
 @implementation SKLoginService
 
-- (void)loginBaseRequestWithParam:(NSDictionary *)dict callback:(SKResponseCallback)callback {
+- (void)baseRequestWithParam:(NSDictionary *)dict url:(NSString *)url callback:(SKResponseCallback)callback {
 	AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
 //    [manager setSecurityPolicy:[CustomSecurityPolicy customSecurityPolicy]];
 	manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:dict];
     [mDict setValue:@"ios" forKey:@"device_type"];
-//    NSTimeInterval time = [[NSDate date] timeIntervalSince1970]; // (NSTimeInterval) time = 1427189152.313643
-//    long long int currentTime = (long long int)time;         //NSTimeInterval返回的是double类型
-//    [mDict setValue:[NSString stringWithFormat:@"%lld", currentTime] forKey:@"time"];
-//    [mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
 
-//    NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
-//    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//    DLog(@"Json ParamString: %@", jsonString);
-//
-//    NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
-
-	[manager POST:[SKCGIManager login_thirdLogin]
+    DLog(@"param:%@", mDict);
+	[manager POST:url
 		parameters:mDict
 		progress:nil
 		success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
@@ -51,7 +42,9 @@
                             @"nickname" : user.user_name,
                             @"avatar"   : user.user_avatar
                             };
-    [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+    [self baseRequestWithParam:param url:[SKCGIManager login_thirdLogin] callback:^(BOOL success, SKResponsePackage *response) {
+        SKUserInfo *userInfo = [SKUserInfo mj_objectWithKeyValues:response.data];
+        [[SKStorageManager sharedInstance] setUserInfo:userInfo];
         callback(success, response);
     }];
 }

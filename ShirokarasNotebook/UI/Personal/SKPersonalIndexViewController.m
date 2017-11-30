@@ -210,11 +210,16 @@
     user.plant_type = @"weixin";
     
     [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:user callback:^(BOOL success, SKResponsePackage *response) {
-        DLog(@"%@", response.data);
+        NSLog(@"%@", response.data);
+        [[[SKServiceManager sharedInstance] topicService] getTopicListWithCallback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+            for (SKTopic *topic in topicList) {
+                NSLog(@"%@", topic.name);
+            }
+        }];
     }];
-    
-    SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+
+//    SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end
