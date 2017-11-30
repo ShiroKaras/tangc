@@ -10,41 +10,37 @@
 
 @implementation SKProfileService
 
-- (void)profileBaseRequestWithParam:(NSDictionary *)dict callback:(SKResponseCallback)callback {
-	AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-	[manager setSecurityPolicy:[CustomSecurityPolicy customSecurityPolicy]];
-	manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+- (void)baseRequestWithParam:(NSDictionary *)dict url:(NSString *)url callback:(SKResponseCallback)callback {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //    [manager setSecurityPolicy:[CustomSecurityPolicy customSecurityPolicy]];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+    [mDict setValue:[SKStorageManager sharedInstance].userInfo.uuid forKey:@"uuid"];
+    
+    DLog(@"param:%@", mDict);
+    [manager POST:url
+       parameters:mDict
+         progress:nil
+          success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+              SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+              callback(YES, package);
+          }
+          failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+              DLog(@"%@", error);
+              callback(NO, nil);
+          }];
+}
 
-	NSTimeInterval time = [[NSDate date] timeIntervalSince1970]; // (NSTimeInterval) time = 1427189152.313643
-	long long int currentTime = (long long int)time;	     //NSTimeInterval返回的是double类型
-	NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:dict];
-	[mDict setValue:[NSString stringWithFormat:@"%lld", currentTime] forKey:@"time"];
-	[mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
-	[mDict setValue:@"iOS" forKey:@"client"];
-	[mDict setValue:[[SKStorageManager sharedInstance] getUserID] forKey:@"user_id"];
-
-	NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
-	NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-	NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
-
-	[manager POST:[SKCGIManager profileBaseCGIKey]
-		parameters:param
-		progress:nil
-		success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
-		    SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
-		    if (package.errcode == 0) {
-			    callback(YES, package);
-		    } else {
-			    callback(YES, package);
-			    DLog(@"%ld", (long)package.errcode);
-		    }
-
-		}
-		failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
-		    DLog(@"%@", error);
-		    callback(NO, nil);
-		}];
+- (void)comuserFollowsWithCallback:(SKUserListCallback)callback {
+    [self baseRequestWithParam:nil url:[SKCGIManager comuserFollows] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKUserInfo*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data count]; i++) {
+            SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[i]];
+            [list addObject:item];
+        }
+        callback(success, list);
+    }];
 }
 
 @end

@@ -45,10 +45,4 @@
     }];
 }
 
-- (void)comuserFollowsWithCallback:(SKResponseCallback)callback {
-    [self baseRequestWithParam:nil url:[SKCGIManager comuserFollows] callback:^(BOOL success, SKResponsePackage *response) {
-        
-    }];
-}
-
 @end

@@ -10,9 +10,10 @@
 #import "SKNetworkDefine.h"
 #import "SKLogicHeader.h"
 
-typedef void (^SKProfileInfoCallback) (BOOL success, SKProfileInfo *response);
-typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
+typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* topicList);
 
 @interface SKProfileService : NSObject
+
+- (void)comuserFollowsWithCallback:(SKUserListCallback)callback;
 
 @end
