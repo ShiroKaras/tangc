@@ -659,10 +659,10 @@
 				11F6B1DF1FCFFEB400B21B07 /* SKTopicService.h */,
 				11F6B1E01FCFFEB400B21B07 /* SKTopicService.m */,
 				11A1E5D01FCEC040000D4D5B /* SKLogicHeader.h */,
-				11A1E5C71FCEC040000D4D5B /* SKCommonService.h */,
-				11A1E5CD1FCEC040000D4D5B /* SKCommonService.m */,
 				11A1E5CB1FCEC040000D4D5B /* SKProfileService.h */,
 				11A1E5C61FCEC040000D4D5B /* SKProfileService.m */,
+				11A1E5C71FCEC040000D4D5B /* SKCommonService.h */,
+				11A1E5CD1FCEC040000D4D5B /* SKCommonService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";

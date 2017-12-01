@@ -42,11 +42,11 @@
 
 #pragma mark - LoginUser
 
-- (void)updateLoginUser:(SKLoginUser *)loginUser {
+- (void)setLoginUser:(SKLoginUser *)loginUser {
 	[_storageService putObject:[loginUser mj_keyValues] withId:kStorageLoginUserKey intoTable:kStorageTableKey];
 }
 
-- (SKLoginUser *)getLoginUser {
+- (SKLoginUser *)loginUser {
 	SKLoginUser *user = (SKLoginUser *)[SKLoginUser mj_objectWithKeyValues:[_storageService getObjectById:kStorageLoginUserKey fromTable:kStorageTableKey]];
 	return user;
 }
