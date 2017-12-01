@@ -11,6 +11,7 @@
 @interface SKPublishNewContentViewController ()
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UILabel *textCountLabel;
+@property (nonatomic, strong) UIView *buttonsBackView;
 @end
 
 @implementation SKPublishNewContentViewController
@@ -21,6 +22,7 @@
     
     [self createTitleView];
     
+    //=========================文本部分=========================
     
     self.textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 20+ROUND_WIDTH_FLOAT(44+15), self.view.width-30, ROUND_WIDTH_FLOAT(105))];
     _textView.backgroundColor = [UIColor whiteColor];
@@ -68,7 +70,65 @@
          _textView.font = PINGFANG_FONT_OF_SIZE(14);
      }];
     
+    [self.view endEditing:YES];
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap:)];
+    [self.view addGestureRecognizer:tapGesture];
+    
+    //=========================按钮组=========================
+    
+    _buttonsBackView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-44, self.view.width, 44)];
+    _buttonsBackView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_buttonsBackView];
+    
+    //监听键盘通知
+    [[[NSNotificationCenter defaultCenter]
+      rac_addObserverForName:UIKeyboardWillShowNotification
+      object:nil]
+     subscribeNext:^(NSNotification *notification) {
+         NSDictionary *info = [notification userInfo];
+         NSValue *keyboardFrameValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+         CGRect keyboardFrame = [keyboardFrameValue CGRectValue];
+         _buttonsBackView.frame = CGRectMake(0, self.view.height - keyboardFrame.size.height - 44, self.view.width, 44);
+     }];
+    
+    [[[NSNotificationCenter defaultCenter]
+      rac_addObserverForName:UIKeyboardWillHideNotification
+      object:nil]
+     subscribeNext:^(NSNotification *notification) {
+         _buttonsBackView.frame = CGRectMake(0, self.view.height - 44, self.view.width, 44);
+     }];
+    
+    UIButton *topicButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [topicButton setImage:[UIImage imageNamed:@"btn_forwardpage_addtopic"] forState:UIControlStateNormal];
+    [topicButton setImage:[UIImage imageNamed:@"btn_forwardpage_addtopic_highlight"] forState:UIControlStateHighlighted];
+    topicButton.left = ROUND_WIDTH_FLOAT(8);
+    topicButton.centerY = _buttonsBackView.height/2;
+    [_buttonsBackView addSubview:topicButton];
+    
+    UIButton *repeatButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [repeatButton setImage:[UIImage imageNamed:@"btn_forwardpage_remind"] forState:UIControlStateNormal];
+    [repeatButton setImage:[UIImage imageNamed:@"btn_forwardpage_remind_highlight"] forState:UIControlStateHighlighted];
+    repeatButton.left = topicButton.right+ ROUND_WIDTH_FLOAT(4);
+    repeatButton.centerY = _buttonsBackView.height/2;
+    [_buttonsBackView addSubview:repeatButton];
+    
+    UIButton *hideKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [hideKeyboardButton setImage:[UIImage imageNamed:@"btn_forwardpage_retract"] forState:UIControlStateNormal];
+    [hideKeyboardButton setImage:[UIImage imageNamed:@"btn_forwardpage_retract_highlight"] forState:UIControlStateHighlighted];
+    hideKeyboardButton.right = _buttonsBackView.width-8;
+    hideKeyboardButton.centerY = _buttonsBackView.height/2;
+    [_buttonsBackView addSubview:hideKeyboardButton];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,6 +147,10 @@
     saveButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(30), ROUND_WIDTH_FLOAT(21));
     saveButton.right = titleBackView.width -ROUND_WIDTH_FLOAT(15);
     saveButton.centerY = titleBackView.height/2;
+}
+
+- (void)viewDidTap:(UITapGestureRecognizer *)gestureRecognizer {
+    [self.view endEditing:NO];
 }
 
 @end
