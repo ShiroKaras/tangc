@@ -32,6 +32,18 @@
     return [NSString stringWithFormat:@"%@/api/third_login", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)indexHot {
+    return [NSString stringWithFormat:@"%@/api/index/hot", [[ServerConfiguration sharedInstance] appHost]];
+}
+
++ (NSString *)indexFollow {
+    return [NSString stringWithFormat:@"%@/api/index/follow", [[ServerConfiguration sharedInstance] appHost]];
+}
+
++ (NSString *)indexTopic {
+    return [NSString stringWithFormat:@"%@/api/index/topic", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)topicList {
     return [NSString stringWithFormat:@"%@/api/topic/list", [[ServerConfiguration sharedInstance] appHost]];
 }
@@ -43,5 +55,10 @@
 + (NSString *)postArticle {
     return [NSString stringWithFormat:@"%@/api/article/add", [[ServerConfiguration sharedInstance] appHost]];
 }
+
++ (NSString *)postThumbUp {
+    return [NSString stringWithFormat:@"%@/api/article/thumb_up", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 
 @end

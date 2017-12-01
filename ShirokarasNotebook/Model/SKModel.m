@@ -35,5 +35,8 @@ HTINIT(SKResponsePackage)
 @implementation SKUserInfo
 @end
 
+@implementation SKUserPost
+@end
+
 @implementation SKTopic
 @end

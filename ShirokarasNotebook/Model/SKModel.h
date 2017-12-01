@@ -40,6 +40,12 @@
 @property (nonatomic, copy) NSString *avatar;
 @end
 
+//用户发送的信息
+@interface SKUserPost : NSObject
+
+@end
+
+//话题
 @interface SKTopic : NSObject
 @property (nonatomic, assign) NSInteger id;
 @property (nonatomic, copy) NSString *name;

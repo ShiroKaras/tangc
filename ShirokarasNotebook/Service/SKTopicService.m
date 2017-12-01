@@ -34,6 +34,40 @@
           }];
 }
 
+
+- (void)getIndexFollowListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKUserPostListCallback)callback {
+    [self baseRequestWithParam:nil url:[SKCGIManager indexFollow] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKUserPost*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data count]; i++) {
+            SKUserPost *item = [SKUserPost mj_objectWithKeyValues:response.data[i]];
+            [list addObject:item];
+        }
+        callback(success, list);
+    }];
+}
+
+- (void)getIndexHotListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKUserPostListCallback)callback {
+    [self baseRequestWithParam:nil url:[SKCGIManager indexHot] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKUserPost*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data count]; i++) {
+            SKUserPost *item = [SKUserPost mj_objectWithKeyValues:response.data[i]];
+            [list addObject:item];
+        }
+        callback(success, list);
+    }];
+}
+
+- (void)getIndexTopicListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
+    [self baseRequestWithParam:nil url:[SKCGIManager indexTopic] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKTopic*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data count]; i++) {
+            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[i]];
+            [list addObject:item];
+        }
+        callback(success, list);
+    }];
+}
+
 - (void)getTopicListWithCallback:(SKTopicListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager topicList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
@@ -46,18 +80,26 @@
 }
 
 - (void)postArticleWith:(SKTopic *)topic callback:(SKResponseCallback)callback {
-    NSMutableDictionary *param = @{
-                            @"title" : topic.title,
-                            @"content" : topic.content,
-                            @"type" : @(topic.type)
-                            };
+    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                 @"title" : topic.title,
+                                                                                 @"content" : topic.content,
+                                                                                 @"type" : @(topic.type)
+                                                                                 }];
     [param setObject:topic.images forKey:@"images"];
     [param setObject:topic.tags forKey:@"tags"];
     [param setObject:topic.follows forKey:@"follows"];
     [self baseRequestWithParam:param url:[SKCGIManager postArticle] callback:^(BOOL success, SKResponsePackage *response) {
         
     }];
-    
+}
+
+- (void)postThumbUpWithArticleID:(NSInteger)articleID callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"article_id" : @(articleID)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager postThumbUp] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
 }
 
 @end

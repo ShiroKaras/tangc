@@ -25,6 +25,15 @@
 //第三方登录
 + (NSString *)login_thirdLogin;
 
+//首页热门
++ (NSString *)indexHot;
+
+//首页关注
++ (NSString *)indexFollow;
+
+//首页话题
++ (NSString *)indexTopic;
+
 //话题列表
 + (NSString *)topicList;
 
@@ -33,5 +42,9 @@
 
 //发布文章
 + (NSString *)postArticle;
+
+//点赞
++ (NSString *)postThumbUp;
+
 
 @end
