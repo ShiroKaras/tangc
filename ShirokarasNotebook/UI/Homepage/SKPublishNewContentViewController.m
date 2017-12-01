@@ -41,6 +41,10 @@
         return value;
     }]
      subscribeNext:^(NSString *x) {
+         if (x.length>=140) {
+             _textView.text = [x substringWithRange:NSMakeRange(0, 140)];
+         }
+         
          //更新字数
          _textCountLabel.text = [NSString stringWithFormat:@"%ld/200", x.length];
          [_textCountLabel sizeToFit];
@@ -72,8 +76,20 @@
     
     [self.view endEditing:YES];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap:)];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
     [self.view addGestureRecognizer:tapGesture];
+    
+    //=========================图片组=========================
+    
+    float width = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(30+11))/3;
+    for (int i=0; i<3; i++) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+        imageView.layer.cornerRadius = 3;
+        imageView.backgroundColor = COMMON_GREEN_COLOR;
+        [self.view addSubview:imageView];
+        imageView.left = ROUND_WIDTH_FLOAT(15)+i*ROUND_WIDTH_FLOAT(93+5.5);
+        imageView.top = _textCountLabel.bottom+ROUND_WIDTH_FLOAT(15);
+    }
     
     //=========================按钮组=========================
     
@@ -114,6 +130,7 @@
     [_buttonsBackView addSubview:repeatButton];
     
     UIButton *hideKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [hideKeyboardButton addTarget:self action:@selector(viewDidTap) forControlEvents:UIControlEventTouchUpInside];
     [hideKeyboardButton setImage:[UIImage imageNamed:@"btn_forwardpage_retract"] forState:UIControlStateNormal];
     [hideKeyboardButton setImage:[UIImage imageNamed:@"btn_forwardpage_retract_highlight"] forState:UIControlStateHighlighted];
     hideKeyboardButton.right = _buttonsBackView.width-8;
@@ -149,7 +166,7 @@
     saveButton.centerY = titleBackView.height/2;
 }
 
-- (void)viewDidTap:(UITapGestureRecognizer *)gestureRecognizer {
+- (void)viewDidTap {
     [self.view endEditing:NO];
 }
 
