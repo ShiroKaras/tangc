@@ -1,12 +1,12 @@
 //
-//  SKHomepageViewController.m
+//  SKShopViewController.m
 //  ShirokarasNotebook
 //
 //  Created by SinLemon on 2017/11/7.
 //  Copyright © 2017年 SinLemon. All rights reserved.
 //
 
-#import "SKMarketViewController.h"
+#import "SKShopViewController.h"
 #import "SKTicketTableViewCell.h"
 
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     SKMarketSelectedTypeShop
 };
 
-@interface SKMarketViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SKShopViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 @property (nonatomic, assign) SKMarketSelectedType selectedType;
 @end
 
-@implementation SKMarketViewController
+@implementation SKShopViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

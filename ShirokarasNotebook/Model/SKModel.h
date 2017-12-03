@@ -74,3 +74,7 @@
 @property (nonatomic, strong) SKUserInfo *userinfo;
 @end
 
+@interface SKTicket : NSObject
+
+@end
+

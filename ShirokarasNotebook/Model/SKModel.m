@@ -41,3 +41,5 @@ HTINIT(SKResponsePackage)
 @implementation SKTopic
 @end
 
+@implementation SKTicket
+@end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1113D92A1FD41A3E00452941 /* SKShopService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1113D9291FD41A3E00452941 /* SKShopService.m */; };
 		111C5CB11FCC00BB00581AE0 /* SKUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C5CB01FCC00BA00581AE0 /* SKUserInfoViewController.m */; };
 		111C5CB41FCC12EF00581AE0 /* SKUserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C5CB31FCC12EF00581AE0 /* SKUserListViewController.m */; };
 		111C5CB71FCC1AC200581AE0 /* SKUserListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 111C5CB61FCC1AC200581AE0 /* SKUserListTableViewCell.m */; };
@@ -88,7 +89,7 @@
 		11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA91FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m */; };
 		11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAA1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m */; };
 		11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */; };
-		11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DB31FBEAFA3006D9A26 /* SKMarketViewController.m */; };
+		11B82DB41FBEAFA4006D9A26 /* SKShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DB31FBEAFA3006D9A26 /* SKShopViewController.m */; };
 		11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */; };
 		11B82DBB1FBEC998006D9A26 /* SKNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DBA1FBEC998006D9A26 /* SKNotificationViewController.m */; };
 		11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DBD1FBECA43006D9A26 /* SKNotificationTableViewCell.m */; };
@@ -137,6 +138,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1113D9281FD41A3E00452941 /* SKShopService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKShopService.h; sourceTree = "<group>"; };
+		1113D9291FD41A3E00452941 /* SKShopService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKShopService.m; sourceTree = "<group>"; };
 		111C5CAF1FCC00BA00581AE0 /* SKUserInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKUserInfoViewController.h; sourceTree = "<group>"; };
 		111C5CB01FCC00BA00581AE0 /* SKUserInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKUserInfoViewController.m; sourceTree = "<group>"; };
 		111C5CB21FCC12EF00581AE0 /* SKUserListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKUserListViewController.h; sourceTree = "<group>"; };
@@ -297,8 +300,8 @@
 		11B82DAB1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallHeader.h; sourceTree = "<group>"; };
 		11B82DAE1FBD3A53006D9A26 /* SKTopicCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTopicCell.h; sourceTree = "<group>"; };
 		11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTopicCell.m; sourceTree = "<group>"; };
-		11B82DB21FBEAFA3006D9A26 /* SKMarketViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKMarketViewController.h; sourceTree = "<group>"; };
-		11B82DB31FBEAFA3006D9A26 /* SKMarketViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMarketViewController.m; sourceTree = "<group>"; };
+		11B82DB21FBEAFA3006D9A26 /* SKShopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKShopViewController.h; sourceTree = "<group>"; };
+		11B82DB31FBEAFA3006D9A26 /* SKShopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKShopViewController.m; sourceTree = "<group>"; };
 		11B82DB51FBEB101006D9A26 /* SKTicketTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTicketTableViewCell.h; sourceTree = "<group>"; };
 		11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTicketTableViewCell.m; sourceTree = "<group>"; };
 		11B82DB91FBEC998006D9A26 /* SKNotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNotificationViewController.h; sourceTree = "<group>"; };
@@ -663,6 +666,8 @@
 				11A1E5C61FCEC040000D4D5B /* SKProfileService.m */,
 				11A1E5C71FCEC040000D4D5B /* SKCommonService.h */,
 				11A1E5CD1FCEC040000D4D5B /* SKCommonService.m */,
+				1113D9281FD41A3E00452941 /* SKShopService.h */,
+				1113D9291FD41A3E00452941 /* SKShopService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -710,15 +715,15 @@
 			path = WaterFlow;
 			sourceTree = "<group>";
 		};
-		11B82DB11FBEAF76006D9A26 /* Market */ = {
+		11B82DB11FBEAF76006D9A26 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
-				11B82DB21FBEAFA3006D9A26 /* SKMarketViewController.h */,
-				11B82DB31FBEAFA3006D9A26 /* SKMarketViewController.m */,
+				11B82DB21FBEAFA3006D9A26 /* SKShopViewController.h */,
+				11B82DB31FBEAFA3006D9A26 /* SKShopViewController.m */,
 				11B82DB51FBEB101006D9A26 /* SKTicketTableViewCell.h */,
 				11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */,
 			);
-			path = Market;
+			path = Shop;
 			sourceTree = "<group>";
 		};
 		11B82DB81FBEC973006D9A26 /* Notification */ = {
@@ -745,7 +750,7 @@
 				11B82DB81FBEC973006D9A26 /* Notification */,
 				11D5D66D1FB950FA00ACB521 /* Login */,
 				11CDDE901FB59784004A0812 /* Common */,
-				11B82DB11FBEAF76006D9A26 /* Market */,
+				11B82DB11FBEAF76006D9A26 /* Shop */,
 				1120B0EE1FC2DC21003FF376 /* Personal */,
 			);
 			path = UI;
@@ -1272,7 +1277,7 @@
 				113040251FB06F900020C93D /* NSObject+MJCoding.m in Sources */,
 				113040201FB06F900020C93D /* MJFoundation.m in Sources */,
 				1120B0FC1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m in Sources */,
-				11B82DB41FBEAFA4006D9A26 /* SKMarketViewController.m in Sources */,
+				11B82DB41FBEAFA4006D9A26 /* SKShopViewController.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
 				11A1E5B91FCD66BB000D4D5B /* WPHotspotLabel.m in Sources */,
 				111C5CB11FCC00BB00581AE0 /* SKUserInfoViewController.m in Sources */,
@@ -1285,6 +1290,7 @@
 				11EE40961FCED10400039E3F /* AESCrypt.m in Sources */,
 				1120B1001FC42646003FF376 /* SKMyPageHeader.m in Sources */,
 				11EE40951FCED10400039E3F /* NSString+Base64.m in Sources */,
+				1113D92A1FD41A3E00452941 /* SKShopService.m in Sources */,
 				11A1E5B81FCD66BB000D4D5B /* NSMutableString+TagReplace.m in Sources */,
 				111C5CB41FCC12EF00581AE0 /* SKUserListViewController.m in Sources */,
 				11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */,

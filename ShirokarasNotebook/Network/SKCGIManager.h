@@ -48,4 +48,8 @@
 
 //修改资料
 + (NSString *)updateUserInfo;
+
+//礼券列表
++ (NSString *)ticketsList;
+
 @end

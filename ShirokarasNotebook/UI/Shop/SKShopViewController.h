@@ -1,5 +1,5 @@
 //
-//  SKMarketViewController.h
+//  SKShopViewController.h
 //  ShirokarasNotebook
 //
 //  Created by SinLemon on 2017/11/17.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKMarketViewController : UIViewController
+@interface SKShopViewController : UIViewController
 
 @end

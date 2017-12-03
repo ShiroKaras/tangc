@@ -63,4 +63,8 @@
 + (NSString *)updateUserInfo {
     return [NSString stringWithFormat:@"%@/api/update_profile", [[ServerConfiguration sharedInstance] appHost]];
 }
+
++ (NSString *)ticketsList {
+    return [NSString stringWithFormat:@"%@/api/shop/coupons", [[ServerConfiguration sharedInstance] appHost]];
+}
 @end
