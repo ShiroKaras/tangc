@@ -52,4 +52,13 @@
 //礼券列表
 + (NSString *)ticketsList;
 
+//点击礼券计数
++ (NSString *)ticketsListClick;
+
+//商品列表
++ (NSString *)goodsList;
+
+//点击商品计数
++ (NSString *)goodsListClick;
+
 @end

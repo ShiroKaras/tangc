@@ -67,4 +67,17 @@
 + (NSString *)ticketsList {
     return [NSString stringWithFormat:@"%@/api/shop/coupons", [[ServerConfiguration sharedInstance] appHost]];
 }
+
++ (NSString *)ticketsListClick {
+    return [NSString stringWithFormat:@"%@/api/coupon/click", [[ServerConfiguration sharedInstance] appHost]];
+}
+
++ (NSString *)goodsList {
+    return [NSString stringWithFormat:@"%@/api/shop/goods", [[ServerConfiguration sharedInstance] appHost]];
+}
+
++ (NSString *)goodsListClick {
+    return [NSString stringWithFormat:@"%@/api/good/click", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end

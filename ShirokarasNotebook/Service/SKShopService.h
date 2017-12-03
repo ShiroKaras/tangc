@@ -16,6 +16,9 @@ typedef void (^SKGoodsListCallback)(BOOL success, NSArray<SKGoods*>* goodsList);
 @interface SKShopService : NSObject
 
 - (void)getTicketsListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTicketsListCallback)callback;
-- (void)getGoodsListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTicketsListCallback)callback;
+- (void)getGoodsListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKGoodsListCallback)callback;
+
+- (void)didClickTicketCountWithID:(NSInteger)tid Callback:(SKResponseCallback)callback;
+- (void)didClickGoodsCountWithID:(NSInteger)gid Callback:(SKResponseCallback)callback;
 
 @end

@@ -47,7 +47,7 @@
     }];
 }
 
-- (void)getGoodsListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTicketsListCallback)callback {
+- (void)getGoodsListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKGoodsListCallback)callback {
     NSDictionary *param = @{
                             @"page" : @(page),
                             @"pagesize" : @(pagesize)
@@ -61,5 +61,24 @@
         callback(success, list);
     }];
 }
+
+- (void)didClickTicketCountWithID:(NSInteger)tid Callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"article_id" : @(tid)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager ticketsListClick] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
+- (void)didClickGoodsCountWithID:(NSInteger)gid Callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"article_id" : @(gid)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager goodsListClick] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 
 @end
