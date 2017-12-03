@@ -43,3 +43,6 @@ HTINIT(SKResponsePackage)
 
 @implementation SKTicket
 @end
+
+@implementation SKGoods
+@end

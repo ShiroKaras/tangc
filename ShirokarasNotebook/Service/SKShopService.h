@@ -10,10 +10,12 @@
 #import "SKNetworkDefine.h"
 #import "SKLogicHeader.h"
 
-typedef void (^SKTicketsListCallback)(BOOL success, NSArray<SKTickets*>* topicList);
+typedef void (^SKTicketsListCallback)(BOOL success, NSArray<SKTicket*>* ticketsList);
+typedef void (^SKGoodsListCallback)(BOOL success, NSArray<SKGoods*>* goodsList);
 
 @interface SKShopService : NSObject
 
 - (void)getTicketsListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTicketsListCallback)callback;
+- (void)getGoodsListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTicketsListCallback)callback;
 
 @end

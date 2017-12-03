@@ -75,6 +75,21 @@
 @end
 
 @interface SKTicket : NSObject
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *begin_time;
+@property (nonatomic, copy) NSString *end_time;
+@property (nonatomic, copy) NSString *merchant_name;
+@property (nonatomic, copy) NSString *click_num;
+@property (nonatomic, copy) NSString *show_value;
+@end
 
+@interface SKGoods : NSObject
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *click_num;
+@property (nonatomic, copy) NSString *price;
+@property (nonatomic, copy) NSString *merchant_name;
 @end
 

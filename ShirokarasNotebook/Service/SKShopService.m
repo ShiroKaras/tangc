@@ -47,4 +47,19 @@
     }];
 }
 
+- (void)getGoodsListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTicketsListCallback)callback {
+    NSDictionary *param = @{
+                            @"page" : @(page),
+                            @"pagesize" : @(pagesize)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager ticketsList] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKGoods*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+            SKGoods *item = [SKGoods mj_objectWithKeyValues:response.data[@"lists"][i]];
+            [list addObject:item];
+        }
+        callback(success, list);
+    }];
+}
+
 @end
