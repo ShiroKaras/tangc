@@ -16,9 +16,6 @@
 //第三方登录
 - (void)loginWithThirdPlatform:(SKLoginUser *)user callback:(SKResponseCallback)callback;
 
-//重置密码
-- (void)resetPassword:(SKLoginUser *)user callback:(SKResponseCallback)callback;
-
 //发送验证码
 - (void)sendVerifyCodeWithMobile:(NSString *)mobile callback:(SKResponseCallback)callback;
 

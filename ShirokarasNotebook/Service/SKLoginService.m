@@ -38,9 +38,9 @@
 - (void)loginWithThirdPlatform:(SKLoginUser *)user callback:(SKResponseCallback)callback {
     NSDictionary *param = @{
                             @"open_id"  :  user.open_id,
-                            @"login_type"   : user.plant_type,
-                            @"nickname" : user.user_name,
-                            @"avatar"   : user.user_avatar
+                            @"login_type"   : user.login_type,
+                            @"nickname" : user.nickname,
+                            @"avatar"   : user.avatar
                             };
     [self baseRequestWithParam:param url:[SKCGIManager login_thirdLogin] callback:^(BOOL success, SKResponsePackage *response) {
         SKUserInfo *userInfo = [SKUserInfo mj_objectWithKeyValues:response.data];

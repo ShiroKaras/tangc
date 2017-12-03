@@ -205,17 +205,12 @@
 - (void)enterMyPage:(UIGestureRecognizer *)sender {
     SKLoginUser *user = [SKLoginUser new];
     user.open_id = @"ios_test";
-    user.user_name = @"ios_testname";
-    user.user_avatar = @"http://avatar.csdn.net/F/A/7/3_sinat_34137390.jpg";
-    user.plant_type = @"weixin";
+    user.nickname = @"ios_testname";
+    user.avatar = @"http://avatar.csdn.net/F/A/7/3_sinat_34137390.jpg";
+    user.login_type = @"weixin";
     
     [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:user callback:^(BOOL success, SKResponsePackage *response) {
         NSLog(@"%@", response.data);
-        [[[SKServiceManager sharedInstance] topicService] getTopicListWithCallback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-            for (SKTopic *topic in topicList) {
-                NSLog(@"%@", topic.name);
-            }
-        }];
     }];
 
 //    SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];

@@ -45,7 +45,25 @@
 //    [super setFrame:frame];
 //}
 
-- (void)setType:(SKHomepageTableViewCellType)type {
+- (void)setTopic:(SKTopic *)topic {
+    [self setType:topic.type withTopic:topic];
+    [self.baseInfoView.avatarImageView sd_setImageWithURL:[NSURL URLWithString:topic.userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+    self.baseInfoView.usernameLabel.text = topic.userinfo.nickname;
+    [self.baseInfoView.usernameLabel sizeToFit];
+    self.baseInfoView.dateLabel.text = topic.add_time;
+    [self.baseInfoView.dateLabel sizeToFit];
+    if (topic.type==1||topic.type==2) {
+        self.imageUrlArray = topic.images;
+    }
+}
+
+- (void)setImageUrlArray:(NSArray<NSString *> *)imageUrlArray {
+    for (int i=0; i<imageUrlArray.count; i++) {
+        [((UIImageView*)[self viewWithTag:100+i]) sd_setImageWithURL:[NSURL URLWithString:imageUrlArray[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    }
+}
+
+- (void)setType:(SKHomepageTableViewCellType)type withTopic:(SKTopic*)topic {
     for (UIView *view in self.contentView.subviews) {
         if (![view isKindOfClass:[SKTitleBaseView class]]) {
             [view removeFromSuperview];
@@ -62,11 +80,13 @@
         case SKHomepageTableViewCellTypeOnePic:{
             _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(15, _baseInfoView.bottom, CELL_WIDTH-30, (CELL_WIDTH-30)/4*3)];
             _imageViewOnePic.layer.cornerRadius = 3;
+            _imageViewOnePic.layer.masksToBounds = YES;
             _imageViewOnePic.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
+            [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
             [self.contentView addSubview:_imageViewOnePic];
             
             _introduceLabel = [UILabel new];
-            _introduceLabel.text = @"卓大王 星空系列开放预售啦！\n成品价45，预售价40，数量有限先到先得！";
+            _introduceLabel.text = topic.content;
             _introduceLabel.textColor = COMMON_TEXT_COLOR;
             _introduceLabel.numberOfLines = 2;
             _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
@@ -80,14 +100,12 @@
             break;
         }
         case SKHomepageTableViewCellTypeMorePic:{
-            self.imageUrlArray = @[@"1",@"1",@"1",@"1",@"1"];
-            
             UIScrollView *scrollView = [UIScrollView new];
             scrollView.backgroundColor = [UIColor clearColor];
             scrollView.top = _baseInfoView.bottom;
             scrollView.left = 15;
             scrollView.size = CGSizeMake(CELL_WIDTH-30, ROUND_WIDTH_FLOAT(121));
-            scrollView.contentSize = CGSizeMake(self.imageUrlArray.count*ROUND_WIDTH_FLOAT(129)-ROUND_WIDTH_FLOAT(8), ROUND_WIDTH_FLOAT(121));
+            scrollView.contentSize = CGSizeMake(topic.images.count*ROUND_WIDTH_FLOAT(129)-ROUND_WIDTH_FLOAT(8), ROUND_WIDTH_FLOAT(121));
             scrollView.showsVerticalScrollIndicator = NO;
             scrollView.showsHorizontalScrollIndicator = NO;
             [self.contentView addSubview:scrollView];
@@ -95,15 +113,16 @@
             //添加图片
             for (int i=0; i<5; i++) {
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(129)*i, 0, ROUND_WIDTH_FLOAT(121), ROUND_WIDTH_FLOAT(121))];
-                imageView.image = [UIImage imageNamed:@"MaskCopy"];
+                imageView.tag = 100+i;
                 imageView.layer.cornerRadius = 3;
-                imageView.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
+                imageView.layer.masksToBounds = YES;
+                [imageView sd_setImageWithURL:[NSURL URLWithString:topic.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                 [scrollView addSubview:imageView];
             }
             
             //文字介绍
             _introduceLabel = [UILabel new];
-            _introduceLabel.text = @"卓大王 星空系列开放预售啦！\n成品价45，预售价40，数量有限先到先得！";
+            _introduceLabel.text = topic.content;
             _introduceLabel.textColor = COMMON_TEXT_COLOR;
             _introduceLabel.numberOfLines = 0;
             _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
@@ -121,10 +140,11 @@
             _imageViewArticle.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
             _imageViewArticle.layer.cornerRadius = 5;
             _imageViewArticle.layer.masksToBounds = YES;
+            [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
             [self.contentView addSubview:_imageViewArticle];
             
             _articleLabel = [UILabel new];
-            _articleLabel.text = @"craft romm 进化史";
+            _articleLabel.text = topic.content;
             _articleLabel.textColor = [UIColor whiteColor];
             _articleLabel.font = PINGFANG_FONT_OF_SIZE(14);
             [_articleLabel sizeToFit];

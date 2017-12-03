@@ -16,7 +16,6 @@
 
 // 基本返回包
 @interface SKResponsePackage : NSObject
-@property (nonatomic, copy) NSString *method;   // 方法名
 @property (nonatomic, assign) NSInteger errcode; // 结果信息
 @property (nonatomic, copy) NSString *errmsg; // 结果信息
 @property (nonatomic, strong) id data;          // 返回数据
@@ -26,27 +25,21 @@
 @interface SKLoginUser : NSObject
 @property (nonatomic, copy) NSString *user_id;
 @property (nonatomic, copy) NSString *open_id;      // 第三方平台ID
-@property (nonatomic, copy) NSString *plant_type;   // weibo | qq | weixin
-@property (nonatomic, copy) NSString *user_name;
-@property (nonatomic, copy) NSString *user_avatar;
-//@property (nonatomic, copy) NSString *user_password;
+@property (nonatomic, copy) NSString *login_type;   // weibo | qq | weixin
+@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *avatar;
 @end
 
 //用户基本信息
 @interface SKUserInfo : NSObject
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *uuid;
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *avatar;
 @end
 
 //用户发送的信息
 @interface SKUserPost : NSObject
-
-@end
-
-//话题
-@interface SKTopic : NSObject
 @property (nonatomic, assign) NSInteger id;
 @property (nonatomic, copy) NSString *name;
 
@@ -58,3 +51,21 @@
 @property (nonatomic, strong) NSArray *tags;        //tags
 @property (nonatomic, strong) NSArray *follows;     //关注的用户ID组成
 @end
+
+//内容Item
+@interface SKTopic : NSObject
+@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, copy) NSString *comuser_id;
+@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, copy) NSString *comment_num;
+@property (nonatomic, copy) NSString *transmit_num;
+@property (nonatomic, copy) NSString *thumb_num;
+@property (nonatomic, copy) NSString *add_time;
+@property (nonatomic, assign) NSInteger is_follow;
+@property (nonatomic, assign) NSInteger is_thumb;
+@property (nonatomic, strong) SKUserInfo *userinfo;
+@end
+

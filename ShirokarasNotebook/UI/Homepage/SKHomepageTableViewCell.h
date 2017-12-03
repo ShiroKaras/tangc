@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, SKHomepageTableViewCellType) {
-    SKHomepageTableViewCellTypeOnePic,
+    SKHomepageTableViewCellTypeOnePic = 1,
     SKHomepageTableViewCellTypeMorePic,
     SKHomepageTableViewCellTypeArticle,
 };
 
 @interface SKHomepageTableViewCell : UITableViewCell
 @property (nonatomic, assign) SKHomepageTableViewCellType type;
+@property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, assign) float cellHeight;
 
 @end

@@ -35,22 +35,26 @@
 }
 
 
-- (void)getIndexFollowListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKUserPostListCallback)callback {
+- (void)getIndexFollowListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager indexFollow] callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray<SKUserPost*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data count]; i++) {
-            SKUserPost *item = [SKUserPost mj_objectWithKeyValues:response.data[i]];
+        NSMutableArray<SKTopic*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
             [list addObject:item];
         }
         callback(success, list);
     }];
 }
 
-- (void)getIndexHotListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKUserPostListCallback)callback {
-    [self baseRequestWithParam:nil url:[SKCGIManager indexHot] callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray<SKUserPost*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data count]; i++) {
-            SKUserPost *item = [SKUserPost mj_objectWithKeyValues:response.data[i]];
+- (void)getIndexHotListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
+    NSDictionary *param = @{
+                            @"page" : @(page),
+                            @"pagesize" : @(pagesize)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager indexHot] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKTopic*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
             [list addObject:item];
         }
         callback(success, list);
@@ -58,28 +62,33 @@
 }
 
 - (void)getIndexTopicListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
-    [self baseRequestWithParam:nil url:[SKCGIManager indexTopic] callback:^(BOOL success, SKResponsePackage *response) {
+    NSDictionary *param = @{
+                            @"page" : @(page),
+                            @"pagesize" : @(pagesize)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager indexTopic] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data count]; i++) {
-            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[i]];
+        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
             [list addObject:item];
         }
         callback(success, list);
     }];
 }
 
-- (void)getTopicListWithCallback:(SKTopicListCallback)callback {
+//话题标签列表
+- (void)getTopicNameListWithCallback:(SKTopicListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager topicList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data count]; i++) {
-            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[i]];
+        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
             [list addObject:item];
         }
         callback(success, list);
     }];
 }
 
-- (void)postArticleWith:(SKTopic *)topic callback:(SKResponseCallback)callback {
+- (void)postArticleWith:(SKUserPost *)topic callback:(SKResponseCallback)callback {
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                  @"title" : topic.title,
                                                                                  @"content" : topic.content,

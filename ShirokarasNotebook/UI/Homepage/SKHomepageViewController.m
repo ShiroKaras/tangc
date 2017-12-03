@@ -9,6 +9,7 @@
 #import "SKHomepageViewController.h"
 #import "SKHomepageTableViewCell.h"
 #import "SKHomepageMorePicDetailViewController.h"
+#import "SKServiceManager.h"
 
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 @interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSArray<SKTopic *> *dataArray;
 
 @property (nonatomic, strong) UIView *titleView;
 @property (nonatomic, strong) UIButton *button_follow;
@@ -42,8 +43,12 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    [self createUI];
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [self createUI];
+    [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserPost *> *topicList) {
+        self.dataArray = [NSMutableArray arrayWithArray:topicList];
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)dealloc {
@@ -135,7 +140,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if (cell==nil) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
-    cell.type = SKHomepageTableViewCellTypeOnePic;
+    cell.topic = self.dataArray[indexPath.row];
     return cell;
 }
 
@@ -152,8 +157,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return _dataArray.count;
-    return 5;
+    return self.dataArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -163,7 +167,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    DLog(@"%lf", scrollView.contentOffset.y);
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
@@ -213,12 +216,20 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 _markLine.centerX = _button_follow.centerX;
                 _markLine.bottom = _titleView.height;
             }];
+            [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+                self.dataArray = [NSMutableArray arrayWithArray:topicList];
+                [self.tableView reloadData];
+            }];
         } else if(self.selectedType==SKHomepageSelectedTypeHot){
             [_button_follow setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
             [_button_hot setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
             [UIView animateWithDuration:0.2 animations:^{
                 _markLine.centerX = _button_hot.centerX;
                 _markLine.bottom = _titleView.height;
+            }];
+            [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserPost *> *topicList) {
+                self.dataArray = [NSMutableArray arrayWithArray:topicList];
+                [self.tableView reloadData];
             }];
         } else {
             
