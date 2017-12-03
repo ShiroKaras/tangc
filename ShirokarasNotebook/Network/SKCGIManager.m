@@ -60,5 +60,7 @@
     return [NSString stringWithFormat:@"%@/api/article/thumb_up", [[ServerConfiguration sharedInstance] appHost]];
 }
 
-
++ (NSString *)updateUserInfo {
+    return [NSString stringWithFormat:@"%@/api/update_profile", [[ServerConfiguration sharedInstance] appHost]];
+}
 @end

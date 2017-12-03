@@ -81,7 +81,7 @@
             _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(15, _baseInfoView.bottom, CELL_WIDTH-30, (CELL_WIDTH-30)/4*3)];
             _imageViewOnePic.layer.cornerRadius = 3;
             _imageViewOnePic.layer.masksToBounds = YES;
-            _imageViewOnePic.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
+            _imageViewOnePic.contentMode = UIViewContentModeScaleAspectFit;
             [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
             [self.contentView addSubview:_imageViewOnePic];
             
@@ -111,11 +111,12 @@
             [self.contentView addSubview:scrollView];
             
             //添加图片
-            for (int i=0; i<5; i++) {
+            for (int i=0; i<topic.images.count; i++) {
                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(129)*i, 0, ROUND_WIDTH_FLOAT(121), ROUND_WIDTH_FLOAT(121))];
                 imageView.tag = 100+i;
                 imageView.layer.cornerRadius = 3;
                 imageView.layer.masksToBounds = YES;
+                imageView.contentMode = UIViewContentModeScaleAspectFit;
                 [imageView sd_setImageWithURL:[NSURL URLWithString:topic.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                 [scrollView addSubview:imageView];
             }
@@ -137,7 +138,6 @@
         }
         case SKHomepageTableViewCellTypeArticle:{
             _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _baseInfoView.bottom, ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(75))];
-            _imageViewArticle.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
             _imageViewArticle.layer.cornerRadius = 5;
             _imageViewArticle.layer.masksToBounds = YES;
             [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];

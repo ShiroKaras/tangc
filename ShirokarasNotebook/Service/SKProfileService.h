@@ -15,5 +15,6 @@ typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* topicList
 @interface SKProfileService : NSObject
 
 - (void)comuserFollowsWithCallback:(SKUserListCallback)callback;
+- (void)updateUserInfoWithUserInfo:(SKUserInfo*)userInfo callback:(SKResponseCallback)callback;
 
 @end

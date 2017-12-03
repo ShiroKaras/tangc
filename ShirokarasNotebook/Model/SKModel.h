@@ -36,6 +36,11 @@
 @property (nonatomic, copy) NSString *uuid;
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *sex;
+@property (nonatomic, copy) NSString *birthday;
+@property (nonatomic, copy) NSString *city;
+@property (nonatomic, copy) NSString *qq;
 @end
 
 //用户发送的信息

@@ -60,6 +60,8 @@
         self.avatarImageView.backgroundColor = [UIColor colorWithHex:0xd8d8d8];
         self.avatarImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(55), ROUND_WIDTH_FLOAT(55));
         self.avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(55)/2;
+        self.avatarImageView.layer.masksToBounds = YES;
+        [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
         self.avatarImageView.top = 15;
         self.avatarImageView.left = 15;
         [_authBackView addSubview:self.avatarImageView];

@@ -46,5 +46,6 @@
 //点赞
 + (NSString *)postThumbUp;
 
-
+//修改资料
++ (NSString *)updateUserInfo;
 @end
