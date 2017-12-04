@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKPublishNewContentViewController : UIViewController
+typedef NS_ENUM(NSInteger, SKPublishType) {
+    SKPublishTypeNew = 1,
+    SKPublishTypeRepost,
+};
 
+@interface SKPublishNewContentViewController : UIViewController
+- (instancetype)initWithType:(SKPublishType)type withUserPost:(SKTopic*)userpost;
 @end

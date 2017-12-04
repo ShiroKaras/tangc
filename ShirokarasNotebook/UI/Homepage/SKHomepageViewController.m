@@ -11,6 +11,8 @@
 #import "SKHomepageMorePicDetailViewController.h"
 #import "SKServiceManager.h"
 
+#import "SKPublishNewContentViewController.h"
+
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
 #define TITLEVIEW_HEIGHT ROUND_HEIGHT_FLOAT(44)
@@ -141,6 +143,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
     cell.topic = self.dataArray[indexPath.row];
+    [[cell.repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.dataArray[indexPath.row]];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
     return cell;
 }
 
