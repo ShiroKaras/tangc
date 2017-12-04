@@ -10,20 +10,8 @@
 
 @implementation SKCGIManager
 
-+ (NSString *)loginBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/api", [[ServerConfiguration sharedInstance] appHost]];
-}
-
-+ (NSString *)profileBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/ArtUser/appIndex", [[ServerConfiguration sharedInstance] appHost]];
-}
-
 + (NSString *)commonBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Common/appIndex", [[ServerConfiguration sharedInstance] appHost]];
-}
-
-+ (NSString *)shareBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Share/appIndex", [[ServerConfiguration sharedInstance] appHost]];
+    return [NSString stringWithFormat:@"%@/Common/appIndex", @"http://112.74.133.183:8082"];
 }
 
 #pragma mark -

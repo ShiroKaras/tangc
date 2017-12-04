@@ -9,7 +9,7 @@
 #import "SKTabbarViewController.h"
 #import "SKHomepageViewController.h"
 #import "SKTopicsViewController.h"
-#import "SKMarketViewController.h"
+#import "SKShopViewController.h"
 #import "SKPublishNewContentViewController.h"
 #import "SKNotificationViewController.h"
 #import "SKPersonalIndexViewController.h"

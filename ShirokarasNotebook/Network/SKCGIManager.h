@@ -12,13 +12,7 @@
 
 @interface SKCGIManager : NSObject
 
-+ (NSString *)loginBaseCGIKey;
-
-+ (NSString *)profileBaseCGIKey;
-
 + (NSString *)commonBaseCGIKey;
-
-+ (NSString *)shareBaseCGIKey;
 
 #pragma mark -
 

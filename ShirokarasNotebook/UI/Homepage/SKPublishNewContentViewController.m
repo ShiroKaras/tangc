@@ -7,11 +7,15 @@
 //
 
 #import "SKPublishNewContentViewController.h"
+#import "UIViewController+ImagePicker.h"
 
 @interface SKPublishNewContentViewController ()
+@property (nonatomic, strong) NSMutableArray *postImageArray;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UILabel *textCountLabel;
 @property (nonatomic, strong) UIView *buttonsBackView;
+@property (nonatomic, strong) UIView *imagesArrayBackView;
+@property (nonatomic, strong) UIButton *addImageButton;
 @end
 
 @implementation SKPublishNewContentViewController
@@ -19,7 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    
+    self.postImageArray = [NSMutableArray array];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"postImageArray" object:self.postImageArray];
     [self createTitleView];
     
     //=========================文本部分=========================
@@ -37,6 +42,9 @@
     _textCountLabel.right = _textView.right;
     [self.view addSubview:_textCountLabel];
     
+    _imagesArrayBackView = [[UIView alloc] initWithFrame:CGRectMake(0, _textCountLabel.bottom+ROUND_WIDTH_FLOAT(15), self.view.width, 1000)];
+    [self.view addSubview:_imagesArrayBackView];
+    
     [[_textView.rac_textSignal filter:^BOOL(NSString *value) {
         return value;
     }]
@@ -44,7 +52,7 @@
          if (x.length>=140) {
              _textView.text = [x substringWithRange:NSMakeRange(0, 140)];
          }
-         
+
          //更新字数
          _textCountLabel.text = [NSString stringWithFormat:@"%ld/200", x.length];
          [_textCountLabel sizeToFit];
@@ -53,12 +61,12 @@
          NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
          // @的规则
          NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5]+";
-         
+
          NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
          NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
          //匹配集合
          NSArray *results = [regex matchesInString:x options:0 range:NSMakeRange(0, x.length)];
-         
+
          NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[x dataUsingEncoding:NSUnicodeStringEncoding]
                                                                                        options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
                                                                             documentAttributes:nil error:nil];
@@ -82,14 +90,13 @@
     //=========================图片组=========================
     
     float width = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(30+11))/3;
-    for (int i=0; i<3; i++) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
-        imageView.layer.cornerRadius = 3;
-        imageView.backgroundColor = COMMON_GREEN_COLOR;
-        [self.view addSubview:imageView];
-        imageView.left = ROUND_WIDTH_FLOAT(15)+i*ROUND_WIDTH_FLOAT(93+5.5);
-        imageView.top = _textCountLabel.bottom+ROUND_WIDTH_FLOAT(15);
-    }
+    _addImageButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+    [_addImageButton setBackgroundImage:[UIImage imageNamed:@"btn_releasepage_addphoto"] forState:UIControlStateNormal];
+    [_addImageButton setBackgroundImage:[UIImage imageNamed:@"btn_releasepage_addphoto_highlight"] forState:UIControlStateHighlighted];
+    [_addImageButton addTarget:self action:@selector(presentSystemPhotoLibraryController) forControlEvents:UIControlEventTouchUpInside];
+    [_imagesArrayBackView addSubview:_addImageButton];
+    _addImageButton.left = ROUND_WIDTH_FLOAT(15);
+    _addImageButton.top = 0;
     
     //=========================按钮组=========================
     
@@ -138,14 +145,14 @@
     [_buttonsBackView addSubview:hideKeyboardButton];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [self viewDidDisappear:animated];
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillShowNotification
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
+    [self removeObserver:self forKeyPath:@"postImageArray"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -168,6 +175,71 @@
 
 - (void)viewDidTap {
     [self.view endEditing:NO];
+}
+
+#pragma mark - Image picker
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
+    [imageData writeToFile:imagePath atomically:YES];
+    
+    NSString *postImage = [NSString postImageName];
+    
+    [[[SKServiceManager sharedInstance] qiniuService] putData:imageData key:postImage token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
+        if (info.statusCode == 200) {
+            [self.postImageArray insertObject:[NSString qiniuDownloadURLWithFileName:key] atIndex:0];
+            [self updateImagesArrayView];
+        } else {
+            
+        }
+    } option:nil];
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)updateImagesArrayView {
+    for (UIView *view in _imagesArrayBackView.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    float width = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(30+11))/3;
+    for (int i=0; i<_postImageArray.count; i++) {
+        int j = i%3;
+        int k = floor(i/3);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+        imageView.userInteractionEnabled = YES;
+        [imageView sd_setImageWithURL:[NSURL URLWithString:_postImageArray[i]]];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.layer.masksToBounds = YES;
+        imageView.layer.cornerRadius = 3;
+        [_imagesArrayBackView addSubview:imageView];
+        imageView.left = ROUND_WIDTH_FLOAT(15)+j*ROUND_WIDTH_FLOAT(93+5.5);
+        imageView.top = k*(ROUND_WIDTH_FLOAT(5.5)+ROUND_WIDTH_FLOAT(93+5.5));
+        
+        UIButton *deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(imageView.width-5-ROUND_WIDTH_FLOAT(20), 5, ROUND_WIDTH_FLOAT(20), ROUND_WIDTH_FLOAT(20))];
+        deleteButton.tag = 200+i;
+        [deleteButton addTarget:self action:@selector(deleteImage:) forControlEvents:UIControlEventTouchUpInside];
+        [deleteButton setBackgroundImage:[UIImage imageNamed:@"img_releasepage_delete"] forState:UIControlStateNormal];
+        [imageView addSubview:deleteButton];
+    }
+    
+    self.addImageButton.hidden = _postImageArray.count>=9?YES:NO;
+    
+    long xx = self.postImageArray.count;
+    self.addImageButton.frame = CGRectMake(ROUND_WIDTH_FLOAT(15)+(xx%3)*ROUND_WIDTH_FLOAT(93+5.5), (floor(xx/3))*(ROUND_WIDTH_FLOAT(5.5)+ROUND_WIDTH_FLOAT(93+5.5)), width, width);
+}
+
+- (void)deleteImage:(UIButton *)sender {
+    [_postImageArray removeObjectAtIndex:sender.tag-200];
+    [self updateImagesArrayView];
 }
 
 @end

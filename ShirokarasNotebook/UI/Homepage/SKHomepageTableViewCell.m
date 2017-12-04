@@ -178,37 +178,37 @@
     }
     
     //转发
-    UIButton *repeaterButton = [UIButton new];
-    [repeaterButton setTitle:@"转发" forState:UIControlStateNormal];
-    [repeaterButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
-    [repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
-    repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-    repeaterButton.size = CGSizeMake(CELL_WIDTH/3, 44);
-    repeaterButton.left = 0;
-    repeaterButton.top = underLine.bottom;
-    [self.contentView addSubview:repeaterButton];
+    _repeaterButton = [UIButton new];
+    [_repeaterButton setTitle:@"转发" forState:UIControlStateNormal];
+    [_repeaterButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
+    [_repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
+    _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _repeaterButton.size = CGSizeMake(CELL_WIDTH/3, 44);
+    _repeaterButton.left = 0;
+    _repeaterButton.top = underLine.bottom;
+    [self.contentView addSubview:_repeaterButton];
     //评论
-    UIButton *commentButton = [UIButton new];
-    [commentButton setTitle:@"评论" forState:UIControlStateNormal];
-    [commentButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
-    [commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
-    commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-    commentButton.size = CGSizeMake(CELL_WIDTH/3, 44);
-    commentButton.left = repeaterButton.right;
-    commentButton.top = underLine.bottom;
-    [self.contentView addSubview:commentButton];
+    _commentButton = [UIButton new];
+    [_commentButton setTitle:@"评论" forState:UIControlStateNormal];
+    [_commentButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
+    [_commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
+    _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _commentButton.size = CGSizeMake(CELL_WIDTH/3, 44);
+    _commentButton.left = _repeaterButton.right;
+    _commentButton.top = underLine.bottom;
+    [self.contentView addSubview:_commentButton];
     //点赞
-    UIButton *favButton = [UIButton new];
-    [favButton setTitle:@"点赞" forState:UIControlStateNormal];
-    [favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
-    [favButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
-    favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-    favButton.size = CGSizeMake(CELL_WIDTH/3, 44);
-    favButton.left = commentButton.right;
-    favButton.top = underLine.bottom;
-    [self.contentView addSubview:favButton];
+    _favButton = [UIButton new];
+    [_favButton setTitle:@"点赞" forState:UIControlStateNormal];
+    [_favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
+    [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
+    _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _favButton.size = CGSizeMake(CELL_WIDTH/3, 44);
+    _favButton.left = _commentButton.right;
+    _favButton.top = underLine.bottom;
+    [self.contentView addSubview:_favButton];
     
-    UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, repeaterButton.bottom, SCREEN_WIDTH, 1)];
+    UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, _repeaterButton.bottom, SCREEN_WIDTH, 1)];
     sepLine.backgroundColor = COMMON_BG_COLOR;
     [self.contentView addSubview:sepLine];
     

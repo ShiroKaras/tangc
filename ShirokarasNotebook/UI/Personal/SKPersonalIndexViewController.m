@@ -9,7 +9,7 @@
 #import "SKPersonalIndexViewController.h"
 #import "SKPersonalMyPageViewController.h"
 
-#import "SKServiceManager.h"
+#import "SKPublishNewContentViewController.h"
 
 #define AUTH_BACK_VIEW_TAG 100
 #define AUTH_LABEL 101
@@ -133,6 +133,8 @@
         UIView *cell_about = [self cellWithImageName:@"img_personalpage_about" title:@"关于我们" isShowArrow:YES];
         [_cellsView addSubview:cell_about];
         cell_about.top = cell_clear.bottom;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickAbout)];
+        [cell_about addGestureRecognizer:tap];
         
         //
         UIView *cell = [UIView new];
@@ -217,6 +219,11 @@
 
 //    SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];
 //    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)didClickAbout {
+    SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

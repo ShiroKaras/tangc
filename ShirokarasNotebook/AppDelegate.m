@@ -16,7 +16,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self registerQiniuService];
     return YES;
 }
 
@@ -93,6 +93,12 @@
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
     }
+}
+
+- (void)registerQiniuService {
+    [[[SKServiceManager sharedInstance] commonService]
+     getQiniuPublicTokenWithCompletion:^(BOOL success, NSString *token){
+     }];
 }
 
 @end

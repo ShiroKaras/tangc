@@ -19,4 +19,8 @@ typedef NS_ENUM(NSInteger, SKHomepageTableViewCellType) {
 @property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, assign) float cellHeight;
 
+@property (nonatomic, strong) UIButton *repeaterButton;
+@property (nonatomic, strong) UIButton *commentButton;
+@property (nonatomic, strong) UIButton *favButton;
+
 @end

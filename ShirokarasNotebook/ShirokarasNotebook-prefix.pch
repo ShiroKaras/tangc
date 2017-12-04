@@ -13,7 +13,7 @@
 #import "CommonDefine.h"
 #import "SKLog.h"
 //UI
-#import "UIImageView+WebCache.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <Masonry/Masonry.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 #import "CommonUI.h"
@@ -22,5 +22,7 @@
 
 //Data
 #import "SKModel.h"
+#import "SKServiceManager.h"
+#import "NSString+Utility.h"
 
 #endif /* ShirokarasNotebook_prefix_pch */

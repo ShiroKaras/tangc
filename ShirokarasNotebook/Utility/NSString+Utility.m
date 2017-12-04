@@ -128,6 +128,10 @@
 	return [NSString stringWithFormat:@"avatar_%ld_%u", (time_t)[[NSDate date] timeIntervalSince1970], arc4random()%1024];
 }
 
++ (NSString *)postImageName {
+    return [NSString stringWithFormat:@"postImage_%ld_%u", (time_t)[[NSDate date] timeIntervalSince1970], arc4random()%1024];
+}
+
 - (NSDictionary *)dictionaryWithJsonString {
 	NSError *jsonError;
 	NSData *objectData = [self dataUsingEncoding:NSUTF8StringEncoding];
