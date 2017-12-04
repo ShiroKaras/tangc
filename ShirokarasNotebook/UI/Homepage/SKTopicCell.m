@@ -51,7 +51,7 @@
 - (UIImageView *)mAvatarImageView {
     if (!_mAvatarImageView) {
         _mAvatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(6, _mTitleLabel.bottom+30, 25, 25)];
-        _mAvatarImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _mAvatarImageView.contentMode = UIViewContentModeScaleAspectFill;
         _mAvatarImageView.layer.masksToBounds = YES;
         _mAvatarImageView.layer.cornerRadius = 12.5;
         _mAvatarImageView.backgroundColor = [UIColor blackColor];

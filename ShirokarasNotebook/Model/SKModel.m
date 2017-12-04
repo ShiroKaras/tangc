@@ -41,6 +41,12 @@ HTINIT(SKResponsePackage)
 @implementation SKTopic
 @end
 
+@implementation SKArticle
+@end
+
+@implementation SKComment
+@end
+
 @implementation SKTicket
 @end
 

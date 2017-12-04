@@ -19,7 +19,14 @@ typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList);
 - (void)getIndexHotListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback;
 - (void)getIndexTopicListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback;
 
+//获取标签列表
 - (void)getTopicNameListWithCallback:(SKTopicListCallback)callback;
+//发文章
 - (void)postArticleWith:(SKUserPost *)topic callback:(SKResponseCallback)callback;
+//点赞
 - (void)postThumbUpWithArticleID:(NSInteger)articleID callback:(SKResponseCallback)callback;
+//文章详情
+- (void)getArticleDetailWithArticleID:(NSInteger)articleID callback:(SKResponseCallback)callback;
+//发送评论
+- (void)postCommentWithComment:(SKComment*)comment callback:(SKResponseCallback)callback;
 @end

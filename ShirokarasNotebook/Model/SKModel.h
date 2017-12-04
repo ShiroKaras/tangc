@@ -74,6 +74,15 @@
 @property (nonatomic, strong) SKUserInfo *userinfo;
 @end
 
+//文章详情
+@interface SKArticle : NSObject
+@end
+
+//评论
+@interface SKComment : NSObject
+@end
+
+//优惠券
 @interface SKTicket : NSObject
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *image;
@@ -84,6 +93,7 @@
 @property (nonatomic, copy) NSString *show_value;
 @end
 
+//商品
 @interface SKGoods : NSObject
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *image;
@@ -92,4 +102,6 @@
 @property (nonatomic, copy) NSString *price;
 @property (nonatomic, copy) NSString *merchant_name;
 @end
+
+
 

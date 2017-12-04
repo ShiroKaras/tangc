@@ -81,7 +81,7 @@
             _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(15, _baseInfoView.bottom, CELL_WIDTH-30, (CELL_WIDTH-30)/4*3)];
             _imageViewOnePic.layer.cornerRadius = 3;
             _imageViewOnePic.layer.masksToBounds = YES;
-            _imageViewOnePic.contentMode = UIViewContentModeScaleAspectFit;
+            _imageViewOnePic.contentMode = UIViewContentModeScaleAspectFill;
             [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
             [self.contentView addSubview:_imageViewOnePic];
             
@@ -116,7 +116,7 @@
                 imageView.tag = 100+i;
                 imageView.layer.cornerRadius = 3;
                 imageView.layer.masksToBounds = YES;
-                imageView.contentMode = UIViewContentModeScaleAspectFit;
+                imageView.contentMode = UIViewContentModeScaleAspectFill;
                 [imageView sd_setImageWithURL:[NSURL URLWithString:topic.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                 [scrollView addSubview:imageView];
             }
