@@ -99,6 +99,16 @@
 
 //评论
 @interface SKComment : NSObject
+@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, copy) NSString *comuser_id;
+@property (nonatomic, copy) NSString *to_comuser_id;
+@property (nonatomic, copy) NSString *article_id;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *created_at;
+@property (nonatomic, copy) NSString *updated_at;
+@property (nonatomic, copy) NSString *parent_id;
+@property (nonatomic, strong) SKUserInfo *user;
+@property (nonatomic, copy) NSString *at_user;
 @end
 
 //优惠券

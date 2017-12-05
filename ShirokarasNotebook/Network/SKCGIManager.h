@@ -43,6 +43,12 @@
 //取关一个用户
 + (NSString *)unFollow;
 
+//评论列表
++ (NSString *)getCommentList;
+
+//发布评论
++ (NSString *)postComment;
+
 //发布文章
 + (NSString *)postArticle;
 

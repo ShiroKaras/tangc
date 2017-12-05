@@ -10,4 +10,6 @@
 
 @interface SKHomepageMorePicDetailViewController : UIViewController
 
+- (instancetype)initWithTopic:(SKTopic*)topic;
+
 @end

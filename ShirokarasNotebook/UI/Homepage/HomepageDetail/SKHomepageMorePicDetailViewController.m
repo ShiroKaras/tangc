@@ -12,35 +12,88 @@
 
 @interface SKHomepageMorePicDetailViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSArray<SKComment*> *dataArray;
+@property (nonatomic, strong) SKTopic *topic;
 @end
 
 @implementation SKHomepageMorePicDetailViewController
 
+- (instancetype)initWithTopic:(SKTopic*)topic
+{
+    self = [super init];
+    if (self) {
+        _topic = topic;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[SKHomepageDetaillTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
     [self.view addSubview:_tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(220))];
     headerView.backgroundColor = [UIColor clearColor];
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, headerView.width-10, headerView.height-20)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerView.width-10, headerView.height-ROUND_WIDTH_FLOAT(20))];
     backView.backgroundColor = [UIColor whiteColor];
-    backView.layer.cornerRadius = 5;
     [headerView addSubview:backView];
     
-    SKTitleBaseView *baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, 60)];
+    SKTitleBaseView *baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, ROUND_WIDTH_FLOAT(60))];
+    baseInfoView.userInfo = _topic.from?_topic.from.userinfo:_topic.userinfo;
     [backView addSubview:baseInfoView];
     
+    CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(40));
     
+    NSString *contentText = _topic.from?_topic.from.content:_topic.content;
+    UILabel *contentLabel = [UILabel new];
+    contentLabel.text = contentText;
+    contentLabel.textColor = COMMON_TEXT_COLOR;
+    contentLabel.numberOfLines = 2;
+    contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+    CGSize labelSize = [contentText boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+    contentLabel.size = labelSize;
+    contentLabel.top = baseInfoView.bottom+ROUND_WIDTH_FLOAT(15);
+    contentLabel.left = ROUND_WIDTH_FLOAT(15);
+    [backView addSubview:contentLabel];
+    
+    NSArray *imagesArray = _topic.from?_topic.from.images:_topic.images;
+    float width = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(30+11))/3;
+    for (int i=0; i<imagesArray.count; i++) {
+        int j = i%3;
+        int k = floor(i/3);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+        imageView.userInteractionEnabled = YES;
+        [imageView sd_setImageWithURL:[NSURL URLWithString:imagesArray[i]]];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.layer.masksToBounds = YES;
+        imageView.layer.cornerRadius = 3;
+        [backView addSubview:imageView];
+        imageView.left = ROUND_WIDTH_FLOAT(15)+j*ROUND_WIDTH_FLOAT(93+5.5);
+        imageView.top = k*(ROUND_WIDTH_FLOAT(5.5)+ROUND_WIDTH_FLOAT(93+5.5)) +contentLabel.bottom+ROUND_WIDTH_FLOAT(15);
+        
+        headerView.height = imageView.bottom +ROUND_WIDTH_FLOAT(56);
+        backView.height = headerView.height-ROUND_WIDTH_FLOAT(20);
+    }
     
     self.tableView.tableHeaderView = headerView;
+    
+    
+//    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.from?_topic.from.id:_topic.id callback:^(BOOL success, SKTopic *topic) {
+//        if (success) {
+//            self.topic = topic;
+//        }
+//    }];
+    [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList) {
+        self.dataArray = commentList;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,10 +103,11 @@
 #pragma mark - UITableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
+    SKHomepageDetaillTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
     if (cell==nil) {
         cell = [[SKHomepageDetaillTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
     }
+    cell.comment = self.dataArray[indexPath.row];
     return cell;
 }
 
@@ -113,8 +167,7 @@
 //}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //    return _dataArray.count;
-    return 15;
+    return _dataArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

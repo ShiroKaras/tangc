@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "SKLogicHeader.h"
 
-//typedef void (^SKUserPostListCallback)(BOOL success, NSArray<SKTopic*>* topicList);
 typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList);
+typedef void (^SKCommentListCallback)(BOOL success, NSArray<SKComment*>* commentList);
+
+typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
 
 @interface SKTopicService : NSObject
 
@@ -21,12 +23,14 @@ typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList);
 
 //获取标签列表
 - (void)getTopicNameListWithCallback:(SKTopicListCallback)callback;
-//发文章
-- (void)postArticleWith:(SKUserPost *)topic callback:(SKResponseCallback)callback;
 //点赞
 - (void)postThumbUpWithArticleID:(NSInteger)articleID callback:(SKResponseCallback)callback;
-//文章详情
-- (void)getArticleDetailWithArticleID:(NSInteger)articleID callback:(SKResponseCallback)callback;
+//获取文章详情
+- (void)getArticleDetailWithArticleID:(NSInteger)articleID callback:(SKTopicCallback)callback;
+//发文章
+- (void)postArticleWith:(SKUserPost *)topic callback:(SKResponseCallback)callback;
+//获取评论列表
+- (void)getCommentListWithArticleID:(NSInteger)articleID page:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKCommentListCallback)callback;
 //发送评论
 - (void)postCommentWithComment:(SKComment*)comment callback:(SKResponseCallback)callback;
 @end

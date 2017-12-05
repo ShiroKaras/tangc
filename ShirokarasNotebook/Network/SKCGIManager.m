@@ -52,6 +52,14 @@
     return [NSString stringWithFormat:@"%@/api/comuser/un_follows", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)getCommentList {
+    return [NSString stringWithFormat:@"%@/api/comment/article_comments", [[ServerConfiguration sharedInstance] appHost]];
+}
+
++ (NSString *)postComment {
+    return [NSString stringWithFormat:@"%@/api/comment/post_comment", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)postArticle {
     return [NSString stringWithFormat:@"%@/api/article/add", [[ServerConfiguration sharedInstance] appHost]];
 }

@@ -88,6 +88,20 @@
     }];
 }
 
+
+- (void)postThumbUpWithArticleID:(NSInteger)articleID callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"article_id" : @(articleID)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager postThumbUp] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
+- (void)getArticleDetailWithArticleID:(NSInteger)articleID callback:(SKTopicCallback)callback {
+    
+}
+
 - (void)postArticleWith:(SKUserPost *)topic callback:(SKResponseCallback)callback {
     NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                  @"title" : topic.title,
@@ -98,17 +112,28 @@
     [param setObject:topic.tags forKey:@"tags"];
     [param setObject:topic.follows forKey:@"follows"];
     [self baseRequestWithParam:param url:[SKCGIManager postArticle] callback:^(BOOL success, SKResponsePackage *response) {
-        
+        callback(success, response);
     }];
 }
 
-- (void)postThumbUpWithArticleID:(NSInteger)articleID callback:(SKResponseCallback)callback {
+- (void)getCommentListWithArticleID:(NSInteger)articleID page:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKCommentListCallback)callback {
     NSDictionary *param = @{
-                            @"article_id" : @(articleID)
+                            @"article_id" : @(articleID),
+                            @"page" : @(page),
+                            @"pagesize" : @(pagesize)
                             };
-    [self baseRequestWithParam:param url:[SKCGIManager postThumbUp] callback:^(BOOL success, SKResponsePackage *response) {
-        callback(success, response);
+    [self baseRequestWithParam:param url:[SKCGIManager getCommentList] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKComment*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+            SKComment *item = [SKComment mj_objectWithKeyValues:response.data[@"lists"][i]];
+            [list addObject:item];
+        }
+        callback(success, list);
     }];
+}
+
+- (void)postCommentWithComment:(SKComment *)comment callback:(SKResponseCallback)callback {
+    
 }
 
 @end
