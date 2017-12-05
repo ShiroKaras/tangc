@@ -27,6 +27,7 @@
     self = [super init];
     if (self) {
         _type = type;
+        _userpost = userpost;
     }
     return self;
 }
@@ -110,13 +111,13 @@
         _addImageButton.left = ROUND_WIDTH_FLOAT(15);
         _addImageButton.top = 0;
     } else if (_type == SKPublishTypeRepost) {
-        UIView *repostBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(74))];
+        UIView *repostBackView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _textCountLabel.bottom+ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(74))];
         repostBackView.layer.cornerRadius = 3;
         repostBackView.backgroundColor = [UIColor colorWithHex:0xF0FFFA];
         [self.view addSubview:repostBackView];
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(54), ROUND_WIDTH_FLOAT(54))];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:self.userpost.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:self.userpost.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
         imageView.layer.cornerRadius = 3;
         imageView.layer.masksToBounds = YES;
         imageView.contentMode = UIViewContentModeScaleToFill;
@@ -125,7 +126,7 @@
         imageView.centerY = repostBackView.height/2;
         
         UILabel *usernameLabel = [UILabel new];
-        usernameLabel.text = self.userpost.userinfo.nickname;
+        usernameLabel.text = self.userpost.from.userinfo.nickname;
         usernameLabel.textColor = COMMON_TEXT_COLOR;
         usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
         [usernameLabel sizeToFit];
@@ -134,7 +135,7 @@
         [repostBackView addSubview:usernameLabel];
         
         UILabel *contentLabel = [UILabel new];
-        contentLabel.text = self.userpost.content;
+        contentLabel.text = self.userpost.from.content;
         contentLabel.textColor = COMMON_TEXT_COLOR;
         contentLabel.font = PINGFANG_FONT_OF_SIZE(12);
         contentLabel.numberOfLines = 2;

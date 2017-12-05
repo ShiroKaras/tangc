@@ -32,6 +32,7 @@
           }];
 }
 
+//我的关注
 - (void)comuserFollowsWithCallback:(SKUserListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager comuserFollows] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKUserInfo*>*list = [NSMutableArray array];
@@ -40,6 +41,35 @@
             [list addObject:item];
         }
         callback(success, list);
+    }];
+}
+
+- (void)comuserFansWithCallback:(SKUserListCallback)callback {
+    [self baseRequestWithParam:nil url:[SKCGIManager comuserFans] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKUserInfo*>*list = [NSMutableArray array];
+        for (int i = 0; i < [response.data count]; i++) {
+            SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[i]];
+            [list addObject:item];
+        }
+        callback(success, list);
+    }];
+}
+
+- (void)doFollowsUserID:(NSString *)uid callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"toId" : uid
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager doFollow] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
+- (void)unFollowsUserID:(NSString *)uid callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"toId" : uid
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager unFollow] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
     }];
 }
 

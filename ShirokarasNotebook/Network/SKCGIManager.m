@@ -40,6 +40,18 @@
     return [NSString stringWithFormat:@"%@/api/comuser/follows", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)comuserFans {
+    return [NSString stringWithFormat:@"%@/api/comuser/rev_follows", [[ServerConfiguration sharedInstance] appHost]];
+}
+
++ (NSString *)doFollow {
+    return [NSString stringWithFormat:@"%@/api/comuser/do_follows", [[ServerConfiguration sharedInstance] appHost]];
+}
+
++ (NSString *)unFollow {
+    return [NSString stringWithFormat:@"%@/api/comuser/un_follows", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)postArticle {
     return [NSString stringWithFormat:@"%@/api/article/add", [[ServerConfiguration sharedInstance] appHost]];
 }

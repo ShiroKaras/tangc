@@ -13,4 +13,6 @@
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UIButton *followButton;
+@property (nonatomic, strong) SKUserInfo *userInfo;
+
 @end

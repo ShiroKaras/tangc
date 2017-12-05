@@ -57,6 +57,23 @@
 @property (nonatomic, strong) NSArray *follows;     //关注的用户ID组成
 @end
 
+//转发的原文（from）
+@interface SKTopicFrom : NSObject
+@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, copy) NSString *comuser_id;
+@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, copy) NSString *comment_num;
+@property (nonatomic, copy) NSString *transmit_num;
+@property (nonatomic, copy) NSString *thumb_num;
+@property (nonatomic, copy) NSString *add_time;
+@property (nonatomic, copy) NSString *source_id;
+@property (nonatomic, strong) NSArray<SKUserInfo*>* at_users;
+@property (nonatomic, strong) SKUserInfo *userinfo;
+@end
+
 //内容Item
 @interface SKTopic : NSObject
 @property (nonatomic, assign) NSInteger id;
@@ -71,7 +88,9 @@
 @property (nonatomic, copy) NSString *add_time;
 @property (nonatomic, assign) NSInteger is_follow;
 @property (nonatomic, assign) NSInteger is_thumb;
+@property (nonatomic, strong) NSArray<SKUserInfo*>* at_users;
 @property (nonatomic, strong) SKUserInfo *userinfo;
+@property (nonatomic, strong) SKTopicFrom *from;
 @end
 
 //文章详情

@@ -8,6 +8,10 @@
 
 #import "SKTitleBaseView.h"
 
+@interface SKTitleBaseView ()
+@property (nonatomic, assign) BOOL isFollow;
+@end
+
 @implementation SKTitleBaseView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -53,8 +57,20 @@
         _followButton.right = self.width-ROUND_WIDTH_FLOAT(20);
         _followButton.centerY = _avatarImageView.centerY;
         [self addSubview:_followButton];
+        
+        [[self.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            
+        }];
     }
     return self;
 }
+
+- (void)setUserInfo:(SKUserInfo *)userInfo {
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+    self.usernameLabel.text = userInfo.nickname;
+    [self.usernameLabel sizeToFit];
+}
+
+
 
 @end

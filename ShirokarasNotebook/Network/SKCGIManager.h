@@ -31,8 +31,17 @@
 //话题列表
 + (NSString *)topicList;
 
-//关注用户
+//关注列表
 + (NSString *)comuserFollows;
+
+//粉丝列表
++ (NSString *)comuserFans;
+
+//关注一个用户
++ (NSString *)doFollow;
+
+//取关一个用户
++ (NSString *)unFollow;
 
 //发布文章
 + (NSString *)postArticle;

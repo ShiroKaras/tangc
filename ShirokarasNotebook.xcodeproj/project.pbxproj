@@ -1514,7 +1514,7 @@
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shirokaras.ShirokarasNotebook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.tangcao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1544,7 +1544,7 @@
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/ThirdPart/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.shirokaras.ShirokarasNotebook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.tangcao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
