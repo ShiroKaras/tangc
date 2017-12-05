@@ -59,7 +59,7 @@
     contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     CGSize labelSize = [contentText boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
     contentLabel.size = labelSize;
-    contentLabel.top = baseInfoView.bottom+ROUND_WIDTH_FLOAT(15);
+    contentLabel.top = baseInfoView.bottom;
     contentLabel.left = ROUND_WIDTH_FLOAT(15);
     [backView addSubview:contentLabel];
     
@@ -117,54 +117,35 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(37))];
     headerView.backgroundColor = [UIColor clearColor];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, 0, SCREEN_WIDTH-10, 30)];
-    view.backgroundColor = [UIColor whiteColor];
-    [headerView addSubview:view];
-    //指定圆角
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5,5)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame = view.bounds;
-    maskLayer.path = maskPath.CGPath;
-    view.layer.mask = maskLayer;
-
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"评论 (6)";
-    titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
-    [titleLabel sizeToFit];
-    titleLabel.left = 10;
-    titleLabel.centerY = 15;
-    [view addSubview:titleLabel];
-    return headerView;
-}
-
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
-//    footerView.backgroundColor = [UIColor clearColor];
-//
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, 0, SCREEN_WIDTH-10, 10)];
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, 0, SCREEN_WIDTH-10, 30)];
 //    view.backgroundColor = [UIColor whiteColor];
-//    [footerView addSubview:view];
+//    [headerView addSubview:view];
 //    //指定圆角
-//    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(5,5)];
+//    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5,5)];
 //    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
 //    maskLayer.frame = view.bounds;
 //    maskLayer.path = maskPath.CGPath;
 //    view.layer.mask = maskLayer;
-//
-//    return footerView;
-//}
+
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = [NSString stringWithFormat:@"评论（%ld）", self.dataArray.count];
+    titleLabel.textColor = COMMON_TEXT_COLOR;
+    titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+    [titleLabel sizeToFit];
+    titleLabel.left = 10;
+    titleLabel.centerY = 15;
+    [headerView addSubview:titleLabel];
+    return headerView;
+}
+
 #pragma mark - UITableView DataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 30;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-//    return 10;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _dataArray.count;
