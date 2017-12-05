@@ -24,6 +24,8 @@
 //Article
 @property (nonatomic, strong) UIImageView *imageViewArticle;
 @property (nonatomic, strong) UILabel *articleLabel;
+//是否关注
+@property (nonatomic, assign) BOOL isFollow;
 @end
 
 @implementation SKHomepageTableViewCell
@@ -40,6 +42,24 @@
 }
 
 - (void)setTopic:(SKTopic *)topic {
+    self.isFollow = topic.is_follow;
+    [[self.baseInfoView.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        if (topic.is_follow) {
+            [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)topic.userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"取消关注");
+                    self.isFollow = !self.isFollow;
+                }
+            }];            
+        } else {
+            [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)topic.userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"成功关注");
+                    self.isFollow = !self.isFollow;
+                }
+            }];
+        }
+    }];
     [self setType:topic.type withTopic:topic];
     self.baseInfoView.userInfo = topic.userinfo;
     self.baseInfoView.dateLabel.text = topic.add_time;

@@ -9,7 +9,7 @@
 #import "SKTitleBaseView.h"
 
 @interface SKTitleBaseView ()
-@property (nonatomic, assign) BOOL isFollow;
+
 @end
 
 @implementation SKTitleBaseView
@@ -57,10 +57,6 @@
         _followButton.right = self.width-ROUND_WIDTH_FLOAT(20);
         _followButton.centerY = _avatarImageView.centerY;
         [self addSubview:_followButton];
-        
-        [[self.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-            
-        }];
     }
     return self;
 }

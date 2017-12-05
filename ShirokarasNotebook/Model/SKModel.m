@@ -49,6 +49,23 @@ HTINIT(SKResponsePackage)
     }
     return self;
 }
+/* 转化过程中对字典的值进行过滤和进一步转化 */
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property
+{
+    if ([property.name isEqualToString:@"images"]) {
+        if ([oldValue isKindOfClass:[NSArray class]]) {
+            NSMutableArray *array = [NSMutableArray arrayWithArray:oldValue];
+            for (int i=0; i<[array count]; i++) {
+                if (![array[i] isKindOfClass:[NSString class]]) {
+                    [array replaceObjectAtIndex:i withObject:@""];
+                }
+            }
+            return array;
+        } else
+            return @[@""];
+    }
+    return oldValue;
+}
 @end
 
 @implementation SKTopic

@@ -11,7 +11,7 @@
 
 @interface SKPublishNewContentViewController ()
 @property (nonatomic, assign) SKPublishType type;
-@property (nonatomic, strong) SKTopic *userpost;
+@property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, strong) NSMutableArray *postImageArray;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UILabel *textCountLabel;
@@ -22,12 +22,12 @@
 
 @implementation SKPublishNewContentViewController
 
-- (instancetype)initWithType:(SKPublishType)type withUserPost:(SKTopic*)userpost
+- (instancetype)initWithType:(SKPublishType)type withUserPost:(SKTopic*)topic
 {
     self = [super init];
     if (self) {
         _type = type;
-        _userpost = userpost;
+        _topic = topic;
     }
     return self;
 }
@@ -117,7 +117,7 @@
         [self.view addSubview:repostBackView];
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(54), ROUND_WIDTH_FLOAT(54))];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:self.userpost.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:self.topic.from?self.topic.from.images[0]:self.topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
         imageView.layer.cornerRadius = 3;
         imageView.layer.masksToBounds = YES;
         imageView.contentMode = UIViewContentModeScaleToFill;
@@ -126,7 +126,7 @@
         imageView.centerY = repostBackView.height/2;
         
         UILabel *usernameLabel = [UILabel new];
-        usernameLabel.text = self.userpost.from.userinfo.nickname;
+        usernameLabel.text = self.topic.from?self.topic.from.userinfo.nickname:self.topic.userinfo.nickname;
         usernameLabel.textColor = COMMON_TEXT_COLOR;
         usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
         [usernameLabel sizeToFit];
@@ -135,7 +135,7 @@
         [repostBackView addSubview:usernameLabel];
         
         UILabel *contentLabel = [UILabel new];
-        contentLabel.text = self.userpost.from.content;
+        contentLabel.text = self.topic.from?self.topic.from.content:self.topic.content;
         contentLabel.textColor = COMMON_TEXT_COLOR;
         contentLabel.font = PINGFANG_FONT_OF_SIZE(12);
         contentLabel.numberOfLines = 2;

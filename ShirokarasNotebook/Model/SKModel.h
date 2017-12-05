@@ -32,7 +32,7 @@
 
 //用户基本信息
 @interface SKUserInfo : NSObject
-@property (nonatomic, copy) NSString *id;
+@property (nonatomic, assign) NSInteger id;
 @property (nonatomic, copy) NSString *uuid;
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *avatar;
