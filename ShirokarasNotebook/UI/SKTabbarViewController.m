@@ -36,10 +36,10 @@
     c2.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_mall"];
     c2.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_mall_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    SKPublishNewContentViewController *c3 = [[SKPublishNewContentViewController alloc] init];
-    c3.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
-    c3.tabBarItem.image = [UIImage imageNamed:@""];
-    c3.tabBarItem.selectedImage = [[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIViewController *c3 = [UIViewController new];
+//    c3.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
+//    c3.tabBarItem.image = [UIImage imageNamed:@""];
+//    c3.tabBarItem.selectedImage = [[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     SKNotificationViewController *c4 = [[SKNotificationViewController alloc] init];
     c4.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
@@ -52,6 +52,18 @@
     c5.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_me_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     self.viewControllers = @[c1, c2, c3, c4, c5];
+    
+    UIButton *addButton = [UIButton new];
+    [addButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_release"] forState:UIControlStateNormal];
+    addButton.size = CGSizeMake(49, 49);
+    addButton.centerX = self.view.width/2;
+    addButton.bottom = self.view.bottom-4;
+    [self.view addSubview:addButton];
+    
+    [[addButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeNew withUserPost:nil];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

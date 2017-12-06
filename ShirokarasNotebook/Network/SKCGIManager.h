@@ -52,6 +52,9 @@
 //发布文章
 + (NSString *)postArticle;
 
+//获取文章详情
++ (NSString *)getArticleDetail;
+
 //点赞
 + (NSString *)postThumbUp;
 

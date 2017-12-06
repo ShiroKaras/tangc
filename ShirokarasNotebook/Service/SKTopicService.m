@@ -99,18 +99,25 @@
 }
 
 - (void)getArticleDetailWithArticleID:(NSInteger)articleID callback:(SKTopicCallback)callback {
-    
+    NSDictionary *param = @{
+                            @"article_id" : @(articleID)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager getArticleDetail] callback:^(BOOL success, SKResponsePackage *response) {
+        if (success) {
+            SKTopic *topic = [SKTopic mj_objectWithKeyValues:response.data];
+            callback(success, topic);
+        } else {
+            callback(success, nil);
+        }
+    }];
 }
 
 - (void)postArticleWith:(SKUserPost *)topic callback:(SKResponseCallback)callback {
-    NSMutableDictionary *param = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                 @"title" : topic.title,
-                                                                                 @"content" : topic.content,
-                                                                                 @"type" : @(topic.type)
-                                                                                 }];
-    [param setObject:topic.images forKey:@"images"];
-    [param setObject:topic.tags forKey:@"tags"];
-    [param setObject:topic.follows forKey:@"follows"];
+    NSMutableDictionary *param = [topic mj_keyValues];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:topic.images options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    [param setObject:jsonString forKey:@"images"];
+    
     [self baseRequestWithParam:param url:[SKCGIManager postArticle] callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
     }];

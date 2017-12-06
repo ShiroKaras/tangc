@@ -36,6 +36,10 @@
     return [NSString stringWithFormat:@"%@/api/topic/list", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)getArticleDetail {
+    return [NSString stringWithFormat:@"%@/api/article/article_details", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)comuserFollows {
     return [NSString stringWithFormat:@"%@/api/comuser/follows", [[ServerConfiguration sharedInstance] appHost]];
 }

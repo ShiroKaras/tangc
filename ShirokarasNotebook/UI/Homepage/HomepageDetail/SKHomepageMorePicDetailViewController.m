@@ -85,11 +85,9 @@
     self.tableView.tableHeaderView = headerView;
     
     
-//    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.from?_topic.from.id:_topic.id callback:^(BOOL success, SKTopic *topic) {
-//        if (success) {
-//            self.topic = topic;
-//        }
-//    }];
+    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.from?_topic.from.id:_topic.id callback:^(BOOL success, SKTopic *topic) {
+        self.topic = topic;
+    }];
     [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList) {
         self.dataArray = commentList;
         [self.tableView reloadData];
