@@ -60,6 +60,10 @@
 		113040871FB1A5F60020C93D /* SKStorageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040841FB1A5F50020C93D /* SKStorageDefine.m */; };
 		113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 113040861FB1A5F50020C93D /* SKStorageManager.m */; };
 		1130408C1FB1A6200020C93D /* SKModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1130408B1FB1A6200020C93D /* SKModel.m */; };
+		11923ECC1FD8073A00136715 /* PSCarouselCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11923EC61FD8073900136715 /* PSCarouselCollectionCell.m */; };
+		11923ECD1FD8073A00136715 /* PSCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11923EC71FD8073900136715 /* PSCarouselView.m */; };
+		11923ECE1FD8073A00136715 /* PSCarouselCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11923EC81FD8073900136715 /* PSCarouselCollectionCell.xib */; };
+		11923ECF1FD8073A00136715 /* PSWeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 11923ECA1FD8073900136715 /* PSWeaker.m */; };
 		11A1E5A51FCD43FA000D4D5B /* SKPublishNewContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */; };
 		11A1E5B71FCD66BB000D4D5B /* NSString+WPAttributedMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5A81FCD66B9000D4D5B /* NSString+WPAttributedMarkup.m */; };
 		11A1E5B81FCD66BB000D4D5B /* NSMutableString+TagReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A1E5AA1FCD66B9000D4D5B /* NSMutableString+TagReplace.m */; };
@@ -242,6 +246,13 @@
 		1130408A1FB1A6200020C93D /* SKModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKModel.h; sourceTree = "<group>"; };
 		1130408B1FB1A6200020C93D /* SKModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKModel.m; sourceTree = "<group>"; };
 		118AA93E31B83F334F7C5654 /* Pods-ShirokarasNotebook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook.debug.xcconfig"; sourceTree = "<group>"; };
+		11923EC51FD8073900136715 /* PSWeaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSWeaker.h; sourceTree = "<group>"; };
+		11923EC61FD8073900136715 /* PSCarouselCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCarouselCollectionCell.m; sourceTree = "<group>"; };
+		11923EC71FD8073900136715 /* PSCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCarouselView.m; sourceTree = "<group>"; };
+		11923EC81FD8073900136715 /* PSCarouselCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCarouselCollectionCell.xib; sourceTree = "<group>"; };
+		11923EC91FD8073900136715 /* PSCarouselCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCarouselCollectionCell.h; sourceTree = "<group>"; };
+		11923ECA1FD8073900136715 /* PSWeaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSWeaker.m; sourceTree = "<group>"; };
+		11923ECB1FD8073900136715 /* PSCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCarouselView.h; sourceTree = "<group>"; };
 		11A1E5A31FCD43FA000D4D5B /* SKPublishNewContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPublishNewContentViewController.h; sourceTree = "<group>"; };
 		11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPublishNewContentViewController.m; sourceTree = "<group>"; };
 		11A1E5A71FCD66B9000D4D5B /* NSMutableString+TagReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+TagReplace.h"; sourceTree = "<group>"; };
@@ -448,6 +459,7 @@
 		11303FC81FB06ADA0020C93D /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				11923EC41FD8073900136715 /* PSCarouselView */,
 				11EE40851FCED10300039E3F /* AES256 */,
 				11EE408A1FCED10300039E3F /* AESCrypt */,
 				11A1E5AB1FCD66BA000D4D5B /* Extras */,
@@ -634,6 +646,20 @@
 				1130408B1FB1A6200020C93D /* SKModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		11923EC41FD8073900136715 /* PSCarouselView */ = {
+			isa = PBXGroup;
+			children = (
+				11923EC51FD8073900136715 /* PSWeaker.h */,
+				11923EC61FD8073900136715 /* PSCarouselCollectionCell.m */,
+				11923EC71FD8073900136715 /* PSCarouselView.m */,
+				11923EC81FD8073900136715 /* PSCarouselCollectionCell.xib */,
+				11923EC91FD8073900136715 /* PSCarouselCollectionCell.h */,
+				11923ECA1FD8073900136715 /* PSWeaker.m */,
+				11923ECB1FD8073900136715 /* PSCarouselView.h */,
+			);
+			path = PSCarouselView;
 			sourceTree = "<group>";
 		};
 		11A1E5A61FCD66B9000D4D5B /* WPAttributedMarkup */ = {
@@ -1050,6 +1076,7 @@
 			files = (
 				11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */,
 				11D9AA2E1FB06142008D32E9 /* LaunchScreen.storyboard in Resources */,
+				11923ECE1FD8073A00136715 /* PSCarouselCollectionCell.xib in Resources */,
 				1130401E1FB06F900020C93D /* Info.plist in Resources */,
 				11D9AA2B1FB06142008D32E9 /* Assets.xcassets in Resources */,
 				1130403F1FB1A4BD0020C93D /* NSDateTimeAgo.bundle in Resources */,
@@ -1259,10 +1286,12 @@
 				11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */,
 				1130403D1FB1A3370020C93D /* UIImage+Extension.m in Sources */,
 				11EE40931FCED10400039E3F /* NSData+Encryption.m in Sources */,
+				11923ECD1FD8073A00136715 /* PSCarouselView.m in Sources */,
 				11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */,
 				11A1E5E51FCEC2E0000D4D5B /* BaseConfiguration.m in Sources */,
 				11A1E5EF1FCEC3F7000D4D5B /* ClientConfiguration.m in Sources */,
 				11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */,
+				11923ECF1FD8073A00136715 /* PSWeaker.m in Sources */,
 				11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */,
 				1130408C1FB1A6200020C93D /* SKModel.m in Sources */,
 				1130401F1FB06F900020C93D /* MJExtensionConst.m in Sources */,
@@ -1311,6 +1340,7 @@
 				11EE40981FCED10400039E3F /* NSData+Base64.m in Sources */,
 				1120B0ED1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m in Sources */,
 				1113D92D1FD531CD00452941 /* UIViewController+ImagePicker.m in Sources */,
+				11923ECC1FD8073A00136715 /* PSCarouselCollectionCell.m in Sources */,
 				11A1E6011FCEC43F000D4D5B /* UIButton+EnlargeTouchArea.m in Sources */,
 				11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */,
 				11A1E5FF1FCEC43F000D4D5B /* FileService.m in Sources */,

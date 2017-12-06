@@ -11,7 +11,7 @@
 #import "SKHomepageMorePicDetailViewController.h"
 #import "SKSegmentView.h"
 #import "SKServiceManager.h"
-#import <PSCarouselView/PSCarouselView.h>
+#import "PSCarouselView.h"
 
 #import "SKPublishNewContentViewController.h"
 
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKTopic *> *dataArray;
 
-@property (nonatomic, strong) PSCarouselView *carouselView;
+@property (strong, nonatomic) PSCarouselView *carouselView;
 @property (nonatomic, strong) NSArray *bannerArray;
 
 @property (nonatomic, strong) SKSegmentView *titleView;
@@ -49,19 +49,9 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.carouselView = [[PSCarouselView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(212), ROUND_WIDTH_FLOAT(300), ROUND_WIDTH_FLOAT(60))];
-    self.carouselView.placeholder = [UIImage imageNamed:@"img_banner_loading"];
-    self.carouselView.contentMode = UIViewContentModeScaleAspectFill;
-    self.carouselView.autoMoving = YES;
-    self.carouselView.movingTimeInterval = 1.5f;
-    self.carouselView.imageURLs = @[@"",@""];
-    self.carouselView.pageDelegate = self;
-    [self.view addSubview:self.carouselView];
-    
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-//    [self createUI];
+    [self createUI];
     [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
         self.dataArray = [NSMutableArray arrayWithArray:topicList];
         [self.tableView reloadData];
@@ -70,11 +60,16 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         if ([response.data[@"cover"] isEqualToString:@""] || response.data[@"cover"] ==nil){
             return;
         } else {
-            UIImageView *bannerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(212), ROUND_WIDTH_FLOAT(300), ROUND_WIDTH_FLOAT(60))];
-            bannerImageView.layer.cornerRadius = 3;
-            bannerImageView.contentMode = UIViewContentModeScaleAspectFill;
-            [bannerImageView sd_setImageWithURL:response.data[@"cover"]];
-            [self.tableView.tableHeaderView addSubview:bannerImageView];
+            self.tableView.tableHeaderView.height = ROUND_WIDTH_FLOAT(282);
+            self.carouselView = [[PSCarouselView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(212), ROUND_WIDTH_FLOAT(300), ROUND_WIDTH_FLOAT(60))];
+            self.carouselView.placeholder = [UIImage imageNamed:@"img_banner_loading"];
+            self.carouselView.layer.cornerRadius = 3;
+            self.carouselView.contentMode = UIViewContentModeScaleAspectFill;
+            self.carouselView.autoMoving = YES;
+            self.carouselView.movingTimeInterval = 1.5f;
+            self.carouselView.imageURLs = @[response.data[@"cover"], response.data[@"cover"], response.data[@"cover"]];
+            self.carouselView.pageDelegate = self;
+            [self.tableView.tableHeaderView addSubview:self.carouselView];
         }
     }];
 }

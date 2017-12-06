@@ -18,7 +18,6 @@ target 'ShirokarasNotebook' do
   pod 'YLGIFImage'
   pod 'MJRefresh'
   pod 'CHTCollectionViewWaterfallLayout'
-  pod 'PSCarouselView'
   
   pod 'Pingpp/Alipay'
   pod 'Pingpp/Wx'
