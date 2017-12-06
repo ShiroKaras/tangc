@@ -51,7 +51,7 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, assign) NSInteger type;       //1:单图图文 2：多图图文 3：文章
-@property (nonatomic, copy) NSString *parent_id;    //转发的原始文章ID
+@property (nonatomic, assign) NSInteger parent_id;    //转发的原始文章ID
 @property (nonatomic, strong) NSArray *images;      //图片地址
 @property (nonatomic, strong) NSArray *tags;        //tags
 @property (nonatomic, strong) NSArray *follows;     //关注的用户ID组成
@@ -102,7 +102,7 @@
 @property (nonatomic, assign) NSInteger id;
 @property (nonatomic, copy) NSString *comuser_id;
 @property (nonatomic, copy) NSString *to_comuser_id;
-@property (nonatomic, copy) NSString *article_id;
+@property (nonatomic, assign) NSInteger article_id;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *created_at;
 @property (nonatomic, copy) NSString *updated_at;

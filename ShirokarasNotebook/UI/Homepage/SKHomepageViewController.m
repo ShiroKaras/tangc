@@ -147,6 +147,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.dataArray[indexPath.row]];
         [self.navigationController pushViewController:controller animated:YES];
     }];
+    [[cell.commentButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeComment withUserPost:self.dataArray[indexPath.row]];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
     return cell;
 }
 

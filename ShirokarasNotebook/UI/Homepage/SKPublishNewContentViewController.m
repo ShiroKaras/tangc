@@ -143,6 +143,8 @@
         contentLabel.bottom = imageView.bottom;
         contentLabel.left = usernameLabel.left;
         [repostBackView addSubview:contentLabel];
+    } else if (_type == SKPublishTypeComment) {
+        
     }
     
     //=========================按钮组=========================
@@ -220,20 +222,45 @@
     saveButton.centerY = titleBackView.height/2;
     
     [[saveButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        SKUserPost *userpost = [SKUserPost new];
-        userpost.content = self.textView.text;
-        if (self.postImageArray.count == 0) {
-            NSLog(@"添加图片");
-            return;
-        } else if (self.postImageArray.count==1)
-            userpost.type = 1;
-        else if (self.postImageArray.count>1)
-            userpost.type = 2;
-        userpost.images = self.postImageArray;
+        if (_type == SKPublishTypeNew) {
+            SKUserPost *userpost = [SKUserPost new];
+            userpost.content = self.textView.text;
+            if (self.postImageArray.count == 0) {
+                NSLog(@"添加图片");
+                return;
+            } else if (self.postImageArray.count==1)
+                userpost.type = 1;
+            else if (self.postImageArray.count>1)
+                userpost.type = 2;
+            userpost.images = self.postImageArray;
+            
+            [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"response errorcode: %ld", response.errcode);
+            }];
+        } else if (_type == SKPublishTypeRepost) {
+            SKUserPost *userpost = [SKUserPost new];
+            userpost.content = self.textView.text;
+            userpost.parent_id = self.topic.id;
+            if (self.postImageArray.count == 0) {
+                NSLog(@"添加图片");
+                return;
+            } else if (self.postImageArray.count==1)
+                userpost.type = 1;
+            else if (self.postImageArray.count>1)
+                userpost.type = 2;
+            userpost.images = self.postImageArray;
+            
+            [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"response errorcode: %ld", response.errcode);
+            }];
+        } else if (_type == SKPublishTypeComment) {
+            SKComment *comment = [SKComment new];
+            comment.article_id = self.topic.id;
+            [[[SKServiceManager sharedInstance] topicService] postCommentWithComment:comment callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"response errorcode: %ld", response.errcode);
+            }];
+        }
         
-        [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
-            DLog(@"response: %@", response);
-        }];
     }];
 }
 

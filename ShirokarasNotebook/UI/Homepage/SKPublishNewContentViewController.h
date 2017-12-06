@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSInteger, SKPublishType) {
     SKPublishTypeNew = 1,
     SKPublishTypeRepost,
+    SKPublishTypeComment
 };
 
 @interface SKPublishNewContentViewController : UIViewController

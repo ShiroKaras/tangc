@@ -140,7 +140,10 @@
 }
 
 - (void)postCommentWithComment:(SKComment *)comment callback:(SKResponseCallback)callback {
-    
+    NSDictionary *param = [comment mj_keyValues];
+    [self baseRequestWithParam:param url:[SKCGIManager postComment] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
 }
 
 @end
