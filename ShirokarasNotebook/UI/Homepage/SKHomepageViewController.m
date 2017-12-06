@@ -11,6 +11,7 @@
 #import "SKHomepageMorePicDetailViewController.h"
 #import "SKSegmentView.h"
 #import "SKServiceManager.h"
+#import <PSCarouselView/PSCarouselView.h>
 
 #import "SKPublishNewContentViewController.h"
 
@@ -23,9 +24,12 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     SKHomepageSelectedTypeHot
 };
 
-@interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, SKSegmentViewDelegate, SKHomepageTableCellDelegate>
+@interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate, SKSegmentViewDelegate, SKHomepageTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKTopic *> *dataArray;
+
+@property (nonatomic, strong) PSCarouselView *carouselView;
+@property (nonatomic, strong) NSArray *bannerArray;
 
 @property (nonatomic, strong) SKSegmentView *titleView;
 @property (nonatomic, strong) UIButton *button_follow;
@@ -45,12 +49,33 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.carouselView = [[PSCarouselView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(212), ROUND_WIDTH_FLOAT(300), ROUND_WIDTH_FLOAT(60))];
+    self.carouselView.placeholder = [UIImage imageNamed:@"img_banner_loading"];
+    self.carouselView.contentMode = UIViewContentModeScaleAspectFill;
+    self.carouselView.autoMoving = YES;
+    self.carouselView.movingTimeInterval = 1.5f;
+    self.carouselView.imageURLs = @[@"",@""];
+    self.carouselView.pageDelegate = self;
+    [self.view addSubview:self.carouselView];
+    
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    [self createUI];
+//    [self createUI];
     [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
         self.dataArray = [NSMutableArray arrayWithArray:topicList];
         [self.tableView reloadData];
+    }];
+    [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
+        if ([response.data[@"cover"] isEqualToString:@""] || response.data[@"cover"] ==nil){
+            return;
+        } else {
+            UIImageView *bannerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(212), ROUND_WIDTH_FLOAT(300), ROUND_WIDTH_FLOAT(60))];
+            bannerImageView.layer.cornerRadius = 3;
+            bannerImageView.contentMode = UIViewContentModeScaleAspectFill;
+            [bannerImageView sd_setImageWithURL:response.data[@"cover"]];
+            [self.tableView.tableHeaderView addSubview:bannerImageView];
+        }
     }];
 }
 
@@ -109,6 +134,17 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)didClickHotButton:(UIButton*)sender {
     self.selectedType = SKHomepageSelectedTypeHot;
+}
+
+#pragma mark - PSCarouselDelegate
+
+- (void)carousel:(PSCarouselView *)carousel didMoveToPage:(NSUInteger)page {
+    NSLog(@"Page:%ld", page);
+    
+}
+
+- (void)carousel:(PSCarouselView *)carousel didTouchPage:(NSUInteger)pag {
+    
 }
 
 #pragma mark - SKSegment Delegate
