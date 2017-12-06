@@ -7,12 +7,10 @@
 //
 
 #import "SKHomepageTableViewCell.h"
-#import "SKTitleBaseView.h"
 
 #define CELL_WIDTH (SCREEN_WIDTH)
 
 @interface SKHomepageTableViewCell ()
-@property (nonatomic, strong) SKTitleBaseView *baseInfoView;
 @property (nonatomic, strong) UIView *baseContentView;
 
 @property (nonatomic, strong) UILabel *repostLabel;
@@ -34,32 +32,28 @@
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.layer.cornerRadius = 3;
-        
-        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, ROUND_WIDTH_FLOAT(60))];
-        [self.contentView addSubview:_baseInfoView];
+        [self.contentView addSubview:self.baseInfoView];
     }
     return self;
 }
 
+- (SKTitleBaseView *)baseInfoView {
+    if (!_baseInfoView) {
+        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, ROUND_WIDTH_FLOAT(60))];
+        _baseInfoView.followButton.hidden = YES;
+    }
+    return _baseInfoView;
+}
+
 - (void)setTopic:(SKTopic *)topic {
+    _topic = topic;
     self.isFollow = topic.is_follow;
-    [[self.baseInfoView.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        if (topic.is_follow) {
-            [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)topic.userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
-                if (success) {
-                    NSLog(@"取消关注");
-                    self.isFollow = !self.isFollow;
-                }
-            }];            
-        } else {
-            [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)topic.userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
-                if (success) {
-                    NSLog(@"成功关注");
-                    self.isFollow = !self.isFollow;
-                }
-            }];
+    [[self.baseInfoView.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([self.delegate respondsToSelector:@selector(didClickfollowButtonWithTopic:)]) {
+            [self.delegate didClickfollowButtonWithTopic:topic];
         }
     }];
+    
     [self setType:topic.type withTopic:topic];
     self.baseInfoView.userInfo = topic.userinfo;
     self.baseInfoView.dateLabel.text = topic.add_time;
@@ -327,6 +321,17 @@
     
     _baseContentView.height = underLine.bottom-_repostLabel.bottom-ROUND_WIDTH_FLOAT(15);
     
+    //关注
+    _followButton = [UIButton new];
+    [_followButton setTitle:@"关注" forState:UIControlStateNormal];
+    [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _followButton.backgroundColor = [UIColor lightGrayColor];
+    _followButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _followButton.layer.cornerRadius = ROUND_WIDTH_FLOAT(10);
+    _followButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(45), ROUND_WIDTH_FLOAT(20));
+    _followButton.right = SCREEN_WIDTH-ROUND_WIDTH_FLOAT(20);
+    _followButton.centerY = _baseInfoView.centerY;
+    [self.contentView addSubview:_followButton];
     //转发
     _repeaterButton = [UIButton new];
     [_repeaterButton setTitle:@"转发" forState:UIControlStateNormal];

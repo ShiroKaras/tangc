@@ -9,6 +9,7 @@
 #import "SKHomepageViewController.h"
 #import "SKHomepageTableViewCell.h"
 #import "SKHomepageMorePicDetailViewController.h"
+#import "SKSegmentView.h"
 #import "SKServiceManager.h"
 
 #import "SKPublishNewContentViewController.h"
@@ -22,11 +23,11 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     SKHomepageSelectedTypeHot
 };
 
-@interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, SKSegmentViewDelegate, SKHomepageTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKTopic *> *dataArray;
 
-@property (nonatomic, strong) UIView *titleView;
+@property (nonatomic, strong) SKSegmentView *titleView;
 @property (nonatomic, strong) UIButton *button_follow;
 @property (nonatomic, strong) UIButton *button_hot;
 @property (nonatomic, strong) UIView *markLine;
@@ -91,39 +92,14 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #endif
     
     //TitleView
-    _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)];
+    _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"关注", @"热门", @"话题"]];
+    _titleView.delegate = self;
     _titleView.layer.cornerRadius = 3;
     _titleView.backgroundColor = [UIColor whiteColor];
     _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
-    [self.tableView addSubview:_titleView];
-    
-    _button_follow = [UIButton new];
-    [_button_follow addTarget:self action:@selector(didClickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_button_follow setTitle:@"关注" forState:UIControlStateNormal];
-    [_button_follow setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-    _button_follow.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
-    _button_follow.size = CGSizeMake(TITLEVIEW_HEIGHT, TITLEVIEW_HEIGHT);
-    _button_follow.centerY = _titleView.height/2;
-    _button_follow.left = ROUND_WIDTH_FLOAT(60);
-    [_titleView addSubview:_button_follow];
-    
-    _button_hot = [UIButton new];
-    [_button_hot addTarget:self action:@selector(didClickHotButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_button_hot setTitle:@"热门" forState:UIControlStateNormal];
-    [_button_hot setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
-    _button_hot.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
-    _button_hot.size = CGSizeMake(TITLEVIEW_HEIGHT, TITLEVIEW_HEIGHT);
-    _button_hot.centerY = _titleView.height/2;
-    _button_hot.right = _titleView.width-ROUND_WIDTH_FLOAT(60);
-    [_titleView addSubview:_button_hot];
-    
-    _markLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(20), 2)];
-    _markLine.backgroundColor = [UIColor colorWithHex:0x37ECBA];
-    _markLine.centerX = _button_follow.centerX;
-    _markLine.bottom = _titleView.height;
-    [_titleView addSubview:_markLine];
+    [_tableView addSubview:_titleView];
     self.selectedType = SKHomepageSelectedTypeFollow;
 }
 
@@ -135,6 +111,12 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.selectedType = SKHomepageSelectedTypeHot;
 }
 
+#pragma mark - SKSegment Delegate
+
+- (void)segmentView:(UIView *)view didClickIndex:(NSInteger)index {
+    self.selectedType = index;
+}
+
 #pragma mark - UITableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -143,6 +125,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
     cell.topic = self.dataArray[indexPath.row];
+    cell.delegate = self;
     [[cell.repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.dataArray[indexPath.row]];
         [self.navigationController pushViewController:controller animated:YES];
@@ -151,6 +134,26 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeComment withUserPost:self.dataArray[indexPath.row]];
         [self.navigationController pushViewController:controller animated:YES];
     }];
+    
+    [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        DLog(@"%ld", indexPath.row);
+        if (self.dataArray[indexPath.row].is_follow) {
+            [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"取消关注");
+                    self.dataArray[indexPath.row].is_follow = 0;
+                }
+            }];
+        } else {
+            [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"成功关注");
+                    self.dataArray[indexPath.row].is_follow = 1;
+                }
+            }];
+        }
+    }];
+    
     return cell;
 }
 
@@ -162,6 +165,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray[indexPath.row]];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)didClickfollowButtonWithTopic:(SKTopic *)topic {
+    NSLog(@"%@", topic.content);
 }
 
 #pragma mark - UITableView DataSource

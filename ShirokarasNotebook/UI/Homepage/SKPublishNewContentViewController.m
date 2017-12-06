@@ -236,6 +236,7 @@
             
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
+                [self.navigationController popViewControllerAnimated:YES];
             }];
         } else if (_type == SKPublishTypeRepost) {
             SKUserPost *userpost = [SKUserPost new];
@@ -252,12 +253,14 @@
             
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
+                [self.navigationController popViewControllerAnimated:YES];
             }];
         } else if (_type == SKPublishTypeComment) {
             SKComment *comment = [SKComment new];
             comment.article_id = self.topic.id;
             [[[SKServiceManager sharedInstance] topicService] postCommentWithComment:comment callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
+                [self.navigationController popViewControllerAnimated:YES];
             }];
         }
         
