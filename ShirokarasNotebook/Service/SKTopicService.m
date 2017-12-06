@@ -36,6 +36,9 @@
 
 
 - (void)getIndexFollowListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
+    if ([SKStorageManager sharedInstance].userInfo.uuid==nil||[[SKStorageManager sharedInstance].userInfo.uuid isEqualToString:@""]) {
+        return;
+    }
     [self baseRequestWithParam:nil url:[SKCGIManager indexFollow] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
         for (int i = 0; i < [response.data[@"lists"] count]; i++) {
