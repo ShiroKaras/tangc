@@ -76,6 +76,12 @@
     }];
 }
 
+- (void)getIndexHeaderImagesArrayWithCallback:(SKResponseCallback)callback {
+    [self baseRequestWithParam:nil url:[SKCGIManager indexStartInfo] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 //话题标签列表
 - (void)getTopicNameListWithCallback:(SKTopicListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager topicList] callback:^(BOOL success, SKResponsePackage *response) {

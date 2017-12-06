@@ -20,6 +20,7 @@ typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
 - (void)getIndexFollowListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback;
 - (void)getIndexHotListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback;
 - (void)getIndexTopicListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback;
+- (void)getIndexHeaderImagesArrayWithCallback:(SKResponseCallback)callback;
 
 //获取标签列表
 - (void)getTopicNameListWithCallback:(SKTopicListCallback)callback;

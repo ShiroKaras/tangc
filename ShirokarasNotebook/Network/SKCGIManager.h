@@ -28,6 +28,9 @@
 //首页话题
 + (NSString *)indexTopic;
 
+//首页轮询图
++ (NSString *)indexStartInfo;
+
 //话题列表
 + (NSString *)topicList;
 

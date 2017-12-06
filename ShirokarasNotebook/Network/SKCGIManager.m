@@ -32,6 +32,10 @@
     return [NSString stringWithFormat:@"%@/api/index/topic", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)indexStartInfo {
+    return [NSString stringWithFormat:@"%@/api/index/app_start_info", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)topicList {
     return [NSString stringWithFormat:@"%@/api/topic/list", [[ServerConfiguration sharedInstance] appHost]];
 }
