@@ -157,15 +157,17 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     }
     cell.topic = self.dataArray[indexPath.row];
     cell.delegate = self;
+    //转发
     [[cell.repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.dataArray[indexPath.row]];
         [self.navigationController pushViewController:controller animated:YES];
     }];
+    //评论
     [[cell.commentButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeComment withUserPost:self.dataArray[indexPath.row]];
         [self.navigationController pushViewController:controller animated:YES];
     }];
-    
+    //关注
     [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         DLog(@"%ld", indexPath.row);
         if (self.dataArray[indexPath.row].is_follow) {
@@ -184,7 +186,20 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             }];
         }
     }];
-    
+    //点赞
+    [[cell.favButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if (self.dataArray[indexPath.row].is_thumb) {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].is_thumb callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"取消点赞");
+                self.dataArray[indexPath.row].is_thumb = 0;
+            }];
+        } else {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].is_thumb callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"成功点赞");
+                self.dataArray[indexPath.row].is_thumb = 1;
+            }];
+        }
+    }];
     return cell;
 }
 
@@ -215,6 +230,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"%lf", scrollView.contentOffset.y);
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
@@ -237,6 +253,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     } else {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = 0;
+            _titleView.height = 20+TITLEVIEW_HEIGHT;
             _titleView.width = SCREEN_WIDTH;
             _titleView.layer.cornerRadius = 0;
             
