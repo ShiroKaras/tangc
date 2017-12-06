@@ -38,7 +38,9 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 @property (nonatomic, assign) SKHomepageSelectedType selectedType;
 @end
 
-@implementation SKHomepageViewController
+@implementation SKHomepageViewController {
+    BOOL scrollLock;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -56,6 +58,9 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         self.dataArray = [NSMutableArray arrayWithArray:topicList];
         [self.tableView reloadData];
     }];
+    
+    if([SKStorageManager sharedInstance].userInfo.uuid==nil)    return;
+    
     [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
         if ([response.data[@"cover"] isEqualToString:@""] || response.data[@"cover"] ==nil){
             return;
@@ -107,7 +112,11 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     
 #ifdef __IPHONE_11_0
     if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
-        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        if (@available(iOS 11.0, *)) {
+            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
     }
 #endif
     
@@ -230,7 +239,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%lf", scrollView.contentOffset.y);
+    DLog(@"%lf", scrollView.contentOffset.y);
+    if(scrollLock) return;
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
@@ -249,6 +259,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
             [self.tableView addSubview:_titleView];
+            DLog(@"%@", NSStringFromClass([_titleView.superview class]));
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -268,12 +279,14 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
             [self.view addSubview:_titleView];
+            DLog(@"%@", NSStringFromClass([_titleView.superview class]));
         }];
     }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
+        scrollLock = YES;
         if (self.selectedType==SKHomepageSelectedTypeFollow) {
             [_button_follow setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
             [_button_hot setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
@@ -284,6 +297,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
                 self.dataArray = [NSMutableArray arrayWithArray:topicList];
                 [self.tableView reloadData];
+                scrollLock = NO;
             }];
         } else if(self.selectedType==SKHomepageSelectedTypeHot){
             [_button_follow setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
@@ -295,6 +309,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserPost *> *topicList) {
                 self.dataArray = [NSMutableArray arrayWithArray:topicList];
                 [self.tableView reloadData];
+                scrollLock = NO;
             }];
         } else {
             
