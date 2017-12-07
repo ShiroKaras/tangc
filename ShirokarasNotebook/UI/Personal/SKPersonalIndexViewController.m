@@ -12,6 +12,8 @@
 #import "SKPublishNewContentViewController.h"
 #import "SKUserListViewController.h"
 
+#import "FileService.h"
+
 #define AUTH_BACK_VIEW_TAG 100
 #define AUTH_LABEL 101
 
@@ -20,11 +22,14 @@
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *loginLabel;
 @property (nonatomic, strong) UILabel *authTextLabel;
+@property (nonatomic, strong) UILabel *cacheLabel;
 
 @property (nonatomic, strong) UIView *cellsView;
 @end
 
-@implementation SKPersonalIndexViewController
+@implementation SKPersonalIndexViewController {
+    float         cacheSize;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -116,6 +121,7 @@
     if (!_cellsView) {
         _cellsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(44*6)+20)];
         
+        //我的关注
         UIView *cell_follow = [self cellWithImageName:@"img_personalpage_myfollow" title:@"我的关注" isShowArrow:YES];
         [_cellsView addSubview:cell_follow];
         UITapGestureRecognizer *tapGesture_follow = [[UITapGestureRecognizer alloc] init];
@@ -125,6 +131,7 @@
         }];
         [cell_follow addGestureRecognizer:tapGesture_follow];
         
+        //我的粉丝
         UIView *cell_fans = [self cellWithImageName:@"img_personalpage_myfans" title:@"我的粉丝" isShowArrow:YES];
         [_cellsView addSubview:cell_fans];
         cell_fans.top = cell_follow.bottom;
@@ -139,10 +146,32 @@
         [_cellsView addSubview:cell_push];
         cell_push.top = cell_fans.bottom+10;
         
+        //清除缓存
         UIView *cell_clear = [self cellWithImageName:@"img_personalpage_clean" title:@"清理缓存" isShowArrow:NO];
         [_cellsView addSubview:cell_clear];
+        _cacheLabel = [UILabel new];
+        NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+        [self listFileAtPath:cacheFilePath];
+        _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
+        _cacheLabel.textColor = COMMON_TEXT_PLACEHOLDER_COLOR;
+        _cacheLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+        [cell_clear addSubview:_cacheLabel];
+        [_cacheLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(cell_clear).offset(ROUND_WIDTH_FLOAT(-15));
+            make.centerY.equalTo(cell_clear);
+        }];
         cell_clear.top = cell_push.bottom;
+        UITapGestureRecognizer *tapGesture_clear = [[UITapGestureRecognizer alloc] init];
+        [[tapGesture_clear rac_gestureSignal] subscribeNext:^(id x) {
+            [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
+            [[SDImageCache sharedImageCache] clearMemory];//可有可无
+            [FileService clearCache:cacheFilePath];
+            [self listFileAtPath:cacheFilePath];
+            _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
+        }];
+        [cell_clear addGestureRecognizer:tapGesture_clear];
         
+        //关于
         UIView *cell_about = [self cellWithImageName:@"img_personalpage_about" title:@"关于我们" isShowArrow:YES];
         [_cellsView addSubview:cell_about];
         cell_about.top = cell_clear.bottom;
@@ -211,6 +240,7 @@
     arrow.right = cell.width-20;
     arrow.centerY = cell.height/2;
     [cell addSubview:arrow];
+    arrow.hidden = !isShow;
     
     return cell;
 }
@@ -221,6 +251,19 @@
 }
 
 #pragma mark - Actions
+
+- (void)listFileAtPath:(NSString *)path {
+    cacheSize = 0;
+    NSArray *contentOfFolder = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
+    for (NSString *aPath in contentOfFolder) {
+        NSString * fullPath = [path stringByAppendingPathComponent:aPath];
+        cacheSize += [FileService fileSizeAtPath:fullPath];
+        BOOL isDir;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) {
+            [self listFileAtPath:fullPath];
+        }
+    }
+}
 
 - (void)enterMyPage:(UIGestureRecognizer *)sender {
     SKLoginUser *user = [SKLoginUser new];
