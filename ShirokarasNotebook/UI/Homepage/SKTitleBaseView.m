@@ -48,9 +48,7 @@
         
         //关注按钮
         _followButton = [UIButton new];
-        [_followButton setTitle:@"关注" forState:UIControlStateNormal];
-        [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _followButton.backgroundColor = [UIColor lightGrayColor];
+        [_followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
         _followButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
         _followButton.layer.cornerRadius = ROUND_WIDTH_FLOAT(10);
         _followButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(45), ROUND_WIDTH_FLOAT(20));

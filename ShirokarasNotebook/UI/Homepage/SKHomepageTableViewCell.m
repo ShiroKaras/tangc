@@ -193,22 +193,11 @@
                 _articleLabel.centerY = _imageViewArticle.centerY;
                 [self.contentView addSubview:_articleLabel];
                 
-                UIView *view = [UIView new];
-                view.backgroundColor = [UIColor colorWithHex:0x74EBD5];
-                view.layer.cornerRadius = ROUND_WIDTH_FLOAT(19)/2;
-                view.size = CGSizeMake(ROUND_WIDTH_FLOAT(38+19), ROUND_WIDTH_FLOAT(19));
-                view.right = _imageViewArticle.width+ROUND_WIDTH_FLOAT(19);
+                UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_label_article"]];
+                view.size = CGSizeMake(ROUND_WIDTH_FLOAT(38), ROUND_WIDTH_FLOAT(19));
+                view.right = _imageViewArticle.width;
                 view.centerY = _imageViewArticle.height/2;
                 [_imageViewArticle addSubview:view];
-                
-                UILabel *label = [UILabel new];
-                label.text = @"文章";
-                label.textColor = [UIColor whiteColor];
-                label.font = PINGFANG_FONT_OF_SIZE(9);
-                [label sizeToFit];
-                label.left = ROUND_WIDTH_FLOAT(10);
-                label.centerY = view.height/2;
-                [view addSubview:label];
                 
                 underLine.top = _imageViewArticle.bottom+8;
                 
@@ -290,29 +279,20 @@
                 _articleLabel = [UILabel new];
                 _articleLabel.text = topic.content;
                 _articleLabel.textColor = [UIColor whiteColor];
-                _articleLabel.font = PINGFANG_FONT_OF_SIZE(14);
-                CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+                _articleLabel.shadowOffset = CGSizeMake(1, 1);
+                _articleLabel.shadowColor = [UIColor lightGrayColor];
+                CGSize mSize = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40));
+                CGSize labelSize = [topic.content boundingRectWithSize:mSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _articleLabel.size = labelSize;
                 _articleLabel.left = _imageViewArticle.left+ROUND_WIDTH_FLOAT(10);
                 _articleLabel.centerY = _imageViewArticle.centerY;
                 [self.contentView addSubview:_articleLabel];
                 
-                UIView *view = [UIView new];
-                view.backgroundColor = [UIColor colorWithHex:0x74EBD5];
-                view.layer.cornerRadius = ROUND_WIDTH_FLOAT(19)/2;
-                view.size = CGSizeMake(ROUND_WIDTH_FLOAT(38+19), ROUND_WIDTH_FLOAT(19));
-                view.right = _imageViewArticle.width+ROUND_WIDTH_FLOAT(19);
+                UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_label_article"]];
+                view.size = CGSizeMake(ROUND_WIDTH_FLOAT(38), ROUND_WIDTH_FLOAT(19));
+                view.right = _imageViewArticle.width;
                 view.centerY = _imageViewArticle.height/2;
                 [_imageViewArticle addSubview:view];
-                
-                UILabel *label = [UILabel new];
-                label.text = @"文章";
-                label.textColor = [UIColor whiteColor];
-                label.font = PINGFANG_FONT_OF_SIZE(9);
-                [label sizeToFit];
-                label.left = ROUND_WIDTH_FLOAT(10);
-                label.centerY = view.height/2;
-                [view addSubview:label];
                 
                 underLine.top = _imageViewArticle.bottom+8;
                 
@@ -345,17 +325,14 @@
         [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
     }
     _introduceLabel.attributedText = attrStr;
-    _articleLabel.attributedText = attrStr;
     
     _baseContentView.height = underLine.bottom-_repostLabel.bottom-ROUND_WIDTH_FLOAT(15);
     
     //关注
     _followButton = [UIButton new];
-    [_followButton setTitle:@"关注" forState:UIControlStateNormal];
-    [_followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _followButton.backgroundColor = [UIColor lightGrayColor];
-    _followButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-    _followButton.layer.cornerRadius = ROUND_WIDTH_FLOAT(10);
+    [_followButton setBackgroundImage:
+     topic.is_follow? [UIImage imageNamed:@"btn_homepage_follow_highlight"] : [UIImage imageNamed:@"btn_homepage_follow"]
+                             forState:UIControlStateNormal];
     _followButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(45), ROUND_WIDTH_FLOAT(20));
     _followButton.right = SCREEN_WIDTH-ROUND_WIDTH_FLOAT(20);
     _followButton.centerY = _baseInfoView.centerY;

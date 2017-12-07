@@ -182,12 +182,12 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     }];
     //关注
     [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        DLog(@"%ld", indexPath.row);
         if (self.dataArray[indexPath.row].is_follow) {
             [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
                 if (success) {
                     NSLog(@"取消关注");
                     self.dataArray[indexPath.row].is_follow = 0;
+                    [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
                 }
             }];
         } else {
@@ -195,6 +195,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 if (success) {
                     NSLog(@"成功关注");
                     self.dataArray[indexPath.row].is_follow = 1;
+                    [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow_highlight"] forState:UIControlStateNormal];
                 }
             }];
         }
@@ -243,7 +244,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    DLog(@"%lf", scrollView.contentOffset.y);
     if(scrollLock) return;
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
@@ -263,7 +263,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
             [self.tableView addSubview:_titleView];
-            DLog(@"%@", NSStringFromClass([_titleView.superview class]));
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -283,7 +282,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
             [self.view addSubview:_titleView];
-            DLog(@"%@", NSStringFromClass([_titleView.superview class]));
         }];
     }
 }

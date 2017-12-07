@@ -48,6 +48,27 @@
     SKTitleBaseView *baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, ROUND_WIDTH_FLOAT(60))];
     baseInfoView.userInfo = _topic.from?_topic.from.userinfo:_topic.userinfo;
     [backView addSubview:baseInfoView];
+    //关注
+    [[baseInfoView.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if (self.topic.is_follow) {
+            [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.topic.userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"取消关注");
+                    self.topic.is_follow = 0;
+                    [baseInfoView.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
+                }
+            }];
+        } else {
+            [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.topic.userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"成功关注");
+                    self.topic.is_follow = 1;
+                    [baseInfoView.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow_highlight"] forState:UIControlStateNormal];
+                }
+            }];
+        }
+    }];
+    
     
     CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(40));
     
