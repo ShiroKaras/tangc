@@ -36,8 +36,10 @@
 - (void)comuserFollowsWithCallback:(SKUserListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager comuserFollows] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKUserInfo*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data count]; i++) {
-            SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[i]];
+        for (int i = 0; i <[response.data[@"lists"] count]; i++) {
+            SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[@"lists"][i]];
+            item.is_follow = YES;
+            item.is_followed = item.is_concerned;
             [list addObject:item];
         }
         callback(success, list);
@@ -47,8 +49,10 @@
 - (void)comuserFansWithCallback:(SKUserListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager comuserFans] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKUserInfo*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data count]; i++) {
-            SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[i]];
+        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+            SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[@"lists"][i]];
+            item.is_followed = YES;
+            item.is_follow = item.is_concerned;
             [list addObject:item];
         }
         callback(success, list);

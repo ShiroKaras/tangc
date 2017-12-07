@@ -10,7 +10,6 @@
 @interface SKUserListTableViewCell ()
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
-@property (nonatomic, strong) UIButton *followButton;
 @property (nonatomic, strong) UIView *underLine;
 @end
 
@@ -27,6 +26,22 @@
         self.cellHeight = ROUND_WIDTH_FLOAT(60);
     }
     return self;
+}
+
+- (void)setUserInfo:(SKUserInfo *)userInfo wityType:(SKUserListType)type {
+    self.type = type;
+    if (type==SKUserListTypeFollow) {
+        [self.followButton setBackgroundImage:userInfo.is_concerned?[UIImage imageNamed:@"btn_followpage_followeeachother"]:[UIImage imageNamed:@"btn_followpage_followed"] forState:UIControlStateNormal];
+    } else if (type == SKUserListTypeFans) {
+        [self.followButton setBackgroundImage:userInfo.is_concerned?[UIImage imageNamed:@"btn_followpage_followeeachother"]:[UIImage imageNamed:@"btn_followpage_followe"] forState:UIControlStateNormal];
+    }
+    self.userInfo = userInfo;
+}
+
+- (void)setUserInfo:(SKUserInfo *)userInfo {
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+    self.usernameLabel.text = userInfo.nickname;
+    [self.usernameLabel sizeToFit];
 }
 
 - (UIImageView *)avatarImageView {
@@ -55,7 +70,7 @@
 - (UIButton *)followButton {
     if (!_followButton) {
         _followButton = [UIButton new];
-        [_followButton setBackgroundImage:[UIImage imageNamed:@"btn_followpage_followeeachother"] forState:UIControlStateNormal];
+        [_followButton setBackgroundImage:[UIImage imageNamed:@"btn_followpage_followe"] forState:UIControlStateNormal];
         _followButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(30));
         _followButton.right = SCREEN_WIDTH-ROUND_WIDTH_FLOAT(15);
         _followButton.centerY = ROUND_WIDTH_FLOAT(30);

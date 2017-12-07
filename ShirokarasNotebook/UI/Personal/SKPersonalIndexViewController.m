@@ -10,6 +10,7 @@
 #import "SKPersonalMyPageViewController.h"
 
 #import "SKPublishNewContentViewController.h"
+#import "SKUserListViewController.h"
 
 #define AUTH_BACK_VIEW_TAG 100
 #define AUTH_LABEL 101
@@ -117,10 +118,22 @@
         
         UIView *cell_follow = [self cellWithImageName:@"img_personalpage_myfollow" title:@"我的关注" isShowArrow:YES];
         [_cellsView addSubview:cell_follow];
+        UITapGestureRecognizer *tapGesture_follow = [[UITapGestureRecognizer alloc] init];
+        [[tapGesture_follow rac_gestureSignal] subscribeNext:^(id x) {
+            SKUserListViewController *controller = [[SKUserListViewController alloc] initWithType:SKUserListTypeFollow];
+            [self.navigationController pushViewController:controller animated:YES];
+        }];
+        [cell_follow addGestureRecognizer:tapGesture_follow];
         
         UIView *cell_fans = [self cellWithImageName:@"img_personalpage_myfans" title:@"我的粉丝" isShowArrow:YES];
         [_cellsView addSubview:cell_fans];
         cell_fans.top = cell_follow.bottom;
+        UITapGestureRecognizer *tapGesture_fans = [[UITapGestureRecognizer alloc] init];
+        [[tapGesture_fans rac_gestureSignal] subscribeNext:^(id x) {
+            SKUserListViewController *controller = [[SKUserListViewController alloc] initWithType:SKUserListTypeFans];
+            [self.navigationController pushViewController:controller animated:YES];
+        }];
+        [cell_fans addGestureRecognizer:tapGesture_fans];
         
         UIView *cell_push = [self cellWithImageName:@"img_personalpage_push" title:@"推送通知" isShowArrow:YES];
         [_cellsView addSubview:cell_push];
@@ -133,8 +146,11 @@
         UIView *cell_about = [self cellWithImageName:@"img_personalpage_about" title:@"关于我们" isShowArrow:YES];
         [_cellsView addSubview:cell_about];
         cell_about.top = cell_clear.bottom;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClickAbout)];
-        [cell_about addGestureRecognizer:tap];
+        UITapGestureRecognizer *tapGesture_about = [[UITapGestureRecognizer alloc] init];
+        [[tapGesture_about rac_gestureSignal] subscribeNext:^(id x) {
+            
+        }];
+        [cell_about addGestureRecognizer:tapGesture_about];
         
         //
         UIView *cell = [UIView new];
@@ -219,11 +235,6 @@
 
 //    SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];
 //    [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)didClickAbout {
-    SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

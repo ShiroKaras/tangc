@@ -7,20 +7,20 @@
 //
 
 #import "SKUserListViewController.h"
-#import "SKUserListTableViewCell.h"
 
 @interface SKUserListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSArray<SKUserInfo*> *dataArray;
+@property (nonatomic, assign) SKUserListType type;
 @end
 
 @implementation SKUserListViewController
 
-- (instancetype)init
+- (instancetype)initWithType:(SKUserListType)type
 {
     self = [super init];
     if (self) {
-        
+        self.type = type;
     }
     return self;
 }
@@ -40,6 +40,18 @@
     _tableView.showsVerticalScrollIndicator = NO;
     [_tableView registerClass:[SKUserListTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKUserListTableViewCell class])];
     [self.view addSubview:_tableView];
+    
+    if (self.type == SKUserListTypeFollow) {
+        [[[SKServiceManager sharedInstance] profileService] comuserFollowsWithCallback:^(BOOL success, NSArray<SKUserInfo *> *topicList) {
+            self.dataArray = topicList;
+            [self.tableView reloadData];
+        }];
+    } else {
+        [[[SKServiceManager sharedInstance] profileService] comuserFansWithCallback:^(BOOL success, NSArray<SKUserInfo *> *topicList) {
+            self.dataArray = topicList;
+            [self.tableView reloadData];
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,7 +64,16 @@
     [self.view addSubview:titleBackView];
     
     UILabel *mTitleLabel = [UILabel new];
-    mTitleLabel.text = [NSString stringWithFormat:@"我的关注(%ld)", self.dataArray.count];
+    switch (self.type) {
+        case SKUserListTypeFollow:
+            mTitleLabel.text = [NSString stringWithFormat:@"我的关注(%ld)", self.dataArray.count];
+            break;
+        case SKUserListTypeFans:
+            mTitleLabel.text = [NSString stringWithFormat:@"我的粉丝(%ld)", self.dataArray.count];
+            break;
+        default:
+            break;
+    }
     mTitleLabel.textColor = COMMON_TEXT_COLOR;
     mTitleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
     [mTitleLabel sizeToFit];
@@ -68,6 +89,29 @@
     if (cell==nil) {
         cell = [[SKUserListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKUserListTableViewCell class])];
     }
+    [cell setUserInfo:self.dataArray[indexPath.row] wityType:self.type];
+    
+    //关注
+    [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if (self.dataArray[indexPath.row].is_follow) {
+            [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"取消关注");
+                    self.dataArray[indexPath.row].is_follow = NO;
+                    [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_followpage_followe"] forState:UIControlStateNormal];
+                }
+            }];
+        } else {
+            [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"成功关注");
+                    self.dataArray[indexPath.row].is_follow = YES;
+                    [cell.followButton setBackgroundImage:self.dataArray[indexPath.row].is_followed?[UIImage imageNamed:@"btn_followpage_followeeachother"]:[UIImage imageNamed:@"btn_followpage_followed"] forState:UIControlStateNormal];
+                }
+            }];
+        }
+    }];
+    
     return cell;
 }
 
@@ -83,8 +127,7 @@
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //    return _dataArray.count;
-    return 5;
+    return _dataArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

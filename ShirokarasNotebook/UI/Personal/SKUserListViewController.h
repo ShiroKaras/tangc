@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKUserListTableViewCell.h"
 
 @interface SKUserListViewController : UIViewController
+
+- (instancetype)initWithType:(SKUserListType)type;
 
 @end

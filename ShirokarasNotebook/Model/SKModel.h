@@ -41,6 +41,9 @@
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *city;
 @property (nonatomic, copy) NSString *qq;
+@property (nonatomic, assign) NSInteger is_concerned;
+@property (nonatomic, assign) BOOL is_follow;
+@property (nonatomic, assign) BOOL is_followed;
 @end
 
 //用户发送的信息
