@@ -85,7 +85,10 @@
     underLine.size = CGSizeMake(CELL_WIDTH -20, 0.5);
     underLine.left = 10;
     
+    NSString *content = @"";
     if (topic.from) {
+        content = topic.from.content;
+        
         _repostLabel = [UILabel new];
         _repostLabel.text = topic.content;
         _repostLabel.textColor = COMMON_TEXT_COLOR;
@@ -215,6 +218,7 @@
                 break;
         }
     } else {
+        content = topic.content;
         switch (type) {
             case SKHomepageTableViewCellTypeOnePic:{
                 _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(15, _baseInfoView.bottom, CELL_WIDTH-30, (CELL_WIDTH-30)/4*3)];
@@ -318,6 +322,30 @@
                 break;
         }
     }
+    
+    // 话题的规则
+    NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
+    // @的规则
+    NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5]+";
+    
+    NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+    //匹配集合
+    NSArray *results = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)];
+    
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[content dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                                  options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
+                                                                       documentAttributes:nil error:nil];
+    // 3.遍历结果
+    for (NSTextCheckingResult *result in results) {
+        NSLog(@"%@  %@",NSStringFromRange(result.range),[content substringWithRange:result.range]);
+        //set font
+        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, content.length)];
+        // 设置颜色
+        [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
+    }
+    _introduceLabel.attributedText = attrStr;
+    _articleLabel.attributedText = attrStr;
     
     _baseContentView.height = underLine.bottom-_repostLabel.bottom-ROUND_WIDTH_FLOAT(15);
     

@@ -224,7 +224,9 @@
     [[saveButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         if (_type == SKPublishTypeNew) {
             SKUserPost *userpost = [SKUserPost new];
-            userpost.content = self.textView.text;
+            if ([self.textView.text isEqualToString:@""]||self.textView.text==nil)  userpost.content = @"转发";
+            else   userpost.content = self.textView.text;
+            
             if (self.postImageArray.count == 0) {
                 NSLog(@"添加图片");
                 return;
