@@ -28,7 +28,7 @@
         self.cellHeight = (SCREEN_WIDTH-30)/290*91;
         
         UIImageView *rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-30)-ROUND_WIDTH_FLOAT(100), 0, ROUND_WIDTH_FLOAT(100), self.cellHeight)];
-        rightImageView.backgroundColor = [UIColor colorWithHex:0x37ECBA];
+        rightImageView.backgroundColor = COMMON_GREEN_COLOR;
         [self.contentView addSubview:rightImageView];
         
         _moneyLabel = [UILabel new];

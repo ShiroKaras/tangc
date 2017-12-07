@@ -40,7 +40,7 @@
             [_cXdistanceArray addObject:@(cXdistance)];
         }
         _markLine = [UIView new];
-        _markLine.backgroundColor = [UIColor colorWithHex:0x37ECBA];
+        _markLine.backgroundColor = COMMON_GREEN_COLOR;
         _markLine.size = CGSizeMake(ROUND_WIDTH_FLOAT(20), 2);
         _markLine.bottom = frame.size.height;
         _markLine.centerX = [self viewWithTag:100].centerX;

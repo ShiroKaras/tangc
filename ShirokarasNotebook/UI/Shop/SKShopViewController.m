@@ -116,7 +116,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     [_titleView addSubview:_button_hot];
     
     _markLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(20), 2)];
-    _markLine.backgroundColor = [UIColor colorWithHex:0x37ECBA];
+    _markLine.backgroundColor = COMMON_GREEN_COLOR;
     _markLine.centerX = _button_follow.centerX;
     _markLine.bottom = _titleView.height;
     [_titleView addSubview:_markLine];
