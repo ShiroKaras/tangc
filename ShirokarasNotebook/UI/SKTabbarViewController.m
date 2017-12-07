@@ -54,10 +54,11 @@
     self.viewControllers = @[c1, c2, c3, c4, c5];
     
     UIButton *addButton = [UIButton new];
-    [addButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_release"] forState:UIControlStateNormal];
-    addButton.size = CGSizeMake(49, 49);
+    [addButton setImage:[UIImage imageNamed:@"btn_homepage_release"] forState:UIControlStateNormal];
+    addButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    addButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), 49);
     addButton.centerX = self.view.width/2;
-    addButton.bottom = self.view.bottom-4;
+    addButton.top = self.tabBar.top-4;
     [self.view addSubview:addButton];
     
     [[addButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {

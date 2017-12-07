@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if([SKStorageManager sharedInstance].userInfo.uuid==nil)    return;
     
     [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
-        if ([response.data[@"cover"] isEqualToString:@""] || response.data[@"cover"] ==nil){
+        if ([response.data[@"banners"] count]==0){
             return;
         } else {
             self.tableView.tableHeaderView.height = ROUND_WIDTH_FLOAT(282);
@@ -72,7 +72,11 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             self.carouselView.contentMode = UIViewContentModeScaleAspectFill;
             self.carouselView.autoMoving = YES;
             self.carouselView.movingTimeInterval = 1.5f;
-            self.carouselView.imageURLs = @[response.data[@"cover"], response.data[@"cover"], response.data[@"cover"]];
+            NSMutableArray *imageUrls = [NSMutableArray array];
+            for (int i=0; i<[response.data[@"banners"] count]; i++) {
+                [imageUrls addObject:response.data[@"banners"][i][@"images"]];
+            }
+            self.carouselView.imageURLs = imageUrls;
             self.carouselView.pageDelegate = self;
             [self.tableView.tableHeaderView addSubview:self.carouselView];
         }
