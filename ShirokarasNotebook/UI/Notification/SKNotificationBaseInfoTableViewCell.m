@@ -116,4 +116,18 @@
     _usernameAppendLabel.left = _usernameLabel.right+6;
 }
 
+- (void)setNotificationItem:(SKNotification *)notificationItem {
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:notificationItem.avatar] placeholderImage:COMMON_AVATAR_PLACEHOLDER_IMAGE];
+    [_thumbImageView sd_setImageWithURL:[NSURL URLWithString:notificationItem.image] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    _usernameLabel.text = notificationItem.comuser_nickname;
+    [_usernameLabel sizeToFit];
+    
+    _dateLabel.text = notificationItem.publish_time;
+    [_dateLabel sizeToFit];
+    
+    _underLine.top = _dateLabel.bottom+ROUND_WIDTH_FLOAT(15);
+    self.cellHeight = self.underLine.bottom;
+}
+
+
 @end
