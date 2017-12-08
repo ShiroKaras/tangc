@@ -73,7 +73,7 @@
          // 话题的规则
          NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
          // @的规则
-         NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5]+";
+         NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5\\_\\-]+";
          
          NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
          NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
