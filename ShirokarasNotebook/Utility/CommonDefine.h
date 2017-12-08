@@ -46,7 +46,7 @@
 #define PINGFANG_FONT_OF_SIZE(s) [UIFont fontWithName:@"PingFangSC-Regular" size:s]
 #define PINGFANG_ROUND_FONT_OF_SIZE(s) [UIFont fontWithName:@"PingFangSC-Regular" size:ROUND_WIDTH_FLOAT(s)]
 
-#define COMMON_GREEN_COLOR [UIColor colorWithHex:0x37ECBA]
+#define COMMON_GREEN_COLOR [UIColor colorWithHex:0x417DC1]
 #define COMMON_PINK_COLOR [UIColor colorWithHex:0xd40e88]
 #define COMMON_RED_COLOR [UIColor colorWithHex:0xed203b]
 
@@ -55,6 +55,7 @@
 
 #define COMMON_BG_COLOR [UIColor colorWithHex:0xF0F4F8]
 #define COMMON_TITLE_BG_COLOR [UIColor colorWithHex:0x1F1F1F]
+#define COMMON_HIGHLIGHT_BG_COLOR [UIColor colorWithHex:0xF7F7F7]
 
 #define COMMON_TEXT_COLOR   [UIColor colorWithHex:0x1F4035]
 #define COMMON_TEXT_PLACEHOLDER_COLOR [UIColor colorWithHex:0xBCCCC7]

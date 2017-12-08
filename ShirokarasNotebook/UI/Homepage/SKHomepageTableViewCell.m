@@ -104,7 +104,7 @@
         underLine.top = _repostLabel.bottom+10;
         
         _baseContentView = [[UIView alloc] initWithFrame:CGRectMake(0, _repostLabel.bottom+ROUND_WIDTH_FLOAT(15), SCREEN_WIDTH, 0)];
-        _baseContentView.backgroundColor = [UIColor colorWithHex:0xF0FFFA];
+        _baseContentView.backgroundColor = COMMON_HIGHLIGHT_BG_COLOR;
         [self.contentView addSubview:_baseContentView];
         
         UILabel *oriNameLabel = [UILabel new];
@@ -320,7 +320,7 @@
     _repeaterButton = [UIButton new];
     [_repeaterButton setTitle:@"转发" forState:UIControlStateNormal];
     [_repeaterButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
-    [_repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
+    [_repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
     _repeaterButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _repeaterButton.left = 0;
@@ -330,7 +330,7 @@
     _commentButton = [UIButton new];
     [_commentButton setTitle:@"评论" forState:UIControlStateNormal];
     [_commentButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
-    [_commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
+    [_commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
     _commentButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _commentButton.left = _repeaterButton.right;
@@ -340,7 +340,7 @@
     _favButton = [UIButton new];
     [_favButton setTitle:@"点赞" forState:UIControlStateNormal];
     [_favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
-    [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_BG_COLOR] forState:UIControlStateHighlighted];
+    [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
     _favButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _favButton.left = _commentButton.right;

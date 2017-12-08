@@ -113,7 +113,7 @@
     } else if (_type == SKPublishTypeRepost) {
         UIView *repostBackView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _textCountLabel.bottom+ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(74))];
         repostBackView.layer.cornerRadius = 3;
-        repostBackView.backgroundColor = [UIColor colorWithHex:0xF0FFFA];
+        repostBackView.backgroundColor = COMMON_HIGHLIGHT_BG_COLOR;
         [self.view addSubview:repostBackView];
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(54), ROUND_WIDTH_FLOAT(54))];
