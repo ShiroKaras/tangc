@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SKTicketTableViewCell : UITableViewCell
+@property (nonatomic, strong) SKTicket *ticket;
 @property (nonatomic, assign) float cellHeight;
 @end

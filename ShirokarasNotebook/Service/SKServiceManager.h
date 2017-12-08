@@ -13,6 +13,7 @@
 #import "SKTopicService.h"
 #import "SKProfileService.h"
 #import "SKCommonService.h"
+#import "SKShopService.h"
 #import <Qiniu/QiniuSDK.h>
 
 @interface SKServiceManager : NSObject
@@ -30,6 +31,8 @@
 
 /** commonService, 负责公共部分相关业务 */
 - (SKCommonService *)commonService;
+
+- (SKShopService *)shopService;
 
 /** qiniuService, 负责七牛相关的业务 */
 - (QNUploadManager *)qiniuService;

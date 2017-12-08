@@ -13,6 +13,7 @@
     SKTopicService      *_topicService;
     SKProfileService    *_profileService;
     SKCommonService     *_commonService;
+    SKShopService       *_shopService;
     QNUploadManager     *_qiniuService;
 }
 
@@ -31,6 +32,7 @@
         _topicService       = [[SKTopicService alloc] init];
         _profileService     = [[SKProfileService alloc] init];
         _commonService      = [[SKCommonService alloc] init];
+        _shopService        = [[SKShopService alloc] init];
         _qiniuService       = [[QNUploadManager alloc] init];
     }
     return self;
@@ -52,6 +54,10 @@
 
 - (SKCommonService *)commonService {
     return _commonService;
+}
+
+- (SKShopService *)shopService {
+    return _shopService;
 }
 
 - (QNUploadManager *)qiniuService {

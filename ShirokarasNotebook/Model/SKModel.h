@@ -118,6 +118,7 @@
 @interface SKTicket : NSObject
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *begin_time;
 @property (nonatomic, copy) NSString *end_time;
 @property (nonatomic, copy) NSString *merchant_name;

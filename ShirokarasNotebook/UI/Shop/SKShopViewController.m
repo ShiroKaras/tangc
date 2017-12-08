@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 
 @interface SKShopViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray<SKTicket*> *dataArray;
 
 @property (nonatomic, strong) UIView *titleView;
 @property (nonatomic, strong) UIButton *button_follow;
@@ -43,6 +43,11 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self createUI];
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+ 
+    [[[SKServiceManager sharedInstance] shopService] getTicketsListWithPage:0 pagesize:10 callback:^(BOOL success, NSArray<SKTicket *> *ticketsList) {
+        self.dataArray = [NSMutableArray arrayWithArray:ticketsList];
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)dealloc {
@@ -138,6 +143,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     if (cell==nil) {
         cell = [[SKTicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
     }
+    cell.ticket = self.dataArray[indexPath.row];
     return cell;
 }
 
@@ -149,8 +155,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //    return _dataArray.count;
-    return 5;
+    return self.dataArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
