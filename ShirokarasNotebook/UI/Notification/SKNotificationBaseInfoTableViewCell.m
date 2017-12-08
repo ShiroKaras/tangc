@@ -53,7 +53,7 @@
 - (UILabel *)usernameLabel {
     if (!_usernameLabel) {
         _usernameLabel = [UILabel new];
-        _usernameLabel.text = @"卓大王";
+        _usernameLabel.text = @"---";
         _usernameLabel.textColor = COMMON_TEXT_COLOR;
         _usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
         [_usernameLabel sizeToFit];

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SKNotificationTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) SKNotification *notificationItem;
 @property (nonatomic, assign) float cellHeight;
 
 @end

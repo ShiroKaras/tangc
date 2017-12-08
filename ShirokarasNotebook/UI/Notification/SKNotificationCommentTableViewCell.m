@@ -56,7 +56,7 @@
 - (UILabel *)usernameLabel {
     if (!_usernameLabel) {
         _usernameLabel = [UILabel new];
-        _usernameLabel.text = @"卓大王";
+        _usernameLabel.text = @"---";
         _usernameLabel.textColor = COMMON_TEXT_COLOR;
         _usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
         [_usernameLabel sizeToFit];
@@ -95,10 +95,10 @@
 - (UILabel *)contentLabel {
     if (!_contentLabel) {
         _contentLabel = [UILabel new];
-        _contentLabel.text = @"效率文具控的安利《这可能是最全的抵达清单可能是最全的抵达清单（TickTick）使用指南了》";
+        _contentLabel.text = @"----------";
         _contentLabel.textColor = COMMON_TEXT_CONTENT_COLOR;
-        _contentLabel.font = PINGFANG_FONT_OF_SIZE(10);
-        _contentLabel.numberOfLines = 3;
+        _contentLabel.font = PINGFANG_FONT_OF_SIZE(11);
+        _contentLabel.numberOfLines = 0;
         _contentLabel.size = CGSizeMake(ROUND_WIDTH_FLOAT(197), ROUND_WIDTH_FLOAT(50));
         [_contentLabel sizeToFit];
         _contentLabel.left = _usernameLabel.left;
@@ -123,7 +123,7 @@
 
 - (UIView *)underLine {
     if (!_underLine) {
-        _underLine = [[UIView alloc] initWithFrame:CGRectMake(_usernameLabel.left, _dateLabel.bottom+15, SCREEN_WIDTH-_usernameLabel.left-ROUND_WIDTH_FLOAT(15), 0.5)];
+        _underLine = [[UIView alloc] initWithFrame:CGRectMake(_usernameLabel.left, _dateLabel.bottom+ROUND_WIDTH_FLOAT(15), SCREEN_WIDTH-_usernameLabel.left-ROUND_WIDTH_FLOAT(15), 0.5)];
         _underLine.backgroundColor = COMMON_SEPARATOR_COLOR;
     }
     return _underLine;
@@ -133,6 +133,25 @@
     self.usernameLabel.text = userName;
     [self.usernameLabel sizeToFit];
     _usernameAppendLabel.left = _usernameLabel.right+6;
+}
+
+- (void)setNotificationItem:(SKNotification *)notificationItem {
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:notificationItem.avatar] placeholderImage:COMMON_AVATAR_PLACEHOLDER_IMAGE];
+    [_thumbImageView sd_setImageWithURL:[NSURL URLWithString:notificationItem.image] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    
+    _usernameLabel.text = notificationItem.comuser_nickname;
+    [_usernameLabel sizeToFit];
+    _usernameAppendLabel.left = _usernameLabel.right+6;
+    
+    _contentLabel.text = notificationItem.content;
+    CGSize labelSize = [notificationItem.content boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(197), MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(11)} context:nil].size;
+    _contentLabel.size = labelSize;
+    
+    _dateLabel.text = notificationItem.publish_time;
+    [_dateLabel sizeToFit];
+    
+    _underLine.top = _dateLabel.bottom+ROUND_WIDTH_FLOAT(15);
+    self.cellHeight = self.underLine.bottom;
 }
 
 @end

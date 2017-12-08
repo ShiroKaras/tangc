@@ -17,7 +17,7 @@
 #define TITLEVIEW_HEIGHT ROUND_HEIGHT_FLOAT(44)
 
 typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
-    SKNotificationSelectedTypeNotification,
+    SKNotificationSelectedTypeNotification = 1,
     SKNotificationSelectedTypeComment,
     SKNotificationSelectedTypeLike,
     SKNotificationSelectedTypeCallMe
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 @property (nonatomic, strong) UITableView *tableView_like;
 @property (nonatomic, strong) UITableView *tableView_callme;
 
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray<SKNotification*> *dataArray;
 
 @property (nonatomic, strong) SKSegmentView *titleView;
 @property (nonatomic, strong) UIButton *button_follow;
@@ -50,8 +50,8 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    [self createUI];
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [self createUI];
 }
 
 - (void)dealloc {
@@ -122,6 +122,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
             if (cell==nil) {
                 cell = [[SKNotificationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationTableViewCell class])];
             }
+//            cell.notificationItem = self.dataArray[indexPath.row];
             return cell;
             break;
         }
@@ -130,6 +131,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
             if (cell==nil) {
                 cell = [[SKNotificationCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationCommentTableViewCell class])];
             }
+//            cell.notificationItem = self.dataArray[indexPath.row];
             return cell;
             break;
         }
@@ -245,6 +247,10 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
         [self.tableView_notification reloadData];
+//        [[[SKServiceManager sharedInstance] profileService] getUserQueueListWithType:self.selectedType callback:^(BOOL success, NSArray<SKNotification *> *queueList) {
+//            self.dataArray = [NSMutableArray arrayWithArray:queueList];
+//        }];
+        
     }
 }
 @end
