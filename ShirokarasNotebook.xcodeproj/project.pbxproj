@@ -109,7 +109,6 @@
 		11D9AA231FB06142008D32E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA221FB06142008D32E9 /* ViewController.m */; };
 		11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA241FB06142008D32E9 /* Main.storyboard */; };
 		11D9AA291FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA271FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld */; };
-		11D9AA2B1FB06142008D32E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA2A1FB06142008D32E9 /* Assets.xcassets */; };
 		11D9AA2E1FB06142008D32E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA2C1FB06142008D32E9 /* LaunchScreen.storyboard */; };
 		11D9AA311FB06142008D32E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA301FB06142008D32E9 /* main.m */; };
 		11D9AA3B1FB06143008D32E9 /* ShirokarasNotebookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA3A1FB06143008D32E9 /* ShirokarasNotebookTests.m */; };
@@ -121,6 +120,7 @@
 		11EE40971FCED10400039E3F /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE40911FCED10300039E3F /* NSData+CommonCrypto.m */; };
 		11EE40981FCED10400039E3F /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE40921FCED10300039E3F /* NSData+Base64.m */; };
 		11F6B1E11FCFFEB400B21B07 /* SKTopicService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F6B1E01FCFFEB400B21B07 /* SKTopicService.m */; };
+		11FBD8BE1FDAA60500232C58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11FBD8BD1FDAA60400232C58 /* Assets.xcassets */; };
 		76557518BBC2AD9BD0387594 /* Pods_ShirokarasNotebookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803D018A3A78ACDAF46502E0 /* Pods_ShirokarasNotebookUITests.framework */; };
 		87693B860445E3E905C0543F /* Pods_ShirokarasNotebook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40F5C66FB3AEE075403E0441 /* Pods_ShirokarasNotebook.framework */; };
 		900D0F54A8D9488A19D2F9BB /* Pods_ShirokarasNotebookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CC1E6A02BBE48B32738FF5 /* Pods_ShirokarasNotebookTests.framework */; };
@@ -345,7 +345,6 @@
 		11D9AA221FB06142008D32E9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		11D9AA251FB06142008D32E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11D9AA281FB06142008D32E9 /* ShirokarasNotebook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShirokarasNotebook.xcdatamodel; sourceTree = "<group>"; };
-		11D9AA2A1FB06142008D32E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11D9AA2D1FB06142008D32E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11D9AA2F1FB06142008D32E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11D9AA301FB06142008D32E9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -369,6 +368,7 @@
 		11EE40921FCED10300039E3F /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		11F6B1DF1FCFFEB400B21B07 /* SKTopicService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTopicService.h; sourceTree = "<group>"; };
 		11F6B1E01FCFFEB400B21B07 /* SKTopicService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTopicService.m; sourceTree = "<group>"; };
+		11FBD8BD1FDAA60400232C58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		401A52AB8343B21779DEC99D /* Pods-ShirokarasNotebookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		40F5C66FB3AEE075403E0441 /* Pods_ShirokarasNotebook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShirokarasNotebook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD69E51AC31CC15E29CD0AC /* Pods-ShirokarasNotebookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShirokarasNotebookTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShirokarasNotebookTests/Pods-ShirokarasNotebookTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -872,12 +872,12 @@
 				11D9AA211FB06142008D32E9 /* ViewController.h */,
 				11D9AA221FB06142008D32E9 /* ViewController.m */,
 				11D9AA241FB06142008D32E9 /* Main.storyboard */,
-				11D9AA2A1FB06142008D32E9 /* Assets.xcassets */,
 				11D9AA2C1FB06142008D32E9 /* LaunchScreen.storyboard */,
 				11D9AA2F1FB06142008D32E9 /* Info.plist */,
 				11D9AA301FB06142008D32E9 /* main.m */,
 				11D9AA271FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld */,
 				1130402A1FB070850020C93D /* ShirokarasNotebook-prefix.pch */,
+				11FBD8BD1FDAA60400232C58 /* Assets.xcassets */,
 				1130402F1FB0765E0020C93D /* environment */,
 			);
 			path = ShirokarasNotebook;
@@ -1078,13 +1078,13 @@
 				11D9AA2E1FB06142008D32E9 /* LaunchScreen.storyboard in Resources */,
 				11923ECE1FD8073A00136715 /* PSCarouselCollectionCell.xib in Resources */,
 				1130401E1FB06F900020C93D /* Info.plist in Resources */,
-				11D9AA2B1FB06142008D32E9 /* Assets.xcassets in Resources */,
 				1130403F1FB1A4BD0020C93D /* NSDateTimeAgo.bundle in Resources */,
 				11303FF31FB06B3E0020C93D /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				11303FF91FB06B3E0020C93D /* ShareSDK.bundle in Resources */,
 				11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */,
 				11303FF51FB06B3E0020C93D /* WeiboSDK.bundle in Resources */,
 				113040301FB0765F0020C93D /* environment in Resources */,
+				11FBD8BE1FDAA60500232C58 /* Assets.xcassets in Resources */,
 				11303FF71FB06B3E0020C93D /* read_me.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
