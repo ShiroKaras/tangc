@@ -110,3 +110,6 @@ HTINIT(SKResponsePackage)
 
 @implementation SKGoods
 @end
+
+@implementation SKNotification
+@end

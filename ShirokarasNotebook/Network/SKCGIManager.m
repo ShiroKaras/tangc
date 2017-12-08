@@ -96,4 +96,8 @@
     return [NSString stringWithFormat:@"%@/api/good/click", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)queueList {
+    return [NSString stringWithFormat:@"%@/api/queue/list", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end

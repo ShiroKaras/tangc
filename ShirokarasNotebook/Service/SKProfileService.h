@@ -11,6 +11,7 @@
 #import "SKLogicHeader.h"
 
 typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* topicList);
+typedef void (^SKQueueListCallback)(BOOL success, NSArray<SKNotification*>* queueList);
 
 @interface SKProfileService : NSObject
 
@@ -28,5 +29,8 @@ typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* topicList
 
 //更新用户信息
 - (void)updateUserInfoWithUserInfo:(SKUserInfo*)userInfo callback:(SKResponseCallback)callback;
+
+//系统推送通知列表
+- (void)getUserQueueListWithType:(NSInteger)type callback:(SKQueueListCallback)callback;
 
 @end

@@ -76,4 +76,7 @@
 //点击商品计数
 + (NSString *)goodsListClick;
 
+//系统推送列表
++ (NSString *)queueList;
+
 @end

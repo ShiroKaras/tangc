@@ -136,5 +136,15 @@
 @property (nonatomic, copy) NSString *merchant_name;
 @end
 
-
+//通知
+@interface SKNotification : NSObject
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *comuser_id;
+@property (nonatomic, copy) NSString *article_id;
+@property (nonatomic, copy) NSString *created_at;
+@property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, copy) NSString *comuser_nickname;
+@property (nonatomic, copy) NSString *publish_time;
+@property (nonatomic, copy) NSString *image;
+@end
 
