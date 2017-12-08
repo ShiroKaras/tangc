@@ -99,6 +99,7 @@
         _repostLabel.left = ROUND_WIDTH_FLOAT(15);
         _repostLabel.top = _baseInfoView.bottom;
         [self.contentView addSubview:_repostLabel];
+        [self regxWithContent:topic.content label:_repostLabel];
         
         underLine.top = _repostLabel.bottom+10;
         
@@ -187,7 +188,7 @@
                 _articleLabel.text = topic.from.content;
                 _articleLabel.textColor = [UIColor whiteColor];
                 _articleLabel.font = PINGFANG_FONT_OF_SIZE(14);
-                CGSize labelSize = [topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+                CGSize labelSize = [topic.from.content boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
                 _articleLabel.size = labelSize;
                 _articleLabel.left = _imageViewArticle.left+ROUND_WIDTH_FLOAT(10);
                 _articleLabel.centerY = _imageViewArticle.centerY;
@@ -281,8 +282,7 @@
                 _articleLabel.textColor = [UIColor whiteColor];
                 _articleLabel.shadowOffset = CGSizeMake(1, 1);
                 _articleLabel.shadowColor = [UIColor lightGrayColor];
-                CGSize mSize = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40));
-                CGSize labelSize = [topic.content boundingRectWithSize:mSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+                CGSize labelSize = [topic.content boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _articleLabel.size = labelSize;
                 _articleLabel.left = _imageViewArticle.left+ROUND_WIDTH_FLOAT(10);
                 _articleLabel.centerY = _imageViewArticle.centerY;
@@ -303,28 +303,7 @@
         }
     }
     
-    // 话题的规则
-    NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
-    // @的规则
-    NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5]+";
-    
-    NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
-    //匹配集合
-    NSArray *results = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)];
-    
-    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[content dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                                  options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
-                                                                       documentAttributes:nil error:nil];
-    // 3.遍历结果
-    for (NSTextCheckingResult *result in results) {
-        NSLog(@"%@  %@",NSStringFromRange(result.range),[content substringWithRange:result.range]);
-        //set font
-        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, content.length)];
-        // 设置颜色
-        [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
-    }
-    _introduceLabel.attributedText = attrStr;
+    [self regxWithContent:content label:_introduceLabel];
     
     _baseContentView.height = underLine.bottom-_repostLabel.bottom-ROUND_WIDTH_FLOAT(15);
     
@@ -374,6 +353,31 @@
     
     [self layoutIfNeeded];
     self.cellHeight = sepLine.bottom;
+}
+
+- (void)regxWithContent:(NSString*)content label:(UILabel*)label {
+    // 话题的规则
+    NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
+    // @的规则
+    NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5]+";
+    
+    NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+    //匹配集合
+    NSArray *results = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)];
+    
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[content dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                                  options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType}
+                                                                       documentAttributes:nil error:nil];
+    // 3.遍历结果
+    for (NSTextCheckingResult *result in results) {
+        NSLog(@"%@  %@",NSStringFromRange(result.range),[content substringWithRange:result.range]);
+        //set font
+        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, content.length)];
+        // 设置颜色
+        [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
+    }
+    label.attributedText = attrStr;
 }
 
 @end
