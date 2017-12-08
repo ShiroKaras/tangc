@@ -91,7 +91,7 @@
 		11B82D9D1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */; };
 		11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */; };
 		11B82DA31FBC5448006D9A26 /* SKTabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA21FBC5448006D9A26 /* SKTabbarViewController.m */; };
-		11B82DA61FBD37DB006D9A26 /* SKTopicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA51FBD37DB006D9A26 /* SKTopicsViewController.m */; };
+		11B82DA61FBD37DB006D9A26 /* SKTopicsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA51FBD37DB006D9A26 /* SKTopicsView.m */; };
 		11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DA91FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m */; };
 		11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAA1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m */; };
 		11B82DB01FBD3A53006D9A26 /* SKTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */; };
@@ -309,8 +309,8 @@
 		11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTitleBaseView.m; sourceTree = "<group>"; };
 		11B82DA11FBC5448006D9A26 /* SKTabbarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTabbarViewController.h; sourceTree = "<group>"; };
 		11B82DA21FBC5448006D9A26 /* SKTabbarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTabbarViewController.m; sourceTree = "<group>"; };
-		11B82DA41FBD37DB006D9A26 /* SKTopicsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTopicsViewController.h; sourceTree = "<group>"; };
-		11B82DA51FBD37DB006D9A26 /* SKTopicsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTopicsViewController.m; sourceTree = "<group>"; };
+		11B82DA41FBD37DB006D9A26 /* SKTopicsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTopicsView.h; sourceTree = "<group>"; };
+		11B82DA51FBD37DB006D9A26 /* SKTopicsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTopicsView.m; sourceTree = "<group>"; };
 		11B82DA81FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallFooter.h; sourceTree = "<group>"; };
 		11B82DA91FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallFooter.m; sourceTree = "<group>"; };
 		11B82DAA1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallHeader.m; sourceTree = "<group>"; };
@@ -805,8 +805,8 @@
 				11B82D9F1FBAF56A006D9A26 /* SKTitleBaseView.m */,
 				11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */,
 				11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */,
-				11B82DA41FBD37DB006D9A26 /* SKTopicsViewController.h */,
-				11B82DA51FBD37DB006D9A26 /* SKTopicsViewController.m */,
+				11B82DA41FBD37DB006D9A26 /* SKTopicsView.h */,
+				11B82DA51FBD37DB006D9A26 /* SKTopicsView.m */,
 				11B82DAE1FBD3A53006D9A26 /* SKTopicCell.h */,
 				11B82DAF1FBD3A53006D9A26 /* SKTopicCell.m */,
 			);
@@ -1358,7 +1358,7 @@
 				111C5CB71FCC1AC200581AE0 /* SKUserListTableViewCell.m in Sources */,
 				11A1E5DA1FCEC041000D4D5B /* SKLoginService.m in Sources */,
 				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,
-				11B82DA61FBD37DB006D9A26 /* SKTopicsViewController.m in Sources */,
+				11B82DA61FBD37DB006D9A26 /* SKTopicsView.m in Sources */,
 				11A1E5B71FCD66BB000D4D5B /* NSString+WPAttributedMarkup.m in Sources */,
 				113040221FB06F900020C93D /* MJPropertyKey.m in Sources */,
 				11A1E5EC1FCEC3C5000D4D5B /* NSString+DES.m in Sources */,

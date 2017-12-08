@@ -14,6 +14,7 @@
 #import "PSCarouselView.h"
 
 #import "SKPublishNewContentViewController.h"
+#import "SKTopicsView.h"
 
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
@@ -36,6 +37,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 @property (nonatomic, strong) UIButton *button_hot;
 @property (nonatomic, strong) UIView *markLine;
 @property (nonatomic, assign) SKHomepageSelectedType selectedType;
+
+@property (nonatomic, strong) SKTopicsView *topoicsView;
 @end
 
 @implementation SKHomepageViewController {
@@ -134,6 +137,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     _titleView.userInteractionEnabled = YES;
     [_tableView addSubview:_titleView];
     self.selectedType = SKHomepageSelectedTypeFollow;
+    
 }
 
 - (void)didClickFollowButton:(UIButton*)sender {

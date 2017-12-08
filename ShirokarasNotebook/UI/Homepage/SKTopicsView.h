@@ -1,5 +1,5 @@
 //
-//  SKTopicsViewController.h
+//  SKTopicsView.h
 //  ShirokarasNotebook
 //
 //  Created by SinLemon on 2017/11/16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKTopicsViewController : UIViewController
+@interface SKTopicsView : UIView
 
 @end

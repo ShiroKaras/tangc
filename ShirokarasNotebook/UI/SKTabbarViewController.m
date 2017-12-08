@@ -8,7 +8,6 @@
 
 #import "SKTabbarViewController.h"
 #import "SKHomepageViewController.h"
-#import "SKTopicsViewController.h"
 #import "SKShopViewController.h"
 #import "SKPublishNewContentViewController.h"
 #import "SKNotificationViewController.h"
@@ -31,7 +30,7 @@
     c1.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_home"];
     c1.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_home_highlight"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    SKTopicsViewController *c2 = [[SKTopicsViewController alloc] init];
+    SKShopViewController *c2 = [[SKShopViewController alloc] init];
     c2.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     c2.tabBarItem.image = [UIImage imageNamed:@"btn_homepage_mall"];
     c2.tabBarItem.selectedImage = [[UIImage imageNamed:@"btn_homepage_mall_highlight"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

@@ -6,7 +6,7 @@
 //  Copyright © 2017年 SinLemon. All rights reserved.
 //
 
-#import "SKTopicsViewController.h"
+#import "SKTopicsView.h"
 
 #import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
 #import "CHTCollectionViewWaterfallHeader.h"
@@ -20,47 +20,35 @@
 #define SPACE 15
 #define CELL_WIDTH ((SCREEN_WIDTH-SPACE*3)/2)
 
-@interface SKTopicsViewController () <UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
+@interface SKTopicsView () <UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray<SKTopic*> *dataArray;
 @end
 
-@implementation SKTopicsViewController
+@implementation SKTopicsView
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    for (UIView *view in self.view.subviews) {
-        [view removeFromSuperview];
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = COMMON_BG_COLOR;
+        [self createUI];
+        [self updateLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
+        [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:0 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+            self.dataArray = topicList;
+            [self.collectionView reloadData];
+        }];
     }
-    [self createUI];
-    [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:0 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-        self.dataArray = topicList;
-        [self.collectionView reloadData];
-    }];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self updateLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = COMMON_BG_COLOR;
-    self.automaticallyAdjustsScrollViewInsets = false;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    return self;
 }
 
 - (void)dealloc {
-    _collectionView.delegate = nil;
-    _collectionView.dataSource = nil;
+    self.collectionView.delegate = nil;
+    self.collectionView.dataSource = nil;
 }
 
 - (void)createUI {
-     [self.view addSubview:self.collectionView];
+     [self addSubview:self.collectionView];
     
 #ifdef __IPHONE_11_0
     if ([self.collectionView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
@@ -69,10 +57,10 @@
 #endif
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    [self updateLayoutForOrientation:toInterfaceOrientation];
-}
+//- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+//    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+//    [self updateLayoutForOrientation:toInterfaceOrientation];
+//}
 
 - (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation {
     CHTCollectionViewWaterfallLayout *layout =
@@ -92,7 +80,7 @@
         layout.minimumColumnSpacing = SPACE;
         layout.minimumInteritemSpacing = SPACE;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, SCREEN_HEIGHT-42) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.width, SCREEN_HEIGHT-42) collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
