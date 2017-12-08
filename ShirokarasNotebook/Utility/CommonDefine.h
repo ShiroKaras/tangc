@@ -61,7 +61,7 @@
 #define COMMON_TEXT_PLACEHOLDER_COLOR [UIColor colorWithHex:0xBCCCC7]
 #define COMMON_TEXT_CONTENT_COLOR [UIColor colorWithHex:0x6B827A]
 
-#define PLACEHOLDER_IMAGE [UIImage imageNamed:@"img_mascot_article_list_cover_default"]
+#define COMMON_AVATAR_PLACEHOLDER_IMAGE [UIImage imageNamed:@"img_personalpage_headimage_default"]
 
 #define KEYWINDS_ROOT_CONTROLLER [[[[UIApplication sharedApplication] delegate] window] rootViewController]
 #define KEY_WINDOW [[[UIApplication sharedApplication] delegate] window]
