@@ -22,7 +22,8 @@
 
 typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     SKHomepageSelectedTypeFollow,
-    SKHomepageSelectedTypeHot
+    SKHomepageSelectedTypeHot,
+    SKHomepageSelectedTypeTopics
 };
 
 @interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate, SKSegmentViewDelegate, SKHomepageTableCellDelegate>
@@ -86,6 +87,13 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     }];
 }
 
+- (SKTopicsView *)topoicsView {
+    if (!_topoicsView) {
+        _topoicsView = [[SKTopicsView alloc] initWithFrame:self.tableView.frame];
+    }
+    return _topoicsView;
+}
+
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"selectedType"];
 }
@@ -100,7 +108,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor = COMMON_BG_COLOR;
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     [self.view addSubview:_tableView];
@@ -138,6 +146,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     [_tableView addSubview:_titleView];
     self.selectedType = SKHomepageSelectedTypeFollow;
     
+    [self.view addSubview:self.topoicsView];
+    [self.view bringSubviewToFront:self.tableView];
 }
 
 - (void)didClickFollowButton:(UIButton*)sender {
@@ -152,7 +162,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)carousel:(PSCarouselView *)carousel didMoveToPage:(NSUInteger)page {
     NSLog(@"Page:%ld", page);
-    
 }
 
 - (void)carousel:(PSCarouselView *)carousel didTouchPage:(NSUInteger)pag {
@@ -294,6 +303,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if ([keyPath isEqualToString:@"selectedType"]) {
         scrollLock = YES;
         if (self.selectedType==SKHomepageSelectedTypeFollow) {
+            [self.view bringSubviewToFront:self.tableView];
             [_button_follow setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
             [_button_hot setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
             [UIView animateWithDuration:0.2 animations:^{
@@ -306,6 +316,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 scrollLock = NO;
             }];
         } else if(self.selectedType==SKHomepageSelectedTypeHot){
+            [self.view bringSubviewToFront:self.tableView];
             [_button_follow setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
             [_button_hot setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
             [UIView animateWithDuration:0.2 animations:^{
@@ -317,8 +328,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 [self.tableView reloadData];
                 scrollLock = NO;
             }];
-        } else {
-            
+        } else if(self.selectedType == SKHomepageSelectedTypeTopics){
+            [self.view bringSubviewToFront:self.topoicsView];
         }
     }
 }

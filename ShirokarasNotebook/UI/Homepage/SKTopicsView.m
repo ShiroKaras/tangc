@@ -1,5 +1,5 @@
 //
-//  SKTopicsViewController.m
+//  SKTopicsView.m
 //  ShirokarasNotebook
 //
 //  Created by SinLemon on 2017/11/16.
@@ -21,7 +21,6 @@
 #define CELL_WIDTH ((SCREEN_WIDTH-SPACE*3)/2)
 
 @interface SKTopicsView () <UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
-@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray<SKTopic*> *dataArray;
 @end
 

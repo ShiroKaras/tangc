@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SKTopicsView : UIView
-
+@property (nonatomic, strong) UICollectionView *collectionView;
 @end
