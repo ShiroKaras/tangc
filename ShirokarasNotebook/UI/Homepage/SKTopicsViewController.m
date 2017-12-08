@@ -18,10 +18,11 @@
 #define HEADER_IDENTIFIER @"WaterfallHeader"
 #define FOOTER_IDENTIFIER @"WaterfallFooter"
 #define SPACE 15
+#define CELL_WIDTH ((SCREEN_WIDTH-SPACE*3)/2)
 
 @interface SKTopicsViewController () <UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSArray *topicArray;
+@property (nonatomic, strong) NSArray<SKTopic*> *dataArray;
 @end
 
 @implementation SKTopicsViewController
@@ -32,6 +33,10 @@
         [view removeFromSuperview];
     }
     [self createUI];
+    [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:0 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+        self.dataArray = topicList;
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -81,11 +86,11 @@
     if (!_collectionView) {
         CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
         
-        layout.sectionInset = UIEdgeInsetsMake(SPACE, SPACE, SPACE, SPACE);
+        layout.sectionInset = UIEdgeInsetsMake(SPACE, SPACE, 0, SPACE);
         layout.headerHeight = ROUND_WIDTH_FLOAT(130);
         layout.footerHeight = 0;
         layout.minimumColumnSpacing = SPACE;
-        layout.minimumInteritemSpacing = SPACE*2;
+        layout.minimumInteritemSpacing = SPACE;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, SCREEN_HEIGHT-42) collectionViewLayout:layout];
         _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -109,8 +114,7 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 15;
-    //    return _topicArray.count;
+    return self.dataArray.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -119,9 +123,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SKTopicCell *cell = (SKTopicCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
-    cell.mCoverImageView = [[UIImageView alloc] init];
-    cell.mTitleLabel.text = @"卓大王 星空系列开放预啦！成品价45，数量有限先到…";
-    cell.mUsernameLabel.text = @"卓大王";
+    [cell.mCoverImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row].images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    [cell.mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row].userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+    cell.mUsernameLabel.text = self.dataArray[indexPath.row].userinfo.nickname;
+    [cell setTopic:self.dataArray[indexPath.row].content];
     return cell;
 }
 
@@ -143,9 +148,9 @@
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *title = @"卓大王 星空系列开放预售啦！成品价45";
-    CGSize titleSize = [title boundingRectWithSize:CGSizeMake((SCREEN_WIDTH-SPACE*3)/2-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_FONT_OF_SIZE(12)} context:nil].size;
-    return CGSizeMake((self.view.width-SPACE*3)/2, titleSize.height+ROUND_WIDTH_FLOAT(200));
+    CGSize maxSize = CGSizeMake(CELL_WIDTH-20, ROUND_WIDTH_FLOAT(45));//labelsize的最大值
+    CGSize labelSize = [self.dataArray[indexPath.row].content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
+    return CGSizeMake(CELL_WIDTH, CELL_WIDTH+ROUND_WIDTH_FLOAT(6)+labelSize.height+ROUND_WIDTH_FLOAT(51));
 }
 
 @end

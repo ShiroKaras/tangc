@@ -64,12 +64,15 @@
     }];
 }
 
-- (void)getIndexTopicListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
+- (void)getIndexTopicListWithTopicID:(NSInteger)topic_id PageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
     NSDictionary *param = @{
                             @"page" : @(page),
                             @"pagesize" : @(pagesize)
                             };
-    [self baseRequestWithParam:param url:[SKCGIManager indexTopic] callback:^(BOOL success, SKResponsePackage *response) {
+    NSMutableDictionary *param_new = [NSMutableDictionary dictionaryWithDictionary:param];
+    [param_new setValue:@(topic_id) forKey:@"topic_id"];
+    
+    [self baseRequestWithParam:param_new url:[SKCGIManager indexTopic] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
         for (int i = 0; i < [response.data[@"lists"] count]; i++) {
             SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
