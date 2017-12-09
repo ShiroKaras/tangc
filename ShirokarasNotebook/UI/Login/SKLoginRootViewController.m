@@ -37,6 +37,8 @@
 
 - (void)createUI {
     self.view.backgroundColor = [UIColor whiteColor];
+    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_loginpage_background_%f",SCREEN_WIDTH]]];
+    [self.view addSubview:backImageView];
     
     __weak __typeof(self) weakSelf = self;
     
@@ -52,34 +54,32 @@
     //login buttons
     UIButton *login_weibo = [UIButton new];
     [login_weibo addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
-    [login_weibo setTitle:@"微博登录" forState:UIControlStateNormal];
-    [login_weibo setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    login_weibo.backgroundColor = [UIColor darkGrayColor];
-    login_weibo.layer.cornerRadius = ROUND_HEIGHT_FLOAT(25);
+    [login_weibo setBackgroundImage:[UIImage imageNamed:@"btn_loginpage_weibo"] forState:UIControlStateNormal];
+    login_weibo.layer.cornerRadius = ROUND_HEIGHT_FLOAT(22);
     login_weibo.width = ROUND_WIDTH_FLOAT(220);
-    login_weibo.height = ROUND_HEIGHT_FLOAT(50);
+    login_weibo.height = ROUND_HEIGHT_FLOAT(44);
     login_weibo.centerX = weakSelf.view.centerX;
-    login_weibo.bottom = weakSelf.view.bottom - 60;
+    login_weibo.bottom = weakSelf.view.bottom - ROUND_WIDTH_FLOAT(52.5);
     [self.view addSubview:login_weibo];
     
     UIButton *login_qq = [UIButton new];
-    [login_weibo addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
+    [login_qq addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [login_qq setTitle:@"QQ登录" forState:UIControlStateNormal];
-    [login_qq setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [login_qq setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
     login_qq.width = ROUND_WIDTH_FLOAT(100);
-    login_qq.height = ROUND_HEIGHT_FLOAT(20);
+    login_qq.height = ROUND_HEIGHT_FLOAT(44);
     login_qq.left = login_weibo.left;
-    login_qq.top = login_weibo.bottom +20;
+    login_qq.top = login_weibo.bottom +10;
     [self.view addSubview:login_qq];
     
     UIButton *login_weixin = [UIButton new];
-    [login_weibo addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
+    [login_weixin addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [login_weixin setTitle:@"微信登录" forState:UIControlStateNormal];
-    [login_weixin setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [login_weixin setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
     login_weixin.width = ROUND_WIDTH_FLOAT(100);
-    login_weixin.height = ROUND_HEIGHT_FLOAT(20);
+    login_weixin.height = ROUND_HEIGHT_FLOAT(44);
     login_weixin.left = login_qq.right+ROUND_WIDTH_FLOAT(20);
-    login_weixin.top = login_weibo.bottom +20;
+    login_weixin.top = login_weibo.bottom +10;
     [self.view addSubview:login_weixin];
 }
 
