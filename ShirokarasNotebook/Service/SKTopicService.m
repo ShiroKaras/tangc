@@ -36,16 +36,17 @@
 
 
 - (void)getIndexFollowListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
-    if ([SKStorageManager sharedInstance].userInfo.uuid==nil||[[SKStorageManager sharedInstance].userInfo.uuid isEqualToString:@""]) {
-        return;
-    }
     [self baseRequestWithParam:nil url:[SKCGIManager indexFollow] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
-            [list addObject:item];
+        if (!response.errcode) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
+            callback(success, list);
+        } else {
+            callback(success, list);
         }
-        callback(success, list);
     }];
 }
 
@@ -56,15 +57,23 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager indexHot] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
-            [list addObject:item];
+        if (!response.errcode) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
+            callback(success, list);
+        } else {
+            callback(success, list);
         }
-        callback(success, list);
     }];
 }
 
 - (void)getIndexTopicListWithTopicID:(NSInteger)topic_id PageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
+//    if ([SKStorageManager sharedInstance].userInfo.uuid==nil||[[SKStorageManager sharedInstance].userInfo.uuid isEqualToString:@""]) {
+//        NSMutableArray<SKTopic*>*list = [NSMutableArray array];
+//        callback(NO, list);
+//    }
     NSDictionary *param = @{
                             @"page" : @(page),
                             @"pagesize" : @(pagesize)
@@ -74,11 +83,15 @@
     
     [self baseRequestWithParam:param_new url:[SKCGIManager indexTopic] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
-            [list addObject:item];
+        if (!response.errcode) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
+            callback(success, list);
+        } else {
+            callback(success, list);
         }
-        callback(success, list);
     }];
 }
 

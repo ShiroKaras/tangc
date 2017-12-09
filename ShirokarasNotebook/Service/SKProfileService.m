@@ -93,9 +93,11 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager queueList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKNotification*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKNotification *item = [SKNotification mj_objectWithKeyValues:response.data[@"lists"][i]];
-            [list addObject:item];
+        if ([response.data containsObject:@"lists"]) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKNotification *item = [SKNotification mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
         }
         callback(success, list);
     }];

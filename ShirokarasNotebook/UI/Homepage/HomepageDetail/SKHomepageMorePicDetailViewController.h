@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, SKHomepageDetailType) {
+    SKHomepageDetailTypeOnePic = 1,
+    SKHomepageDetailTypeMorePic,
+    SKHomepageDetailTypeArticle,
+};
+
 @interface SKHomepageMorePicDetailViewController : UIViewController
 
 - (instancetype)initWithTopic:(SKTopic*)topic;

@@ -190,16 +190,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.selectedType = SKHomepageSelectedTypeFollow;
 }
 
-
-
-- (void)didClickFollowButton:(UIButton*)sender {
-    self.selectedType = SKHomepageSelectedTypeFollow;
-}
-
-- (void)didClickHotButton:(UIButton*)sender {
-    self.selectedType = SKHomepageSelectedTypeHot;
-}
-
 - (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation {
     CHTCollectionViewWaterfallLayout *layout =
     (CHTCollectionViewWaterfallLayout *)self.collectionView.collectionViewLayout;
@@ -292,6 +282,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - SKSegment Delegate
 
 - (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index {
+    NSLog(@"index: %ld", index);
     self.selectedType = index;
 }
 
