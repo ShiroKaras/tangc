@@ -45,7 +45,7 @@
     //skip
     UIButton *button_skip = [UIButton new];
     [button_skip setTitle:@"跳过" forState:UIControlStateNormal];
-    [button_skip setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [button_skip setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
     button_skip.size = CGSizeMake(44, 44);
     button_skip.top = 20;
     button_skip.right = self.view.right -20;
