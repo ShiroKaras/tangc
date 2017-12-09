@@ -143,7 +143,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
-    headerImageView.backgroundColor = [UIColor blackColor];
+    headerImageView.image = COMMON_PLACEHOLDER_IMAGE;
+    headerImageView.layer.masksToBounds = YES;
+    headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     [headerView addSubview:headerImageView];
     
     UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
@@ -284,6 +287,11 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index {
     NSLog(@"index: %ld", index);
     self.selectedType = index;
+    if (view==_titleView) {
+        _titleView_collectionV.selectedIndex = index;
+    } else if (view == _titleView_collectionV) {
+        _titleView.selectedIndex = index;
+    }
 }
 
 #pragma mark - UITableView Delegate

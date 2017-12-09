@@ -14,7 +14,6 @@
     NSArray *_titleArray;
     NSMutableArray *_cXdistanceArray;
 }
-@property (nonatomic, assign) NSInteger selectedIndex;
 @end
 
 @implementation SKSegmentView

@@ -14,6 +14,7 @@
 @end
 
 @interface SKSegmentView : UIView
+@property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, strong) UIView *markLine;
 @property (nonatomic, weak) id<SKSegmentViewDelegate> delegate;
 - (instancetype)initWithFrame:(CGRect)frame titleNameArray:(NSArray<NSString*>*)titleArray;
