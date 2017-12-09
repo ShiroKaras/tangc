@@ -26,6 +26,7 @@ target 'ShirokarasNotebook' do
   pod 'ReactiveObjC'
 #  pod 'ReactiveObjCBridge'
 
+  pod 'GTSDK'
 end
 
 target 'ShirokarasNotebookTests' do
@@ -35,6 +36,11 @@ end
 target 'ShirokarasNotebookUITests' do
 
 end
+
+#target 'NotificationService' do
+#    platform :ios, "10.0"
+#    pod 'GTExtensionSDK'
+#end
 
 post_install do |installer|
     copy_pods_resources_path = "Pods/Target Support Files/Pods-ShirokarasNotebook/Pods-ShirokarasNotebook-resources.sh"

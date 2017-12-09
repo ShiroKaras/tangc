@@ -44,11 +44,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>PSCarouselView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-ShirokarasNotebook.xcscheme</key>
 		<dict>
 			<key>isShown</key>

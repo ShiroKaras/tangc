@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E619EA0F640E21EE8959AD56D8B2E8D"
+               BlueprintIdentifier = "03F16892C8DD024F434D3BE897609686"
                BuildableName = "UIImage_animatedGif.framework"
                BlueprintName = "UIImage+animatedGif"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E619EA0F640E21EE8959AD56D8B2E8D"
+            BlueprintIdentifier = "03F16892C8DD024F434D3BE897609686"
             BuildableName = "UIImage_animatedGif.framework"
             BlueprintName = "UIImage+animatedGif"
             ReferencedContainer = "container:Pods.xcodeproj">
