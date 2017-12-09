@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKSegmentView.h"
 
 @interface SKTopicsView : UIView
+@property (nonatomic, strong) SKSegmentView *titleView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @end

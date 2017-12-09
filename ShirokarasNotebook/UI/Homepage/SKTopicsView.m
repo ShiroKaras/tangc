@@ -47,13 +47,19 @@
 }
 
 - (void)createUI {
-     [self addSubview:self.collectionView];
+    [self addSubview:self.collectionView];
     
 #ifdef __IPHONE_11_0
     if ([self.collectionView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
-        self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        if (@available(iOS 11.0, *)) {
+            self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
     }
 #endif
+    
+    
 }
 
 //- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {

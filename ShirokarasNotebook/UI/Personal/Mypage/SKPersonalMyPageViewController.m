@@ -125,7 +125,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 
 #pragma mark - SKSegment Delegate
 
-- (void)segmentView:(UIView *)view didClickIndex:(NSInteger)index {
+- (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index {
     self.selectedType = index;
 }
 

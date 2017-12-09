@@ -20,13 +20,26 @@
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
 #define TITLEVIEW_HEIGHT ROUND_HEIGHT_FLOAT(44)
 
+//Topics
+#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
+#import "CHTCollectionViewWaterfallHeader.h"
+#import "CHTCollectionViewWaterfallFooter.h"
+
+#import "SKTopicCell.h"
+
+#define CELL_IDENTIFIER @"WaterfallCell"
+#define HEADER_IDENTIFIER @"WaterfallHeader"
+#define FOOTER_IDENTIFIER @"WaterfallFooter"
+#define SPACE 15
+#define CELL_WIDTH ((SCREEN_WIDTH-SPACE*3)/2)
+
 typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     SKHomepageSelectedTypeFollow,
     SKHomepageSelectedTypeHot,
     SKHomepageSelectedTypeTopics
 };
 
-@interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate, SKSegmentViewDelegate, SKHomepageTableCellDelegate>
+@interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate, SKSegmentViewDelegate, SKHomepageTableCellDelegate,UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKTopic *> *dataArray;
 
@@ -34,12 +47,15 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 @property (nonatomic, strong) NSArray *bannerArray;
 
 @property (nonatomic, strong) SKSegmentView *titleView;
-@property (nonatomic, strong) UIButton *button_follow;
-@property (nonatomic, strong) UIButton *button_hot;
-@property (nonatomic, strong) UIView *markLine;
+@property (nonatomic, strong) SKSegmentView *titleView_collectionV;
+//@property (nonatomic, strong) UIButton *button_follow;
+//@property (nonatomic, strong) UIButton *button_hot;
+//@property (nonatomic, strong) UIView *markLine;
 @property (nonatomic, assign) SKHomepageSelectedType selectedType;
 
 @property (nonatomic, strong) SKTopicsView *topoicsView;
+@property (nonatomic, strong) UICollectionView *collectionView;
+
 @end
 
 @implementation SKHomepageViewController {
@@ -58,10 +74,15 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
-    [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-        self.dataArray = [NSMutableArray arrayWithArray:topicList];
-        [self.tableView reloadData];
+    [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:3 PageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+        self.dataArray = topicList;
+        [self.collectionView reloadData];
     }];
+    
+//    [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+//        self.dataArray = [NSMutableArray arrayWithArray:topicList];
+//        [self.tableView reloadData];
+//    }];
     
     if([SKStorageManager sharedInstance].userInfo.uuid==nil)    return;
     
@@ -113,6 +134,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     [self.tableView registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     [self.view addSubview:_tableView];
     
+    //话题列表
+    [self.view addSubview:self.collectionView];
+    
+    [self.view bringSubviewToFront:self.tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
     headerView.backgroundColor = [UIColor clearColor];
@@ -133,6 +158,13 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             // Fallback on earlier versions
         }
     }
+    if ([self.collectionView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+        if (@available(iOS 11.0, *)) {
+            self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
+    }
 #endif
     
     //TitleView
@@ -144,11 +176,21 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
     [_tableView addSubview:_titleView];
-    self.selectedType = SKHomepageSelectedTypeFollow;
     
-    [self.view addSubview:self.topoicsView];
-    [self.view bringSubviewToFront:self.tableView];
+    //TitleView 话题
+    _titleView_collectionV = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"关注", @"热门", @"话题"]];
+    _titleView_collectionV.delegate = self;
+    _titleView_collectionV.layer.cornerRadius = 3;
+    _titleView_collectionV.backgroundColor = [UIColor whiteColor];
+    _titleView_collectionV.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
+    _titleView_collectionV.centerX = self.view.centerX;
+    _titleView_collectionV.userInteractionEnabled = YES;
+    [_collectionView addSubview:_titleView_collectionV];
+    
+    self.selectedType = SKHomepageSelectedTypeFollow;
 }
+
+
 
 - (void)didClickFollowButton:(UIButton*)sender {
     self.selectedType = SKHomepageSelectedTypeFollow;
@@ -156,6 +198,85 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)didClickHotButton:(UIButton*)sender {
     self.selectedType = SKHomepageSelectedTypeHot;
+}
+
+- (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation {
+    CHTCollectionViewWaterfallLayout *layout =
+    (CHTCollectionViewWaterfallLayout *)self.collectionView.collectionViewLayout;
+    layout.columnCount = UIInterfaceOrientationIsPortrait(orientation) ? 2 : 3;
+}
+
+#pragma mark - Accessors
+
+- (UICollectionView *)collectionView {
+    if (!_collectionView) {
+        CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
+        
+        layout.sectionInset = UIEdgeInsetsMake(SPACE, SPACE, 0, SPACE);
+        layout.headerHeight = HEADERVIEW_HEIGHT+ TITLEVIEW_HEIGHT/2 +20;
+        layout.footerHeight = 0;
+        layout.minimumColumnSpacing = SPACE;
+        layout.minimumInteritemSpacing = SPACE;
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) collectionViewLayout:layout];
+        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.backgroundColor = COMMON_BG_COLOR;
+        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        [_collectionView registerClass:[SKTopicCell class]
+            forCellWithReuseIdentifier:CELL_IDENTIFIER];
+        [_collectionView registerClass:[CHTCollectionViewWaterfallHeader class]
+            forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader
+                   withReuseIdentifier:HEADER_IDENTIFIER];
+        [_collectionView registerClass:[CHTCollectionViewWaterfallFooter class]
+            forSupplementaryViewOfKind:CHTCollectionElementKindSectionFooter
+                   withReuseIdentifier:FOOTER_IDENTIFIER];
+    }
+    return _collectionView;
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.dataArray.count;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SKTopicCell *cell = (SKTopicCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
+    [cell.mCoverImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row].images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    [cell.mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row].userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+    cell.mUsernameLabel.text = self.dataArray[indexPath.row].userinfo.nickname;
+    [cell setTopic:self.dataArray[indexPath.row].content];
+    return cell;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    UICollectionReusableView *reusableView = nil;
+    
+    if ([kind isEqualToString:CHTCollectionElementKindSectionHeader]) {
+        reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                          withReuseIdentifier:HEADER_IDENTIFIER
+                                                                 forIndexPath:indexPath];
+    } else if ([kind isEqualToString:CHTCollectionElementKindSectionFooter]) {
+        reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                          withReuseIdentifier:FOOTER_IDENTIFIER
+                                                                 forIndexPath:indexPath];
+    }
+    
+    return reusableView;
+}
+
+#pragma mark - CHTCollectionViewDelegateWaterfallLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize maxSize = CGSizeMake(CELL_WIDTH-20, ROUND_WIDTH_FLOAT(45));//labelsize的最大值
+    CGSize labelSize = [self.dataArray[indexPath.row].content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
+    return CGSizeMake(CELL_WIDTH, CELL_WIDTH+ROUND_WIDTH_FLOAT(6)+labelSize.height+ROUND_WIDTH_FLOAT(51));
 }
 
 #pragma mark - PSCarouselDelegate
@@ -170,7 +291,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 #pragma mark - SKSegment Delegate
 
-- (void)segmentView:(UIView *)view didClickIndex:(NSInteger)index {
+- (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index {
     self.selectedType = index;
 }
 
@@ -258,24 +379,32 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if(scrollLock) return;
+    if (scrollView==self.tableView) {
+        self.collectionView.contentOffset = scrollView.contentOffset;
+    } else if (scrollView == self.collectionView) {
+        self.tableView.contentOffset = scrollView.contentOffset;
+    }
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
             _titleView.height = TITLEVIEW_HEIGHT;
             _titleView.width = TITLEVIEW_WIDTH;
             _titleView.layer.cornerRadius = 3;
+
+            _titleView_collectionV.left = (self.view.width-TITLEVIEW_WIDTH)/2;
+            _titleView_collectionV.height = TITLEVIEW_HEIGHT;
+            _titleView_collectionV.width = TITLEVIEW_WIDTH;
+            _titleView_collectionV.layer.cornerRadius = 3;
             
-            _button_follow.centerX = _titleView.width/2-60;
-            _button_follow.top = 0;
-            _button_hot.centerX = _titleView.width/2 +60;
-            _button_hot.top = 0;
-            
-            _markLine.bottom = _titleView.height;
-            _markLine.centerX = _button_follow.centerX;
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
+            
+            [_titleView_collectionV removeFromSuperview];
+            _titleView_collectionV.frame = CGRectMake((self.view.width-_titleView_collectionV.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
             [self.tableView addSubview:_titleView];
+            [self.collectionView addSubview:_titleView_collectionV];
+            
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -283,18 +412,19 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             _titleView.height = 20+TITLEVIEW_HEIGHT;
             _titleView.width = SCREEN_WIDTH;
             _titleView.layer.cornerRadius = 0;
-            
-            _button_follow.centerX = _titleView.width/2-60;
-            _button_follow.top = 20;
-            _button_hot.centerX = _titleView.width/2 +60;
-            _button_hot.top = 20;
-            
-            _markLine.bottom = _titleView.height;
-            _markLine.centerX = _button_follow.centerX;
+           
+            _titleView_collectionV.left = 0;
+            _titleView_collectionV.height = 20+TITLEVIEW_HEIGHT;
+            _titleView_collectionV.width = SCREEN_WIDTH;
+            _titleView_collectionV.layer.cornerRadius = 0;
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
             [self.view addSubview:_titleView];
+            
+            [_titleView_collectionV removeFromSuperview];
+            _titleView_collectionV.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
+            [self.view addSubview:_titleView_collectionV];
         }];
     }
 }
@@ -304,12 +434,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         scrollLock = YES;
         if (self.selectedType==SKHomepageSelectedTypeFollow) {
             [self.view bringSubviewToFront:self.tableView];
-            [_button_follow setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-            [_button_hot setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
-            [UIView animateWithDuration:0.2 animations:^{
-                _markLine.centerX = _button_follow.centerX;
-                _markLine.bottom = _titleView.height;
-            }];
             [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
                 self.dataArray = [NSMutableArray arrayWithArray:topicList];
                 [self.tableView reloadData];
@@ -317,19 +441,18 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             }];
         } else if(self.selectedType==SKHomepageSelectedTypeHot){
             [self.view bringSubviewToFront:self.tableView];
-            [_button_follow setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
-            [_button_hot setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-            [UIView animateWithDuration:0.2 animations:^{
-                _markLine.centerX = _button_hot.centerX;
-                _markLine.bottom = _titleView.height;
-            }];
             [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserPost *> *topicList) {
                 self.dataArray = [NSMutableArray arrayWithArray:topicList];
                 [self.tableView reloadData];
                 scrollLock = NO;
             }];
         } else if(self.selectedType == SKHomepageSelectedTypeTopics){
-            [self.view bringSubviewToFront:self.topoicsView];
+            [self.view bringSubviewToFront:_collectionView];
+            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+                self.dataArray = topicList;
+                [self.collectionView reloadData];
+                scrollLock = NO;
+            }];
         }
     }
 }

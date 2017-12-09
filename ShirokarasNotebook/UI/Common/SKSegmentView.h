@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SKSegmentView;
 
 @protocol SKSegmentViewDelegate <NSObject>
-- (void)segmentView:(UIView*)view didClickIndex:(NSInteger)index;
+- (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index;
 @end
 
 @interface SKSegmentView : UIView
