@@ -244,14 +244,7 @@
             SKUserPost *userpost = [SKUserPost new];
             userpost.content = self.textView.text;
             userpost.parent_id = self.topic.id;
-            if (self.postImageArray.count == 0) {
-                NSLog(@"添加图片");
-                return;
-            } else if (self.postImageArray.count==1)
-                userpost.type = 1;
-            else if (self.postImageArray.count>1)
-                userpost.type = 2;
-            userpost.images = self.postImageArray;
+            userpost.type = self.topic.type;
             
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);

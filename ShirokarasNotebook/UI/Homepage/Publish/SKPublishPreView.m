@@ -8,8 +8,6 @@
 
 #import "SKPublishPreView.h"
 #import "SKPublishNewContentViewController.h"
-#import "ScanningViewController.h"
-#import "SaomiaoViewController.h"
 #import "HWScanViewController.h"
 @implementation SKPublishPreView
 

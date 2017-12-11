@@ -189,11 +189,14 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     
     if ([SKStorageManager sharedInstance].userInfo.uuid==nil||[[SKStorageManager sharedInstance].userInfo.uuid isEqualToString:@""]) {
         self.selectedType = SKHomepageSelectedTypeHot;
+        _titleView.selectedIndex = SKHomepageSelectedTypeHot;
+        _titleView_collectionV.selectedIndex = SKHomepageSelectedTypeHot;
     } else {
         self.selectedType = SKHomepageSelectedTypeFollow;
+        _titleView.selectedIndex = SKHomepageSelectedTypeFollow;
+        _titleView_collectionV.selectedIndex = SKHomepageSelectedTypeFollow;
     }
 }
-
 
 - (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation {
     CHTCollectionViewWaterfallLayout *layout =
