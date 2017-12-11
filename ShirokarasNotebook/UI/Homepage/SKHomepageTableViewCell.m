@@ -180,6 +180,7 @@
             }
             case SKHomepageTableViewCellTypeArticle:{
                 _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _repostLabel.bottom+ROUND_WIDTH_FLOAT(15)+ROUND_WIDTH_FLOAT(42), ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(75))];
+                _imageViewArticle.contentMode = UIViewContentModeScaleAspectFill;
                 _imageViewArticle.layer.cornerRadius = 5;
                 _imageViewArticle.layer.masksToBounds = YES;
                 [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
@@ -274,6 +275,7 @@
             }
             case SKHomepageTableViewCellTypeArticle:{
                 _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _baseInfoView.bottom, ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(75))];
+                _imageViewArticle.contentMode = UIViewContentModeScaleAspectFill;
                 _imageViewArticle.layer.cornerRadius = 5;
                 _imageViewArticle.layer.masksToBounds = YES;
                 [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
