@@ -62,12 +62,16 @@
     [self.view addSubview:addButton];
     
     [[addButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        SKPublishPreView *preView = [[SKPublishPreView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        [self.view addSubview:preView];
-        preView.alpha =0;
-        [UIView animateWithDuration:0.2 animations:^{
-            preView.alpha =1;
-        }];
+        if ([SKStorageManager sharedInstance].userInfo.uuid==nil) {
+            [self invokeLoginViewController];
+        } else {
+            SKPublishPreView *preView = [[SKPublishPreView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            [self.view addSubview:preView];
+            preView.alpha =0;
+            [UIView animateWithDuration:0.2 animations:^{
+                preView.alpha =1;
+            }];
+        }
     }];
 }
 

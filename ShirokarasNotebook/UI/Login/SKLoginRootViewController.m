@@ -50,6 +50,9 @@
     button_skip.top = 20;
     button_skip.right = self.view.right -20;
     [self.view addSubview:button_skip];
+    [[button_skip rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
     
     //login buttons
     UIButton *login_weibo = [UIButton new];

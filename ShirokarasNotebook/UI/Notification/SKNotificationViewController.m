@@ -246,11 +246,14 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
-        [[[SKServiceManager sharedInstance] profileService] getUserQueueListWithType:self.selectedType+1 callback:^(BOOL success, NSArray<SKNotification *> *queueList) {
-            self.dataArray = [NSMutableArray arrayWithArray:queueList];
-            [self.tableView_notification reloadData];
-        }];
-        
+        if (_selectedType!=SKNotificationSelectedTypeNotification&&[SKStorageManager sharedInstance].userInfo.uuid==nil) {
+            [self invokeLoginViewController];
+        } else {
+            [[[SKServiceManager sharedInstance] profileService] getUserQueueListWithType:self.selectedType+1 callback:^(BOOL success, NSArray<SKNotification *> *queueList) {
+                self.dataArray = [NSMutableArray arrayWithArray:queueList];
+                [self.tableView_notification reloadData];
+            }];            
+        }
     }
 }
 @end

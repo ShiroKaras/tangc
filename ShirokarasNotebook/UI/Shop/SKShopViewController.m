@@ -144,6 +144,11 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
         cell = [[SKTicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
     }
     cell.ticket = self.dataArray[indexPath.row];
+    UITapGestureRecognizer *tapGesture_ticket = [[UITapGestureRecognizer alloc] init];
+    [[tapGesture_ticket rac_gestureSignal] subscribeNext:^(id x) {
+        [self invokeLoginViewController];
+    }];
+    [cell.rightImageView addGestureRecognizer:tapGesture_ticket];
     return cell;
 }
 

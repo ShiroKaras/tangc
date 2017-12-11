@@ -112,8 +112,12 @@
         self.authTextLabel.centerY = orangeView.height/2;
         [orangeView addSubview:self.authTextLabel];
         
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enterMyPage:)];
-        tapGesture.numberOfTapsRequired = 1;
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+        [[tapGesture rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+            if ([SKStorageManager sharedInstance].userInfo.uuid) {
+                [self invokeLoginViewController];
+            }
+        }];
         [_authBackView addGestureRecognizer:tapGesture];
     }
     return _authBackView;

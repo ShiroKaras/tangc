@@ -15,7 +15,6 @@
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UILabel *shopNameLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
-@property (nonatomic, strong) UIImageView *rightImageView;
 @end
 
 @implementation SKTicketTableViewCell

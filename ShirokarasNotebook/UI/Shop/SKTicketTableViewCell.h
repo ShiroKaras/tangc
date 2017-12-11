@@ -10,5 +10,6 @@
 
 @interface SKTicketTableViewCell : UITableViewCell
 @property (nonatomic, strong) SKTicket *ticket;
+@property (nonatomic, strong) UIImageView *rightImageView;
 @property (nonatomic, assign) float cellHeight;
 @end

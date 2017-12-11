@@ -57,7 +57,7 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager indexHot] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        if (!response.errcode) {
+        if (![response.data isEqualToString:@""]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {
                 SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
@@ -83,7 +83,7 @@
     
     [self baseRequestWithParam:param_new url:[SKCGIManager indexTopic] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        if (!response.errcode) {
+        if (![response.data isEqualToString:@""]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {
                 SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
@@ -165,9 +165,11 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager getCommentList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKComment*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKComment *item = [SKComment mj_objectWithKeyValues:response.data[@"lists"][i]];
-            [list addObject:item];
+        if (![response.data isEqualToString:@""]) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKComment *item = [SKComment mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
         }
         callback(success, list);
     }];

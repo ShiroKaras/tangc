@@ -438,6 +438,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if ([keyPath isEqualToString:@"selectedType"]) {
         scrollLock = YES;
         if (self.selectedType==SKHomepageSelectedTypeFollow) {
+            if ([SKStorageManager sharedInstance].userInfo.uuid==nil) {
+                [self invokeLoginViewController];
+                return;
+            }
             [self.view bringSubviewToFront:self.tableView];
             [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
                 self.dataArray = [NSMutableArray arrayWithArray:topicList];
