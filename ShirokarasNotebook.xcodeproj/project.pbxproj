@@ -102,6 +102,17 @@
 		11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DBD1FBECA43006D9A26 /* SKNotificationTableViewCell.m */; };
 		11B82DC11FBED5AD006D9A26 /* SKSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */; };
 		11BAF14A1FDE5C88007816A8 /* UIViewController+SKTips.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1491FDE5C88007816A8 /* UIViewController+SKTips.m */; };
+		11BAF14E1FDE6688007816A8 /* SDLabTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF14D1FDE6688007816A8 /* SDLabTagsView.m */; };
+		11BAF1511FDE66E9007816A8 /* SDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1501FDE66E8007816A8 /* SDHelper.m */; };
+		11BAF1571FDE672D007816A8 /* tagsData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11BAF1551FDE672C007816A8 /* tagsData.plist */; };
+		11BAF1581FDE672D007816A8 /* TagsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1561FDE672C007816A8 /* TagsModel.m */; };
+		11BAF15F1FDE6B00007816A8 /* SKTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF15D1FDE6B00007816A8 /* SKTagsView.m */; };
+		11BAF1621FDE84E9007816A8 /* SKPublishPreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1611FDE84E9007816A8 /* SKPublishPreView.m */; };
+		11BAF16E1FDE8B89007816A8 /* scanscanBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 11BAF1661FDE8B89007816A8 /* scanscanBg.png */; };
+		11BAF16F1FDE8B89007816A8 /* scanLine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11BAF1671FDE8B89007816A8 /* scanLine@3x.png */; };
+		11BAF1701FDE8B89007816A8 /* scanLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11BAF1681FDE8B89007816A8 /* scanLine@2x.png */; };
+		11BAF1711FDE8B89007816A8 /* ScanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF16A1FDE8B89007816A8 /* ScanningViewController.m */; };
+		11BAF1721FDE8B89007816A8 /* SaomiaoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF16C1FDE8B89007816A8 /* SaomiaoViewController.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
@@ -347,6 +358,25 @@
 		11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKSegmentView.m; sourceTree = "<group>"; };
 		11BAF1481FDE5C88007816A8 /* UIViewController+SKTips.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SKTips.h"; sourceTree = "<group>"; };
 		11BAF1491FDE5C88007816A8 /* UIViewController+SKTips.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SKTips.m"; sourceTree = "<group>"; };
+		11BAF14C1FDE6688007816A8 /* SDLabTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLabTagsView.h; sourceTree = "<group>"; };
+		11BAF14D1FDE6688007816A8 /* SDLabTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLabTagsView.m; sourceTree = "<group>"; };
+		11BAF14F1FDE66E8007816A8 /* SDHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDHelper.h; sourceTree = "<group>"; };
+		11BAF1501FDE66E8007816A8 /* SDHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDHelper.m; sourceTree = "<group>"; };
+		11BAF1521FDE672C007816A8 /* SDHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDHeader.h; sourceTree = "<group>"; };
+		11BAF1541FDE672C007816A8 /* TagsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagsModel.h; sourceTree = "<group>"; };
+		11BAF1551FDE672C007816A8 /* tagsData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = tagsData.plist; sourceTree = "<group>"; };
+		11BAF1561FDE672C007816A8 /* TagsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagsModel.m; sourceTree = "<group>"; };
+		11BAF15D1FDE6B00007816A8 /* SKTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKTagsView.m; path = ThirdPart/SKTags/SKTagsView.m; sourceTree = SOURCE_ROOT; };
+		11BAF15E1FDE6B00007816A8 /* SKTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKTagsView.h; path = ThirdPart/SKTags/SKTagsView.h; sourceTree = SOURCE_ROOT; };
+		11BAF1601FDE84E9007816A8 /* SKPublishPreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPublishPreView.h; sourceTree = "<group>"; };
+		11BAF1611FDE84E9007816A8 /* SKPublishPreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPublishPreView.m; sourceTree = "<group>"; };
+		11BAF1661FDE8B89007816A8 /* scanscanBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanscanBg.png; sourceTree = "<group>"; };
+		11BAF1671FDE8B89007816A8 /* scanLine@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@3x.png"; sourceTree = "<group>"; };
+		11BAF1681FDE8B89007816A8 /* scanLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@2x.png"; sourceTree = "<group>"; };
+		11BAF16A1FDE8B89007816A8 /* ScanningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanningViewController.m; sourceTree = "<group>"; };
+		11BAF16B1FDE8B89007816A8 /* SaomiaoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaomiaoViewController.h; sourceTree = "<group>"; };
+		11BAF16C1FDE8B89007816A8 /* SaomiaoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaomiaoViewController.m; sourceTree = "<group>"; };
+		11BAF16D1FDE8B89007816A8 /* ScanningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanningViewController.h; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
@@ -479,6 +509,9 @@
 		11303FC81FB06ADA0020C93D /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				11BAF1641FDE8B89007816A8 /* Scan */,
+				11BAF15C1FDE6AD1007816A8 /* SKTags */,
+				11BAF14B1FDE6688007816A8 /* SDTags */,
 				11923EC41FD8073900136715 /* PSCarouselView */,
 				11EE40851FCED10300039E3F /* AES256 */,
 				11EE408A1FCED10300039E3F /* AESCrypt */,
@@ -799,6 +832,69 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
+		11BAF14B1FDE6688007816A8 /* SDTags */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF1531FDE672C007816A8 /* SDTagsModel */,
+				11BAF1521FDE672C007816A8 /* SDHeader.h */,
+				11BAF14F1FDE66E8007816A8 /* SDHelper.h */,
+				11BAF1501FDE66E8007816A8 /* SDHelper.m */,
+				11BAF14C1FDE6688007816A8 /* SDLabTagsView.h */,
+				11BAF14D1FDE6688007816A8 /* SDLabTagsView.m */,
+			);
+			path = SDTags;
+			sourceTree = "<group>";
+		};
+		11BAF1531FDE672C007816A8 /* SDTagsModel */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF1551FDE672C007816A8 /* tagsData.plist */,
+				11BAF1541FDE672C007816A8 /* TagsModel.h */,
+				11BAF1561FDE672C007816A8 /* TagsModel.m */,
+			);
+			path = SDTagsModel;
+			sourceTree = "<group>";
+		};
+		11BAF15C1FDE6AD1007816A8 /* SKTags */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF15E1FDE6B00007816A8 /* SKTagsView.h */,
+				11BAF15D1FDE6B00007816A8 /* SKTagsView.m */,
+			);
+			name = SKTags;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		11BAF1641FDE8B89007816A8 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF1651FDE8B89007816A8 /* sourse */,
+				11BAF1691FDE8B89007816A8 /* lib */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
+		11BAF1651FDE8B89007816A8 /* sourse */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF1661FDE8B89007816A8 /* scanscanBg.png */,
+				11BAF1671FDE8B89007816A8 /* scanLine@3x.png */,
+				11BAF1681FDE8B89007816A8 /* scanLine@2x.png */,
+			);
+			path = sourse;
+			sourceTree = "<group>";
+		};
+		11BAF1691FDE8B89007816A8 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF16B1FDE8B89007816A8 /* SaomiaoViewController.h */,
+				11BAF16C1FDE8B89007816A8 /* SaomiaoViewController.m */,
+				11BAF16D1FDE8B89007816A8 /* ScanningViewController.h */,
+				11BAF16A1FDE8B89007816A8 /* ScanningViewController.m */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		11CDDE851FB1BFC8004A0812 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -817,6 +913,8 @@
 		11CDDE861FB1C09F004A0812 /* Homepage */ = {
 			isa = PBXGroup;
 			children = (
+				11BAF1601FDE84E9007816A8 /* SKPublishPreView.h */,
+				11BAF1611FDE84E9007816A8 /* SKPublishPreView.m */,
 				11A1E5A31FCD43FA000D4D5B /* SKPublishNewContentViewController.h */,
 				11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */,
 				11B82DA71FBD3855006D9A26 /* WaterFlow */,
@@ -1110,13 +1208,17 @@
 			files = (
 				11303FF01FB06B3E0020C93D /* ShareSDKUI.bundle in Resources */,
 				11D9AA2E1FB06142008D32E9 /* LaunchScreen.storyboard in Resources */,
+				11BAF16E1FDE8B89007816A8 /* scanscanBg.png in Resources */,
 				11923ECE1FD8073A00136715 /* PSCarouselCollectionCell.xib in Resources */,
 				1130401E1FB06F900020C93D /* Info.plist in Resources */,
 				1130403F1FB1A4BD0020C93D /* NSDateTimeAgo.bundle in Resources */,
 				11303FF31FB06B3E0020C93D /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				11303FF91FB06B3E0020C93D /* ShareSDK.bundle in Resources */,
 				11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */,
+				11BAF1701FDE8B89007816A8 /* scanLine@2x.png in Resources */,
 				11303FF51FB06B3E0020C93D /* WeiboSDK.bundle in Resources */,
+				11BAF1571FDE672D007816A8 /* tagsData.plist in Resources */,
+				11BAF16F1FDE8B89007816A8 /* scanLine@3x.png in Resources */,
 				113040301FB0765F0020C93D /* environment in Resources */,
 				11FBD8BE1FDAA60500232C58 /* Assets.xcassets in Resources */,
 				11303FF71FB06B3E0020C93D /* read_me.txt in Resources */,
@@ -1318,6 +1420,7 @@
 				11D9AA231FB06142008D32E9 /* ViewController.m in Sources */,
 				11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */,
 				11B82DAC1FBD386C006D9A26 /* CHTCollectionViewWaterfallFooter.m in Sources */,
+				11BAF1581FDE672D007816A8 /* TagsModel.m in Sources */,
 				1130403D1FB1A3370020C93D /* UIImage+Extension.m in Sources */,
 				11EE40931FCED10400039E3F /* NSData+Encryption.m in Sources */,
 				11923ECD1FD8073A00136715 /* PSCarouselView.m in Sources */,
@@ -1332,10 +1435,13 @@
 				11A1E6021FCEC43F000D4D5B /* NSTimer+FXWeakTimer.m in Sources */,
 				11A1E6041FCEC43F000D4D5B /* NSObject+FXAlertView.m in Sources */,
 				113040241FB06F900020C93D /* NSObject+MJClass.m in Sources */,
+				11BAF1621FDE84E9007816A8 /* SKPublishPreView.m in Sources */,
 				11B82DC11FBED5AD006D9A26 /* SKSegmentView.m in Sources */,
 				113040271FB06F900020C93D /* NSObject+MJProperty.m in Sources */,
 				113040871FB1A5F60020C93D /* SKStorageDefine.m in Sources */,
 				11B82DA31FBC5448006D9A26 /* SKTabbarViewController.m in Sources */,
+				11BAF14E1FDE6688007816A8 /* SDLabTagsView.m in Sources */,
+				11BAF1711FDE8B89007816A8 /* ScanningViewController.m in Sources */,
 				113040261FB06F900020C93D /* NSObject+MJKeyValue.m in Sources */,
 				11F6B1E11FCFFEB400B21B07 /* SKTopicService.m in Sources */,
 				11B82DB71FBEB101006D9A26 /* SKTicketTableViewCell.m in Sources */,
@@ -1359,9 +1465,12 @@
 				1120B1061FC459E3003FF376 /* SKMypageArticleTableViewCell.m in Sources */,
 				11A1E6001FCEC43F000D4D5B /* SKImageHelper.m in Sources */,
 				1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */,
+				11BAF1511FDE66E9007816A8 /* SDHelper.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,
 				11A1E5DB1FCEC041000D4D5B /* SKServiceManager.m in Sources */,
+				11BAF1721FDE8B89007816A8 /* SaomiaoViewController.m in Sources */,
 				117BDDB81FDBC2EB00CC3936 /* HTWebController.m in Sources */,
+				11BAF15F1FDE6B00007816A8 /* SKTagsView.m in Sources */,
 				1113D9301FD5326E00452941 /* HTAlertView.m in Sources */,
 				11EE40961FCED10400039E3F /* AESCrypt.m in Sources */,
 				1120B1001FC42646003FF376 /* SKMyPageHeader.m in Sources */,
