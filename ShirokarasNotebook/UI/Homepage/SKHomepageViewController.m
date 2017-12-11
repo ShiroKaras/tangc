@@ -208,7 +208,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
         
         layout.sectionInset = UIEdgeInsetsMake(SPACE, SPACE, 0, SPACE);
-        layout.headerHeight = HEADERVIEW_HEIGHT+ TITLEVIEW_HEIGHT/2 +20;
+        layout.headerHeight = HEADERVIEW_HEIGHT+ TITLEVIEW_HEIGHT/2 +20+ROUND_WIDTH_FLOAT(100);
         layout.footerHeight = 0;
         layout.minimumColumnSpacing = SPACE;
         layout.minimumInteritemSpacing = SPACE;

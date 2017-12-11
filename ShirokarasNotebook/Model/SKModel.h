@@ -96,6 +96,12 @@
 @property (nonatomic, strong) SKTopicFrom *from;
 @end
 
+//标签
+@interface SKTag : NSObject
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSArray *color;
+@end
+
 //文章详情
 @interface SKArticle : NSObject
 @end
