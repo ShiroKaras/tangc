@@ -9,6 +9,8 @@
 #import "SKPersonalIndexViewController.h"
 #import "SKPersonalMyPageViewController.h"
 
+#import <GTSDK/GeTuiSdk.h>     // GetuiSdk头文件应用
+
 #import "SKPublishNewContentViewController.h"
 #import "SKUserListViewController.h"
 
@@ -145,6 +147,15 @@
         UIView *cell_push = [self cellWithImageName:@"img_personalpage_push" title:@"推送通知" isShowArrow:YES];
         [_cellsView addSubview:cell_push];
         cell_push.top = cell_fans.bottom+10;
+        BOOL isPushOff = [[UD objectForKey:@"PushModeForOff"] boolValue];       //初始为NO，默认打开通知
+        //TODO 刷新按钮状态
+        
+        UITapGestureRecognizer *tapGesture_push = [[UITapGestureRecognizer alloc] init];
+        [[tapGesture_push rac_gestureSignal] subscribeNext:^(id x) {
+            [UD setValue:@(isPushOff) forKey:@"PushModeForOff"];
+            [GeTuiSdk setPushModeForOff:isPushOff];
+        }];
+        [cell_fans addGestureRecognizer:tapGesture_push];
         
         //清除缓存
         UIView *cell_clear = [self cellWithImageName:@"img_personalpage_clean" title:@"清理缓存" isShowArrow:NO];

@@ -94,7 +94,7 @@
          self.textView.attributedText = attrStr;
      }];
     
-    [self.view endEditing:YES];
+    [_textView becomeFirstResponder];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap)];
     [self.view addGestureRecognizer:tapGesture];

@@ -41,7 +41,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 @interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate, SKSegmentViewDelegate, SKHomepageTableCellDelegate,UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray<SKTopic *> *dataArray;
+@property (nonatomic, strong) NSMutableArray<SKTopic *> *dataArray;
+@property (nonatomic, strong) NSMutableArray<SKTopic *> *dataArray_collection;
 
 @property (strong, nonatomic) PSCarouselView *carouselView;
 @property (nonatomic, strong) NSArray *bannerArray;
@@ -74,10 +75,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
-    [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:3 PageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-        self.dataArray = topicList;
-        [self.collectionView reloadData];
-    }];
     
 //    [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
 //        self.dataArray = [NSMutableArray arrayWithArray:topicList];
@@ -190,8 +187,13 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     _titleView_collectionV.userInteractionEnabled = YES;
     [_collectionView addSubview:_titleView_collectionV];
     
-    self.selectedType = SKHomepageSelectedTypeFollow;
+    if ([SKStorageManager sharedInstance].userInfo.uuid==nil||[[SKStorageManager sharedInstance].userInfo.uuid isEqualToString:@""]) {
+        self.selectedType = SKHomepageSelectedTypeHot;
+    } else {
+        self.selectedType = SKHomepageSelectedTypeFollow;
+    }
 }
+
 
 - (void)updateLayoutForOrientation:(UIInterfaceOrientation)orientation {
     CHTCollectionViewWaterfallLayout *layout =
@@ -233,7 +235,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.dataArray.count;
+    return self.dataArray_collection.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -242,10 +244,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SKTopicCell *cell = (SKTopicCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
-    [cell.mCoverImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row].images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
-    [cell.mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row].userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
-    cell.mUsernameLabel.text = self.dataArray[indexPath.row].userinfo.nickname;
-    [cell setTopic:self.dataArray[indexPath.row].content];
+    [cell.mCoverImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray_collection[indexPath.row].images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    [cell.mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray_collection[indexPath.row].userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+    cell.mUsernameLabel.text = self.dataArray_collection[indexPath.row].userinfo.nickname;
+    [cell setTopic:self.dataArray_collection[indexPath.row].content];
     return cell;
 }
 
@@ -268,7 +270,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGSize maxSize = CGSizeMake(CELL_WIDTH-20, ROUND_WIDTH_FLOAT(45));//labelsize的最大值
-    CGSize labelSize = [self.dataArray[indexPath.row].content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
+    CGSize labelSize = [self.dataArray_collection[indexPath.row].content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
     return CGSizeMake(CELL_WIDTH, CELL_WIDTH+ROUND_WIDTH_FLOAT(6)+labelSize.height+ROUND_WIDTH_FLOAT(51));
 }
 
@@ -302,7 +304,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
     cell.topic = self.dataArray[indexPath.row];
-    cell.delegate = self;
     //转发
     [[cell.repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.dataArray[indexPath.row]];
@@ -339,11 +340,13 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].is_thumb callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"取消点赞");
                 self.dataArray[indexPath.row].is_thumb = 0;
+                [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
             }];
         } else {
             [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].is_thumb callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"成功点赞");
                 self.dataArray[indexPath.row].is_thumb = 1;
+                [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
             }];
         }
     }];
@@ -448,7 +451,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         } else if(self.selectedType == SKHomepageSelectedTypeTopics){
             [self.view bringSubviewToFront:_collectionView];
             [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-                self.dataArray = topicList;
+                self.dataArray_collection = [NSMutableArray arrayWithArray:topicList];
                 [self.collectionView reloadData];
                 scrollLock = NO;
             }];

@@ -17,6 +17,7 @@
 #import <Masonry/Masonry.h>
 #import <ReactiveObjC/ReactiveObjC.h>
 #import "CommonUI.h"
+#import "UIViewController+SKTips.h"
 #import "UIImage+Extension.h"
 #import "SKNavigationController.h"
 

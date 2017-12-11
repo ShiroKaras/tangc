@@ -30,6 +30,7 @@
     if (!_mCoverImageView) {
         _mCoverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_WIDTH)];
         _mCoverImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _mCoverImageView.layer.masksToBounds = YES;
         _mCoverImageView.backgroundColor = [UIColor colorWithHex:0xD8DDF9];
     }
     return _mCoverImageView;

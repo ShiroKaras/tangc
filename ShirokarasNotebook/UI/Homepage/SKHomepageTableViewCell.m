@@ -318,30 +318,36 @@
     [self.contentView addSubview:_followButton];
     //转发
     _repeaterButton = [UIButton new];
+    [_repeaterButton setImage:[UIImage imageNamed:@"btn_homepage_forward"] forState:UIControlStateNormal];
     [_repeaterButton setTitle:@"转发" forState:UIControlStateNormal];
     [_repeaterButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    [_repeaterButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _repeaterButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _repeaterButton.left = 0;
     _repeaterButton.top = underLine.bottom;
     [self.contentView addSubview:_repeaterButton];
     //评论
     _commentButton = [UIButton new];
+    [_commentButton setImage:[UIImage imageNamed:@"btn_homepage_comment"] forState:UIControlStateNormal];
     [_commentButton setTitle:@"评论" forState:UIControlStateNormal];
     [_commentButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    [_commentButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _commentButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _commentButton.left = _repeaterButton.right;
     _commentButton.top = underLine.bottom;
     [self.contentView addSubview:_commentButton];
     //点赞
     _favButton = [UIButton new];
+    [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
     [_favButton setTitle:@"点赞" forState:UIControlStateNormal];
     [_favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    [_favButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _favButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _favButton.left = _commentButton.right;
     _favButton.top = underLine.bottom;

@@ -101,6 +101,7 @@
 		11B82DBB1FBEC998006D9A26 /* SKNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DBA1FBEC998006D9A26 /* SKNotificationViewController.m */; };
 		11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DBD1FBECA43006D9A26 /* SKNotificationTableViewCell.m */; };
 		11B82DC11FBED5AD006D9A26 /* SKSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */; };
+		11BAF14A1FDE5C88007816A8 /* UIViewController+SKTips.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1491FDE5C88007816A8 /* UIViewController+SKTips.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
@@ -344,6 +345,8 @@
 		11B82DBD1FBECA43006D9A26 /* SKNotificationTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNotificationTableViewCell.m; sourceTree = "<group>"; };
 		11B82DBF1FBED5AC006D9A26 /* SKSegmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKSegmentView.h; sourceTree = "<group>"; };
 		11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKSegmentView.m; sourceTree = "<group>"; };
+		11BAF1481FDE5C88007816A8 /* UIViewController+SKTips.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SKTips.h"; sourceTree = "<group>"; };
+		11BAF1491FDE5C88007816A8 /* UIViewController+SKTips.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SKTips.m"; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
@@ -839,6 +842,8 @@
 				11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */,
 				11CDDE911FB597A9004A0812 /* SKNavigationController.h */,
 				11CDDE921FB597A9004A0812 /* SKNavigationController.m */,
+				11BAF1481FDE5C88007816A8 /* UIViewController+SKTips.h */,
+				11BAF1491FDE5C88007816A8 /* UIViewController+SKTips.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1346,6 +1351,7 @@
 				113040201FB06F900020C93D /* MJFoundation.m in Sources */,
 				1120B0FC1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m in Sources */,
 				11B82DB41FBEAFA4006D9A26 /* SKShopViewController.m in Sources */,
+				11BAF14A1FDE5C88007816A8 /* UIViewController+SKTips.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
 				11A1E5B91FCD66BB000D4D5B /* WPHotspotLabel.m in Sources */,
 				111C5CB11FCC00BB00581AE0 /* SKUserInfoViewController.m in Sources */,
