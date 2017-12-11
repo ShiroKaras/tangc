@@ -148,6 +148,15 @@
     }];
 }
 
+- (void)postLoginWithToken:(NSString *)token callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"token_verify" :token
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager postLogin] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 - (void)getCommentListWithArticleID:(NSInteger)articleID page:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKCommentListCallback)callback {
     NSDictionary *param = @{
                             @"article_id" : @(articleID),

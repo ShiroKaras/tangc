@@ -28,13 +28,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.view.backgroundColor = [UIColor whiteColor];
+     self.view.backgroundColor = [UIColor colorWithHex:0x3F3F3F];
     
     UILabel * labIntroudction= [[UILabel alloc] initWithFrame:CGRectMake(0,(Height - SWidth)/2+SWidth+10, Width, 50)];
     labIntroudction.backgroundColor = [UIColor clearColor];
-    labIntroudction.numberOfLines=1;
-    labIntroudction.textColor=[UIColor blueColor];
-    labIntroudction.text=@"将条码放入框中,将自动扫描";
+    labIntroudction.numberOfLines=2;
+    labIntroudction.textColor=[UIColor whiteColor];
+    labIntroudction.font = PINGFANG_ROUND_FONT_OF_SIZE(11);
+    labIntroudction.text=@"在电脑上访问www.xxxxx.cn\n点击“发送文章按钮”";
     labIntroudction.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:labIntroudction];
     

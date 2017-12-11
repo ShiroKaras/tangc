@@ -30,6 +30,8 @@ typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
 - (void)getArticleDetailWithArticleID:(NSInteger)articleID callback:(SKTopicCallback)callback;
 //发文章
 - (void)postArticleWith:(SKUserPost *)topic callback:(SKResponseCallback)callback;
+//电脑发文登录
+- (void)postLoginWithToken:(NSString*)token callback:(SKResponseCallback)callback;
 //获取评论列表
 - (void)getCommentListWithArticleID:(NSInteger)articleID page:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKCommentListCallback)callback;
 //发送评论

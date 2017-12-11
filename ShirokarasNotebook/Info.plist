@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>手账</string>
+	<string>糖草</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -48,6 +48,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>是否允许糖草访问您的相机</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>是否允许糖草访问您的相册</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

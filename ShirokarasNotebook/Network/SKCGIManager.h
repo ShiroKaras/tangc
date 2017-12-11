@@ -55,6 +55,9 @@
 //发布文章
 + (NSString *)postArticle;
 
+//电脑发文登录
++ (NSString *)postLogin;
+
 //获取文章详情
 + (NSString *)getArticleDetail;
 

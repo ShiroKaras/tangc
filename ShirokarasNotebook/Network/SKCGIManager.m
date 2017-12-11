@@ -72,6 +72,10 @@
     return [NSString stringWithFormat:@"%@/api/article/add", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)postLogin {
+    return [NSString stringWithFormat:@"%@/api/post_login", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)postThumbUp {
     return [NSString stringWithFormat:@"%@/api/article/thumb_up", [[ServerConfiguration sharedInstance] appHost]];
 }

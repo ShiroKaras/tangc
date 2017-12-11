@@ -8,8 +8,9 @@
 
 #import "SKPublishPreView.h"
 #import "SKPublishNewContentViewController.h"
+#import "ScanningViewController.h"
 #import "SaomiaoViewController.h"
-
+#import "HWScanViewController.h"
 @implementation SKPublishPreView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -57,7 +58,7 @@
         postPcButton.bottom = self.bottom-103;
         postPcButton.centerX = self.width/2+80;
         [[postPcButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            SaomiaoViewController *controller = [[SaomiaoViewController alloc] init];
+            HWScanViewController *controller = [[HWScanViewController alloc] init];
             [[self viewController].navigationController pushViewController:controller animated:YES];
         } completed:^{
             [self removeFromSuperview];
