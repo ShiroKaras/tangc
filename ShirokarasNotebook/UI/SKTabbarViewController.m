@@ -12,6 +12,7 @@
 #import "SKPublishNewContentViewController.h"
 #import "SKNotificationViewController.h"
 #import "SKPersonalIndexViewController.h"
+#import "SKPublishPreView.h"
 
 @interface SKTabbarViewController ()
 
@@ -61,8 +62,12 @@
     [self.view addSubview:addButton];
     
     [[addButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeNew withUserPost:nil];
-        [self.navigationController pushViewController:controller animated:YES];
+        SKPublishPreView *preView = [[SKPublishPreView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [self.view addSubview:preView];
+        preView.alpha =0;
+        [UIView animateWithDuration:0.2 animations:^{
+            preView.alpha =1;
+        }];
     }];
 }
 

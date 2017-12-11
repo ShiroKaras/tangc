@@ -11,5 +11,4 @@
 @interface UIViewController (SKTips)
 
 - (void)invokeLoginViewController;
-
 @end
