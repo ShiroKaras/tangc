@@ -114,8 +114,9 @@
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
         [[tapGesture rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
-            if ([SKStorageManager sharedInstance].userInfo.uuid) {
-                [self invokeLoginViewController];
+            if (![SKStorageManager sharedInstance].userInfo.uuid) {
+//                [self invokeLoginViewController];
+                [self enterMyPage:tapGesture];
             }
         }];
         [_authBackView addGestureRecognizer:tapGesture];
@@ -228,6 +229,8 @@
         logoutButton.top = cell.bottom+20;
         logoutButton.centerX = _cellsView.width/2;
         [_cellsView addSubview:logoutButton];
+        
+        
     }
     return _cellsView;
 }

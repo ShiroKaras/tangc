@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKFollowListTableViewController : UITableViewController
+@interface SKFollowListTableViewController : UIViewController
 
 @end

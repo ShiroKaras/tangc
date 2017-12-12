@@ -39,9 +39,11 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager ticketsList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTicket*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKTicket *item = [SKTicket mj_objectWithKeyValues:response.data[@"lists"][i]];
-            [list addObject:item];
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKTicket *item = [SKTicket mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
         }
         callback(success, list);
     }];
@@ -54,9 +56,11 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager ticketsList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKGoods*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKGoods *item = [SKGoods mj_objectWithKeyValues:response.data[@"lists"][i]];
-            [list addObject:item];
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKGoods *item = [SKGoods mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
         }
         callback(success, list);
     }];

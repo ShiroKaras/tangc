@@ -57,7 +57,7 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager indexHot] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        if (![response.data isEqualToString:@""]) {
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {
                 SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
@@ -83,7 +83,7 @@
     
     [self baseRequestWithParam:param_new url:[SKCGIManager indexTopic] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        if (![response.data isEqualToString:@""]) {
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {
                 SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];

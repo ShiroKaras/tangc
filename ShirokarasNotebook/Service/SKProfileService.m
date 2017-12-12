@@ -36,7 +36,7 @@
 - (void)comuserFollowsWithCallback:(SKUserListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager comuserFollows] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKUserInfo*>*list = [NSMutableArray array];
-        if (![response.data isEqualToString:@""]) {
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
             for (int i = 0; i <[response.data[@"lists"] count]; i++) {
                 SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[@"lists"][i]];
                 item.is_follow = YES;
@@ -51,11 +51,13 @@
 - (void)comuserFansWithCallback:(SKUserListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager comuserFans] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKUserInfo*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[@"lists"][i]];
-            item.is_followed = YES;
-            item.is_follow = item.is_concerned;
-            [list addObject:item];
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[@"lists"][i]];
+                item.is_followed = YES;
+                item.is_follow = item.is_concerned;
+                [list addObject:item];
+            }
         }
         callback(success, list);
     }];
@@ -95,7 +97,7 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager queueList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKNotification*>*list = [NSMutableArray array];
-        if (![response.data isEqualToString:@""]) {
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {
                 SKNotification *item = [SKNotification mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];

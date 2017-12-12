@@ -8,6 +8,7 @@
 
 #import "SKPublishNewContentViewController.h"
 #import "UIViewController+ImagePicker.h"
+#import "SKTopicListTableViewController.h"
 
 @interface SKPublishNewContentViewController ()
 @property (nonatomic, assign) SKPublishType type;
@@ -177,6 +178,10 @@
     topicButton.left = ROUND_WIDTH_FLOAT(8);
     topicButton.centerY = _buttonsBackView.height/2;
     [_buttonsBackView addSubview:topicButton];
+    [[topicButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        SKTopicListTableViewController *controller = [[SKTopicListTableViewController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
     
     UIButton *repeatButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [repeatButton setImage:[UIImage imageNamed:@"btn_forwardpage_remind"] forState:UIControlStateNormal];
