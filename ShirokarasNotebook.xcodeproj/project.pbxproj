@@ -916,10 +916,10 @@
 				11A1E5A41FCD43FA000D4D5B /* SKPublishNewContentViewController.m */,
 				11BAF1771FDEBB02007816A8 /* SKTopicListTableViewController.h */,
 				11BAF1781FDEBB02007816A8 /* SKTopicListTableViewController.m */,
-				11BAF17D1FDEBC57007816A8 /* SKTopicListTableViewCell.h */,
-				11BAF17E1FDEBC57007816A8 /* SKTopicListTableViewCell.m */,
 				11BAF17A1FDEBB29007816A8 /* SKFollowListTableViewController.h */,
 				11BAF17B1FDEBB29007816A8 /* SKFollowListTableViewController.m */,
+				11BAF17D1FDEBC57007816A8 /* SKTopicListTableViewCell.h */,
+				11BAF17E1FDEBC57007816A8 /* SKTopicListTableViewCell.m */,
 				11BAF1801FDEBC7D007816A8 /* SKFollowListTableViewCell.h */,
 				11BAF1811FDEBC7D007816A8 /* SKFollowListTableViewCell.m */,
 			);

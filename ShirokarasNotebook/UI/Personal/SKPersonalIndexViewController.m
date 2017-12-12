@@ -160,7 +160,7 @@
             [UD setValue:@(isPushOff) forKey:@"PushModeForOff"];
             [GeTuiSdk setPushModeForOff:isPushOff];
         }];
-        [cell_fans addGestureRecognizer:tapGesture_push];
+        [cell_push addGestureRecognizer:tapGesture_push];
         
         //清除缓存
         UIView *cell_clear = [self cellWithImageName:@"img_personalpage_clean" title:@"清理缓存" isShowArrow:NO];

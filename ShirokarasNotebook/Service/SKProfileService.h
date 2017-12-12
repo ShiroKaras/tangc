@@ -10,7 +10,7 @@
 #import "SKNetworkDefine.h"
 #import "SKLogicHeader.h"
 
-typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* topicList);
+typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* userList);
 typedef void (^SKQueueListCallback)(BOOL success, NSArray<SKNotification*>* queueList);
 
 @interface SKProfileService : NSObject

@@ -38,7 +38,7 @@
 - (void)getIndexFollowListWithPageIndex:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKTopicListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager indexFollow] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        if (!response.errcode) {
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {
                 SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
@@ -102,12 +102,14 @@
 }
 
 //话题标签列表
-- (void)getTopicNameListWithCallback:(SKTopicListCallback)callback {
+- (void)getTopicNameListWithCallback:(SKTagListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager topicList] callback:^(BOOL success, SKResponsePackage *response) {
-        NSMutableArray<SKTopic*>*list = [NSMutableArray array];
-        for (int i = 0; i < [response.data[@"lists"] count]; i++) {
-            SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
-            [list addObject:item];
+        NSMutableArray<SKTag*>*list = [NSMutableArray array];
+        if ([response.data isKindOfClass:[NSDictionary class]) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKTag *item = [SKTag mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
         }
         callback(success, list);
     }];
@@ -165,7 +167,7 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager getCommentList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKComment*>*list = [NSMutableArray array];
-        if (![response.data isEqualToString:@""]) {
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {
                 SKComment *item = [SKComment mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];

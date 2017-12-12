@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SKTopicListTableViewCell : UITableViewCell
-@property (nonatomic, strong) UIImageView *avatarImageView;
-@property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UILabel *topicLabel;
 @property (nonatomic, strong) UIButton *checkButton;
 @property (nonatomic, assign) BOOL isCheck;
 @end

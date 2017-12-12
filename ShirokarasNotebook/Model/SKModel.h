@@ -44,6 +44,7 @@
 @property (nonatomic, assign) NSInteger is_concerned;
 @property (nonatomic, assign) BOOL is_follow;
 @property (nonatomic, assign) BOOL is_followed;
+@property (nonatomic, assign) BOOL is_check;
 @end
 
 //用户发送的信息
@@ -98,8 +99,11 @@
 
 //标签
 @interface SKTag : NSObject
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, assign) NSInteger topic_num;
 @property (nonatomic, copy) NSArray *color;
+@property (nonatomic, assign) BOOL is_check;
 @end
 
 //文章详情

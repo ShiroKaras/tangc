@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface SKFollowListTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UIButton *checkButton;
+@property (nonatomic, assign) BOOL isCheck;
 @end

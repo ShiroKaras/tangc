@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKTopicListTableViewController : UIViewController
+@class SKTopicListTableViewController;
 
+@protocol SKTopicListTableViewControllerDelegate <NSObject>
+- (void)didClickBackButtonInTopicListController:(SKTopicListTableViewController *)controller selectedArray:(NSArray*)array;
+@end
+
+@interface SKTopicListTableViewController : UIViewController
+@property (nonatomic, assign) id<SKTopicListTableViewControllerDelegate> delegate;
 @end

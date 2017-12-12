@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKFollowListTableViewController : UIViewController
+@class SKFollowListTableViewController;
 
+@protocol SKFollowListTableViewControllerDelegate <NSObject>
+- (void)didClickBackButtonInFollowListController:(SKFollowListTableViewController *)controller selectedArray:(NSArray*)array;
+@end
+
+@interface SKFollowListTableViewController : UIViewController
+@property (nonatomic, assign) id<SKFollowListTableViewControllerDelegate> delegate;
 @end

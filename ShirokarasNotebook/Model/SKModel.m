@@ -99,6 +99,9 @@ HTINIT(SKResponsePackage)
 }
 @end
 
+@implementation SKTag
+@end
+
 @implementation SKArticle
 @end
 

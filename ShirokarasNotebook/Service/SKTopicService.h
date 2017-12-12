@@ -10,6 +10,7 @@
 #import "SKLogicHeader.h"
 
 typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList);
+typedef void (^SKTagListCallback)(BOOL success, NSArray<SKTag*>* tagList);
 typedef void (^SKCommentListCallback)(BOOL success, NSArray<SKComment*>* commentList);
 
 typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
@@ -23,7 +24,7 @@ typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
 - (void)getIndexHeaderImagesArrayWithCallback:(SKResponseCallback)callback;
 
 //获取标签列表
-- (void)getTopicNameListWithCallback:(SKTopicListCallback)callback;
+- (void)getTopicNameListWithCallback:(SKTagListCallback)callback;
 //点赞
 - (void)postThumbUpWithArticleID:(NSInteger)articleID callback:(SKResponseCallback)callback;
 //获取文章详情

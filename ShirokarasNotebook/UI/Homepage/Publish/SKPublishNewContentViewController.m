@@ -9,8 +9,9 @@
 #import "SKPublishNewContentViewController.h"
 #import "UIViewController+ImagePicker.h"
 #import "SKTopicListTableViewController.h"
+#import "SKFollowListTableViewController.h"
 
-@interface SKPublishNewContentViewController ()
+@interface SKPublishNewContentViewController () <SKTopicListTableViewControllerDelegate, SKFollowListTableViewControllerDelegate>
 @property (nonatomic, assign) SKPublishType type;
 @property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, strong) NSMutableArray *postImageArray;
@@ -63,36 +64,7 @@
         return value;
     }]
      subscribeNext:^(NSString *x) {
-         if (x.length>=140) {
-             _textView.text = [x substringWithRange:NSMakeRange(0, 140)];
-         }
-
-         //更新字数
-         _textCountLabel.text = [NSString stringWithFormat:@"%ld/200", x.length];
-         [_textCountLabel sizeToFit];
-         _textCountLabel.right = _textView.right;
-         // 话题的规则
-         NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
-         // @的规则
-         NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5\\_\\-]+";
-         
-         NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
-         NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
-         //匹配集合
-         NSArray *results = [regex matchesInString:x options:0 range:NSMakeRange(0, x.length)];
-
-         NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[x dataUsingEncoding:NSUnicodeStringEncoding]
-                                                                                       options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType}
-                                                                            documentAttributes:nil error:nil];
-         // 3.遍历结果
-         for (NSTextCheckingResult *result in results) {
-             NSLog(@"%@  %@",NSStringFromRange(result.range),[x substringWithRange:result.range]);
-             //set font
-             [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
-             // 设置颜色
-             [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:result.range];
-         }
-         self.textView.attributedText = attrStr;
+         [self updateTextViewWithString:x];
      }];
     
     [_textView becomeFirstResponder];
@@ -180,7 +152,8 @@
     [_buttonsBackView addSubview:topicButton];
     [[topicButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         SKTopicListTableViewController *controller = [[SKTopicListTableViewController alloc] init];
-        [self.navigationController pushViewController:controller animated:YES];
+        controller.delegate = self;
+        [self presentViewController:controller animated:YES completion:nil];
     }];
     
     UIButton *repeatButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -189,6 +162,11 @@
     repeatButton.left = topicButton.right+ ROUND_WIDTH_FLOAT(4);
     repeatButton.centerY = _buttonsBackView.height/2;
     [_buttonsBackView addSubview:repeatButton];
+    [[repeatButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        SKFollowListTableViewController *controller = [[SKFollowListTableViewController alloc] init];
+        controller.delegate = self;
+        [self presentViewController:controller animated:YES completion:nil];
+    }];
     
     UIButton *hideKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     [hideKeyboardButton addTarget:self action:@selector(viewDidTap) forControlEvents:UIControlEventTouchUpInside];
@@ -269,6 +247,61 @@
 
 - (void)viewDidTap {
     [self.view endEditing:NO];
+}
+
+- (void)updateTextViewWithString:(NSString*)x {
+    if (x.length>=140) {
+        _textView.text = [x substringWithRange:NSMakeRange(0, 140)];
+    }
+    
+    //更新字数
+    _textCountLabel.text = [NSString stringWithFormat:@"%ld/200", x.length];
+    [_textCountLabel sizeToFit];
+    _textCountLabel.right = _textView.right;
+    // 话题的规则
+    NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
+    // @的规则
+    NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5\\_\\-]+";
+    
+    NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+    //匹配集合
+    NSArray *results = [regex matchesInString:x options:0 range:NSMakeRange(0, x.length)];
+    
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[x dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                                  options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType}
+                                                                       documentAttributes:nil error:nil];
+    // 3.遍历结果
+    for (NSTextCheckingResult *result in results) {
+        NSLog(@"%@  %@",NSStringFromRange(result.range),[x substringWithRange:result.range]);
+        //set font
+        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
+        // 设置颜色
+        [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
+    }
+    self.textView.attributedText = attrStr;
+}
+
+#pragma mark - Delegate
+
+- (void)didClickBackButtonInTopicListController:(SKTopicListTableViewController *)controller selectedArray:(NSArray *)array {
+    for (SKTag *tag in array) {
+        if (tag.is_check) {
+            _textView.text = [_textView.text stringByAppendingString:[NSString stringWithFormat:@"#%@# ", tag.name]];
+        }
+    }
+    [self updateTextViewWithString:self.textView.text];
+    [_textView becomeFirstResponder];
+}
+
+- (void)didClickBackButtonInFollowListController:(SKFollowListTableViewController *)controller selectedArray:(NSArray *)array {
+    for (SKUserInfo *userinfo in array) {
+        if (userinfo.is_check) {
+            _textView.text = [_textView.text stringByAppendingString:[NSString stringWithFormat:@"@%@ ", userinfo.nickname]];
+        }
+    }
+    [self updateTextViewWithString:self.textView.text];
+    [_textView becomeFirstResponder];
 }
 
 #pragma mark - Image picker
