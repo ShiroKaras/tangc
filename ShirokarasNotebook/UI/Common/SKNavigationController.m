@@ -8,6 +8,7 @@
 
 #import "SKNavigationController.h"
 #import "SKUserInfoViewController.h"
+#import "HXDatePhotoViewController.h"
 
 @interface SKNavigationController ()
 
@@ -17,10 +18,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageFromColor:COMMON_TITLE_BG_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageFromColor:COMMON_BG_COLOR] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTranslucent:NO];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
     UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, self.view.bounds.size.width, 20)];
     //设置成绿色
@@ -42,7 +43,8 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     [super pushViewController:viewController animated:animated];
     
-    if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1) {
+    if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1
+        &&![viewController isKindOfClass:[HXDatePhotoViewController class]]) {
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _backButton.tag = 9001;
         if ([viewController isKindOfClass:[SKUserInfoViewController class]]) {
