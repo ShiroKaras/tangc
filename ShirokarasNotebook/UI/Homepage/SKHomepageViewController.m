@@ -73,15 +73,9 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
-    
-//    [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-//        self.dataArray = [NSMutableArray arrayWithArray:topicList];
-//        [self.tableView reloadData];
-//    }];
-    
-    if([SKStorageManager sharedInstance].userInfo.uuid==nil)    return;
     
     [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
         if ([response.data[@"banners"] count]==0){
@@ -155,14 +149,14 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         if (@available(iOS 11.0, *)) {
             self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
-            // Fallback on earlier versions
+            self.automaticallyAdjustsScrollViewInsets = NO;
         }
     }
     if ([self.collectionView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
         if (@available(iOS 11.0, *)) {
             self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
-            // Fallback on earlier versions
+            self.automaticallyAdjustsScrollViewInsets = NO;
         }
     }
 #endif
@@ -217,7 +211,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         layout.minimumInteritemSpacing = SPACE;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) collectionViewLayout:layout];
-        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = COMMON_BG_COLOR;

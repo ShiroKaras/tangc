@@ -88,10 +88,11 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
-            // Fallback on earlier versions
+            self.automaticallyAdjustsScrollViewInsets = NO;
         }
     }
 #endif
+    
     
     //TitleView
     _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"图片", @"文章"]];

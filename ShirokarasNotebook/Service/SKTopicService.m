@@ -105,7 +105,7 @@
 - (void)getTopicNameListWithCallback:(SKTagListCallback)callback {
     [self baseRequestWithParam:nil url:[SKCGIManager topicList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKTag*>*list = [NSMutableArray array];
-        if ([response.data isKindOfClass:[NSDictionary class]) {
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {
                 SKTag *item = [SKTag mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];

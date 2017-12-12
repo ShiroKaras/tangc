@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
         if (@available(iOS 11.0, *)) {
             _tableView_notification.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
-            // Fallback on earlier versions
+            self.automaticallyAdjustsScrollViewInsets = NO;
         }
     }
 #endif
