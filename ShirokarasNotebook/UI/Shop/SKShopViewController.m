@@ -8,6 +8,7 @@
 
 #import "SKShopViewController.h"
 #import "SKTicketTableViewCell.h"
+#import "SKShopTableViewCell.h"
 
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 @interface SKShopViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<SKTicket*> *dataArray;
-
+@property (nonatomic, strong) NSMutableArray<SKGoods*> *dataArray_goods;
 @property (nonatomic, strong) UIView *titleView;
 @property (nonatomic, strong) UIButton *button_follow;
 @property (nonatomic, strong) UIButton *button_hot;
@@ -41,13 +42,10 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    [self createUI];
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [self createUI];
  
-    [[[SKServiceManager sharedInstance] shopService] getTicketsListWithPage:0 pagesize:10 callback:^(BOOL success, NSArray<SKTicket *> *ticketsList) {
-        self.dataArray = [NSMutableArray arrayWithArray:ticketsList];
-        [self.tableView reloadData];
-    }];
+    self.selectedType = SKMarketSelectedTypeTicket;
 }
 
 - (void)dealloc {
@@ -64,9 +62,10 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor = COMMON_BG_COLOR;
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[SKTicketTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
+    [self.tableView registerClass:[SKShopTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKShopTableViewCell class])];
     [self.view addSubview:_tableView];
     
     
@@ -74,7 +73,9 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
-    headerImageView.backgroundColor = [UIColor blackColor];
+    headerImageView.image = COMMON_PLACEHOLDER_IMAGE;
+    headerView.contentMode = UIViewContentModeScaleAspectFill;
+    headerView.layer.masksToBounds = YES;
     [headerView addSubview:headerImageView];
     
     UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
@@ -139,28 +140,60 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 #pragma mark - UITableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKTicketTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
-    if (cell==nil) {
-        cell = [[SKTicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
+    switch (self.selectedType) {
+        case SKMarketSelectedTypeTicket:{
+            SKTicketTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
+            if (cell==nil) {
+                cell = [[SKTicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
+            }
+//            cell.ticket = self.dataArray[indexPath.row];
+            UITapGestureRecognizer *tapGesture_ticket = [[UITapGestureRecognizer alloc] init];
+            [[tapGesture_ticket rac_gestureSignal] subscribeNext:^(id x) {
+                [self invokeLoginViewController];
+            }];
+            [cell.rightImageView addGestureRecognizer:tapGesture_ticket];
+            return cell;
+        }
+        case SKMarketSelectedTypeShop:{
+            SKShopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKShopTableViewCell class])];
+            if (cell==nil) {
+                cell = [[SKShopTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKShopTableViewCell class])];
+            }
+            cell.leftData = self.dataArray_goods[indexPath.row * 2];
+            if (self.dataArray_goods.count - 1 >= indexPath.row * 2 + 1) {
+                cell.view_right.hidden = NO;
+                cell.rightData = self.dataArray_goods[indexPath.row * 2 + 1];
+            } else {
+                cell.view_right.hidden = YES;
+            }
+            return cell;
+        }
+        default:
+            return nil;
     }
-    cell.ticket = self.dataArray[indexPath.row];
-    UITapGestureRecognizer *tapGesture_ticket = [[UITapGestureRecognizer alloc] init];
-    [[tapGesture_ticket rac_gestureSignal] subscribeNext:^(id x) {
-        [self invokeLoginViewController];
-    }];
-    [cell.rightImageView addGestureRecognizer:tapGesture_ticket];
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKTicketTableViewCell *cell = (SKTicketTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return cell.cellHeight+15;
+    if (self.selectedType==SKMarketSelectedTypeTicket) {
+        SKTicketTableViewCell *cell = (SKTicketTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        return cell.cellHeight+ROUND_WIDTH_FLOAT(15);
+    } else if (self.selectedType==SKMarketSelectedTypeShop) {
+        return ROUND_WIDTH_FLOAT(199+15);
+    } else
+        return 0;
 }
 
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
+    switch (self.selectedType) {
+        case SKMarketSelectedTypeTicket:
+            return self.dataArray.count;
+        case SKMarketSelectedTypeShop:
+            return (int)ceil(self.dataArray_goods.count/2.0);
+        default:
+            return 0;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -170,7 +203,6 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    DLog(@"%lf", scrollView.contentOffset.y);
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
@@ -220,12 +252,20 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
                 _markLine.centerX = _button_follow.centerX;
                 _markLine.bottom = _titleView.height;
             }];
+            [[[SKServiceManager sharedInstance] shopService] getTicketsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKTicket *> *ticketsList) {
+                self.dataArray = [NSMutableArray arrayWithArray:ticketsList];
+                [self.tableView reloadData];
+            }];
         } else if (self.selectedType==SKMarketSelectedTypeShop){
             [_button_follow setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
             [_button_hot setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
             [UIView animateWithDuration:0.2 animations:^{
                 _markLine.centerX = _button_hot.centerX;
                 _markLine.bottom = _titleView.height;
+            }];
+            [[[SKServiceManager sharedInstance] shopService] getGoodsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKGoods *> *goodsList) {
+                self.dataArray_goods = [NSMutableArray arrayWithArray:goodsList];
+                [self.tableView reloadData];
             }];
         } else {
             

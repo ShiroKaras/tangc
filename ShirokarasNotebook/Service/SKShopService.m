@@ -54,7 +54,7 @@
                             @"page" : @(page),
                             @"pagesize" : @(pagesize)
                             };
-    [self baseRequestWithParam:param url:[SKCGIManager ticketsList] callback:^(BOOL success, SKResponsePackage *response) {
+    [self baseRequestWithParam:param url:[SKCGIManager goodsList] callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKGoods*>*list = [NSMutableArray array];
         if ([response.data isKindOfClass:[NSDictionary class]]) {
             for (int i = 0; i < [response.data[@"lists"] count]; i++) {

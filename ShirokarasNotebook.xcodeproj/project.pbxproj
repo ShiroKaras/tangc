@@ -153,6 +153,7 @@
 		11BAF1EE1FE007E2007816A8 /* HXCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1C31FE007E1007816A8 /* HXCircleProgressView.m */; };
 		11BAF1EF1FE007E2007816A8 /* HXDatePhotoToolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1C91FE007E1007816A8 /* HXDatePhotoToolManager.m */; };
 		11BAF1F01FE007E2007816A8 /* HXDatePhotoEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1CA1FE007E1007816A8 /* HXDatePhotoEditViewController.m */; };
+		11BAF1F31FE01D33007816A8 /* SKShopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1F21FE01D33007816A8 /* SKShopTableViewCell.m */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
@@ -498,6 +499,8 @@
 		11BAF1CA1FE007E1007816A8 /* HXDatePhotoEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXDatePhotoEditViewController.m; sourceTree = "<group>"; };
 		11BAF1CB1FE007E1007816A8 /* HXDatePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXDatePhotoViewController.h; sourceTree = "<group>"; };
 		11BAF1CC1FE007E1007816A8 /* HXDatePhotoViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXDatePhotoViewFlowLayout.h; sourceTree = "<group>"; };
+		11BAF1F11FE01D33007816A8 /* SKShopTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKShopTableViewCell.h; sourceTree = "<group>"; };
+		11BAF1F21FE01D33007816A8 /* SKShopTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKShopTableViewCell.m; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
@@ -935,6 +938,8 @@
 				11B82DB31FBEAFA3006D9A26 /* SKShopViewController.m */,
 				11B82DB51FBEB101006D9A26 /* SKTicketTableViewCell.h */,
 				11B82DB61FBEB101006D9A26 /* SKTicketTableViewCell.m */,
+				11BAF1F11FE01D33007816A8 /* SKShopTableViewCell.h */,
+				11BAF1F21FE01D33007816A8 /* SKShopTableViewCell.m */,
 			);
 			path = Shop;
 			sourceTree = "<group>";
@@ -1706,6 +1711,7 @@
 				11BAF1D81FE007E2007816A8 /* HXAlbumListViewController.m in Sources */,
 				11BAF1E61FE007E2007816A8 /* HXFullScreenCameraPlayView.m in Sources */,
 				11BAF1ED1FE007E2007816A8 /* HXCustomPreviewView.m in Sources */,
+				11BAF1F31FE01D33007816A8 /* SKShopTableViewCell.m in Sources */,
 				11BAF1791FDEBB02007816A8 /* SKTopicListTableViewController.m in Sources */,
 				11BAF1D11FE007E2007816A8 /* HXPhoto3DTouchViewController.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,

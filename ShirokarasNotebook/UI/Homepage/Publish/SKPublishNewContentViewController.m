@@ -91,7 +91,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     _textView.font = PINGFANG_FONT_OF_SIZE(14);
     _textView.backgroundColor = [UIColor whiteColor];
     [self.scrollView addSubview:_textView];
-
+    
     _textCountLabel = [UILabel new];
     _textCountLabel.text = @"200/200";
     _textCountLabel.textColor = COMMON_TEXT_PLACEHOLDER_COLOR;
