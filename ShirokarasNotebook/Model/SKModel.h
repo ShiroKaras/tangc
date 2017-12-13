@@ -23,17 +23,24 @@
 
 //登录信息
 @interface SKLoginUser : NSObject
+@property (nonatomic, copy) NSString *uuid;
 @property (nonatomic, copy) NSString *user_id;
 @property (nonatomic, copy) NSString *open_id;      // 第三方平台ID
 @property (nonatomic, copy) NSString *login_type;   // weibo | qq | weixin
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *avatar;
+
+@property (nonatomic, copy) NSString *phone;
+@property (nonatomic, copy) NSString *sex;
+@property (nonatomic, copy) NSString *birthday;
+@property (nonatomic, copy) NSString *city;
+@property (nonatomic, copy) NSString *qq;
+
 @end
 
 //用户基本信息
 @interface SKUserInfo : NSObject
 @property (nonatomic, assign) NSInteger id;
-@property (nonatomic, copy) NSString *uuid;
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *phone;
@@ -45,6 +52,8 @@
 @property (nonatomic, assign) BOOL is_follow;
 @property (nonatomic, assign) BOOL is_followed;
 @property (nonatomic, assign) BOOL is_check;
+@property (nonatomic, assign) NSInteger follows;
+@property (nonatomic, assign) NSInteger fans;
 @end
 
 //用户发送的信息

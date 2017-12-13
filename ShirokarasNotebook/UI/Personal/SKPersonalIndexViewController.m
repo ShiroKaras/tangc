@@ -90,10 +90,15 @@
         [_authBackView addSubview:self.avatarImageView];
         
         self.loginLabel = [UILabel new];
-        self.loginLabel.text = @"点击登录";
         self.loginLabel.textColor = COMMON_TEXT_COLOR;
         self.loginLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
-        [self.loginLabel sizeToFit];
+        if ([SKStorageManager sharedInstance].loginUser.uuid) {
+            self.loginLabel.text = [SKStorageManager sharedInstance].loginUser.nickname;
+            [self.loginLabel sizeToFit];
+        } else {
+            self.loginLabel.text = @"点击登录";
+            [self.loginLabel sizeToFit];
+        }
         self.loginLabel.centerY = self.avatarImageView.centerY;
         self.loginLabel.left = self.avatarImageView.right +10;
         [_authBackView addSubview:self.loginLabel];
@@ -130,18 +135,8 @@
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
         [[tapGesture rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
-            if (![SKStorageManager sharedInstance].userInfo.uuid) {
-//                [self invokeLoginViewController];
-                SKLoginUser *user = [SKLoginUser new];
-                user.open_id = @"ios_test";
-                user.nickname = @"ios_testname";
-                user.avatar = @"http://avatar.csdn.net/F/A/7/3_sinat_34137390.jpg";
-                user.login_type = @"weixin";
-                
-                [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:user callback:^(BOOL success, SKResponsePackage *response) {
-                    NSLog(@"%@", response.data);
-                }];
-
+            if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+                [self invokeLoginViewController];
             } else {
                 [self enterMyPage:tapGesture];
             }
@@ -246,11 +241,6 @@
         [cell addSubview:arrow];
     }
     return _cellsView;
-}
-
-- (void)logout {
-    [SKStorageManager sharedInstance].userInfo.uuid = nil;
-    [SKStorageManager sharedInstance].userInfo = nil;
 }
 
 - (UIView *)cellWithImageName:(NSString *)imageName title:(NSString *)title isShowArrow:(BOOL)isShow{

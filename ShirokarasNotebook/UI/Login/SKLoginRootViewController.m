@@ -56,6 +56,7 @@
     
     //login buttons
     UIButton *login_weibo = [UIButton new];
+    login_weibo.tag = 102;
     [login_weibo addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [login_weibo setBackgroundImage:[UIImage imageNamed:@"btn_loginpage_weibo"] forState:UIControlStateNormal];
     login_weibo.layer.cornerRadius = ROUND_HEIGHT_FLOAT(22);
@@ -66,6 +67,7 @@
     [self.view addSubview:login_weibo];
     
     UIButton *login_qq = [UIButton new];
+    login_qq.tag = 101;
     [login_qq addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [login_qq setTitle:@"QQ登录" forState:UIControlStateNormal];
     [login_qq setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
@@ -76,6 +78,7 @@
     [self.view addSubview:login_qq];
     
     UIButton *login_weixin = [UIButton new];
+    login_weixin.tag = 100;
     [login_weixin addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     [login_weixin setTitle:@"微信登录" forState:UIControlStateNormal];
     [login_weixin setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
@@ -103,7 +106,7 @@
                            DLog(@"token=%@", user.credential.token);
                            DLog(@"nickname=%@", user.nickname);
                            
-                           [self loginWithUser:user];
+                           [self loginWithUser:user type:@"weixin"];
                        }
                        
                        else {
@@ -122,7 +125,7 @@
                            DLog(@"token=%@", user.credential.token);
                            DLog(@"nickname=%@", user.nickname);
                            
-                           [self loginWithUser:user];
+                           [self loginWithUser:user type:@"qq"];
                        }
                        
                        else {
@@ -142,7 +145,7 @@
                            DLog(@"nickname=%@", user.nickname);
                            DLog(@"icon=%@", user.icon);
                            
-                           [self loginWithUser:user];
+                           [self loginWithUser:user type:@"weibo"];
                        } else {
                            DLog(@"%@", error);
                        }
@@ -160,15 +163,17 @@
     }
 }
 
-- (void)loginWithUser:(SSDKUser *)user {
+- (void)loginWithUser:(SSDKUser *)user type:(NSString*)type{
         SKLoginUser *use = [SKLoginUser new];
         use.open_id = user.uid;
         use.nickname = user.nickname;
         use.avatar = user.icon;
-        use.login_type = @"weixin";
+        use.login_type = type;
     
         [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:use callback:^(BOOL success, SKResponsePackage *response) {
-            NSLog(@"%@", response.data);
+            DLog(@"%@", response.data);
+            [[[SKServiceManager sharedInstance] profileService] getUserInfoWithCallback:^(BOOL success, SKUserInfo *userInfo) { }];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }];
 }
 @end

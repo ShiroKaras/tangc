@@ -62,7 +62,7 @@
     [self.view addSubview:addButton];
     
     [[addButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        if ([SKStorageManager sharedInstance].userInfo.uuid==nil) {
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
             [self invokeLoginViewController];
         } else {
             SKPublishPreView *preView = [[SKPublishPreView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];

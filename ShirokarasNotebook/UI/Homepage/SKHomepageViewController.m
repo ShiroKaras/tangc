@@ -181,7 +181,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     _titleView_collectionV.userInteractionEnabled = YES;
     [_collectionView addSubview:_titleView_collectionV];
     
-    if ([SKStorageManager sharedInstance].userInfo.uuid==nil||[[SKStorageManager sharedInstance].userInfo.uuid isEqualToString:@""]) {
+    if ([SKStorageManager sharedInstance].loginUser.uuid==nil||[[SKStorageManager sharedInstance].loginUser.uuid isEqualToString:@""]) {
         self.selectedType = SKHomepageSelectedTypeHot;
         _titleView.selectedIndex = SKHomepageSelectedTypeHot;
         _titleView_collectionV.selectedIndex = SKHomepageSelectedTypeHot;
@@ -285,7 +285,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index {
     NSLog(@"index: %ld", index);
-    if (index == SKHomepageSelectedTypeFollow && [SKStorageManager sharedInstance].userInfo.uuid==nil) {
+    if (index == SKHomepageSelectedTypeFollow && [SKStorageManager sharedInstance].loginUser.uuid==nil) {
         self.dataArray = [NSMutableArray array];
         [self.tableView reloadData];
         [self invokeLoginViewController];

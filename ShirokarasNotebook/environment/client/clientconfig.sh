@@ -4,8 +4,8 @@ echo "clientConfig: Using ${CONFIGURATION}"
 
 if [ "${CONFIGURATION}" = "Release" ]; then
 clientConfig=$SRCROOT/$TARGET_NAME/environment/client/ShiroKarasClientConfig-Release.plist
-elif [ -f $SRCROOT/$TARGET_NAME/environment/client/ShiroKarasClientConfig-`whoami`.plist ]; then
-clientConfig=$SRCROOT/$TARGET_NAME/environment/client/ShiroKarasClientConfig-`whoami`.plist
+#elif [ -f $SRCROOT/$TARGET_NAME/environment/client/ShiroKarasClientConfig-`whoami`.plist ]; then
+#clientConfig=$SRCROOT/$TARGET_NAME/environment/client/ShiroKarasClientConfig-`whoami`.plist
 else
 clientConfig=$SRCROOT/$TARGET_NAME/environment/client/ShiroKarasClientConfig-Debug.plist
 fi

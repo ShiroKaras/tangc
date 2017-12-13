@@ -16,7 +16,7 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:dict];
-    [mDict setValue:[SKStorageManager sharedInstance].userInfo.uuid forKey:@"uuid"];
+    [mDict setValue:[SKStorageManager sharedInstance].loginUser.uuid forKey:@"uuid"];
     
     DLog(@"param:%@", mDict);
     [manager POST:url

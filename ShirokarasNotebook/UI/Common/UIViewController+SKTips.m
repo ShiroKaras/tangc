@@ -13,7 +13,7 @@
 
 - (void)invokeLoginViewController {
     NSLog(@"调用登录页面");
-    if ([SKStorageManager sharedInstance].userInfo.uuid) {
+    if ([SKStorageManager sharedInstance].loginUser.uuid) {
         return;
     }
     SKLoginRootViewController *controller = [SKLoginRootViewController new];
