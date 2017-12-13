@@ -133,4 +133,21 @@
     }];
 }
 
+- (void)getArticleListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKArticleCallback)callback {
+    NSDictionary *param = @{
+                            @"page" : @(page),
+                            @"pagesize" : @(pagesize)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager articleList] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKArticle*>*list = [NSMutableArray array];
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKArticle *item = [SKArticle mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
+        }
+        callback(success, list);
+    }];
+}
+
 @end

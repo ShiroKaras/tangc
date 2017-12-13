@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _editInfoButton = [UIButton new];
     [_editInfoButton addTarget:self action:@selector(didClickEditInfoButton) forControlEvents:UIControlEventTouchUpInside];
     [_editInfoButton setTitle:@"编辑资料" forState:UIControlStateNormal];
-    [_editInfoButton setTitleColor:COMMON_TEXT_CONTENT_COLOR forState:UIControlStateNormal];
+    [_editInfoButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
     _editInfoButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     _editInfoButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(21));
     _editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
@@ -223,6 +223,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
                 if (cell==nil) {
                     cell = [[SKMypageArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKMypageArticleTableViewCell class])];
                 }
+                cell.artilce = self.dataArray_article[indexPath.row];
                 return cell;
             }
         default:
@@ -231,7 +232,14 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return ROUND_WIDTH_FLOAT(102);
+    switch (self.selectedType) {
+        case SKMyPageSelectedTypePic:
+            return ROUND_WIDTH_FLOAT(102);
+        case SKMyPageSelectedTypeArticle:
+            return ROUND_WIDTH_FLOAT(134);
+        default:
+            return 0;
+    }
 }
 
 #pragma mark - UITableView DataSource
@@ -270,6 +278,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             [self.view addSubview:_editInfoButton];
             _editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
             _editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
+            [_editInfoButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -286,6 +295,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             self.nameLabel.top = 20+ROUND_WIDTH_FLOAT(9.5);
             
             [_titleView addSubview:_editInfoButton];
+            [_editInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             _editInfoButton.centerY = self.nameLabel.centerY;
             _editInfoButton.right = self.view.width-ROUND_WIDTH_FLOAT(15);
         }];
@@ -306,8 +316,11 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
                 break;
             }
             case SKMyPageSelectedTypeArticle:{
-                [self.tableView reloadData];
-                scrollLock = NO;
+                [[[SKServiceManager sharedInstance] profileService] getArticleListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKArticle *> *articleList) {
+                    self.dataArray_article = [NSMutableArray arrayWithArray:articleList];
+                    [self.tableView reloadData];
+                    scrollLock = NO;
+                }];
                 break;
             }
             default:

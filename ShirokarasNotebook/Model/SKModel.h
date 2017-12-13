@@ -117,6 +117,14 @@
 
 //文章详情
 @interface SKArticle : NSObject
+@property (nonatomic, assign) NSInteger id;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, copy) NSString *comment_num;
+@property (nonatomic, copy) NSString *transmit_num;
+@property (nonatomic, copy) NSString *thumb_num;
+@property (nonatomic, copy) NSString *add_time;
+@property (nonatomic, copy) NSString *cover;
 @end
 
 //评论

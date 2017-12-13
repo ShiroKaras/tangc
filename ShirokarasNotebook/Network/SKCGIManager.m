@@ -112,4 +112,8 @@
     return [NSString stringWithFormat:@"%@/api/my/picture", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)articleList {
+    return [NSString stringWithFormat:@"%@/api/my/article", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end

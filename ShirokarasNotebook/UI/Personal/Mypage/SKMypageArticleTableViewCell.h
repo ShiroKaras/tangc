@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SKMypageArticleTableViewCell : UITableViewCell
+@property (nonatomic, strong) SKArticle *artilce;
 @property (nonatomic, assign) float cellHeight;
 @end
