@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UILabel *authTextLabel;
 @property (nonatomic, strong) UILabel *cacheLabel;
 
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *cellsView;
 @end
 
@@ -44,15 +45,29 @@
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
-    scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(566));
-    scrollView.showsVerticalScrollIndicator = NO;
-    scrollView.showsHorizontalScrollIndicator = NO;
-    [self.view addSubview:scrollView];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(566));
+    _scrollView.showsVerticalScrollIndicator = NO;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:_scrollView];
     
-    [scrollView addSubview:self.authBackView];
-    [scrollView addSubview:self.cellsView];
+    [_scrollView addSubview:self.authBackView];
+    [_scrollView addSubview:self.cellsView];
     self.cellsView.top = self.authBackView.bottom+10;
+    //logout
+    UIButton *logoutButton = [UIButton new];
+    [logoutButton setBackgroundColor:[UIColor whiteColor]];
+    [logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
+    [logoutButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
+    logoutButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+    logoutButton.layer.cornerRadius = ROUND_WIDTH_FLOAT(22);
+    logoutButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(44));
+    logoutButton.top = _cellsView.bottom+20;
+    logoutButton.centerX = _cellsView.width/2;
+    [_scrollView addSubview:logoutButton];
+    [[logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        [SKStorageManager sharedInstance].userInfo = [SKUserInfo new];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,8 +85,8 @@
         self.avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(55)/2;
         self.avatarImageView.layer.masksToBounds = YES;
         [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
-        self.avatarImageView.top = 15;
-        self.avatarImageView.left = 15;
+        self.avatarImageView.top = ROUND_WIDTH_FLOAT(15);
+        self.avatarImageView.left = ROUND_WIDTH_FLOAT(15);
         [_authBackView addSubview:self.avatarImageView];
         
         self.loginLabel = [UILabel new];
@@ -88,34 +103,46 @@
         arrow.right = _authBackView.width-20;
         [_authBackView addSubview:arrow];
         
-        //认证背景
-        UIView *orangeView = [[UIView alloc] initWithFrame:CGRectMake(self.avatarImageView.left, self.avatarImageView.bottom+10, _authBackView.width-30, _authBackView.height-self.avatarImageView.bottom-20)];
-        orangeView.backgroundColor = [UIColor colorWithHex:0xFFF7F0];
-        orangeView.layer.cornerRadius = 3;
-        [_authBackView addSubview:orangeView];
-        
-        UIButton *goAuthButton = [UIButton new];
-        [goAuthButton setBackgroundImage:[UIImage imageNamed:@"btn_personalpage_authentication"] forState:UIControlStateNormal];
-        goAuthButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(30));
-        goAuthButton.centerY = orangeView.height/2;
-        goAuthButton.right = orangeView.width-10;
-        [orangeView addSubview:goAuthButton];
-        
-        self.authTextLabel = [UILabel new];
-        self.authTextLabel.text = @"身份认证（品牌、团体、画师认证，秀出你的不同）";
-        self.authTextLabel.textColor = [UIColor colorWithHex:0xFA7716];
-        self.authTextLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(11);
-        self.authTextLabel.numberOfLines = 2;
-        self.authTextLabel.size = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(50));
-        [self.authTextLabel sizeToFit];
-        self.authTextLabel.left = 10;
-        self.authTextLabel.centerY = orangeView.height/2;
-        [orangeView addSubview:self.authTextLabel];
+        _authBackView.height = self.avatarImageView.bottom+ROUND_WIDTH_FLOAT(15);
+//        //认证背景
+//        UIView *orangeView = [[UIView alloc] initWithFrame:CGRectMake(self.avatarImageView.left, self.avatarImageView.bottom+10, _authBackView.width-30, _authBackView.height-self.avatarImageView.bottom-20)];
+//        orangeView.backgroundColor = [UIColor colorWithHex:0xFFF7F0];
+//        orangeView.layer.cornerRadius = 3;
+//        [_authBackView addSubview:orangeView];
+//
+//        UIButton *goAuthButton = [UIButton new];
+//        [goAuthButton setBackgroundImage:[UIImage imageNamed:@"btn_personalpage_authentication"] forState:UIControlStateNormal];
+//        goAuthButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(30));
+//        goAuthButton.centerY = orangeView.height/2;
+//        goAuthButton.right = orangeView.width-10;
+//        [orangeView addSubview:goAuthButton];
+//
+//        self.authTextLabel = [UILabel new];
+//        self.authTextLabel.text = @"身份认证（品牌、团体、画师认证，秀出你的不同）";
+//        self.authTextLabel.textColor = [UIColor colorWithHex:0xFA7716];
+//        self.authTextLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(11);
+//        self.authTextLabel.numberOfLines = 2;
+//        self.authTextLabel.size = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(50));
+//        [self.authTextLabel sizeToFit];
+//        self.authTextLabel.left = 10;
+//        self.authTextLabel.centerY = orangeView.height/2;
+//        [orangeView addSubview:self.authTextLabel];
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
         [[tapGesture rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
             if (![SKStorageManager sharedInstance].userInfo.uuid) {
 //                [self invokeLoginViewController];
+                SKLoginUser *user = [SKLoginUser new];
+                user.open_id = @"ios_test";
+                user.nickname = @"ios_testname";
+                user.avatar = @"http://avatar.csdn.net/F/A/7/3_sinat_34137390.jpg";
+                user.login_type = @"weixin";
+                
+                [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:user callback:^(BOOL success, SKResponsePackage *response) {
+                    NSLog(@"%@", response.data);
+                }];
+
+            } else {
                 [self enterMyPage:tapGesture];
             }
         }];
@@ -217,22 +244,13 @@
         arrow.right = cell.width-20;
         arrow.centerY = cell.height/2;
         [cell addSubview:arrow];
-        
-        //logout
-        UIButton *logoutButton = [UIButton new];
-        [logoutButton setBackgroundColor:[UIColor whiteColor]];
-        [logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
-        [logoutButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-        logoutButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
-        logoutButton.layer.cornerRadius = ROUND_WIDTH_FLOAT(22);
-        logoutButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(44));
-        logoutButton.top = cell.bottom+20;
-        logoutButton.centerX = _cellsView.width/2;
-        [_cellsView addSubview:logoutButton];
-        
-        
     }
     return _cellsView;
+}
+
+- (void)logout {
+    [SKStorageManager sharedInstance].userInfo.uuid = nil;
+    [SKStorageManager sharedInstance].userInfo = nil;
 }
 
 - (UIView *)cellWithImageName:(NSString *)imageName title:(NSString *)title isShowArrow:(BOOL)isShow{
@@ -284,18 +302,8 @@
 }
 
 - (void)enterMyPage:(UIGestureRecognizer *)sender {
-    SKLoginUser *user = [SKLoginUser new];
-    user.open_id = @"ios_test";
-    user.nickname = @"ios_testname";
-    user.avatar = @"http://avatar.csdn.net/F/A/7/3_sinat_34137390.jpg";
-    user.login_type = @"weixin";
-    
-    [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:user callback:^(BOOL success, SKResponsePackage *response) {
-        NSLog(@"%@", response.data);
-    }];
-
-//    SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];
-//    [self.navigationController pushViewController:controller animated:YES];
+    SKPersonalMyPageViewController *controller = [[SKPersonalMyPageViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

@@ -161,6 +161,14 @@
 }
 
 - (void)loginWithUser:(SSDKUser *)user {
-    SKLoginUser *loginUser = [SKLoginUser new];
+        SKLoginUser *use = [SKLoginUser new];
+        use.open_id = user.uid;
+        use.nickname = user.nickname;
+        use.avatar = user.icon;
+        use.login_type = @"weixin";
+    
+        [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:use callback:^(BOOL success, SKResponsePackage *response) {
+            NSLog(@"%@", response.data);
+        }];
 }
 @end

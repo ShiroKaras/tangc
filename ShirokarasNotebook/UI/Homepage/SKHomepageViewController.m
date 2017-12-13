@@ -285,11 +285,18 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index {
     NSLog(@"index: %ld", index);
-    self.selectedType = index;
-    if (view==_titleView) {
-        _titleView_collectionV.selectedIndex = index;
-    } else if (view == _titleView_collectionV) {
-        _titleView.selectedIndex = index;
+    if (index == SKHomepageSelectedTypeFollow && [SKStorageManager sharedInstance].userInfo.uuid==nil) {
+        self.dataArray = [NSMutableArray array];
+        [self.tableView reloadData];
+        [self invokeLoginViewController];
+        return;
+    } else {
+        self.selectedType = index;
+        if (view==_titleView) {
+            _titleView_collectionV.selectedIndex = index;
+        } else if (view == _titleView_collectionV) {
+            _titleView.selectedIndex = index;
+        }
     }
 }
 
@@ -432,10 +439,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if ([keyPath isEqualToString:@"selectedType"]) {
         scrollLock = YES;
         if (self.selectedType==SKHomepageSelectedTypeFollow) {
-            if ([SKStorageManager sharedInstance].userInfo.uuid==nil) {
-                [self invokeLoginViewController];
-                return;
-            }
             [self.view bringSubviewToFront:self.tableView];
             [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
                 self.dataArray = [NSMutableArray arrayWithArray:topicList];
