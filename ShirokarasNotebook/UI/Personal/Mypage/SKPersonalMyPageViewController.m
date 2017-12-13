@@ -32,22 +32,25 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 
 @interface SKPersonalMyPageViewController () <UITableViewDelegate, UITableViewDataSource, SKSegmentViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
-
+@property (nonatomic, strong) NSMutableArray<SKPicture*> *dataArray_pic;
+@property (nonatomic, strong) NSMutableArray<SKArticle*> *dataArray_article;
 @property (nonatomic, strong) SKSegmentView *titleView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, assign) SKMyPageSelectedType selectedType;
 @property (nonatomic, strong) UILabel *label_follow;
 @property (nonatomic, strong) UILabel *label_fans;
+@property (nonatomic, strong) UIButton *editInfoButton;
 @end
 
-@implementation SKPersonalMyPageViewController
+@implementation SKPersonalMyPageViewController {
+    BOOL scrollLock;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    [self createUI];
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [self createUI];
 }
 
 - (void)dealloc {
@@ -145,15 +148,15 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     self.selectedType = SKMyPageSelectedTypePic;
     
     //编辑资料
-    UIButton *editInfoButton = [UIButton new];
-    [editInfoButton addTarget:self action:@selector(didClickEditInfoButton) forControlEvents:UIControlEventTouchUpInside];
-    [editInfoButton setTitle:@"编辑资料" forState:UIControlStateNormal];
-    [editInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    editInfoButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
-    editInfoButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(21));
-    editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
-    editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
-    [self.view addSubview:editInfoButton];
+    _editInfoButton = [UIButton new];
+    [_editInfoButton addTarget:self action:@selector(didClickEditInfoButton) forControlEvents:UIControlEventTouchUpInside];
+    [_editInfoButton setTitle:@"编辑资料" forState:UIControlStateNormal];
+    [_editInfoButton setTitleColor:COMMON_TEXT_CONTENT_COLOR forState:UIControlStateNormal];
+    _editInfoButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
+    _editInfoButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(21));
+    _editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
+    _editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
+    [self.view addSubview:_editInfoButton];
     
     _nameLabel = [UILabel new];
     _nameLabel.text = [SKStorageManager sharedInstance].loginUser.nickname;
@@ -193,6 +196,26 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
                 if (cell==nil) {
                     cell = [[SKMypagePicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKMypagePicTableViewCell class])];
                 }
+                
+                [cell.imageView0 sd_setImageWithURL:[NSURL URLWithString:self.dataArray_pic[indexPath.row * 3].cover] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
+                cell.countLabel0.text = [NSString stringWithFormat:@"%ld", self.dataArray_pic[indexPath.row * 3].img_cnt];
+                
+                if (self.dataArray_pic.count - 1 >= indexPath.row * 3 + 1) {
+                    cell.imageView1.hidden = NO;
+                    [cell.imageView1 sd_setImageWithURL:[NSURL URLWithString:self.dataArray_pic[indexPath.row*3+1].cover] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
+                    cell.countLabel1.text = [NSString stringWithFormat:@"%ld", self.dataArray_pic[indexPath.row*3+1].img_cnt];
+                } else {
+                    cell.imageView1.hidden = YES;
+                }
+                
+                if (self.dataArray_pic.count - 1 >= indexPath.row * 3 + 2) {
+                    cell.imageView2.hidden = NO;
+                    [cell.imageView2 sd_setImageWithURL:[NSURL URLWithString:self.dataArray_pic[indexPath.row*3+2].cover] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
+                    cell.countLabel2.text = [NSString stringWithFormat:@"%ld", self.dataArray_pic[indexPath.row*3+2].img_cnt];
+                } else {
+                    cell.imageView2.hidden = YES;
+                }
+                
                 return cell;
             }
             case SKMyPageSelectedTypeArticle :{
@@ -214,7 +237,12 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (int)ceil(self.dataArray.count/3.0);
+    if (self.selectedType==SKMyPageSelectedTypePic) {
+        return (int)ceil(self.dataArray_pic.count/3.0);
+    } else if(self.selectedType==SKMyPageSelectedTypeArticle)
+        return self.dataArray_article.count;
+    else
+        return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -225,7 +253,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    DLog(@"%lf", scrollView.contentOffset.y);
+    if(scrollLock) return;
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
@@ -238,6 +266,10 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             [_tableView addSubview:_titleView];
             
             [self.nameLabel removeFromSuperview];
+            [_editInfoButton removeFromSuperview];
+            [self.view addSubview:_editInfoButton];
+            _editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
+            _editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -252,6 +284,10 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             [_titleView addSubview:self.nameLabel];
             self.nameLabel.centerX = self.view.centerX;
             self.nameLabel.top = 20+ROUND_WIDTH_FLOAT(9.5);
+            
+            [_titleView addSubview:_editInfoButton];
+            _editInfoButton.centerY = self.nameLabel.centerY;
+            _editInfoButton.right = self.view.width-ROUND_WIDTH_FLOAT(15);
         }];
     }
 }
@@ -259,13 +295,19 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 #pragma mark - Observer
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
-        [_tableView reloadData];
+        scrollLock = YES;
         switch (_selectedType) {
             case SKMyPageSelectedTypePic:{
+                [[[SKServiceManager sharedInstance] profileService] getPicListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKPicture *> *picList) {
+                    self.dataArray_pic = [NSMutableArray arrayWithArray:picList];
+                    [self.tableView reloadData];
+                    scrollLock = NO;
+                }];
                 break;
             }
             case SKMyPageSelectedTypeArticle:{
-                
+                [self.tableView reloadData];
+                scrollLock = NO;
                 break;
             }
             default:

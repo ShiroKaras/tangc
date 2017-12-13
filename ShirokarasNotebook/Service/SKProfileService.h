@@ -13,6 +13,7 @@
 typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* userList);
 typedef void (^SKQueueListCallback)(BOOL success, NSArray<SKNotification*>* queueList);
 typedef void (^SKUserInfoCallback)(BOOL success, SKUserInfo *userInfo);
+typedef void (^SKPictureCallback)(BOOL success, NSArray<SKPicture*> *picList);
 
 @interface SKProfileService : NSObject
 
@@ -36,5 +37,8 @@ typedef void (^SKUserInfoCallback)(BOOL success, SKUserInfo *userInfo);
 
 //系统推送通知列表
 - (void)getUserQueueListWithType:(NSInteger)type callback:(SKQueueListCallback)callback;
+
+//图片列表
+- (void)getPicListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKPictureCallback)callback;
 
 @end

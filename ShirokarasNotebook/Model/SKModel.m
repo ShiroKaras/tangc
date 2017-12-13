@@ -116,3 +116,6 @@ HTINIT(SKResponsePackage)
 
 @implementation SKNotification
 @end
+
+@implementation SKPicture
+@end

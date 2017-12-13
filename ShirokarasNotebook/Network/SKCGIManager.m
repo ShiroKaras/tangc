@@ -108,4 +108,8 @@
     return [NSString stringWithFormat:@"%@/api/queue/list", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)pictureList {
+    return [NSString stringWithFormat:@"%@/api/my/picture", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end

@@ -167,3 +167,10 @@
 @property (nonatomic, copy) NSString *image;
 @end
 
+@interface SKPicture : NSObject
+@property (nonatomic, copy) NSString *cover;
+@property (nonatomic, copy) NSString *add_time;
+@property (nonatomic, assign) NSInteger img_cnt;
+@end
+
+

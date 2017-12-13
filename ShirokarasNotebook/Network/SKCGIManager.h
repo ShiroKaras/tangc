@@ -85,4 +85,6 @@
 //系统推送列表
 + (NSString *)queueList;
 
+//图片列表
++ (NSString *)pictureList;
 @end
