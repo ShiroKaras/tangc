@@ -35,10 +35,10 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, strong) SKSegmentView *titleView;
-@property (nonatomic, strong) UIButton *button_follow;
-@property (nonatomic, strong) UIButton *button_hot;
-@property (nonatomic, strong) UIView *markLine;
+@property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, assign) SKMyPageSelectedType selectedType;
+@property (nonatomic, strong) UILabel *label_follow;
+@property (nonatomic, strong) UILabel *label_fans;
 @end
 
 @implementation SKPersonalMyPageViewController
@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 }
 
 - (void)createUI {
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)  style:UITableViewStylePlain];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _tableView.dataSource = self;
@@ -69,19 +70,56 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.showsHorizontalScrollIndicator = NO;
     [_tableView registerClass:[SKMypagePicTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKMypagePicTableViewCell class])];
+    [self.view addSubview:_tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
     headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
-    headerImageView.backgroundColor = [UIColor blackColor];
+    headerImageView.image = COMMON_PLACEHOLDER_IMAGE;
+    headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+    headerImageView.layer.masksToBounds = YES;
     [headerView addSubview:headerImageView];
     
     UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
     [headerView addSubview:blankView];
     _tableView.tableHeaderView = headerView;
     
-    [self.view addSubview:_tableView];
+    UIImageView *_avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(66), ROUND_WIDTH_FLOAT(66))];
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:COMMON_AVATAR_PLACEHOLDER_IMAGE];
+    _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(33);
+    _avatarImageView.layer.masksToBounds = YES;
+    _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _avatarImageView.top = ROUND_WIDTH_FLOAT(38);
+    _avatarImageView.centerX = headerView.centerX;
+    [headerView addSubview:_avatarImageView];
+    
+    UILabel *_mTitleLabel = [UILabel new];
+    _mTitleLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
+    _mTitleLabel.textColor = [UIColor whiteColor];
+    _mTitleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+    [_mTitleLabel sizeToFit];
+    _mTitleLabel.top = _avatarImageView.bottom +ROUND_WIDTH_FLOAT(10);
+    _mTitleLabel.centerX = self.view.centerX;
+    [headerView addSubview:_mTitleLabel];
+    
+    _label_follow = [UILabel new];
+    _label_follow.text = [NSString stringWithFormat:@"关注 %ld", [SKStorageManager sharedInstance].userInfo.follows];
+    _label_follow.textColor = [UIColor whiteColor];
+    _label_follow.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+    [_label_follow sizeToFit];
+    _label_follow.right = headerView.width/2-5;
+    _label_follow.top = _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(6);
+    [headerView addSubview:_label_follow];
+    
+    _label_fans = [UILabel new];
+    _label_fans.text = [NSString stringWithFormat:@"粉丝 %ld", [SKStorageManager sharedInstance].userInfo.follows];
+    _label_fans.textColor = [UIColor whiteColor];
+    _label_fans.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+    [_label_fans sizeToFit];
+    _label_fans.left = headerView.width/2+5;
+    _label_fans.top = _mTitleLabel.bottom +ROUND_WIDTH_FLOAT(6);
+    [headerView addSubview:_label_fans];
     
 #ifdef __IPHONE_11_0
     if ([_tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
@@ -115,6 +153,21 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
     editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
     [self.view addSubview:editInfoButton];
+    
+    _nameLabel = [UILabel new];
+    _nameLabel.text = [SKStorageManager sharedInstance].loginUser.nickname;
+    _nameLabel.textColor =COMMON_TEXT_COLOR;
+    _nameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
+    [_nameLabel sizeToFit];
+    
+    [[[SKServiceManager sharedInstance] profileService] getUserInfoWithCallback:^(BOOL success, SKUserInfo *userInfo) {
+        self.label_follow.text = [NSString stringWithFormat:@"关注 %ld", userInfo.follows];
+        self.label_fans.text = [NSString stringWithFormat:@"粉丝 %ld", userInfo.fans];
+        [self.label_follow sizeToFit];
+        [self.label_fans sizeToFit];
+        _label_follow.right = headerView.width/2-5;
+        _label_fans.left = headerView.width/2+5;
+    }];
 }
 
 #pragma mark - Actions
@@ -182,6 +235,8 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
             [_tableView addSubview:_titleView];
+            
+            [self.nameLabel removeFromSuperview];
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -192,6 +247,10 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT*2);
             [self.view addSubview:_titleView];
+            
+            [_titleView addSubview:self.nameLabel];
+            self.nameLabel.centerX = self.view.centerX;
+            self.nameLabel.top = 20+ROUND_WIDTH_FLOAT(9.5);
         }];
     }
 }

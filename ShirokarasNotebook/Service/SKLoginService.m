@@ -43,8 +43,8 @@
                             @"avatar"   : user.avatar
                             };
     [self baseRequestWithParam:param url:[SKCGIManager login_thirdLogin] callback:^(BOOL success, SKResponsePackage *response) {
-        SKUserInfo *userInfo = [SKUserInfo mj_objectWithKeyValues:response.data];
-        [[SKStorageManager sharedInstance] setUserInfo:userInfo];
+        SKLoginUser *userInfo = [SKLoginUser mj_objectWithKeyValues:response.data];
+        [[SKStorageManager sharedInstance] setLoginUser:userInfo];
         callback(success, response);
     }];
 }

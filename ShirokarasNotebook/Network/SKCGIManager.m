@@ -80,6 +80,10 @@
     return [NSString stringWithFormat:@"%@/api/article/thumb_up", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)getUserInfo {
+    return [NSString stringWithFormat:@"%@/api/my/profile", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)updateUserInfo {
     return [NSString stringWithFormat:@"%@/api/update_profile", [[ServerConfiguration sharedInstance] appHost]];
 }

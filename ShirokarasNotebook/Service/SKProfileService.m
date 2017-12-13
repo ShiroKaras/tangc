@@ -81,6 +81,15 @@
     }];
 }
 
+- (void)getUserInfoWithCallback:(SKUserInfoCallback)callback {
+    NSDictionary *param = [NSDictionary dictionary];
+    [self baseRequestWithParam:param url:[SKCGIManager getUserInfo] callback:^(BOOL success, SKResponsePackage *response) {
+        SKUserInfo *userInfo = [SKUserInfo mj_objectWithKeyValues:response.data];
+        [[SKStorageManager sharedInstance] setUserInfo:userInfo];
+        callback(success, userInfo);
+    }];
+}
+
 //修改用户信息
 - (void)updateUserInfoWithUserInfo:(SKUserInfo *)userInfo callback:(SKResponseCallback)callback {
     NSMutableDictionary *param = [userInfo mj_keyValuesWithIgnoredKeys:@[@"id"]];

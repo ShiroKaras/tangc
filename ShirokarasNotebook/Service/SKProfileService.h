@@ -12,6 +12,7 @@
 
 typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* userList);
 typedef void (^SKQueueListCallback)(BOOL success, NSArray<SKNotification*>* queueList);
+typedef void (^SKUserInfoCallback)(BOOL success, SKUserInfo *userInfo);
 
 @interface SKProfileService : NSObject
 
@@ -27,7 +28,10 @@ typedef void (^SKQueueListCallback)(BOOL success, NSArray<SKNotification*>* queu
 //取关一个用户
 - (void)unFollowsUserID:(NSString *)uid callback:(SKResponseCallback)callback;
 
-//更新用户信息
+//获取用户信息
+- (void)getUserInfoWithCallback:(SKUserInfoCallback)callback;
+
+//修改用户信息
 - (void)updateUserInfoWithUserInfo:(SKUserInfo*)userInfo callback:(SKResponseCallback)callback;
 
 //系统推送通知列表

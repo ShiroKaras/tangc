@@ -12,6 +12,8 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         self.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.imageView];
         [self.contentView addSubview:self.dateLabel];

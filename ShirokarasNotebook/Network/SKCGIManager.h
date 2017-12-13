@@ -64,6 +64,9 @@
 //点赞
 + (NSString *)postThumbUp;
 
+//获取用户信息
++ (NSString *)getUserInfo;
+
 //修改资料
 + (NSString *)updateUserInfo;
 
