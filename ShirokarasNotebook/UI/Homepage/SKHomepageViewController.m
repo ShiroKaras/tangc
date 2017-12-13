@@ -319,6 +319,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         [self.navigationController pushViewController:controller animated:YES];
     }];
     //关注
+    cell.followButton.hidden = [[SKStorageManager sharedInstance].userInfo.nickname isEqualToString:self.dataArray[indexPath.row].userinfo.nickname];
+    
     [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         if (self.dataArray[indexPath.row].is_follow) {
             [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {

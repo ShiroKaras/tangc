@@ -11,7 +11,6 @@
 #define IMAGE_WIDTH (SCREEN_WIDTH-32)/3
 
 @interface SKMypagePicTableViewCell ()
-@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *imageView0;
 @property (nonatomic, strong) UIImageView *imageView1;
 @property (nonatomic, strong) UIImageView *imageView2;

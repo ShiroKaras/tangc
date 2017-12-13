@@ -80,14 +80,14 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"postImageArray" object:self.postImageArray];
     [self createTitleView];
 
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44))];
     scrollView.alwaysBounceVertical = YES;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
 
     //=========================文本部分=========================
 
-    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(15, ROUND_WIDTH_FLOAT(44+15), self.view.width-30, ROUND_WIDTH_FLOAT(105))];
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(15, ROUND_WIDTH_FLOAT(15), self.view.width-30, ROUND_WIDTH_FLOAT(105))];
     _textView.font = PINGFANG_FONT_OF_SIZE(14);
     _textView.backgroundColor = [UIColor whiteColor];
     [self.scrollView addSubview:_textView];

@@ -11,9 +11,7 @@
 @implementation SKPersonalArticleCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+    if (self = [super initWithFrame:frame]) {        
         self.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.imageView];
         [self.contentView addSubview:self.dateLabel];

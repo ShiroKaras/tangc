@@ -67,6 +67,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.showsHorizontalScrollIndicator = NO;
     [_tableView registerClass:[SKMypagePicTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKMypagePicTableViewCell class])];
@@ -213,7 +214,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 25;
+    return (int)ceil(self.dataArray.count/3.0);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
