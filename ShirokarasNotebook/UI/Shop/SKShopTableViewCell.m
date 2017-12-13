@@ -56,6 +56,11 @@
     return self;
 }
 
+- (void)layoutSubviews {
+    _mCountLabel.right = self.size.width-ROUND_WIDTH_FLOAT(6);
+    _mCountLabel.bottom = _mMoneyLabel.bottom;
+}
+
 @end
 
 @implementation SKShopTableViewCell
@@ -89,17 +94,57 @@
 }
 
 - (void)setLeftData:(SKGoods *)leftData {
-    [_view_left.mImageView sd_setImageWithURL:[NSURL URLWithString:leftData.url] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
+    [_view_left.mImageView sd_setImageWithURL:[NSURL URLWithString:leftData.image] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
     _view_left.mContentLabel.text = leftData.name;
     _view_left.mMoneyLabel.text = leftData.price;
     _view_left.mCountLabel.text = [NSString stringWithFormat:@"共%@件", leftData.click_num];
+    [_view_left.mCountLabel sizeToFit];
+    [_view_left layoutSubviews];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        NSString *u = [leftData.url componentsSeparatedByString:@"://"][1];
+        
+        // 构建淘宝客户端协议的 URL
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"taobao://%@",u]];
+        // 判断当前系统是否有安装淘宝客户端
+        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+            // 如果已经安装淘宝客户端，就使用客户端打开链接
+            [[UIApplication sharedApplication] openURL:url];
+        } else {
+            // 否则使用 Mobile Safari 或者内嵌 WebView 来显示
+            url=[NSURL URLWithString:leftData.url];
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }];
+    [_view_left addGestureRecognizer:tap];
 }
 
 - (void)setRightData:(SKGoods *)rightData {
-    [_view_right.mImageView sd_setImageWithURL:[NSURL URLWithString:rightData.url] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
+    [_view_right.mImageView sd_setImageWithURL:[NSURL URLWithString:rightData.image] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
     _view_right.mContentLabel.text = rightData.name;
     _view_right.mMoneyLabel.text = rightData.price;
     _view_right.mCountLabel.text = [NSString stringWithFormat:@"共%@件", rightData.click_num];
+    [_view_right.mCountLabel sizeToFit];
+    [_view_right layoutSubviews];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        NSString *u = [rightData.url componentsSeparatedByString:@"://"][1];
+        
+        // 构建淘宝客户端协议的 URL
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"taobao://%@",u]];
+        // 判断当前系统是否有安装淘宝客户端
+        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+            // 如果已经安装淘宝客户端，就使用客户端打开链接
+            [[UIApplication sharedApplication] openURL:url];
+        } else {
+            // 否则使用 Mobile Safari 或者内嵌 WebView 来显示
+            url=[NSURL URLWithString:rightData.url];
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }];
+    [_view_right addGestureRecognizer:tap];
 }
 
 @end

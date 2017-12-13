@@ -9,6 +9,7 @@
 #import "SKShopViewController.h"
 #import "SKTicketTableViewCell.h"
 #import "SKShopTableViewCell.h"
+#import "SKSegmentView.h"
 
 #define HEADERVIEW_HEIGHT ROUND_WIDTH_FLOAT(180)
 #define TITLEVIEW_WIDTH ROUND_WIDTH_FLOAT(240)
@@ -19,18 +20,17 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     SKMarketSelectedTypeShop
 };
 
-@interface SKShopViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SKShopViewController () <UITableViewDelegate, UITableViewDataSource, SKSegmentViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<SKTicket*> *dataArray;
 @property (nonatomic, strong) NSMutableArray<SKGoods*> *dataArray_goods;
-@property (nonatomic, strong) UIView *titleView;
-@property (nonatomic, strong) UIButton *button_follow;
-@property (nonatomic, strong) UIButton *button_hot;
-@property (nonatomic, strong) UIView *markLine;
+@property (nonatomic, strong) SKSegmentView *titleView;
 @property (nonatomic, assign) SKMarketSelectedType selectedType;
 @end
 
-@implementation SKShopViewController
+@implementation SKShopViewController {
+    BOOL scrollLock;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -93,39 +93,15 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 #endif
     
     //TitleView
-    _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)];
+    _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"优惠券", @"商城"]];
+    _titleView.delegate = self;
     _titleView.layer.cornerRadius = 3;
     _titleView.backgroundColor = [UIColor whiteColor];
     _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
-    [self.tableView addSubview:_titleView];
+    [_tableView addSubview:_titleView];
     
-    _button_follow = [UIButton new];
-    [_button_follow addTarget:self action:@selector(didClickFollowButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_button_follow setTitle:@"优惠券" forState:UIControlStateNormal];
-    [_button_follow setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-    _button_follow.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
-    _button_follow.size = CGSizeMake(TITLEVIEW_HEIGHT*2, TITLEVIEW_HEIGHT);
-    _button_follow.centerY = _titleView.height/2;
-    _button_follow.centerX = _titleView.width/2-60;
-    [_titleView addSubview:_button_follow];
-    
-    _button_hot = [UIButton new];
-    [_button_hot addTarget:self action:@selector(didClickHotButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_button_hot setTitle:@"商城" forState:UIControlStateNormal];
-    [_button_hot setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
-    _button_hot.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
-    _button_hot.size = CGSizeMake(TITLEVIEW_HEIGHT*2, TITLEVIEW_HEIGHT);
-    _button_hot.centerY = _titleView.height/2;
-    _button_hot.centerX = _titleView.width/2 +60;
-    [_titleView addSubview:_button_hot];
-    
-    _markLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(20), 2)];
-    _markLine.backgroundColor = COMMON_GREEN_COLOR;
-    _markLine.centerX = _button_follow.centerX;
-    _markLine.bottom = _titleView.height;
-    [_titleView addSubview:_markLine];
     self.selectedType = SKMarketSelectedTypeTicket;
 }
 
@@ -135,6 +111,13 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 
 - (void)didClickHotButton:(UIButton*)sender {
     self.selectedType = SKMarketSelectedTypeShop;
+}
+
+#pragma mark - SKSegment Delegate
+
+- (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index {
+    NSLog(@"index: %ld", index);
+    self.selectedType = index;
 }
 
 #pragma mark - UITableView Delegate
@@ -203,20 +186,14 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(scrollLock) return;
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
             _titleView.height = TITLEVIEW_HEIGHT;
             _titleView.width = TITLEVIEW_WIDTH;
-            _titleView.layer.cornerRadius = 5;
-            
-            _button_follow.centerX = _titleView.width/2-60;
-            _button_follow.top = 0;
-            _button_hot.centerX = _titleView.width/2 +60;
-            _button_hot.top = 0;
-            
-            _markLine.bottom = _titleView.height;
-            _markLine.centerX = _button_follow.centerX;
+            _titleView.layer.cornerRadius = 3;
+
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
@@ -225,16 +202,9 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     } else {
         [UIView animateWithDuration:0.2 animations:^{
             _titleView.left = 0;
+            _titleView.height = 20+TITLEVIEW_HEIGHT;
             _titleView.width = SCREEN_WIDTH;
             _titleView.layer.cornerRadius = 0;
-            
-            _button_follow.centerX = _titleView.width/2-60;
-            _button_follow.top = 20;
-            _button_hot.centerX = _titleView.width/2 +60;
-            _button_hot.top = 20;
-            
-            _markLine.bottom = _titleView.height;
-            _markLine.centerX = _button_follow.centerX;
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
@@ -245,27 +215,18 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
+        scrollLock = YES;
         if (self.selectedType==SKMarketSelectedTypeTicket) {
-            [_button_follow setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-            [_button_hot setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
-            [UIView animateWithDuration:0.2 animations:^{
-                _markLine.centerX = _button_follow.centerX;
-                _markLine.bottom = _titleView.height;
-            }];
             [[[SKServiceManager sharedInstance] shopService] getTicketsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKTicket *> *ticketsList) {
                 self.dataArray = [NSMutableArray arrayWithArray:ticketsList];
                 [self.tableView reloadData];
+                scrollLock = NO;
             }];
         } else if (self.selectedType==SKMarketSelectedTypeShop){
-            [_button_follow setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
-            [_button_hot setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-            [UIView animateWithDuration:0.2 animations:^{
-                _markLine.centerX = _button_hot.centerX;
-                _markLine.bottom = _titleView.height;
-            }];
             [[[SKServiceManager sharedInstance] shopService] getGoodsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKGoods *> *goodsList) {
                 self.dataArray_goods = [NSMutableArray arrayWithArray:goodsList];
                 [self.tableView reloadData];
+                scrollLock = NO;
             }];
         } else {
             

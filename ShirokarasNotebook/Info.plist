@@ -24,10 +24,50 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.shirokaras.ShirokarasNotebook</string>
+			<string>com.zacyang.tangcao</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>shirokaras1854795</string>
+				<string>tangcao</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wb$(WEIBO_URL_SCHEMES_SUFFIX)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx$(WEIXIN_URL_SCHEMES_SUFFIX)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>QQ$(QQ_URL_SCHEMES_SUFFIX)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent$(TENCENT_URL_SCHEMES_SUFFIX)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>taobao</string>
 			</array>
 		</dict>
 	</array>
