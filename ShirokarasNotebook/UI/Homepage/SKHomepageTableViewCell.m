@@ -48,11 +48,6 @@
 - (void)setTopic:(SKTopic *)topic {
     _topic = topic;
     self.isFollow = topic.is_follow;
-    [[self.baseInfoView.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        if ([self.delegate respondsToSelector:@selector(didClickfollowButtonWithTopic:)]) {
-            [self.delegate didClickfollowButtonWithTopic:topic];
-        }
-    }];
     
     [self setType:topic.type withTopic:topic];
     self.baseInfoView.userInfo = topic.userinfo;
@@ -344,7 +339,7 @@
     [self.contentView addSubview:_commentButton];
     //点赞
     _favButton = [UIButton new];
-    [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
+    [_favButton setImage:topic.is_thumb?[UIImage imageNamed:@"btn_homepage_like_highlight"]:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
     [_favButton setTitle:@"点赞" forState:UIControlStateNormal];
     [_favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];

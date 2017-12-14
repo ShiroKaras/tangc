@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
-    headerImageView.image = COMMON_PLACEHOLDER_IMAGE;
+    headerImageView.image = [UIImage imageNamed:@"img_homepage_brand"];
     headerImageView.layer.masksToBounds = YES;
     headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     
@@ -342,6 +342,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     }];
     //点赞
     [[cell.favButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+            [self invokeLoginViewController];
+            return;
+        }
         if (self.dataArray[indexPath.row].is_thumb) {
             [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].is_thumb callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"取消点赞");

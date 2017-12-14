@@ -28,6 +28,7 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *cellsView;
+@property (nonatomic, strong) UIButton *logoutButton;
 @end
 
 @implementation SKPersonalIndexViewController {
@@ -44,9 +45,11 @@
     if ([SKStorageManager sharedInstance].loginUser.uuid) {
         self.loginLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
         [self.loginLabel sizeToFit];
+        _logoutButton.hidden = NO;
     } else {
         self.loginLabel.text = @"点击登录";
         [self.loginLabel sizeToFit];
+        _logoutButton.hidden = YES;
     }
     self.loginLabel.centerY = self.avatarImageView.centerY;
     self.loginLabel.left = self.avatarImageView.right +10;
@@ -66,17 +69,17 @@
     [_scrollView addSubview:self.cellsView];
     self.cellsView.top = self.authBackView.bottom+10;
     //logout
-    UIButton *logoutButton = [UIButton new];
-    [logoutButton setBackgroundColor:[UIColor whiteColor]];
-    [logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
-    [logoutButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-    logoutButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
-    logoutButton.layer.cornerRadius = ROUND_WIDTH_FLOAT(22);
-    logoutButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(44));
-    logoutButton.top = _cellsView.bottom+20;
-    logoutButton.centerX = _cellsView.width/2;
-    [_scrollView addSubview:logoutButton];
-    [[logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+    _logoutButton = [UIButton new];
+    [_logoutButton setBackgroundColor:[UIColor whiteColor]];
+    [_logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
+    [_logoutButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
+    _logoutButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+    _logoutButton.layer.cornerRadius = ROUND_WIDTH_FLOAT(22);
+    _logoutButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(44));
+    _logoutButton.top = _cellsView.bottom+20;
+    _logoutButton.centerX = _cellsView.width/2;
+    [_scrollView addSubview:_logoutButton];
+    [[_logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         [SKStorageManager sharedInstance].userInfo = [SKUserInfo new];
         [SKStorageManager sharedInstance].loginUser = [SKLoginUser new];
     }];
@@ -157,6 +160,10 @@
         [_cellsView addSubview:cell_follow];
         UITapGestureRecognizer *tapGesture_follow = [[UITapGestureRecognizer alloc] init];
         [[tapGesture_follow rac_gestureSignal] subscribeNext:^(id x) {
+            if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+                [self invokeLoginViewController];
+                return;
+            }
             SKUserListViewController *controller = [[SKUserListViewController alloc] initWithType:SKUserListTypeFollow];
             [self.navigationController pushViewController:controller animated:YES];
         }];
@@ -168,6 +175,10 @@
         cell_fans.top = cell_follow.bottom;
         UITapGestureRecognizer *tapGesture_fans = [[UITapGestureRecognizer alloc] init];
         [[tapGesture_fans rac_gestureSignal] subscribeNext:^(id x) {
+            if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+                [self invokeLoginViewController];
+                return;
+            }
             SKUserListViewController *controller = [[SKUserListViewController alloc] initWithType:SKUserListTypeFans];
             [self.navigationController pushViewController:controller animated:YES];
         }];

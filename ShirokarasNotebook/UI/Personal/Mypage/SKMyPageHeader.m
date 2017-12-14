@@ -25,7 +25,7 @@
     if (!_backImageView) {
         _backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height-ROUND_WIDTH_FLOAT(22))];
         _backImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _backImageView.backgroundColor = COMMON_TEXT_COLOR;
+        _backImageView.image = [UIImage imageNamed:@"img_personalpage_brand"];
     }
     return _backImageView;
 }

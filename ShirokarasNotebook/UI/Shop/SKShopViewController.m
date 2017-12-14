@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
-    headerImageView.image = COMMON_PLACEHOLDER_IMAGE;
+    headerImageView.image = [UIImage imageNamed:@"img_homepage_brand"];
     headerView.contentMode = UIViewContentModeScaleAspectFill;
     headerView.layer.masksToBounds = YES;
     [headerView addSubview:headerImageView];

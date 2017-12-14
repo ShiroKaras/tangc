@@ -80,7 +80,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
-    headerImageView.image = COMMON_PLACEHOLDER_IMAGE;
+    headerImageView.image = [UIImage imageNamed:@"img_personalpage_brand"];
     headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     headerImageView.layer.masksToBounds = YES;
     [headerView addSubview:headerImageView];
@@ -103,7 +103,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _mTitleLabel.textColor = [UIColor whiteColor];
     _mTitleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
     [_mTitleLabel sizeToFit];
-    _mTitleLabel.top = _avatarImageView.bottom +ROUND_WIDTH_FLOAT(10);
+    _mTitleLabel.top = _avatarImageView.bottom +ROUND_WIDTH_FLOAT(7);
     _mTitleLabel.centerX = self.view.centerX;
     [headerView addSubview:_mTitleLabel];
     
@@ -113,7 +113,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _label_follow.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [_label_follow sizeToFit];
     _label_follow.right = headerView.width/2-5;
-    _label_follow.top = _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(6);
+    _label_follow.top = _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(3);
     [headerView addSubview:_label_follow];
     
     _label_fans = [UILabel new];
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _label_fans.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [_label_fans sizeToFit];
     _label_fans.left = headerView.width/2+5;
-    _label_fans.top = _mTitleLabel.bottom +ROUND_WIDTH_FLOAT(6);
+    _label_fans.top = _mTitleLabel.bottom +ROUND_WIDTH_FLOAT(3);
     [headerView addSubview:_label_fans];
     
 #ifdef __IPHONE_11_0
@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     _editInfoButton = [UIButton new];
     [_editInfoButton addTarget:self action:@selector(didClickEditInfoButton) forControlEvents:UIControlEventTouchUpInside];
     [_editInfoButton setTitle:@"编辑资料" forState:UIControlStateNormal];
-    [_editInfoButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
+    [_editInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _editInfoButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     _editInfoButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(21));
     _editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
@@ -278,7 +278,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             [self.view addSubview:_editInfoButton];
             _editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
             _editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
-            [_editInfoButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
+            [_editInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
@@ -295,7 +295,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
             self.nameLabel.top = 20+ROUND_WIDTH_FLOAT(9.5);
             
             [_titleView addSubview:_editInfoButton];
-            [_editInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_editInfoButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
             _editInfoButton.centerY = self.nameLabel.centerY;
             _editInfoButton.right = self.view.width-ROUND_WIDTH_FLOAT(15);
         }];
