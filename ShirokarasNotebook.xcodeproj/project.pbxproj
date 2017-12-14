@@ -154,6 +154,16 @@
 		11BAF1EF1FE007E2007816A8 /* HXDatePhotoToolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1C91FE007E1007816A8 /* HXDatePhotoToolManager.m */; };
 		11BAF1F01FE007E2007816A8 /* HXDatePhotoEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1CA1FE007E1007816A8 /* HXDatePhotoEditViewController.m */; };
 		11BAF1F31FE01D33007816A8 /* SKShopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1F21FE01D33007816A8 /* SKShopTableViewCell.m */; };
+		11BAF20B1FE25235007816A8 /* JFCityCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1F61FE25234007816A8 /* JFCityCollectionViewCell.m */; };
+		11BAF20C1FE25235007816A8 /* JFLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1F81FE25234007816A8 /* JFLocation.m */; };
+		11BAF20D1FE25235007816A8 /* JFAreaDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1FC1FE25234007816A8 /* JFAreaDataManager.m */; };
+		11BAF20E1FE25235007816A8 /* JFCityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1FE1FE25234007816A8 /* JFCityHeaderView.m */; };
+		11BAF20F1FE25235007816A8 /* JFSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF1FF1FE25234007816A8 /* JFSearchView.m */; };
+		11BAF2101FE25235007816A8 /* JFCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF2001FE25234007816A8 /* JFCityViewController.m */; };
+		11BAF2111FE25235007816A8 /* JFCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF2011FE25234007816A8 /* JFCityTableViewCell.m */; };
+		11BAF2121FE25235007816A8 /* JFCityCollectionFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF2021FE25234007816A8 /* JFCityCollectionFlowLayout.m */; };
+		11BAF2131FE25235007816A8 /* JFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BAF2041FE25234007816A8 /* JFButton.m */; };
+		11BAF2141FE25235007816A8 /* shop_area.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 11BAF2081FE25235007816A8 /* shop_area.sqlite */; };
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
@@ -501,6 +511,25 @@
 		11BAF1CC1FE007E1007816A8 /* HXDatePhotoViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXDatePhotoViewFlowLayout.h; sourceTree = "<group>"; };
 		11BAF1F11FE01D33007816A8 /* SKShopTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKShopTableViewCell.h; sourceTree = "<group>"; };
 		11BAF1F21FE01D33007816A8 /* SKShopTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKShopTableViewCell.m; sourceTree = "<group>"; };
+		11BAF1F51FE25234007816A8 /* JFCityCollectionFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFCityCollectionFlowLayout.h; sourceTree = "<group>"; };
+		11BAF1F61FE25234007816A8 /* JFCityCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFCityCollectionViewCell.m; sourceTree = "<group>"; };
+		11BAF1F81FE25234007816A8 /* JFLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFLocation.m; sourceTree = "<group>"; };
+		11BAF1F91FE25234007816A8 /* JFLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFLocation.h; sourceTree = "<group>"; };
+		11BAF1FB1FE25234007816A8 /* JFAreaDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFAreaDataManager.h; sourceTree = "<group>"; };
+		11BAF1FC1FE25234007816A8 /* JFAreaDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFAreaDataManager.m; sourceTree = "<group>"; };
+		11BAF1FD1FE25234007816A8 /* JFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFButton.h; sourceTree = "<group>"; };
+		11BAF1FE1FE25234007816A8 /* JFCityHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFCityHeaderView.m; sourceTree = "<group>"; };
+		11BAF1FF1FE25234007816A8 /* JFSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFSearchView.m; sourceTree = "<group>"; };
+		11BAF2001FE25234007816A8 /* JFCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFCityViewController.m; sourceTree = "<group>"; };
+		11BAF2011FE25234007816A8 /* JFCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFCityTableViewCell.m; sourceTree = "<group>"; };
+		11BAF2021FE25234007816A8 /* JFCityCollectionFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFCityCollectionFlowLayout.m; sourceTree = "<group>"; };
+		11BAF2031FE25234007816A8 /* JFCityCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFCityCollectionViewCell.h; sourceTree = "<group>"; };
+		11BAF2041FE25234007816A8 /* JFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFButton.m; sourceTree = "<group>"; };
+		11BAF2051FE25234007816A8 /* JFCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFCityViewController.h; sourceTree = "<group>"; };
+		11BAF2061FE25234007816A8 /* JFCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFCityTableViewCell.h; sourceTree = "<group>"; };
+		11BAF2081FE25235007816A8 /* shop_area.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = shop_area.sqlite; sourceTree = "<group>"; };
+		11BAF2091FE25235007816A8 /* JFSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFSearchView.h; sourceTree = "<group>"; };
+		11BAF20A1FE25235007816A8 /* JFCityHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFCityHeaderView.h; sourceTree = "<group>"; };
 		11CDDE871FB1C677004A0812 /* SKHomepageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageViewController.h; sourceTree = "<group>"; };
 		11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageViewController.m; sourceTree = "<group>"; };
 		11CDDE8A1FB30B12004A0812 /* SKHomepageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKHomepageTableViewCell.h; sourceTree = "<group>"; };
@@ -633,6 +662,7 @@
 		11303FC81FB06ADA0020C93D /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				11BAF1F41FE25234007816A8 /* JFCityViewController */,
 				11BAF1831FE007E1007816A8 /* HXWeiboPhotoPicker */,
 				11BAF1641FDE8B89007816A8 /* Scan */,
 				11BAF15C1FDE6AD1007816A8 /* SKTags */,
@@ -1121,6 +1151,56 @@
 			path = HXWeiboPhotoPicker;
 			sourceTree = "<group>";
 		};
+		11BAF1F41FE25234007816A8 /* JFCityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF1F51FE25234007816A8 /* JFCityCollectionFlowLayout.h */,
+				11BAF1F61FE25234007816A8 /* JFCityCollectionViewCell.m */,
+				11BAF1F71FE25234007816A8 /* Location */,
+				11BAF1FA1FE25234007816A8 /* AreaDataManager */,
+				11BAF1FD1FE25234007816A8 /* JFButton.h */,
+				11BAF1FE1FE25234007816A8 /* JFCityHeaderView.m */,
+				11BAF1FF1FE25234007816A8 /* JFSearchView.m */,
+				11BAF2001FE25234007816A8 /* JFCityViewController.m */,
+				11BAF2011FE25234007816A8 /* JFCityTableViewCell.m */,
+				11BAF2021FE25234007816A8 /* JFCityCollectionFlowLayout.m */,
+				11BAF2031FE25234007816A8 /* JFCityCollectionViewCell.h */,
+				11BAF2041FE25234007816A8 /* JFButton.m */,
+				11BAF2051FE25234007816A8 /* JFCityViewController.h */,
+				11BAF2061FE25234007816A8 /* JFCityTableViewCell.h */,
+				11BAF2071FE25234007816A8 /* AreaDB */,
+				11BAF2091FE25235007816A8 /* JFSearchView.h */,
+				11BAF20A1FE25235007816A8 /* JFCityHeaderView.h */,
+			);
+			path = JFCityViewController;
+			sourceTree = "<group>";
+		};
+		11BAF1F71FE25234007816A8 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF1F81FE25234007816A8 /* JFLocation.m */,
+				11BAF1F91FE25234007816A8 /* JFLocation.h */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		11BAF1FA1FE25234007816A8 /* AreaDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF1FB1FE25234007816A8 /* JFAreaDataManager.h */,
+				11BAF1FC1FE25234007816A8 /* JFAreaDataManager.m */,
+			);
+			path = AreaDataManager;
+			sourceTree = "<group>";
+		};
+		11BAF2071FE25234007816A8 /* AreaDB */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF2081FE25235007816A8 /* shop_area.sqlite */,
+			);
+			path = AreaDB;
+			sourceTree = "<group>";
+		};
 		11CDDE851FB1BFC8004A0812 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1437,6 +1517,7 @@
 				1130403F1FB1A4BD0020C93D /* NSDateTimeAgo.bundle in Resources */,
 				11303FF31FB06B3E0020C93D /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				11303FF91FB06B3E0020C93D /* ShareSDK.bundle in Resources */,
+				11BAF2141FE25235007816A8 /* shop_area.sqlite in Resources */,
 				11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */,
 				11BAF1701FDE8B89007816A8 /* scanLine@2x.png in Resources */,
 				11303FF51FB06B3E0020C93D /* WeiboSDK.bundle in Resources */,
@@ -1653,6 +1734,7 @@
 				11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */,
 				11BAF1DA1FE007E2007816A8 /* HXPhotoCustomNavigationBar.m in Sources */,
 				11A1E5E51FCEC2E0000D4D5B /* BaseConfiguration.m in Sources */,
+				11BAF2131FE25235007816A8 /* JFButton.m in Sources */,
 				11A1E5EF1FCEC3F7000D4D5B /* ClientConfiguration.m in Sources */,
 				11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */,
 				11BAF1D01FE007E2007816A8 /* HXDownloadProgressView.m in Sources */,
@@ -1682,6 +1764,7 @@
 				113040881FB1A5F60020C93D /* SKStorageManager.m in Sources */,
 				11A1E6031FCEC43F000D4D5B /* NSDate+Utility.m in Sources */,
 				11BAF1D71FE007E2007816A8 /* HXPhotoModel.m in Sources */,
+				11BAF20F1FE25235007816A8 /* JFSearchView.m in Sources */,
 				1120B1031FC459D1003FF376 /* SKMypagePicTableViewCell.m in Sources */,
 				1120B0F91FC4212C003FF376 /* SKPersonalPicCollectionViewCell.m in Sources */,
 				11BAF1EE1FE007E2007816A8 /* HXCircleProgressView.m in Sources */,
@@ -1696,14 +1779,17 @@
 				11BAF1D91FE007E2007816A8 /* UIView+HXExtension.m in Sources */,
 				11BAF1CF1FE007E2007816A8 /* HXPhotoConfiguration.m in Sources */,
 				113040201FB06F900020C93D /* MJFoundation.m in Sources */,
+				11BAF20E1FE25235007816A8 /* JFCityHeaderView.m in Sources */,
 				1120B0FC1FC4214C003FF376 /* SKPersonalArticleCollectionViewCell.m in Sources */,
 				11B82DB41FBEAFA4006D9A26 /* SKShopViewController.m in Sources */,
 				11BAF14A1FDE5C88007816A8 /* UIViewController+SKTips.m in Sources */,
 				11BAF1F01FE007E2007816A8 /* HXDatePhotoEditViewController.m in Sources */,
+				11BAF20D1FE25235007816A8 /* JFAreaDataManager.m in Sources */,
 				113040281FB06F900020C93D /* NSString+MJExtension.m in Sources */,
 				11A1E5B91FCD66BB000D4D5B /* WPHotspotLabel.m in Sources */,
 				111C5CB11FCC00BB00581AE0 /* SKUserInfoViewController.m in Sources */,
 				11A1E5DD1FCEC041000D4D5B /* SKCGIManager.m in Sources */,
+				11BAF20C1FE25235007816A8 /* JFLocation.m in Sources */,
 				1120B1061FC459E3003FF376 /* SKMypageArticleTableViewCell.m in Sources */,
 				11A1E6001FCEC43F000D4D5B /* SKImageHelper.m in Sources */,
 				1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */,
@@ -1734,8 +1820,10 @@
 				11D9AA311FB06142008D32E9 /* main.m in Sources */,
 				11EE40981FCED10400039E3F /* NSData+Base64.m in Sources */,
 				1120B0ED1FC2C0D7003FF376 /* SKNotificationBaseInfoTableViewCell.m in Sources */,
+				11BAF2111FE25235007816A8 /* JFCityTableViewCell.m in Sources */,
 				1113D92D1FD531CD00452941 /* UIViewController+ImagePicker.m in Sources */,
 				11923ECC1FD8073A00136715 /* PSCarouselCollectionCell.m in Sources */,
+				11BAF2101FE25235007816A8 /* JFCityViewController.m in Sources */,
 				11BAF1E01FE007E2007816A8 /* HXDatePhotoViewPresentTransition.m in Sources */,
 				11A1E6011FCEC43F000D4D5B /* UIButton+EnlargeTouchArea.m in Sources */,
 				11B82D9A1FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m in Sources */,
@@ -1769,6 +1857,8 @@
 				11BAF1E31FE007E2007816A8 /* HXCustomCollectionReusableView.m in Sources */,
 				11BAF1E51FE007E2007816A8 /* HXPhotoView.m in Sources */,
 				11A1E5B71FCD66BB000D4D5B /* NSString+WPAttributedMarkup.m in Sources */,
+				11BAF2121FE25235007816A8 /* JFCityCollectionFlowLayout.m in Sources */,
+				11BAF20B1FE25235007816A8 /* JFCityCollectionViewCell.m in Sources */,
 				113040221FB06F900020C93D /* MJPropertyKey.m in Sources */,
 				11A1E5EC1FCEC3C5000D4D5B /* NSString+DES.m in Sources */,
 			);

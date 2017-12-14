@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C09E1ACBFAC89BBD7663DEC42FD79DAB'
+               BlueprintIdentifier = 'CEC390CF87972AAD49A95E1A4163EDAB'
                BlueprintName = 'YLGIFImage'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'YLGIFImage.framework'>

@@ -18,6 +18,8 @@ target 'ShirokarasNotebook' do
   pod 'YLGIFImage'
   pod 'MJRefresh'
   pod 'CHTCollectionViewWaterfallLayout'
+  pod 'FMDB'
+  pod 'PGDatePicker'
   
   pod 'Pingpp/Alipay'
   pod 'Pingpp/Wx'

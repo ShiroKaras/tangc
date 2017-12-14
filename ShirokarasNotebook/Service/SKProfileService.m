@@ -91,12 +91,20 @@
 }
 
 //修改用户信息
-- (void)updateUserInfoWithUserInfo:(SKUserInfo *)userInfo callback:(SKResponseCallback)callback {
-    NSMutableDictionary *param = [userInfo mj_keyValuesWithIgnoredKeys:@[@"id"]];
+- (void)updateUserInfoWithUserInfo:(SKUserInfo *)userInfo callback:(SKUserInfoCallback)callback {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:userInfo.avatar forKey:@"avatar"];
+    [param setValue:userInfo.nickname forKey:@"nickname"];
+    [param setValue:userInfo.sex forKey:@"sex"];
+    [param setValue:userInfo.phone forKey:@"phone"];
+    [param setValue:userInfo.birthday forKey:@"birthday"];
+    [param setValue:userInfo.qq forKey:@"qq"];
+    [param setValue:userInfo.city forKey:@"city"];
+    
     [self baseRequestWithParam:param url:[SKCGIManager updateUserInfo] callback:^(BOOL success, SKResponsePackage *response) {
-        SKUserInfo *userInfo = [SKUserInfo mj_objectWithKeyValues:response.data];
-        [[SKStorageManager sharedInstance] setUserInfo:userInfo];
-        callback(success, response);
+        [self getUserInfoWithCallback:^(BOOL success, SKUserInfo *userInfo) {
+            callback(success, userInfo);
+        }];
     }];
 }
 

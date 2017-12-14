@@ -34,7 +34,7 @@ typedef void (^SKArticleCallback)(BOOL success, NSArray<SKArticle*> *articleList
 - (void)getUserInfoWithCallback:(SKUserInfoCallback)callback;
 
 //修改用户信息
-- (void)updateUserInfoWithUserInfo:(SKUserInfo*)userInfo callback:(SKResponseCallback)callback;
+- (void)updateUserInfoWithUserInfo:(SKUserInfo*)userInfo callback:(SKUserInfoCallback)callback;
 
 //系统推送通知列表
 - (void)getUserQueueListWithType:(NSInteger)type callback:(SKQueueListCallback)callback;

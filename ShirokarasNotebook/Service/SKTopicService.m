@@ -143,7 +143,7 @@
     NSMutableDictionary *param = [topic mj_keyValues];
     NSData *data = [NSJSONSerialization dataWithJSONObject:topic.images options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    [param setObject:jsonString forKey:@"images"];
+    [param setValue:jsonString forKey:@"images"];
     
     [self baseRequestWithParam:param url:[SKCGIManager postArticle] callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);

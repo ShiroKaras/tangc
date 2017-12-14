@@ -39,6 +39,17 @@
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+    if ([SKStorageManager sharedInstance].loginUser.uuid) {
+        self.loginLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
+        [self.loginLabel sizeToFit];
+    } else {
+        self.loginLabel.text = @"点击登录";
+        [self.loginLabel sizeToFit];
+    }
+    self.loginLabel.centerY = self.avatarImageView.centerY;
+    self.loginLabel.left = self.avatarImageView.right +10;
 }
 
 - (void)viewDidLoad {
@@ -67,6 +78,7 @@
     [_scrollView addSubview:logoutButton];
     [[logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         [SKStorageManager sharedInstance].userInfo = [SKUserInfo new];
+        [SKStorageManager sharedInstance].loginUser = [SKLoginUser new];
     }];
 }
 
@@ -84,7 +96,6 @@
         self.avatarImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(55), ROUND_WIDTH_FLOAT(55));
         self.avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(55)/2;
         self.avatarImageView.layer.masksToBounds = YES;
-        [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
         self.avatarImageView.top = ROUND_WIDTH_FLOAT(15);
         self.avatarImageView.left = ROUND_WIDTH_FLOAT(15);
         [_authBackView addSubview:self.avatarImageView];
@@ -92,15 +103,6 @@
         self.loginLabel = [UILabel new];
         self.loginLabel.textColor = COMMON_TEXT_COLOR;
         self.loginLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
-        if ([SKStorageManager sharedInstance].loginUser.uuid) {
-            self.loginLabel.text = [SKStorageManager sharedInstance].loginUser.nickname;
-            [self.loginLabel sizeToFit];
-        } else {
-            self.loginLabel.text = @"点击登录";
-            [self.loginLabel sizeToFit];
-        }
-        self.loginLabel.centerY = self.avatarImageView.centerY;
-        self.loginLabel.left = self.avatarImageView.right +10;
         [_authBackView addSubview:self.loginLabel];
         
         UIImageView *arrow = [self arrowImageView];

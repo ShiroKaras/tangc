@@ -13,7 +13,7 @@
 	<key>SSDKPlatformTypeSinaWeiboRedirectUri</key>
 	<string>http://www.sharesdk.cn</string>
 	<key>SSDKPlatformTypeWechatAppId</key>
-	<string>wx823b3364e93fb47a</string>
+	<string>wxb584395fb2e50f8c</string>
 	<key>SSDKPlatformTypeWechatAppSecret</key>
 	<string>e21e3553124737a8a505ed5ea07c0526</string>
 	<key>SSDKPlatformTypeQQAppId</key>

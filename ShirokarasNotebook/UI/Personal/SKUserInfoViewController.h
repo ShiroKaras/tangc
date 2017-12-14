@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKUserInfoViewController : UIViewController
+@interface SKUserInfoViewCell : UIView
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *placeholderLabel;
+- (instancetype)initWithFrame:(CGRect)frame imageName:(NSString*)imageName withTitle:(NSString *)title placeholderText:(NSString*)placeholderText;
+@end
 
+
+@interface SKUserInfoViewController : UIViewController
 @end
