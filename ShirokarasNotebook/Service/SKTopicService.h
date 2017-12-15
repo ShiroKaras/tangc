@@ -11,7 +11,7 @@
 
 typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList, NSInteger totalPage);
 typedef void (^SKTagListCallback)(BOOL success, NSArray<SKTag*>* tagList);
-typedef void (^SKCommentListCallback)(BOOL success, NSArray<SKComment*>* commentList);
+typedef void (^SKCommentListCallback)(BOOL success, NSArray<SKComment*>* commentList, NSInteger totalPage);
 
 typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
 

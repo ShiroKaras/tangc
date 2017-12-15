@@ -173,7 +173,7 @@
                 [list addObject:item];
             }
         }
-        callback(success, list);
+        callback(success, list, [response.data[@"totalPage"] integerValue]);
     }];
 }
 

@@ -38,6 +38,7 @@
         _avatarImageView = [UIImageView new];
         _avatarImageView.backgroundColor = [UIColor greenColor];
         _avatarImageView.layer.cornerRadius = 20;
+        _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.top = 10;
         _avatarImageView.left = 10;
         _avatarImageView.size = CGSizeMake(40, 40);

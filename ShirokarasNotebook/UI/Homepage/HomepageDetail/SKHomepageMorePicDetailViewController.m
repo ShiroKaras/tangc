@@ -13,7 +13,7 @@
 
 @interface SKHomepageMorePicDetailViewController () <UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray<SKComment*> *dataArray;
+@property (nonatomic, strong) NSMutableArray<SKComment*> *dataArray;
 @property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) SKTitleBaseView *baseInfoView;
@@ -21,7 +21,12 @@
 @property (nonatomic, strong) UIImageView *articleHeaderImageView;
 @end
 
-@implementation SKHomepageMorePicDetailViewController
+@implementation SKHomepageMorePicDetailViewController {
+    NSInteger     page;
+    NSInteger     _totalPage;//总页数
+    BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
+    BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
+}
 
 - (instancetype)initWithTopic:(SKTopic*)topic {
     self = [super init];
@@ -43,6 +48,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    page = 1;
+    _totalPage = 1;
+    isFirstCome = YES;
+    isJuhua = NO;
+    self.dataArray = [NSMutableArray array];
     
     self.view.backgroundColor = COMMON_BG_COLOR;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
@@ -67,8 +77,9 @@
         self.topic = topic;
         [self createUI];
     }];
-    [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList) {
-        self.dataArray = commentList;
+    [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList, NSInteger totalPage) {
+        _totalPage = totalPage;
+        self.dataArray = [NSMutableArray arrayWithArray:commentList];
         [self.tableView reloadData];
     }];
 }
@@ -146,6 +157,26 @@
     }
     
     self.tableView.tableHeaderView = self.headerView;
+    
+    //加载更多
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        page++;
+        [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:page pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList, NSInteger totalPage) {
+            _totalPage = totalPage;
+            if (page>totalPage) {
+                page = totalPage;
+                return;
+            }
+            for (int i=0; i<commentList.count; i++) {
+                [self.dataArray addObject:commentList[i]];
+            }
+            [self.tableView reloadData];
+        }];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView.mj_footer endRefreshing];
+        });
+    }];
     
     [_articleView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     
