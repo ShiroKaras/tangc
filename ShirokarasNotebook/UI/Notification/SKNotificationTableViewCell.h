@@ -12,4 +12,5 @@
 @property (nonatomic, strong) SKNotification *notificationItem;
 @property (nonatomic, assign) float cellHeight;
 
+- (void)setNotificationItem:(SKNotification *)notificationItem;
 @end

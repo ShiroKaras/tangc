@@ -121,7 +121,7 @@
     [_thumbImageView sd_setImageWithURL:[NSURL URLWithString:notificationItem.image] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
     _usernameLabel.text = notificationItem.comuser_nickname;
     [_usernameLabel sizeToFit];
-    
+    _usernameAppendLabel.left = _usernameLabel.right+6;
     _dateLabel.text = notificationItem.publish_time;
     [_dateLabel sizeToFit];
     

@@ -11,6 +11,7 @@
 #import "SKNotificationTableViewCell.h"
 #import "SKNotificationCommentTableViewCell.h"
 #import "SKNotificationBaseInfoTableViewCell.h"
+#import "SKHomepageMorePicDetailViewController.h"
 
 #define HEADERVIEW_HEIGHT (64+ROUND_HEIGHT_FLOAT(22))
 #define TITLEVIEW_WIDTH SCREEN_WIDTH
@@ -141,6 +142,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
             if (cell==nil) {
                 cell = [[SKNotificationBaseInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationBaseInfoTableViewCell class])];
             }
+            cell.notificationItem = self.dataArray[indexPath.row];
             cell.usernameAppendLabel.text = @"赞了你";
             [cell.usernameAppendLabel sizeToFit];
             return cell;
@@ -151,6 +153,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
             if (cell==nil) {
                 cell = [[SKNotificationBaseInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKNotificationBaseInfoTableViewCell class])];
             }
+            cell.notificationItem = self.dataArray[indexPath.row];
             cell.usernameAppendLabel.text = @"在他的发布中@了你";
             [cell.usernameAppendLabel sizeToFit];
             return cell;
@@ -186,6 +189,31 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
         }
         default:
             return 0;
+            break;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (self.selectedType) {
+        case SKNotificationSelectedTypeNotification:{
+            break;
+        }
+        case SKNotificationSelectedTypeComment:{
+            SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithArticleID:[self.dataArray[indexPath.row].article_id integerValue]];
+            [self.navigationController pushViewController:controller animated:YES];
+            break;
+        }
+        case SKNotificationSelectedTypeLike:{
+            SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithArticleID:[self.dataArray[indexPath.row].article_id integerValue]];
+            [self.navigationController pushViewController:controller animated:YES];
+            break;
+        }
+        case SKNotificationSelectedTypeCallMe:{
+            SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithArticleID:[self.dataArray[indexPath.row].article_id integerValue]];
+            [self.navigationController pushViewController:controller animated:YES];
+            break;
+        }
+        default:
             break;
     }
 }

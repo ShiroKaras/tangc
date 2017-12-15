@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *cellsView;
 @property (nonatomic, strong) UIButton *logoutButton;
+
+@property (nonatomic, assign) BOOL isPushOff;
 @end
 
 @implementation SKPersonalIndexViewController {
@@ -184,16 +186,23 @@
         }];
         [cell_fans addGestureRecognizer:tapGesture_fans];
         
+        //推送开关
         UIView *cell_push = [self cellWithImageName:@"img_personalpage_push" title:@"推送通知" isShowArrow:YES];
         [_cellsView addSubview:cell_push];
         cell_push.top = cell_fans.bottom+10;
-        BOOL isPushOff = [[UD objectForKey:@"PushModeForOff"] boolValue];       //初始为NO，默认打开通知
+        _isPushOff = [[UD objectForKey:@"PushModeForOff"] boolValue];       //初始为NO，默认打开通知
         //TODO 刷新按钮状态
         
         UITapGestureRecognizer *tapGesture_push = [[UITapGestureRecognizer alloc] init];
         [[tapGesture_push rac_gestureSignal] subscribeNext:^(id x) {
-            [UD setValue:@(isPushOff) forKey:@"PushModeForOff"];
-            [GeTuiSdk setPushModeForOff:isPushOff];
+            NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if([[UIApplication sharedApplication] canOpenURL:url]) {
+                NSURL *url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+//            [GeTuiSdk setPushModeForOff:_isPushOff];
+//            [UD setValue:@(_isPushOff) forKey:@"PushModeForOff"];
+//            _isPushOff = !_isPushOff;
         }];
         [cell_push addGestureRecognizer:tapGesture_push];
         

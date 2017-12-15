@@ -146,6 +146,7 @@
     _contentLabel.text = notificationItem.content;
     CGSize labelSize = [notificationItem.content boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(197), MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(11)} context:nil].size;
     _contentLabel.size = labelSize;
+    _usernameAppendLabel.left = _usernameLabel.right+6;
     
     _dateLabel.text = notificationItem.publish_time;
     [_dateLabel sizeToFit];
