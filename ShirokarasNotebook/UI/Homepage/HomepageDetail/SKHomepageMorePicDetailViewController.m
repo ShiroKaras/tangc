@@ -23,14 +23,23 @@
 
 @implementation SKHomepageMorePicDetailViewController
 
-- (instancetype)initWithTopic:(SKTopic*)topic
-{
+- (instancetype)initWithTopic:(SKTopic*)topic {
     self = [super init];
     if (self) {
         _topic = topic;
     }
     return self;
 }
+
+- (instancetype)initWithArticleID:(NSInteger)articleID {
+    self = [super init];
+    if (self) {
+        _topic = [SKTopic new];
+        _topic.id = articleID;
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,6 +63,17 @@
     }
 #endif
     
+    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.from?_topic.from.id:_topic.id callback:^(BOOL success, SKTopic *topic) {
+        self.topic = topic;
+        [self createUI];
+    }];
+    [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList) {
+        self.dataArray = commentList;
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)createUI {
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(220))];
     self.headerView.backgroundColor = [UIColor clearColor];
     
@@ -120,8 +140,8 @@
         _articleView.scrollView.backgroundColor = [UIColor clearColor];
         NSString *htmlString = [self htmlStringWithContent:self.topic.content];
         [_articleView loadHTMLString:htmlString baseURL:nil];
-//        NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
-//        [_articleView stringByEvaluatingJavaScriptFromString:padding];
+        //        NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
+        //        [_articleView stringByEvaluatingJavaScriptFromString:padding];
         [self.headerView addSubview:_articleView];
     }
     
@@ -148,14 +168,6 @@
                 }
             }];
         }
-    }];
-    
-    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.from?_topic.from.id:_topic.id callback:^(BOOL success, SKTopic *topic) {
-        self.topic = topic;
-    }];
-    [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList) {
-        self.dataArray = commentList;
-        [self.tableView reloadData];
     }];
 }
 

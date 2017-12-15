@@ -9,6 +9,8 @@
 #ifndef ShirokarasNotebook_prefix_pch
 #define ShirokarasNotebook_prefix_pch
 
+#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
 #import <Foundation/Foundation.h>
 #import "CommonDefine.h"
 #import "SKLog.h"
@@ -20,10 +22,13 @@
 #import "UIViewController+SKTips.h"
 #import "UIImage+Extension.h"
 #import "SKNavigationController.h"
+#import <MJRefresh/MJRefresh.h>
 
 //Data
 #import "SKModel.h"
 #import "SKServiceManager.h"
 #import "NSString+Utility.h"
+
+#import "SKHomepageMorePicDetailViewController.h"
 
 #endif /* ShirokarasNotebook_prefix_pch */

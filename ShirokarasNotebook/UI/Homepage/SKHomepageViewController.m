@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     SKHomepageSelectedTypeTopics
 };
 
-@interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate, SKSegmentViewDelegate, SKHomepageTableCellDelegate,UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout>
+@interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate, SKSegmentViewDelegate, SKHomepageTableCellDelegate,UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, CHTCollectionViewWaterfallHeaderDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<SKTopic *> *dataArray;
 @property (nonatomic, strong) NSMutableArray<SKTopic *> *dataArray_collection;
@@ -49,18 +49,22 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 @property (nonatomic, strong) SKSegmentView *titleView;
 @property (nonatomic, strong) SKSegmentView *titleView_collectionV;
-//@property (nonatomic, strong) UIButton *button_follow;
-//@property (nonatomic, strong) UIButton *button_hot;
-//@property (nonatomic, strong) UIView *markLine;
 @property (nonatomic, assign) SKHomepageSelectedType selectedType;
 
 @property (nonatomic, strong) SKTopicsView *topoicsView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
+@property (nonatomic, assign) NSInteger selectedTopicID; //被选中的话题id
+
 @end
 
 @implementation SKHomepageViewController {
     BOOL scrollLock;
+    
+    NSInteger     page;
+    NSInteger     _totalPage;//总页数
+    BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
+    BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -68,14 +72,31 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+        self.selectedType = SKHomepageSelectedTypeHot;
+    } else {
+        self.selectedType = SKHomepageSelectedTypeFollow;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    isFirstCome = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
+    page = 1;
+    _totalPage = 1;
+    isFirstCome = YES;
+    isJuhua = NO;
+    self.dataArray = [NSMutableArray array];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
+    [self refresh];
     
     [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
         if ([response.data[@"banners"] count]==0){
@@ -116,18 +137,17 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)createUI {
     //TableView
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83):(self.view.height-49)) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = COMMON_BG_COLOR;
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
-    [self.view addSubview:_tableView];
     
+    [self.view addSubview:self.tableView];
     //话题列表
     [self.view addSubview:self.collectionView];
-    
     [self.view bringSubviewToFront:self.tableView];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
@@ -143,6 +163,21 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
     [headerView addSubview:blankView];
     self.tableView.tableHeaderView = headerView;
+    
+    __weak typeof(self) weakSelf = self;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf getNetworkData:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView.mj_header endRefreshing];
+        });
+    }];
+    
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf getNetworkData:NO];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView.mj_footer endRefreshing];
+        });
+    }];
     
 #ifdef __IPHONE_11_0
     if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
@@ -198,6 +233,101 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     layout.columnCount = UIInterfaceOrientationIsPortrait(orientation) ? 2 : 3;
 }
 
+#pragma mark - MJRefresh
+
+-(void)refresh
+{
+    [self getNetworkData:YES];
+}
+
+-(void)loadMore
+{
+    [self getNetworkData:NO];
+}
+
+- (void)getNetworkData:(BOOL)isRefresh {
+    if (isRefresh) {
+        page = 1;
+        isFirstCome = YES;
+    }else{
+        page++;
+    }
+
+    if (self.selectedType==SKHomepageSelectedTypeFollow) {
+        [self.view bringSubviewToFront:self.tableView];
+        [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+            _totalPage = totalPage;
+            if (page>totalPage) {
+                page = totalPage;
+                return;
+            }
+            if (isRefresh) {
+                self.dataArray = [NSMutableArray arrayWithArray:topicList];
+            } else {
+                for (int i=0; i<topicList.count; i++) {
+                    [self.dataArray addObject:topicList[i]];
+                }
+            }
+            if (topicList.count==0&&page==1) {
+                
+            }
+            [self.tableView reloadData];
+            isFirstCome = NO;
+            scrollLock = NO;
+        }];
+    } else if (self.selectedType == SKHomepageSelectedTypeHot) {
+        [self.view bringSubviewToFront:self.tableView];
+        [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+            _totalPage = totalPage;
+            if (page>totalPage) {
+                page = totalPage;
+                return;
+            }
+            if (isRefresh) {
+                self.dataArray = [NSMutableArray arrayWithArray:topicList];
+            } else {
+                for (int i=0; i<topicList.count; i++) {
+                    [self.dataArray addObject:topicList[i]];
+                }
+            }
+            if (topicList.count==0&&page==1) {
+                
+            }
+            
+            [self.tableView reloadData];
+            
+            isFirstCome = NO;
+            scrollLock = NO;
+        }];
+    } else if (self.selectedType == SKHomepageSelectedTypeTopics) {
+        [self.view bringSubviewToFront:self.collectionView];
+        [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+            _totalPage = totalPage;
+            if (page>totalPage) {
+                page = totalPage;
+                return;
+            }
+            if (isRefresh) {
+                self.dataArray_collection = [NSMutableArray arrayWithArray:topicList];
+            } else {
+                for (int i=0; i<topicList.count; i++) {
+                    [self.dataArray_collection addObject:topicList[i]];
+                }
+            }
+            if (topicList.count==0&&page==1) {
+                
+            }
+            
+            [self.collectionView reloadData];
+            
+            isFirstCome = NO;
+            scrollLock = NO;
+        }];
+    } else {
+        
+    }
+}
+
 #pragma mark - Accessors
 
 - (UICollectionView *)collectionView {
@@ -210,7 +340,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         layout.minimumColumnSpacing = SPACE;
         layout.minimumInteritemSpacing = SPACE;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83):(self.view.height-49)) collectionViewLayout:layout];
 //        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
@@ -255,6 +385,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                           withReuseIdentifier:HEADER_IDENTIFIER
                                                                  forIndexPath:indexPath];
+        ((CHTCollectionViewWaterfallHeader*)reusableView).delegate = self;
     } else if ([kind isEqualToString:CHTCollectionElementKindSectionFooter]) {
         reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                           withReuseIdentifier:FOOTER_IDENTIFIER
@@ -262,6 +393,15 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     }
     
     return reusableView;
+}
+
+- (void)didClickTagAtIndex:(NSInteger)index {
+    [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:index PageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+        self.selectedTopicID = index;
+        self.dataArray_collection = [NSMutableArray arrayWithArray:topicList];
+        [self.collectionView reloadData];
+        scrollLock = NO;
+    }];
 }
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
@@ -444,28 +584,29 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
         scrollLock = YES;
-        if (self.selectedType==SKHomepageSelectedTypeFollow) {
-            [self.view bringSubviewToFront:self.tableView];
-            [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-                self.dataArray = [NSMutableArray arrayWithArray:topicList];
-                [self.tableView reloadData];
-                scrollLock = NO;
-            }];
-        } else if(self.selectedType==SKHomepageSelectedTypeHot){
-            [self.view bringSubviewToFront:self.tableView];
-            [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserPost *> *topicList) {
-                self.dataArray = [NSMutableArray arrayWithArray:topicList];
-                [self.tableView reloadData];
-                scrollLock = NO;
-            }];
-        } else if(self.selectedType == SKHomepageSelectedTypeTopics){
-            [self.view bringSubviewToFront:_collectionView];
-            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-                self.dataArray_collection = [NSMutableArray arrayWithArray:topicList];
-                [self.collectionView reloadData];
-                scrollLock = NO;
-            }];
-        }
+        [self refresh];
+//        if (self.selectedType==SKHomepageSelectedTypeFollow) {
+//            [self.view bringSubviewToFront:self.tableView];
+//            [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+//                self.dataArray = [NSMutableArray arrayWithArray:topicList];
+//                [self.tableView reloadData];
+//                scrollLock = NO;
+//            }];
+//        } else if(self.selectedType==SKHomepageSelectedTypeHot){
+//            [self.view bringSubviewToFront:self.tableView];
+//            [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserPost *> *topicList) {
+//                self.dataArray = [NSMutableArray arrayWithArray:topicList];
+//                [self.tableView reloadData];
+//                scrollLock = NO;
+//            }];
+//        } else if(self.selectedType == SKHomepageSelectedTypeTopics){
+//            [self.view bringSubviewToFront:_collectionView];
+//            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+//                self.dataArray_collection = [NSMutableArray arrayWithArray:topicList];
+//                [self.collectionView reloadData];
+//                scrollLock = NO;
+//            }];
+//        }
     }
 }
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SKLogicHeader.h"
 
-typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList);
+typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList, NSInteger totalPage);
 typedef void (^SKTagListCallback)(BOOL success, NSArray<SKTag*>* tagList);
 typedef void (^SKCommentListCallback)(BOOL success, NSArray<SKComment*>* commentList);
 

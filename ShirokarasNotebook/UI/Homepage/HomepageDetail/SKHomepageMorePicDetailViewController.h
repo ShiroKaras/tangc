@@ -17,5 +17,6 @@ typedef NS_ENUM(NSInteger, SKHomepageDetailType) {
 @interface SKHomepageMorePicDetailViewController : UIViewController
 
 - (instancetype)initWithTopic:(SKTopic*)topic;
+- (instancetype)initWithArticleID:(NSInteger)articleID;
 
 @end

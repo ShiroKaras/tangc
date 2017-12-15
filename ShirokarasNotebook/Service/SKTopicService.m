@@ -43,9 +43,9 @@
                 SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
             }
-            callback(success, list);
+            callback(success, list, [response.data[@"totalPage"] integerValue]);
         } else {
-            callback(success, list);
+            callback(success, list, [response.data[@"totalPage"] integerValue]);
         }
     }];
 }
@@ -62,9 +62,9 @@
                 SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
             }
-            callback(success, list);
+            callback(success, list, [response.data[@"totalPage"] integerValue]);
         } else {
-            callback(success, list);
+            callback(success, list, [response.data[@"totalPage"] integerValue]);
         }
     }];
 }
@@ -88,9 +88,9 @@
                 SKTopic *item = [SKTopic mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
             }
-            callback(success, list);
+            callback(success, list, [response.data[@"totalPage"] integerValue]);
         } else {
-            callback(success, list);
+            callback(success, list, [response.data[@"totalPage"] integerValue]);
         }
     }];
 }
