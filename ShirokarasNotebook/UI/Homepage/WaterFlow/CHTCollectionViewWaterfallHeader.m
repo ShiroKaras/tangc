@@ -10,8 +10,8 @@
 #import "SDLabTagsView.h"
 #import "TagsModel.h"
 
-@interface CHTCollectionViewWaterfallHeader ()
-@property (nonatomic,strong)NSMutableArray *dataArr;
+@interface CHTCollectionViewWaterfallHeader () <SDLabTagsViewDelegate>
+@property (nonatomic,strong) NSMutableArray<SKTag*> *dataArray;
 @end
 
 @implementation CHTCollectionViewWaterfallHeader
@@ -25,28 +25,24 @@
       _mImageView.image = [UIImage imageNamed:@"MaskCopy"];
       [self addSubview:_mImageView];
       
-      NSMutableArray<TagsModel*> *dataArray = [NSMutableArray array];
-      NSArray *array = @[@"#最美手账#", @"最萌摆拍小物", @"每天一张生活日常", @"好物分享"];
+      [[[SKServiceManager sharedInstance] topicService] getTopicNameListWithCallback:^(BOOL success, NSArray<SKTag *> *tagList) {
+          self.dataArray = [NSMutableArray arrayWithArray:tagList];
+          
+          SDLabTagsView *sdTagsView =[SDLabTagsView sdLabTagsViewWithTagsArr:self.dataArray];
+          sdTagsView.delegate = self;
+          sdTagsView.frame =CGRectMake(0,_mImageView.bottom+ROUND_WIDTH_FLOAT(22+15),self.width,ROUND_WIDTH_FLOAT(100));
+          [self addSubview:sdTagsView];
+      }];
       
-      SDLabTagsView *sdTagsView =[SDLabTagsView sdLabTagsViewWithTagsArr:self.dataArr];
-      sdTagsView.frame =CGRectMake(0,_mImageView.bottom+ROUND_WIDTH_FLOAT(22+15),self.width,ROUND_WIDTH_FLOAT(100));
-      [self addSubview:sdTagsView];
+//      NSArray *array = @[@"#最美手账#", @"最萌摆拍小物", @"每天一张生活日常", @"好物分享"];
   }
   return self;
 }
 
--(NSMutableArray *)dataArr{
-    if (!_dataArr){
-        NSString *path =[[NSBundle mainBundle ]pathForResource:@"tagsData.plist" ofType:nil];
-        NSArray *dataArr =[NSArray arrayWithContentsOfFile:path];
-        NSMutableArray *tempArr =[NSMutableArray array];
-        for (NSDictionary *dict in dataArr){
-            TagsModel *model =[[TagsModel alloc]initWithTagsDict:dict];
-            [tempArr addObject:model];
-        }
-        _dataArr =[tempArr copy];
+- (void)didClickTagAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(didClickTagAtIndex:)]) {
+        [self.delegate didClickTagAtIndex:self.dataArray[index].id];
     }
-    return _dataArr;
 }
 
 @end

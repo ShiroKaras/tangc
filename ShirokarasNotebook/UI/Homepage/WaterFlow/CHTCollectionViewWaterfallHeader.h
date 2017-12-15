@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CHTCollectionViewWaterfallHeaderDelegate <NSObject>
+- (void)didClickTagAtIndex:(NSInteger)index;
+@end
+
 @interface CHTCollectionViewWaterfallHeader : UICollectionReusableView
 @property (nonatomic, strong) UIImageView *mImageView;
+@property (nonatomic, assign) id<CHTCollectionViewWaterfallHeaderDelegate> delegate;
 @end

@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SDLabTagsView;
+
+@protocol SDLabTagsViewDelegate <NSObject>
+- (void)didClickTagAtIndex:(NSInteger)index;
+@end
 
 @interface SDLabTagsView : UIView
-@property (nonatomic,strong)NSArray *tagsArr;
-+(instancetype)sdLabTagsViewWithTagsArr:(NSArray *)tagsArr;
+@property (nonatomic,strong)NSArray<SKTag*> *tagsArr;
+@property (nonatomic, assign) id<SDLabTagsViewDelegate> delegate;
++(instancetype)sdLabTagsViewWithTagsArr:(NSArray<SKTag*> *)tagsArr;
 @end

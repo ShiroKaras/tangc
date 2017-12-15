@@ -33,7 +33,7 @@
         self.backgroundColor = COMMON_BG_COLOR;
         [self createUI];
         [self updateLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
-        [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:0 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
+        [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:0 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
             self.dataArray = topicList;
             [self.collectionView reloadData];
         }];

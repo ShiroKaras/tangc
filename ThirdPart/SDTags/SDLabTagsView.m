@@ -8,7 +8,6 @@
 
 #import "SDLabTagsView.h"
 #import "SDHeader.h"
-#import "TagsModel.h"
 #import "SDHelper.h"
 @interface SDLabTagsView ()
 {
@@ -45,7 +44,7 @@
     [self addSubview:sdTagsView];
 }
 
-+(instancetype)sdLabTagsViewWithTagsArr:(NSArray *)tagsArr{
++(instancetype)sdLabTagsViewWithTagsArr:(NSArray<SKTag*> *)tagsArr{
     SDLabTagsView *sdLabTagsView =[[SDLabTagsView alloc]init];
     sdLabTagsView.tagsArr =tagsArr;
     [sdLabTagsView setUItags:tagsArr];
@@ -58,17 +57,26 @@
     int row = 0;
     
     for (int i = 0 ; i < arr.count; i++) {
-        TagsModel *model =arr[i];
-        CGFloat labWidth = [SDHelper widthForLabel:model.title fontSize:ROUND_WIDTH_FLOAT(12)]+ROUND_WIDTH_FLOAT(40);
+        SKTag *model =arr[i];
+        CGFloat labWidth = [SDHelper widthForLabel:model.name fontSize:ROUND_WIDTH_FLOAT(12)]+ROUND_WIDTH_FLOAT(40);
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5*j + width, row * ROUND_WIDTH_FLOAT(46+8), labWidth, ROUND_WIDTH_FLOAT(46))];
         view.layer.cornerRadius =3;
         view.layer.masksToBounds = YES;
         [sdTagsView addSubview:view];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+            if ([self.delegate respondsToSelector:@selector(didClickTagAtIndex:)]) {
+                [self.delegate didClickTagAtIndex:i];
+            }
+        }];
+        [view addGestureRecognizer:tap];
+        
         //文本1
         UILabel *label = [[UILabel alloc] init];
         label.textColor = [UIColor colorWithHex:0xF0F4F8];
-        label.text =model.title;
+        label.text = [NSString stringWithFormat:@"#%@#",model.name];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         label.numberOfLines = 1;
@@ -78,7 +86,7 @@
         //文本2
         UILabel *label2 = [[UILabel alloc] init];
         label2.textColor = [UIColor whiteColor];
-        label2.text =@"55人参与";
+        label2.text = [NSString stringWithFormat:@"%ld人参与", model.topic_num];
         label2.textAlignment = NSTextAlignmentCenter;
         label2.font = PINGFANG_ROUND_FONT_OF_SIZE(9);
         label2.numberOfLines = 1;
