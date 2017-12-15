@@ -30,6 +30,10 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 
 @implementation SKShopViewController {
     BOOL scrollLock;
+    NSInteger     page;
+    NSInteger     _totalPage;//总页数
+    BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
+    BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -41,6 +45,11 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    page = 1;
+    _totalPage = 1;
+    isFirstCome = YES;
+    isJuhua = NO;
+    self.dataArray = [NSMutableArray array];
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
@@ -103,6 +112,41 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     [_tableView addSubview:_titleView];
     
     self.selectedType = SKMarketSelectedTypeTicket;
+    
+    //加载更多
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        page++;
+        if (self.selectedType == SKMarketSelectedTypeTicket) {
+            [[[SKServiceManager sharedInstance] shopService] getTicketsListWithPage:page pagesize:10 callback:^(BOOL success, NSArray<SKTicket *> *ticketsList, NSInteger totalPage) {
+                _totalPage = totalPage;
+                if (page>totalPage) {
+                    page = totalPage;
+                    return;
+                }
+                for (int i=0; i<ticketsList.count; i++) {
+                    [self.dataArray addObject:ticketsList[i]];
+                }
+                [self.tableView reloadData];
+            }];
+        } else if (self.selectedType == SKMarketSelectedTypeShop) {
+            [[[SKServiceManager sharedInstance] shopService] getGoodsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKGoods *> *goodsList, NSInteger totalPage) {
+                _totalPage = totalPage;
+                if (page>totalPage) {
+                    page = totalPage;
+                    return;
+                }
+                for (int i=0; i<goodsList.count; i++) {
+                    [self.dataArray_goods addObject:goodsList[i]];
+                }
+                [self.tableView reloadData];
+                scrollLock = NO;
+            }];
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView.mj_footer endRefreshing];
+        });
+    }];
 }
 
 - (void)didClickFollowButton:(UIButton*)sender {
@@ -129,10 +173,24 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
             if (cell==nil) {
                 cell = [[SKTicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKTicketTableViewCell class])];
             }
-//            cell.ticket = self.dataArray[indexPath.row];
+            cell.ticket = self.dataArray[indexPath.row];
             UITapGestureRecognizer *tapGesture_ticket = [[UITapGestureRecognizer alloc] init];
             [[tapGesture_ticket rac_gestureSignal] subscribeNext:^(id x) {
                 [self invokeLoginViewController];
+                if ([SKStorageManager sharedInstance].loginUser.uuid) {
+                    NSString *u = [self.dataArray[indexPath.row].url componentsSeparatedByString:@"://"][1];
+                    // 构建淘宝客户端协议的 URL
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"taobao://%@",u]];
+                    // 判断当前系统是否有安装淘宝客户端
+                    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                        // 如果已经安装淘宝客户端，就使用客户端打开链接
+                        [[UIApplication sharedApplication] openURL:url];
+                    } else {
+                        // 否则使用 Mobile Safari 或者内嵌 WebView 来显示
+                        url=[NSURL URLWithString:self.dataArray[indexPath.row].url];
+                        [[UIApplication sharedApplication] openURL:url];
+                    }
+                }
             }];
             [cell.rightImageView addGestureRecognizer:tapGesture_ticket];
             return cell;
@@ -217,13 +275,14 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     if ([keyPath isEqualToString:@"selectedType"]) {
         scrollLock = YES;
         if (self.selectedType==SKMarketSelectedTypeTicket) {
-            [[[SKServiceManager sharedInstance] shopService] getTicketsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKTicket *> *ticketsList) {
+            [[[SKServiceManager sharedInstance] shopService] getTicketsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKTicket *> *ticketsList, NSInteger totalPage) {
+                _totalPage = totalPage;
                 self.dataArray = [NSMutableArray arrayWithArray:ticketsList];
                 [self.tableView reloadData];
                 scrollLock = NO;
             }];
         } else if (self.selectedType==SKMarketSelectedTypeShop){
-            [[[SKServiceManager sharedInstance] shopService] getGoodsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKGoods *> *goodsList) {
+            [[[SKServiceManager sharedInstance] shopService] getGoodsListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKGoods *> *goodsList, NSInteger totalPage) {
                 self.dataArray_goods = [NSMutableArray arrayWithArray:goodsList];
                 [self.tableView reloadData];
                 scrollLock = NO;

@@ -44,6 +44,7 @@
         _rightImageView.image = [UIImage imageNamed:@"img_mallpage_receive.png"];
         _rightImageView.contentMode = UIViewContentModeScaleAspectFill;
         _rightImageView.backgroundColor = COMMON_GREEN_COLOR;
+        _rightImageView.userInteractionEnabled = YES;
     }
     return _rightImageView;
 }
@@ -108,6 +109,8 @@
 }
 
 - (void)setTicket:(SKTicket *)ticket {
+    _shopNameLabel.text = ticket.name;
+    [_shopNameLabel sizeToFit];
     _moneyLabel.text = ticket.show_value;
     [_moneyLabel sizeToFit];
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:ticket.image] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];

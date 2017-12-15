@@ -584,29 +584,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
         scrollLock = YES;
+        _titleView.selectedIndex = self.selectedType;
         [self refresh];
-//        if (self.selectedType==SKHomepageSelectedTypeFollow) {
-//            [self.view bringSubviewToFront:self.tableView];
-//            [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-//                self.dataArray = [NSMutableArray arrayWithArray:topicList];
-//                [self.tableView reloadData];
-//                scrollLock = NO;
-//            }];
-//        } else if(self.selectedType==SKHomepageSelectedTypeHot){
-//            [self.view bringSubviewToFront:self.tableView];
-//            [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserPost *> *topicList) {
-//                self.dataArray = [NSMutableArray arrayWithArray:topicList];
-//                [self.tableView reloadData];
-//                scrollLock = NO;
-//            }];
-//        } else if(self.selectedType == SKHomepageSelectedTypeTopics){
-//            [self.view bringSubviewToFront:_collectionView];
-//            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:0 PageIndex:1 pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList) {
-//                self.dataArray_collection = [NSMutableArray arrayWithArray:topicList];
-//                [self.collectionView reloadData];
-//                scrollLock = NO;
-//            }];
-//        }
     }
 }
 

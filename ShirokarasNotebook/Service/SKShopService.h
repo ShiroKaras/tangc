@@ -10,8 +10,8 @@
 #import "SKNetworkDefine.h"
 #import "SKLogicHeader.h"
 
-typedef void (^SKTicketsListCallback)(BOOL success, NSArray<SKTicket*>* ticketsList);
-typedef void (^SKGoodsListCallback)(BOOL success, NSArray<SKGoods*>* goodsList);
+typedef void (^SKTicketsListCallback)(BOOL success, NSArray<SKTicket*>* ticketsList, NSInteger totalPage);
+typedef void (^SKGoodsListCallback)(BOOL success, NSArray<SKGoods*>* goodsList, NSInteger totalPage);
 
 @interface SKShopService : NSObject
 

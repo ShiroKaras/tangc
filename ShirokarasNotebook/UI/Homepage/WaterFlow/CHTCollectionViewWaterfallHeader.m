@@ -22,7 +22,7 @@
       _mImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, ROUND_WIDTH_FLOAT(180))];
       _mImageView.contentMode = UIViewContentModeScaleAspectFill;
       _mImageView.layer.masksToBounds = YES;
-      _mImageView.image = [UIImage imageNamed:@"MaskCopy"];
+      _mImageView.image = COMMON_PLACEHOLDER_IMAGE;
       [self addSubview:_mImageView];
       
       [[[SKServiceManager sharedInstance] topicService] getTopicNameListWithCallback:^(BOOL success, NSArray<SKTag *> *tagList) {
