@@ -253,7 +253,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [saveButton setTitleColor:COMMON_TEXT_CONTENT_COLOR forState:UIControlStateNormal];
     saveButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(15);
     [titleBackView addSubview:saveButton];
-    saveButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(30), ROUND_WIDTH_FLOAT(21));
+    saveButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(44), ROUND_WIDTH_FLOAT(44));
     saveButton.right = titleBackView.width -ROUND_WIDTH_FLOAT(15);
     saveButton.centerY = titleBackView.height/2;
 
