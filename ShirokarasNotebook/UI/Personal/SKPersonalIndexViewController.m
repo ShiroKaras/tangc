@@ -62,8 +62,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
+    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, 200, ROUND_WIDTH_FLOAT(44))];
     tView.backgroundColor = [UIColor clearColor];
+    tView.centerX = self.view.centerX;
     [self.view addSubview:tView];
     UILabel *tLabel = [UILabel new];
     tLabel.text = @"我的";
@@ -74,7 +75,7 @@
     tLabel.centerX = tView.width/2;
     tLabel.centerY = tView.height/2;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?24:0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20 +ROUND_WIDTH_FLOAT(44), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?44:20 +ROUND_WIDTH_FLOAT(44)))];
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(566));
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
@@ -94,6 +95,9 @@
     _logoutButton.top = _cellsView.bottom+20;
     _logoutButton.centerX = _cellsView.width/2;
     [_scrollView addSubview:_logoutButton];
+    
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, _logoutButton.bottom);
+    
     [[_logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
                                                                        message:@"确认退出？"
@@ -130,7 +134,7 @@
 
 - (UIView *)authBackView {
     if (!_authBackView) {
-        _authBackView = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_WIDTH_FLOAT(44), SCREEN_WIDTH, ROUND_WIDTH_FLOAT(153))];
+        _authBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(153))];
         _authBackView.backgroundColor = [UIColor whiteColor];
         
         self.avatarImageView = [UIImageView new];

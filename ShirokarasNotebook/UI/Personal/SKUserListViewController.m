@@ -60,8 +60,10 @@
 }
 
 - (void)createTitleView {
-    UIView *titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, ROUND_WIDTH_FLOAT(44))];
-    [self.view addSubview:titleBackView];
+    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, 200, ROUND_WIDTH_FLOAT(44))];
+    tView.backgroundColor = [UIColor clearColor];
+    tView.centerX = self.view.centerX;
+    [self.view addSubview:tView];
     
     UILabel *mTitleLabel = [UILabel new];
     switch (self.type) {
@@ -77,9 +79,9 @@
     mTitleLabel.textColor = COMMON_TEXT_COLOR;
     mTitleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
     [mTitleLabel sizeToFit];
-    [titleBackView addSubview:mTitleLabel];
-    mTitleLabel.centerX = titleBackView.width/2;
-    mTitleLabel.centerY = titleBackView.height/2;
+    [tView addSubview:mTitleLabel];
+    mTitleLabel.centerX = tView.width/2;
+    mTitleLabel.centerY = tView.height/2;
 }
 
 #pragma mark - UITableView Delegate

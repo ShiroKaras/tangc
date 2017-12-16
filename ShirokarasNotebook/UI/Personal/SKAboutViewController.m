@@ -18,8 +18,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
+    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, 200, ROUND_WIDTH_FLOAT(44))];
     tView.backgroundColor = [UIColor clearColor];
+    tView.centerX = self.view.centerX;
     [self.view addSubview:tView];
     UILabel *tLabel = [UILabel new];
     tLabel.text = @"关于我们";
