@@ -61,7 +61,19 @@
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?22:0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
+    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
+    tView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:tView];
+    UILabel *tLabel = [UILabel new];
+    tLabel.text = @"我的";
+    tLabel.textColor = COMMON_TEXT_COLOR;
+    tLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
+    [tLabel sizeToFit];
+    [tView addSubview:tLabel];
+    tLabel.centerX = tView.width/2;
+    tLabel.centerY = tView.height/2;
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?24:0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(566));
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
@@ -82,8 +94,32 @@
     _logoutButton.centerX = _cellsView.width/2;
     [_scrollView addSubview:_logoutButton];
     [[_logoutButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        [SKStorageManager sharedInstance].userInfo = [SKUserInfo new];
-        [SKStorageManager sharedInstance].loginUser = [SKLoginUser new];
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                       message:@"确认退出？"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  [SKStorageManager sharedInstance].userInfo = [SKUserInfo new];
+                                                                  [SKStorageManager sharedInstance].loginUser = [SKLoginUser new];
+                                                                  [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+                                                                  if ([SKStorageManager sharedInstance].loginUser.uuid) {
+                                                                      self.loginLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
+                                                                      [self.loginLabel sizeToFit];
+                                                                      _logoutButton.hidden = NO;
+                                                                  } else {
+                                                                      self.loginLabel.text = @"点击登录";
+                                                                      [self.loginLabel sizeToFit];
+                                                                      _logoutButton.hidden = YES;
+                                                                  }
+                                                                  self.loginLabel.centerY = self.avatarImageView.centerY;
+                                                                  self.loginLabel.left = self.avatarImageView.right +10;
+                                                              }];
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) { }];
+        [alert addAction:defaultAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }];
 }
 
@@ -93,7 +129,7 @@
 
 - (UIView *)authBackView {
     if (!_authBackView) {
-        _authBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(153))];
+        _authBackView = [[UIView alloc] initWithFrame:CGRectMake(0, ROUND_WIDTH_FLOAT(44), SCREEN_WIDTH, ROUND_WIDTH_FLOAT(153))];
         _authBackView.backgroundColor = [UIColor whiteColor];
         
         self.avatarImageView = [UIImageView new];
@@ -200,11 +236,9 @@
                 NSURL *url =[NSURL URLWithString:UIApplicationOpenSettingsURLString];
                 [[UIApplication sharedApplication] openURL:url];
             }
-//            [GeTuiSdk setPushModeForOff:_isPushOff];
-//            [UD setValue:@(_isPushOff) forKey:@"PushModeForOff"];
-//            _isPushOff = !_isPushOff;
         }];
         [cell_push addGestureRecognizer:tapGesture_push];
+        [GeTuiSdk setPushModeForOff:NO];
         
         //清除缓存
         UIView *cell_clear = [self cellWithImageName:@"img_personalpage_clean" title:@"清理缓存" isShowArrow:NO];

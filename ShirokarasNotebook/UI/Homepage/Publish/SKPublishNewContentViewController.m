@@ -81,7 +81,31 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"postImageArray" object:self.postImageArray];
     [self createTitleView];
 
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(20+ROUND_WIDTH_FLOAT(44)+22):20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44))];
+    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
+    tView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:tView];
+    UILabel *tLabel = [UILabel new];
+    switch (self.type) {
+        case SKPublishTypeNew:
+            tLabel.text = @"";
+            break;
+        case SKPublishTypeRepost:
+            tLabel.text = @"转发";
+            break;
+        case SKPublishTypeComment:
+            tLabel.text = @"评论";
+            break;
+        default:
+            break;
+    }
+    tLabel.textColor = COMMON_TEXT_COLOR;
+    tLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
+    [tLabel sizeToFit];
+    [tView addSubview:tLabel];
+    tLabel.centerX = tView.width/2;
+    tLabel.centerY = tView.height/2;
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(44+ROUND_WIDTH_FLOAT(44)):20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44))];
     scrollView.alwaysBounceVertical = YES;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;

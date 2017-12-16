@@ -23,6 +23,7 @@
 #import "UIImage+Extension.h"
 #import "SKNavigationController.h"
 #import <MJRefresh/MJRefresh.h>
+#import "SKTabbarViewController.h"
 
 //Data
 #import "SKModel.h"

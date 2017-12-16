@@ -44,6 +44,10 @@
     // 注册 APNs
     [self registerRemoteNotification];
     [self registerShareSDK];
+    
+    [GeTuiSdk resetBadge]; //重置角标计数
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // APP 清空角标
+    
     return YES;
 }
 
@@ -103,6 +107,8 @@
     
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@",taskId,msgId, payloadMsg,offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
+    
+    [UD setValue:@(YES) forKey:@"isNewNotification"];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

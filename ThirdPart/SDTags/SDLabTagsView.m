@@ -81,18 +81,8 @@
         label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         label.numberOfLines = 1;
         [label sizeToFit];
-        label.top = ROUND_WIDTH_FLOAT(10);
+        label.centerY = view.height/2;
         label.centerX = view.width/2;
-        //文本2
-        UILabel *label2 = [[UILabel alloc] init];
-        label2.textColor = [UIColor whiteColor];
-        label2.text = [NSString stringWithFormat:@"%ld人参与", model.topic_num];
-        label2.textAlignment = NSTextAlignmentCenter;
-        label2.font = PINGFANG_ROUND_FONT_OF_SIZE(9);
-        label2.numberOfLines = 1;
-        [label2 sizeToFit];
-        label2.top = ROUND_WIDTH_FLOAT(27);
-        label2.centerX = view.width/2;
         
         //添加渐变
         CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -105,7 +95,6 @@
         gradient.locations = @[@0.0, @1];
         [view.layer addSublayer:gradient];
         [view addSubview:label];
-        [view addSubview:label2];
         
         width = width + labWidth;
         

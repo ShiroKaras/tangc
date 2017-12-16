@@ -51,6 +51,10 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    self.selectedType = SKNotificationSelectedTypeNotification;
+    
+    [UD setValue:@(NO) forKey:@"isNewNotification"];
+    ((SKTabbarViewController*)self.tabBarController).redPoint.hidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -77,8 +81,20 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 }
 
 - (void)createUI {
+//    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
+//    tView.backgroundColor = [UIColor clearColor];
+//    [self.view addSubview:tView];
+//    UILabel *tLabel = [UILabel new];
+//    tLabel.text = @"消息";
+//    tLabel.textColor = COMMON_TEXT_COLOR;
+//    tLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
+//    [tLabel sizeToFit];
+//    [tView addSubview:tLabel];
+//    tLabel.centerX = tView.width/2;
+//    tLabel.centerY = tView.height/2;
+    
     //TableView
-    _tableView_notification = [[UITableView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?22:0, SCREEN_WIDTH, SCREEN_HEIGHT-49) style:UITableViewStylePlain];
+    _tableView_notification = [[UITableView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?44:20)+TITLEVIEW_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-49-((kDevice_Is_iPhoneX?44:20)+TITLEVIEW_HEIGHT)) style:UITableViewStylePlain];
     _tableView_notification.delegate = self;
     _tableView_notification.dataSource = self;
     _tableView_notification.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -89,18 +105,6 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
     [_tableView_notification registerClass:[SKNotificationBaseInfoTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKNotificationBaseInfoTableViewCell class])];
     [self.view addSubview:_tableView_notification];
     
-    
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT+40)];
-    headerView.backgroundColor = [UIColor clearColor];
-    
-    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
-    headerImageView.backgroundColor = COMMON_BG_COLOR;
-    [headerView addSubview:headerImageView];
-    
-    UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
-    [headerView addSubview:blankView];
-    _tableView_notification.tableHeaderView = headerView;
-    
 #ifdef __IPHONE_11_0
     if ([_tableView_notification respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
         if (@available(iOS 11.0, *)) {
@@ -110,16 +114,19 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
         }
     }
 #endif
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
+    view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:view];
     
     //TitleView
-    _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT) titleNameArray:@[@"通知", @"评论", @"赞", @"@我"]];
+    _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?44:20), SCREEN_WIDTH, TITLEVIEW_HEIGHT) titleNameArray:@[@"通知", @"评论", @"赞", @"@我"]];
     _titleView.delegate = self;
-    _titleView.layer.cornerRadius = 3;
     _titleView.backgroundColor = [UIColor whiteColor];
-    _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
+//    _titleView.layer.cornerRadius = 3;
+//    _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
-    [_tableView_notification addSubview:_titleView];
+    [self.view addSubview:_titleView];
     
     //加载更多
     self.tableView_notification.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -265,47 +272,47 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 
 #pragma mark - ScrollView Delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    DLog(@"%lf", scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
-        [UIView animateWithDuration:0.2 animations:^{
-            _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
-            _titleView.height = TITLEVIEW_HEIGHT;
-            _titleView.width = TITLEVIEW_WIDTH;
-            _titleView.layer.cornerRadius = 5;
-            
-            for (UIView *view in _titleView.subviews) {
-                if ([view isKindOfClass:[UIButton class]]) {
-                    view.top =0;
-                }
-            }
-            
-            _titleView.markLine.bottom = _titleView.height;
-        } completion:^(BOOL finished) {
-            [_titleView removeFromSuperview];
-            _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
-            [_tableView_notification addSubview:_titleView];
-        }];
-    } else {
-        [UIView animateWithDuration:0.2 animations:^{
-            _titleView.left = 0;
-            _titleView.width = SCREEN_WIDTH;
-            _titleView.layer.cornerRadius = 0;
-            
-            for (UIView *view in _titleView.subviews) {
-                if ([view isKindOfClass:[UIButton class]]) {
-                    view.top =20;
-                }
-            }
-            
-            _titleView.markLine.bottom = _titleView.height;
-        } completion:^(BOOL finished) {
-            [_titleView removeFromSuperview];
-            _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
-            [self.view addSubview:_titleView];
-        }];
-    }
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    DLog(@"%lf", scrollView.contentOffset.y);
+//    if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
+//        [UIView animateWithDuration:0.2 animations:^{
+//            _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
+//            _titleView.height = TITLEVIEW_HEIGHT;
+//            _titleView.width = TITLEVIEW_WIDTH;
+//            _titleView.layer.cornerRadius = 5;
+//
+//            for (UIView *view in _titleView.subviews) {
+//                if ([view isKindOfClass:[UIButton class]]) {
+//                    view.top =0;
+//                }
+//            }
+//
+//            _titleView.markLine.bottom = _titleView.height;
+//        } completion:^(BOOL finished) {
+//            [_titleView removeFromSuperview];
+//            _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
+//            [_tableView_notification addSubview:_titleView];
+//        }];
+//    } else {
+//        [UIView animateWithDuration:0.2 animations:^{
+//            _titleView.left = 0;
+//            _titleView.width = SCREEN_WIDTH;
+//            _titleView.layer.cornerRadius = 0;
+//
+//            for (UIView *view in _titleView.subviews) {
+//                if ([view isKindOfClass:[UIButton class]]) {
+//                    view.top =20;
+//                }
+//            }
+//
+//            _titleView.markLine.bottom = _titleView.height;
+//        } completion:^(BOOL finished) {
+//            [_titleView removeFromSuperview];
+//            _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
+//            [self.view addSubview:_titleView];
+//        }];
+//    }
+//}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {

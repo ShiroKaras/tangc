@@ -9,6 +9,9 @@
 #import "SKNavigationController.h"
 #import "SKUserInfoViewController.h"
 #import "HXDatePhotoViewController.h"
+#import "SKHomepageMorePicDetailViewController.h"
+#import "SKPublishNewContentViewController.h"
+#import "SKUserListViewController.h"
 
 @interface SKNavigationController ()
 
@@ -47,7 +50,11 @@
         &&![viewController isKindOfClass:[HXDatePhotoViewController class]]) {
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _backButton.tag = 9001;
-        if ([viewController isKindOfClass:[SKUserInfoViewController class]]) {
+        if ([viewController isKindOfClass:[SKUserInfoViewController class]] ||
+            [viewController isKindOfClass:[SKHomepageMorePicDetailViewController class]] ||
+            [viewController isKindOfClass:[SKPublishNewContentViewController class]] ||
+            [viewController isKindOfClass:[SKUserListViewController class]]
+            ) {
             [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back"] forState:UIControlStateNormal];
             [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back_white"] forState:UIControlStateHighlighted];
         } else {

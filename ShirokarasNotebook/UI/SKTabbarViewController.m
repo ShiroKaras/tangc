@@ -73,6 +73,14 @@
             }];
         }
     }];
+    
+    _redPoint = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 6, 6)];
+    _redPoint.backgroundColor = [UIColor redColor];
+    _redPoint.layer.cornerRadius = 3;
+    _redPoint.top = addButton.top+5;
+    _redPoint.left = addButton.right+ROUND_WIDTH_FLOAT(44);
+    [self.view addSubview:_redPoint];
+    _redPoint.hidden = ![[UD valueForKey:@"isNewNotification"] boolValue];
 }
 
 - (void)didReceiveMemoryWarning {

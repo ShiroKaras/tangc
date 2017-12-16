@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SKTabbarViewController : UITabBarController
-
+@property (nonatomic, strong) UIView *redPoint;
 @end

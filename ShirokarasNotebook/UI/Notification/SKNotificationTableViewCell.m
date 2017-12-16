@@ -99,7 +99,7 @@
 
 - (void)setNotificationItem:(SKNotification *)notificationItem {
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:notificationItem.avatar] placeholderImage:COMMON_AVATAR_PLACEHOLDER_IMAGE];
-    _usernameLabel.text = notificationItem.comuser_nickname;
+    _usernameLabel.text = [notificationItem.comuser_nickname isEqualToString:@""]?@"系统通知":notificationItem.comuser_nickname;
     [_usernameLabel sizeToFit];
     _contentLabel.text = notificationItem.content;
     CGSize labelSize = [notificationItem.content boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(250), MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
