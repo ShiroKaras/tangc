@@ -144,7 +144,6 @@
                            DLog(@"token=%@", user.credential.token);
                            DLog(@"nickname=%@", user.nickname);
                            DLog(@"icon=%@", user.icon);
-                           
                            [self loginWithUser:user type:@"weibo"];
                        } else {
                            DLog(@"%@", error);
