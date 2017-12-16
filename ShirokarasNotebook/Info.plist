@@ -35,7 +35,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wb$(WEIBO_URL_SCHEMES_SUFFIX)</string>
+				<string>wx823b3364e93fb47a</string>
 			</array>
 		</dict>
 		<dict>
@@ -43,7 +43,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx$(WEIXIN_URL_SCHEMES_SUFFIX)</string>
+				<string>QQ41f32997</string>
 			</array>
 		</dict>
 		<dict>
@@ -51,15 +51,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ$(QQ_URL_SCHEMES_SUFFIX)</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>tencent$(TENCENT_URL_SCHEMES_SUFFIX)</string>
+				<string>tencent1106454935</string>
 			</array>
 		</dict>
 		<dict>
@@ -73,16 +65,30 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>weixin</string>
-		<string>wechat</string>
-		<string>alipay</string>
-		<string>alipays</string>
-		<string>mqq</string>
-	</array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>sinaweibo</string>
+        <string>sinaweibohd</string>
+        <string>sinaweibosso</string>
+        <string>sinaweibohdsso</string>
+        <string>weibosdk</string>
+        <string>weibosdk2.5</string>
+        <string>wechat</string>
+        <string>weixin</string>
+        <string>mqqOpensdkSSoLogin</string>
+        <string>wtloginmqq2</string>
+        <string>mqq</string>
+        <string>mqqapi</string>
+        <string>timapi</string>
+        <string>mqqopensdkapiV2</string>
+        <string>mqqopensdkapiV3</string>
+    </array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MOBAppKey</key>
+	<string>22b5c39ea530a</string>
+	<key>MOBAppSecret</key>
+	<string>b712b1d470b1546798358a37fcb490b2</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
