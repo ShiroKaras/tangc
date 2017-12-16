@@ -10,6 +10,7 @@
 #import "SKHomepageDetaillTableViewCell.h"
 #import "SKTitleBaseView.h"
 #import "HTWebController.h"
+#import "SKPublishNewContentViewController.h"
 
 @interface SKHomepageMorePicDetailViewController () <UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -19,6 +20,11 @@
 @property (nonatomic, strong) SKTitleBaseView *baseInfoView;
 @property (nonatomic, strong) UIWebView *articleView;
 @property (nonatomic, strong) UIImageView *articleHeaderImageView;
+
+@property (nonatomic, strong) UIButton *repeaterButton;
+@property (nonatomic, strong) UIButton *commentButton;
+@property (nonatomic, strong) UIButton *favButton;
+
 @end
 
 @implementation SKHomepageMorePicDetailViewController {
@@ -48,6 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    float viewBottomHeight = kDevice_Is_iPhoneX?83:49;
     page = 1;
     _totalPage = 1;
     isFirstCome = YES;
@@ -55,7 +62,7 @@
     self.dataArray = [NSMutableArray array];
     
     self.view.backgroundColor = COMMON_BG_COLOR;
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(64+22):64, self.view.width, self.view.height-64) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(64+22):64, self.view.width, self.view.height-(kDevice_Is_iPhoneX?(64+22):64)-viewBottomHeight) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -200,6 +207,81 @@
             }];
         }
     }];
+    
+    float viewBottomHeight = kDevice_Is_iPhoneX?83:49;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height-viewBottomHeight, self.view.width, viewBottomHeight)];
+    view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:view];
+    
+    //转发
+    _repeaterButton = [UIButton new];
+    [_repeaterButton setImage:[UIImage imageNamed:@"btn_homepage_forward"] forState:UIControlStateNormal];
+    [_repeaterButton setTitle:@"转发" forState:UIControlStateNormal];
+    [_repeaterButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
+    [_repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
+    _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    [_repeaterButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
+    _repeaterButton.size = CGSizeMake(self.view.width/3, 49);
+    _repeaterButton.left = 0;
+    _repeaterButton.top = 0;
+    [view addSubview:_repeaterButton];
+    //评论
+    _commentButton = [UIButton new];
+    [_commentButton setImage:[UIImage imageNamed:@"btn_homepage_comment"] forState:UIControlStateNormal];
+    [_commentButton setTitle:@"评论" forState:UIControlStateNormal];
+    [_commentButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
+    [_commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
+    _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    [_commentButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
+    _commentButton.size = CGSizeMake(self.view.width/3, 49);
+    _commentButton.left = _repeaterButton.right;
+    _commentButton.top = 0;
+    [view addSubview:_commentButton];
+    //点赞
+    _favButton = [UIButton new];
+    [_favButton setImage:self.topic.is_thumb?[UIImage imageNamed:@"btn_homepage_like_highlight"]:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
+    [_favButton setTitle:@"赞" forState:UIControlStateNormal];
+    [_favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
+    [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
+    _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    [_favButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
+    _favButton.size = CGSizeMake(self.view.width/3, 49);
+    _favButton.left = _commentButton.right;
+    _favButton.top = 0;
+    [view addSubview:_favButton];
+    
+    //转发
+    [[_repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.topic];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
+    //评论
+    [[_commentButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeComment withUserPost:self.topic];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
+    //点赞
+    [_favButton setImage:self.topic.is_thumb?[UIImage imageNamed:@"btn_homepage_like_highlight"]:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
+    [[_favButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+            [self invokeLoginViewController];
+            return;
+        }
+        if (self.topic.is_thumb) {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.topic.id callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"取消点赞");
+                self.topic.is_thumb = 0;
+                [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
+            }];
+        } else {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.topic.id callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"成功点赞");
+                self.topic.is_thumb = 1;
+                [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
+            }];
+        }
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

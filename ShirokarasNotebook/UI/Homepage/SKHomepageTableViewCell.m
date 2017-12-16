@@ -316,7 +316,7 @@
     //转发
     _repeaterButton = [UIButton new];
     [_repeaterButton setImage:[UIImage imageNamed:@"btn_homepage_forward"] forState:UIControlStateNormal];
-    [_repeaterButton setTitle:@"转发" forState:UIControlStateNormal];
+    [_repeaterButton setTitle:topic.transmit_num forState:UIControlStateNormal];
     [_repeaterButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
@@ -328,7 +328,7 @@
     //评论
     _commentButton = [UIButton new];
     [_commentButton setImage:[UIImage imageNamed:@"btn_homepage_comment"] forState:UIControlStateNormal];
-    [_commentButton setTitle:@"评论" forState:UIControlStateNormal];
+    [_commentButton setTitle:topic.comment_num forState:UIControlStateNormal];
     [_commentButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
@@ -340,7 +340,7 @@
     //点赞
     _favButton = [UIButton new];
     [_favButton setImage:topic.is_thumb?[UIImage imageNamed:@"btn_homepage_like_highlight"]:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
-    [_favButton setTitle:@"点赞" forState:UIControlStateNormal];
+    [_favButton setTitle:topic.thumb_num forState:UIControlStateNormal];
     [_favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
     _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);

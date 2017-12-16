@@ -487,13 +487,13 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             return;
         }
         if (self.dataArray[indexPath.row].is_thumb) {
-            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].is_thumb callback:^(BOOL success, SKResponsePackage *response) {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"取消点赞");
                 self.dataArray[indexPath.row].is_thumb = 0;
                 [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
             }];
         } else {
-            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].is_thumb callback:^(BOOL success, SKResponsePackage *response) {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"成功点赞");
                 self.dataArray[indexPath.row].is_thumb = 1;
                 [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
