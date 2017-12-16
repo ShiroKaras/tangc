@@ -11,7 +11,7 @@
 #import "SKLogicHeader.h"
 
 typedef void (^SKUserListCallback)(BOOL success, NSArray<SKUserInfo*>* userList);
-typedef void (^SKQueueListCallback)(BOOL success, NSArray<SKNotification*>* queueList);
+typedef void (^SKQueueListCallback)(BOOL success, NSArray<SKNotification*>* queueList, NSInteger totalPage);
 typedef void (^SKUserInfoCallback)(BOOL success, SKUserInfo *userInfo);
 typedef void (^SKPictureCallback)(BOOL success, NSArray<SKPicture*> *picList);
 typedef void (^SKArticleCallback)(BOOL success, NSArray<SKArticle*> *articleList);

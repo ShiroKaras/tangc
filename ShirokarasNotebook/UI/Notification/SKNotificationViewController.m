@@ -39,7 +39,12 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 @property (nonatomic, assign) SKNotificationSelectedType selectedType;
 @end
 
-@implementation SKNotificationViewController
+@implementation SKNotificationViewController {
+    NSInteger     page;
+    NSInteger     _totalPage;//总页数
+    BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
+    BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -50,6 +55,13 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    page = 1;
+    _totalPage = 1;
+    isFirstCome = YES;
+    isJuhua = NO;
+    self.dataArray = [NSMutableArray array];
+    
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
@@ -66,7 +78,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 
 - (void)createUI {
     //TableView
-    _tableView_notification = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49) style:UITableViewStylePlain];
+    _tableView_notification = [[UITableView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?22:0, SCREEN_WIDTH, SCREEN_HEIGHT-49) style:UITableViewStylePlain];
     _tableView_notification.delegate = self;
     _tableView_notification.dataSource = self;
     _tableView_notification.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -108,6 +120,29 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
     [_tableView_notification addSubview:_titleView];
+    
+    //加载更多
+    self.tableView_notification.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        page++;
+        [[[SKServiceManager sharedInstance] profileService] getUserQueueListWithType:self.selectedType+1 callback:^(BOOL success, NSArray<SKNotification *> *queueList, NSInteger totalPage) {
+            _totalPage = totalPage;
+            if (page>totalPage) {
+                page = totalPage;
+                return;
+            }
+            for (int i=0; i<queueList.count; i++) {
+                [self.dataArray addObject:queueList[i]];
+            }
+            [self.tableView_notification reloadData];
+            
+            self.dataArray = [NSMutableArray arrayWithArray:queueList];
+            [self.tableView_notification reloadData];
+        }];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView_notification.mj_footer endRefreshing];
+        });
+    }];
 }
 
 - (void)segmentView:(UIView *)view didClickIndex:(NSInteger)index {
@@ -277,7 +312,8 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
         if (_selectedType!=SKNotificationSelectedTypeNotification&&[SKStorageManager sharedInstance].loginUser.uuid==nil) {
             [self invokeLoginViewController];
         } else {
-            [[[SKServiceManager sharedInstance] profileService] getUserQueueListWithType:self.selectedType+1 callback:^(BOOL success, NSArray<SKNotification *> *queueList) {
+            [[[SKServiceManager sharedInstance] profileService] getUserQueueListWithType:self.selectedType+1 callback:^(BOOL success, NSArray<SKNotification *> *queueList, NSInteger totalPage) {
+                _totalPage = totalPage;
                 self.dataArray = [NSMutableArray arrayWithArray:queueList];
                 [self.tableView_notification reloadData];
             }];            

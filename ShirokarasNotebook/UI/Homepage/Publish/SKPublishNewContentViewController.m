@@ -80,7 +80,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"postImageArray" object:self.postImageArray];
     [self createTitleView];
 
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44))];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(20+ROUND_WIDTH_FLOAT(44)+22):20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44))];
     scrollView.alwaysBounceVertical = YES;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;

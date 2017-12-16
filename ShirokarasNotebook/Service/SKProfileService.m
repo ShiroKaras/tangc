@@ -43,8 +43,8 @@
                 item.is_followed = item.is_concerned;
                 [list addObject:item];
             }
+            callback(success, list);
         }
-        callback(success, list);
     }];
 }
 
@@ -58,8 +58,8 @@
                 item.is_follow = item.is_concerned;
                 [list addObject:item];
             }
+            callback(success, list);
         }
-        callback(success, list);
     }];
 }
 
@@ -119,8 +119,8 @@
                 SKNotification *item = [SKNotification mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
             }
+            callback(success, list, [response.data[@"totalPage"] integerValue]);
         }
-        callback(success, list);
     }];
 }
 
@@ -136,8 +136,8 @@
                 SKPicture *item = [SKPicture mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
             }
+            callback(success, list);
         }
-        callback(success, list);
     }];
 }
 
@@ -153,8 +153,8 @@
                 SKArticle *item = [SKArticle mj_objectWithKeyValues:response.data[@"lists"][i]];
                 [list addObject:item];
             }
+            callback(success, list);
         }
-        callback(success, list);
     }];
 }
 

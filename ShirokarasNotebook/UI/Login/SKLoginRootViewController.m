@@ -47,7 +47,7 @@
     [button_skip setTitle:@"跳过" forState:UIControlStateNormal];
     [button_skip setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
     button_skip.size = CGSizeMake(44, 44);
-    button_skip.top = 20;
+    button_skip.top = kDevice_Is_iPhoneX?42:20;
     button_skip.right = self.view.right -20;
     [self.view addSubview:button_skip];
     [[button_skip rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {

@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     SKMyPageSelectedTypeArticle
 };
 
-@interface SKPersonalMyPageViewController () <UITableViewDelegate, UITableViewDataSource, SKSegmentViewDelegate>
+@interface SKPersonalMyPageViewController () <UITableViewDelegate, UITableViewDataSource, SKSegmentViewDelegate, UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<SKPicture*> *dataArray_pic;
 @property (nonatomic, strong) NSMutableArray<SKArticle*> *dataArray_article;
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     [_editInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _editInfoButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     _editInfoButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(21));
-    _editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
+    _editInfoButton.top = kDevice_Is_iPhoneX?(22+ROUND_WIDTH_FLOAT(31.5)):ROUND_WIDTH_FLOAT(31.5);
     _editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
     [self.view addSubview:_editInfoButton];
     
