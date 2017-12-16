@@ -45,4 +45,7 @@ typedef void (^SKArticleCallback)(BOOL success, NSArray<SKArticle*> *articleList
 //我的文章列表
 - (void)getArticleListWithPage:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKArticleCallback)callback;
 
+//绑定CID
+- (void)bindCid:(NSString *)cid callback:(SKResponseCallback)callback;
+
 @end

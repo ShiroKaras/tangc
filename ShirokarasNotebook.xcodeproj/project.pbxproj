@@ -624,6 +624,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11116BA01FE4CA1B0082CC1F /* SKTags */ = {
+			isa = PBXGroup;
+			children = (
+				11BAF15E1FDE6B00007816A8 /* SKTagsView.h */,
+				11BAF15D1FDE6B00007816A8 /* SKTagsView.m */,
+			);
+			path = SKTags;
+			sourceTree = "<group>";
+		};
 		1120B0EE1FC2DC21003FF376 /* Personal */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,7 +674,7 @@
 				11BAF1F41FE25234007816A8 /* JFCityViewController */,
 				11BAF1831FE007E1007816A8 /* HXWeiboPhotoPicker */,
 				11BAF1641FDE8B89007816A8 /* Scan */,
-				11BAF15C1FDE6AD1007816A8 /* SKTags */,
+				11116BA01FE4CA1B0082CC1F /* SKTags */,
 				11BAF14B1FDE6688007816A8 /* SDTags */,
 				11923EC41FD8073900136715 /* PSCarouselView */,
 				11EE40851FCED10300039E3F /* AES256 */,
@@ -1010,16 +1019,6 @@
 				11BAF1561FDE672C007816A8 /* TagsModel.m */,
 			);
 			path = SDTagsModel;
-			sourceTree = "<group>";
-		};
-		11BAF15C1FDE6AD1007816A8 /* SKTags */ = {
-			isa = PBXGroup;
-			children = (
-				11BAF15E1FDE6B00007816A8 /* SKTagsView.h */,
-				11BAF15D1FDE6B00007816A8 /* SKTagsView.m */,
-			);
-			name = SKTags;
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		11BAF1641FDE8B89007816A8 /* Scan */ = {

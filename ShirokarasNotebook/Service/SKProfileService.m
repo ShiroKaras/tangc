@@ -158,4 +158,11 @@
     }];
 }
 
+- (void)bindCid:(NSString *)cid callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{@"cid" : cid};
+    [self baseRequestWithParam:param url:[SKCGIManager bindCid] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 @end

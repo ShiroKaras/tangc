@@ -116,4 +116,8 @@
     return [NSString stringWithFormat:@"%@/api/my/article", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)bindCid {
+    return [NSString stringWithFormat:@"%@/api/comuser/bind_cid", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 @end

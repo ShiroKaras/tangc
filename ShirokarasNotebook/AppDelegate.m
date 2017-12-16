@@ -271,6 +271,12 @@
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     //个推SDK已注册，返回clientId
     NSLog(@"\n>>>[GeTuiSdk RegisterClient]:%@\n\n", clientId);
+    
+    if ([SKStorageManager sharedInstance].loginUser.uuid) {
+        [[[SKServiceManager sharedInstance] profileService] bindCid:clientId callback:^(BOOL success, SKResponsePackage *response) {
+            
+        }];
+    }
 }
 
 @end

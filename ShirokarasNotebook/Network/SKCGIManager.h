@@ -90,4 +90,7 @@
 
 //我的文章列表
 + (NSString *)articleList;
+
+//绑定CID
++ (NSString *)bindCid;
 @end
