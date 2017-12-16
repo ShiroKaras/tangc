@@ -79,7 +79,6 @@ static const CGFloat kPhotoViewMargin = 12.0;
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.postImageArray = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"postImageArray" object:self.postImageArray];
-    [self createTitleView];
 
     UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
     tView.backgroundColor = [UIColor clearColor];
@@ -104,6 +103,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [tView addSubview:tLabel];
     tLabel.centerX = tView.width/2;
     tLabel.centerY = tView.height/2;
+    
+    [self createTitleView];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(44+ROUND_WIDTH_FLOAT(44)):20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44))];
     scrollView.alwaysBounceVertical = YES;
@@ -316,7 +317,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
         } else if (_type == SKPublishTypeComment) {
             SKComment *comment = [SKComment new];
             comment.article_id = self.topic.id;
-            comment.to_comuser_id = self.to_users;
+            comment.content = self.textView.text;
             
             [[[SKServiceManager sharedInstance] topicService] postCommentWithComment:comment callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
