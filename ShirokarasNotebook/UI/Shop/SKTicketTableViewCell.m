@@ -81,6 +81,7 @@
         _iconImageView.backgroundColor = COMMON_BG_COLOR;
         _iconImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(20), ROUND_WIDTH_FLOAT(20));
         _iconImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(10);
+        _iconImageView.layer.masksToBounds = YES;
         _iconImageView.left = _moneyLabel.left;
         _iconImageView.bottom = _timeLabel.top -3;
     }
