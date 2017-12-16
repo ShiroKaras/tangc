@@ -68,6 +68,7 @@
 @property (nonatomic, strong) NSArray *images;      //图片地址
 @property (nonatomic, strong) NSArray *tags;        //tags
 @property (nonatomic, strong) NSArray *follows;     //关注的用户ID组成
+@property (nonatomic, strong) NSArray *to_user_id;  //@的人
 @end
 
 //转发的原文（from）

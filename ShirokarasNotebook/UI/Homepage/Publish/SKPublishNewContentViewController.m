@@ -29,6 +29,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) HXDatePhotoToolManager *toolManager;
 
+@property (nonatomic, strong) NSMutableArray *to_users;
 @end
 
 @implementation SKPublishNewContentViewController
@@ -271,7 +272,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
             else if (self.postImageArray.count>1)
                 userpost.type = 2;
             userpost.images = self.postImageArray;
-
+            userpost.to_user_id = self.to_users;
+            
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
                 [self.navigationController popViewControllerAnimated:YES];
@@ -322,7 +324,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
                                                                        documentAttributes:nil error:nil];
     // 3.遍历结果
     for (NSTextCheckingResult *result in results) {
-        NSLog(@"%@  %@",NSStringFromRange(result.range),[x substringWithRange:result.range]);
+        NSLog(@"%@  %@",NSStringFromRange(result.range),[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]);
+        [self.to_users addObject:[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]];
         //set font
         [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
         // 设置颜色

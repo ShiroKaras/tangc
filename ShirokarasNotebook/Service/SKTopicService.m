@@ -144,6 +144,9 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:topic.images options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     [param setValue:jsonString forKey:@"images"];
+    NSData *data_users = [NSJSONSerialization dataWithJSONObject:topic.to_user_id options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString_users = [[NSString alloc] initWithData:data_users encoding:NSUTF8StringEncoding];
+    [param setValue:jsonString_users forKey:@"to_user_id"];
     
     [self baseRequestWithParam:param url:[SKCGIManager postArticle] callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
