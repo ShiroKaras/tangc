@@ -55,6 +55,12 @@
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
+    NSDictionary *remoteNotification =
+    [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteNotification) {
+        [self handleAPNsDict:remoteNotification];
+    }
+    
     return YES;
 }
 
@@ -99,6 +105,9 @@
 #endif
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        [self handleAPNsDict:userInfo];
+    }
     // 将收到的APNs信息传给个推统计
     [GeTuiSdk handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
@@ -117,6 +126,13 @@
     
     [UD setValue:@(YES) forKey:@"isNewNotification"];
     self.mainController.redPoint.hidden = NO;
+}
+
+- (void)handleAPNsDict:(NSDictionary *)dict {
+    NSURL *url = [NSURL URLWithString:dict[@"url"]];
+    if (url!=nil&&![url isEqual:@""]) {
+        [[UIApplication sharedApplication] openURL:url];
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
