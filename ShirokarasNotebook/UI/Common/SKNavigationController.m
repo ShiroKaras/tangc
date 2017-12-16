@@ -12,6 +12,7 @@
 #import "SKHomepageMorePicDetailViewController.h"
 #import "SKPublishNewContentViewController.h"
 #import "SKUserListViewController.h"
+#import "SKAboutViewController.h"
 
 @interface SKNavigationController ()
 
@@ -53,7 +54,8 @@
         if ([viewController isKindOfClass:[SKUserInfoViewController class]] ||
             [viewController isKindOfClass:[SKHomepageMorePicDetailViewController class]] ||
             [viewController isKindOfClass:[SKPublishNewContentViewController class]] ||
-            [viewController isKindOfClass:[SKUserListViewController class]]
+            [viewController isKindOfClass:[SKUserListViewController class]] ||
+            [viewController isKindOfClass:[SKAboutViewController class]]
             ) {
             [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back"] forState:UIControlStateNormal];
             [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back_white"] forState:UIControlStateHighlighted];

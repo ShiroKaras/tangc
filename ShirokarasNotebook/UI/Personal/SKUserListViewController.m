@@ -29,8 +29,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-    [self createTitleView];
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44)) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.delegate = self;
@@ -44,11 +42,13 @@
     if (self.type == SKUserListTypeFollow) {
         [[[SKServiceManager sharedInstance] profileService] comuserFollowsWithCallback:^(BOOL success, NSArray<SKUserInfo *> *topicList) {
             self.dataArray = topicList;
+            [self createTitleView];
             [self.tableView reloadData];
         }];
     } else {
         [[[SKServiceManager sharedInstance] profileService] comuserFansWithCallback:^(BOOL success, NSArray<SKUserInfo *> *topicList) {
             self.dataArray = topicList;
+            [self createTitleView];
             [self.tableView reloadData];
         }];
     }

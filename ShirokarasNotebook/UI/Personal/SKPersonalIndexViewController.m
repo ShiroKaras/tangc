@@ -8,7 +8,7 @@
 
 #import "SKPersonalIndexViewController.h"
 #import "SKPersonalMyPageViewController.h"
-
+#import "SKAboutViewController.h"
 #import <GTSDK/GeTuiSdk.h>     // GetuiSdk头文件应用
 
 #import "SKPublishNewContentViewController.h"
@@ -42,19 +42,20 @@
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
-    if ([SKStorageManager sharedInstance].loginUser.uuid) {
-        self.loginLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
-        [self.loginLabel sizeToFit];
-        _logoutButton.hidden = NO;
-    } else {
-        self.loginLabel.text = @"点击登录";
-        [self.loginLabel sizeToFit];
-        _logoutButton.hidden = YES;
-    }
-    self.loginLabel.centerY = self.avatarImageView.centerY;
-    self.loginLabel.left = self.avatarImageView.right +10;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+        if ([SKStorageManager sharedInstance].loginUser.uuid) {
+            self.loginLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
+            [self.loginLabel sizeToFit];
+            _logoutButton.hidden = NO;
+        } else {
+            self.loginLabel.text = @"点击登录";
+            [self.loginLabel sizeToFit];
+            _logoutButton.hidden = YES;
+        }
+        self.loginLabel.centerY = self.avatarImageView.centerY;
+        self.loginLabel.left = self.avatarImageView.right +10;
+    });
 }
 
 - (void)viewDidLoad {
@@ -271,7 +272,8 @@
         cell_about.top = cell_clear.bottom;
         UITapGestureRecognizer *tapGesture_about = [[UITapGestureRecognizer alloc] init];
         [[tapGesture_about rac_gestureSignal] subscribeNext:^(id x) {
-            
+            SKAboutViewController *controller = [[SKAboutViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
         }];
         [cell_about addGestureRecognizer:tapGesture_about];
         

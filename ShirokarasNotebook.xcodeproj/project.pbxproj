@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11116BA31FE53A760082CC1F /* SKAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11116BA21FE53A750082CC1F /* SKAboutViewController.m */; };
 		1113D92A1FD41A3E00452941 /* SKShopService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1113D9291FD41A3E00452941 /* SKShopService.m */; };
 		1113D92D1FD531CD00452941 /* UIViewController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1113D92B1FD531CB00452941 /* UIViewController+ImagePicker.m */; };
 		1113D9301FD5326E00452941 /* HTAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1113D92E1FD5326D00452941 /* HTAlertView.m */; };
@@ -221,6 +222,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		11116BA11FE53A750082CC1F /* SKAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKAboutViewController.h; sourceTree = "<group>"; };
+		11116BA21FE53A750082CC1F /* SKAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKAboutViewController.m; sourceTree = "<group>"; };
 		1113D9281FD41A3E00452941 /* SKShopService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKShopService.h; sourceTree = "<group>"; };
 		1113D9291FD41A3E00452941 /* SKShopService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKShopService.m; sourceTree = "<group>"; };
 		1113D92B1FD531CB00452941 /* UIViewController+ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ImagePicker.m"; sourceTree = "<group>"; };
@@ -645,6 +648,8 @@
 				111C5CB31FCC12EF00581AE0 /* SKUserListViewController.m */,
 				111C5CB51FCC1AC200581AE0 /* SKUserListTableViewCell.h */,
 				111C5CB61FCC1AC200581AE0 /* SKUserListTableViewCell.m */,
+				11116BA11FE53A750082CC1F /* SKAboutViewController.h */,
+				11116BA21FE53A750082CC1F /* SKAboutViewController.m */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -1738,6 +1743,7 @@
 				11B82DBE1FBECA43006D9A26 /* SKNotificationTableViewCell.m in Sources */,
 				11BAF1D01FE007E2007816A8 /* HXDownloadProgressView.m in Sources */,
 				11923ECF1FD8073A00136715 /* PSWeaker.m in Sources */,
+				11116BA31FE53A760082CC1F /* SKAboutViewController.m in Sources */,
 				11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */,
 				1130408C1FB1A6200020C93D /* SKModel.m in Sources */,
 				1130401F1FB06F900020C93D /* MJExtensionConst.m in Sources */,
