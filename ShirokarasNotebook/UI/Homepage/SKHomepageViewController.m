@@ -77,6 +77,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     } else {
         self.selectedType = SKHomepageSelectedTypeFollow;
     }
+    ((SKTabbarViewController*)self.tabBarController).redPoint.hidden = ![[UD objectForKey:@"isNewNotification"] integerValue];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

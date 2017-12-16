@@ -48,6 +48,13 @@
     [GeTuiSdk resetBadge]; //重置角标计数
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // APP 清空角标
     
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    _mainController = [[SKTabbarViewController alloc] init];
+    SKNavigationController *navController =
+    [[SKNavigationController alloc] initWithRootViewController:_mainController];
+    self.window.rootViewController = navController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -109,6 +116,7 @@
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
     
     [UD setValue:@(YES) forKey:@"isNewNotification"];
+    self.mainController.redPoint.hidden = NO;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

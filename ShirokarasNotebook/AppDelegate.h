@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-
+#import "SKTabbarViewController.h"
 #import <GTSDK/GeTuiSdk.h>     // GetuiSdk头文件应用
 
 // iOS10 及以上需导入 UserNotifications.framework
@@ -21,6 +21,8 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
+
+@property (nonatomic, strong) SKTabbarViewController *mainController;
 
 - (void)saveContext;
 
