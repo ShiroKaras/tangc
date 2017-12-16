@@ -507,60 +507,74 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
     cell.topic = self.dataArray[indexPath.row];
-    if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
-        [self invokeLoginViewController];
-    } else {
-        //转发
-        [[cell.repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.dataArray[indexPath.row]];
-            [self.navigationController pushViewController:controller animated:YES];
-        }];
-        //评论
-        [[cell.commentButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeComment withUserPost:self.dataArray[indexPath.row]];
-            [self.navigationController pushViewController:controller animated:YES];
-        }];
-        //关注
-        cell.followButton.hidden = [[SKStorageManager sharedInstance].userInfo.nickname isEqualToString:self.dataArray[indexPath.row].userinfo.nickname];
-        
-        [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            if (self.dataArray[indexPath.row].is_follow) {
-                [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
-                    if (success) {
-                        NSLog(@"取消关注");
-                        self.dataArray[indexPath.row].is_follow = 0;
-                        [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
-                    }
-                }];
-            } else {
-                [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
-                    if (success) {
-                        NSLog(@"成功关注");
-                        self.dataArray[indexPath.row].is_follow = 1;
-                        [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow_highlight"] forState:UIControlStateNormal];
-                    }
-                }];
-            }
-        }];
-        //点赞
-        [[cell.favButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-            if (self.dataArray[indexPath.row].is_thumb) {
-                [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
-                    DLog(@"取消点赞");
-                    self.dataArray[indexPath.row].is_thumb = 0;
-                    [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
-                    [cell.favButton setTitle:[NSString stringWithFormat:@"%ld", [cell.favButton.titleLabel.text integerValue]-1] forState:UIControlStateNormal];
-                }];
-            } else {
-                [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
-                    DLog(@"成功点赞");
-                    self.dataArray[indexPath.row].is_thumb = 1;
-                    [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
-                    [cell.favButton setTitle:[NSString stringWithFormat:@"%ld", [cell.favButton.titleLabel.text integerValue]+1] forState:UIControlStateNormal];
-                }];
-            }
-        }];
-    }
+    
+    //转发
+    [[cell.repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+            [self invokeLoginViewController];
+            return;
+        }
+        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.dataArray[indexPath.row]];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
+    //评论
+    [[cell.commentButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+            [self invokeLoginViewController];
+            return;
+        }
+        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeComment withUserPost:self.dataArray[indexPath.row]];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
+    //关注
+    cell.followButton.hidden = [[SKStorageManager sharedInstance].userInfo.nickname isEqualToString:self.dataArray[indexPath.row].userinfo.nickname];
+    
+    [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+            [self invokeLoginViewController];
+            return;
+        }
+        if (self.dataArray[indexPath.row].is_follow) {
+            [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"取消关注");
+                    self.dataArray[indexPath.row].is_follow = 0;
+                    [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
+                }
+            }];
+        } else {
+            [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+                if (success) {
+                    NSLog(@"成功关注");
+                    self.dataArray[indexPath.row].is_follow = 1;
+                    [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow_highlight"] forState:UIControlStateNormal];
+                }
+            }];
+        }
+    }];
+    //点赞
+    [[cell.favButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+            [self invokeLoginViewController];
+            return;
+        }
+        if (self.dataArray[indexPath.row].is_thumb) {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"取消点赞");
+                self.dataArray[indexPath.row].is_thumb = 0;
+                [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
+                [cell.favButton setTitle:[NSString stringWithFormat:@"%ld", [cell.favButton.titleLabel.text integerValue]-1] forState:UIControlStateNormal];
+            }];
+        } else {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"成功点赞");
+                self.dataArray[indexPath.row].is_thumb = 1;
+                [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
+                [cell.favButton setTitle:[NSString stringWithFormat:@"%ld", [cell.favButton.titleLabel.text integerValue]+1] forState:UIControlStateNormal];
+            }];
+        }
+    }];
+    
     return cell;
 }
 

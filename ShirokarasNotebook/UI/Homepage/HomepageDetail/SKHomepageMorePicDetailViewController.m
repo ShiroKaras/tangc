@@ -99,7 +99,7 @@
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.headerView.width-10, self.headerView.height-ROUND_WIDTH_FLOAT(20))];
         backView.backgroundColor = [UIColor whiteColor];
         [self.headerView addSubview:backView];
-        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, ROUND_WIDTH_FLOAT(60))];
+        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
         _baseInfoView.backgroundColor = [UIColor whiteColor];
         _baseInfoView.userInfo = _topic.from?_topic.from.userinfo:_topic.userinfo;
         [backView addSubview:_baseInfoView];
@@ -145,7 +145,7 @@
         _articleHeaderImageView.layer.masksToBounds = YES;
         [self.headerView addSubview:_articleHeaderImageView];
         
-        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, _articleHeaderImageView.bottom, _headerView.width, ROUND_WIDTH_FLOAT(60))];
+        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, _articleHeaderImageView.bottom, _headerView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
         _baseInfoView.userInfo = _topic.from?_topic.from.userinfo:_topic.userinfo;
         [self.headerView addSubview:_baseInfoView];
         _headerView.height = _baseInfoView.bottom;
@@ -189,6 +189,10 @@
     
     //关注动作
     [[_baseInfoView.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+            [self invokeLoginViewController];
+            return;
+        }
         if (self.topic.is_follow) {
             [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.topic.userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
                 if (success) {

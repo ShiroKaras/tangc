@@ -14,7 +14,7 @@
 
 @implementation SKTitleBaseView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame withTopic:(SKTopic*)topic
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -48,7 +48,7 @@
         
         //关注按钮
         _followButton = [UIButton new];
-        [_followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
+        [_followButton setBackgroundImage:topic.is_follow?[UIImage imageNamed:@"btn_homepage_follow_highlight"]:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
         _followButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
         _followButton.layer.cornerRadius = ROUND_WIDTH_FLOAT(10);
         _followButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(45), ROUND_WIDTH_FLOAT(20));
@@ -63,9 +63,7 @@
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
     self.usernameLabel.text = userInfo.nickname;
     [self.usernameLabel sizeToFit];
-    [_followButton setBackgroundImage:userInfo.is_follow?[UIImage imageNamed:@"btn_homepage_follow_highlight"]:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
+//    [_followButton setBackgroundImage:userInfo.is_follow?[UIImage imageNamed:@"btn_homepage_follow_highlight"]:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
 }
-
-
 
 @end

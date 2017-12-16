@@ -39,7 +39,7 @@
 
 - (SKTitleBaseView *)baseInfoView {
     if (!_baseInfoView) {
-        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, ROUND_WIDTH_FLOAT(60))];
+        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
         _baseInfoView.followButton.hidden = YES;
     }
     return _baseInfoView;

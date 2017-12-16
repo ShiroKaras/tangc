@@ -15,4 +15,6 @@
 @property (nonatomic, strong) UIButton *followButton;
 @property (nonatomic, strong) SKUserInfo *userInfo;
 
+- (instancetype)initWithFrame:(CGRect)frame withTopic:(SKTopic*)topic;
+
 @end
