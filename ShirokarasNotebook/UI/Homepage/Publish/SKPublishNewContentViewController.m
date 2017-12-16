@@ -283,7 +283,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
             userpost.content = self.textView.text;
             userpost.parent_id = self.topic.id;
             userpost.type = self.topic.type;
-
+            userpost.to_user_id = self.to_users;
+            
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
                 [self.navigationController popViewControllerAnimated:YES];
@@ -291,6 +292,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
         } else if (_type == SKPublishTypeComment) {
             SKComment *comment = [SKComment new];
             comment.article_id = self.topic.id;
+            comment.to_comuser_id = self.to_users;
+            
             [[[SKServiceManager sharedInstance] topicService] postCommentWithComment:comment callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
                 [self.navigationController popViewControllerAnimated:YES];

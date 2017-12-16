@@ -182,6 +182,10 @@
 
 - (void)postCommentWithComment:(SKComment *)comment callback:(SKResponseCallback)callback {
     NSDictionary *param = [comment mj_keyValues];
+    NSData *data_users = [NSJSONSerialization dataWithJSONObject:comment.to_comuser_id options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonString_users = [[NSString alloc] initWithData:data_users encoding:NSUTF8StringEncoding];
+    [param setValue:jsonString_users forKey:@"to_comuser_id"];
+    
     [self baseRequestWithParam:param url:[SKCGIManager postComment] callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
     }];
