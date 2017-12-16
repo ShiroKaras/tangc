@@ -65,6 +65,9 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     NSInteger     _totalPage;//总页数
     BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
     BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
+    
+    NSInteger   page_collection;
+    NSInteger   _totalPage_collection;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,6 +97,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     _totalPage = 1;
     isFirstCome = YES;
     isJuhua = NO;
+    
+    page_collection =1;
+    _totalPage_collection =1;
+    
     self.dataArray = [NSMutableArray array];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -358,8 +365,57 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         [_collectionView registerClass:[CHTCollectionViewWaterfallFooter class]
             forSupplementaryViewOfKind:CHTCollectionElementKindSectionFooter
                    withReuseIdentifier:FOOTER_IDENTIFIER];
+        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            page_collection =1;
+            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+                _totalPage_collection = totalPage;
+                if (_totalPage_collection>totalPage) {
+                    _totalPage_collection = totalPage;
+                    return;
+                }
+                self.dataArray_collection = [NSMutableArray arrayWithArray:topicList];
+                if (topicList.count==0&&page_collection==1) {
+                    
+                }
+                [self.collectionView reloadData];
+                isFirstCome = NO;
+                scrollLock = NO;
+            }];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.collectionView.mj_header endRefreshing];
+            });
+        }];
+        
+        //加载更多
+        _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            page_collection++;
+            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+                _totalPage_collection = totalPage;
+                if (page_collection>totalPage) {
+                    page_collection = totalPage;
+                    return;
+                }
+                for (int i=0; i<topicList.count; i++) {
+                    [self.dataArray_collection addObject:topicList[i]];
+                }
+                if (topicList.count==0&&page_collection==1) {
+                    
+                }
+                [self.collectionView reloadData];
+                isFirstCome = NO;
+                scrollLock = NO;
+            }];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.collectionView.mj_footer endRefreshing];
+            });
+        }];
     }
     return _collectionView;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray_collection[indexPath.row]];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UICollectionViewDataSource
