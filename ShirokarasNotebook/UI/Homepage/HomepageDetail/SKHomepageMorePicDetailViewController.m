@@ -18,7 +18,7 @@
 @property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) SKTitleBaseView *baseInfoView;
-@property (nonatomic, strong) UIWebView *articleView;
+@property (nonatomic, strong) UITextView *articleView;
 @property (nonatomic, strong) UIImageView *articleHeaderImageView;
 
 @property (nonatomic, strong) UIButton *repeaterButton;
@@ -141,7 +141,10 @@
         self.tableView.height = self.view.height-10;
         
         _articleHeaderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(155))];
-        [_articleHeaderImageView sd_setImageWithURL:[NSURL URLWithString:self.topic.images[0]] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
+        _articleHeaderImageView.contentMode = UIViewContentModeScaleAspectFill;
+        if (self.topic.images.count >0) {
+            [_articleHeaderImageView sd_setImageWithURL:[NSURL URLWithString:self.topic.images[0]] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
+        }
         _articleHeaderImageView.layer.masksToBounds = YES;
         [self.headerView addSubview:_articleHeaderImageView];
         
@@ -150,17 +153,23 @@
         [self.headerView addSubview:_baseInfoView];
         _headerView.height = _baseInfoView.bottom;
         
-        _articleView = [[UIWebView alloc] initWithFrame:CGRectMake(0, _articleHeaderImageView.bottom, self.view.width, 300)];
-        _articleView.delegate = self;
-        _articleView.opaque = NO;
+        
+        
+        _articleView = [[UITextView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), self.baseInfoView.bottom, self.view.frame.size.width-ROUND_WIDTH_FLOAT(30), 400)];
         _articleView.backgroundColor = [UIColor clearColor];
-        _articleView.dataDetectorTypes = UIDataDetectorTypeNone;
-        _articleView.scrollView.backgroundColor = [UIColor clearColor];
-        NSString *htmlString = [self htmlStringWithContent:self.topic.content];
-        [_articleView loadHTMLString:htmlString baseURL:nil];
-        //        NSString *padding = @"document.body.style.padding='6px 13px 0px 13px';";
-        //        [_articleView stringByEvaluatingJavaScriptFromString:padding];
+        // 获取html数据
+        NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}</style></head>%@",_articleView.width,_topic.content];
+        // 利用可变属性字符串来接收html数据
+        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+        // 给textView赋值的时候就得用attributedText来赋了
+        _articleView.attributedText = attributedString;
+        _articleView.height = _articleView.contentSize.height;
         [self.headerView addSubview:_articleView];
+        
+        [self.tableView beginUpdates];
+        self.headerView.height = self.baseInfoView.bottom+_articleView.contentSize.height;
+        [self.tableView setTableHeaderView:self.headerView];
+        [self.tableView endUpdates];
     }
     
     self.tableView.tableHeaderView = self.headerView;
@@ -184,8 +193,6 @@
             [self.tableView.mj_footer endRefreshing];
         });
     }];
-    
-    [_articleView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     
     //关注动作
     [[_baseInfoView.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -290,49 +297,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentSize"]) {
-        CGSize fittingSize = [_articleView sizeThatFits:CGSizeZero];
-        NSLog(@"WebSize(Observer): %@", NSStringFromCGSize(fittingSize));
-        _articleView.frame = CGRectMake(0, self.baseInfoView.bottom, fittingSize.width, fittingSize.height);
-        [self.tableView beginUpdates];
-        self.headerView.height = self.baseInfoView.bottom+fittingSize.height;
-        [self.tableView setTableHeaderView:self.headerView];
-        [self.tableView endUpdates];
-    }
-}
-
-- (NSString *)htmlStringWithContent:(NSString *)content {
-    
-    NSString *css =[NSString stringWithFormat:@"<html> \n"
-                    "<head> \n"
-                    "<style type=\"text/css\"> \n"
-                    "a{text-decoration: none;\n}"
-                    "</style> \n"
-                    "</head> \n"
-                    "<body font-family: '-apple-system','PingFangSC-Regular'; style=\"line-height:21px; font-size:14px\" text=\"#1F4035\" bgcolor=\"#FFFFFF\">\n"
-                    "<span style=\"font-family: \'-apple-system\',\'PingFangSC-Regular\';\">%@</span> \n"
-                    "</body> \n"
-                    "<span style=\"font-family: \'-apple-system\',\'PingFangSC-Regular\';\"> \n"
-                    
-                    "</html>",self.topic.content];
-    
-    NSString *htmlString = css;
-    return htmlString;
-}
-
-#pragma mark - WebView Delegate
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
-    NSLog(@"WebSize(didFinishLoad): %@", NSStringFromCGSize(fittingSize));
-    webView.frame = CGRectMake(0, self.baseInfoView.bottom, fittingSize.width, fittingSize.height);
-    [self.tableView beginUpdates];
-    self.headerView.height = self.baseInfoView.bottom+fittingSize.height;
-    [self.tableView setTableHeaderView:self.headerView];
-    [self.tableView endUpdates];
 }
 
 #pragma mark - UITableView Delegate

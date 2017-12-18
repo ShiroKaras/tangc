@@ -168,7 +168,9 @@ static const CGFloat kPhotoViewMargin = 12.0;
         [self.view addSubview:repostBackView];
 
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(54), ROUND_WIDTH_FLOAT(54))];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:self.topic.from?self.topic.from.images[0]:self.topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+        if (self.topic.images.count >0) {
+            [imageView sd_setImageWithURL:[NSURL URLWithString:self.topic.from?self.topic.from.images[0]:self.topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+        }
         imageView.layer.cornerRadius = 3;
         imageView.layer.masksToBounds = YES;
         imageView.contentMode = UIViewContentModeScaleToFill;

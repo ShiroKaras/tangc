@@ -172,6 +172,7 @@
 		11CDDE891FB1C678004A0812 /* SKHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE881FB1C677004A0812 /* SKHomepageViewController.m */; };
 		11CDDE8C1FB30B12004A0812 /* SKHomepageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */; };
 		11CDDE931FB597A9004A0812 /* SKNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CDDE921FB597A9004A0812 /* SKNavigationController.m */; };
+		11CECB851FE7A06500EECF10 /* SKTextWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CECB841FE7A06500EECF10 /* SKTextWebViewController.m */; };
 		11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5D66F1FB9511500ACB521 /* SKLoginRootViewController.m */; };
 		11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5D6721FB9512B00ACB521 /* SKLoginVerifyMobileViewController.m */; };
 		11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA1F1FB06142008D32E9 /* AppDelegate.m */; };
@@ -538,6 +539,8 @@
 		11CDDE8B1FB30B12004A0812 /* SKHomepageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKHomepageTableViewCell.m; sourceTree = "<group>"; };
 		11CDDE911FB597A9004A0812 /* SKNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKNavigationController.h; sourceTree = "<group>"; };
 		11CDDE921FB597A9004A0812 /* SKNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKNavigationController.m; sourceTree = "<group>"; };
+		11CECB831FE7A06500EECF10 /* SKTextWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKTextWebViewController.h; sourceTree = "<group>"; };
+		11CECB841FE7A06500EECF10 /* SKTextWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKTextWebViewController.m; sourceTree = "<group>"; };
 		11D5D66E1FB9511500ACB521 /* SKLoginRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLoginRootViewController.h; sourceTree = "<group>"; };
 		11D5D66F1FB9511500ACB521 /* SKLoginRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLoginRootViewController.m; sourceTree = "<group>"; };
 		11D5D6711FB9512B00ACB521 /* SKLoginVerifyMobileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLoginVerifyMobileViewController.h; sourceTree = "<group>"; };
@@ -982,6 +985,8 @@
 				11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */,
 				11B82D9B1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.h */,
 				11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */,
+				11CECB831FE7A06500EECF10 /* SKTextWebViewController.h */,
+				11CECB841FE7A06500EECF10 /* SKTextWebViewController.m */,
 			);
 			path = HomepageDetail;
 			sourceTree = "<group>";
@@ -1767,6 +1772,7 @@
 				11923ECF1FD8073A00136715 /* PSWeaker.m in Sources */,
 				11116BA31FE53A760082CC1F /* SKAboutViewController.m in Sources */,
 				11B82DAD1FBD386C006D9A26 /* CHTCollectionViewWaterfallHeader.m in Sources */,
+				11CECB851FE7A06500EECF10 /* SKTextWebViewController.m in Sources */,
 				1130408C1FB1A6200020C93D /* SKModel.m in Sources */,
 				1130401F1FB06F900020C93D /* MJExtensionConst.m in Sources */,
 				11A1E6021FCEC43F000D4D5B /* NSTimer+FXWeakTimer.m in Sources */,

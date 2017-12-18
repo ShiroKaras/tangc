@@ -119,7 +119,7 @@
     [cell.mCoverImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row].images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
     [cell.mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray[indexPath.row].userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
     cell.mUsernameLabel.text = self.dataArray[indexPath.row].userinfo.nickname;
-    [cell setTopic:self.dataArray[indexPath.row].content];
+    cell.topic = self.dataArray[indexPath.row];
     return cell;
 }
 

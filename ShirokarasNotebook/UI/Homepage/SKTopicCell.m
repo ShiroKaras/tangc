@@ -96,7 +96,9 @@
 
 
 - (void)setTopic:(SKTopic *)topic {
-    [_mCoverImageView sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    if (topic.images.count >0) {
+        [_mCoverImageView sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    }
     [_mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:topic.userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
     _mUsernameLabel.text = topic.userinfo.nickname;
     

@@ -117,7 +117,9 @@
                 _imageViewOnePic.layer.cornerRadius = 3;
                 _imageViewOnePic.layer.masksToBounds = YES;
                 _imageViewOnePic.contentMode = UIViewContentModeScaleAspectFill;
-                [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                if (topic.from.images.count>0) {
+                    [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                }
                 [self.contentView addSubview:_imageViewOnePic];
                 
                 _introduceLabel = [UILabel new];
@@ -153,7 +155,9 @@
                     imageView.layer.cornerRadius = 3;
                     imageView.layer.masksToBounds = YES;
                     imageView.contentMode = UIViewContentModeScaleAspectFill;
-                    [imageView sd_setImageWithURL:[NSURL URLWithString:topic.from.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                    if (topic.from.images.count >0) {
+                        [imageView sd_setImageWithURL:[NSURL URLWithString:topic.from.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                    }
                     [scrollView addSubview:imageView];
                 }
                 
@@ -178,7 +182,9 @@
                 _imageViewArticle.contentMode = UIViewContentModeScaleAspectFill;
                 _imageViewArticle.layer.cornerRadius = 5;
                 _imageViewArticle.layer.masksToBounds = YES;
-                [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                if (topic.from.images.count>0) {
+                    [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                }
                 [self.contentView addSubview:_imageViewArticle];
                 
                 _articleLabel = [UILabel new];
@@ -212,7 +218,9 @@
                 _imageViewOnePic.layer.cornerRadius = 3;
                 _imageViewOnePic.layer.masksToBounds = YES;
                 _imageViewOnePic.contentMode = UIViewContentModeScaleAspectFill;
-                [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                if (topic.images.count >0) {
+                    [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                }
                 [self.contentView addSubview:_imageViewOnePic];
                 
                 _introduceLabel = [UILabel new];
@@ -273,7 +281,9 @@
                 _imageViewArticle.contentMode = UIViewContentModeScaleAspectFill;
                 _imageViewArticle.layer.cornerRadius = 5;
                 _imageViewArticle.layer.masksToBounds = YES;
-                [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                if (topic.images.count >0) {
+                    [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                }
                 [self.contentView addSubview:_imageViewArticle];
                 
                 _articleLabel = [UILabel new];
