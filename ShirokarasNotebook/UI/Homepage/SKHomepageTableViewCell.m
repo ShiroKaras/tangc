@@ -81,7 +81,9 @@
     underLine.left = 10;
     
     NSString *content = @"";
-    if (topic.from) {
+    
+    //转发
+    if (topic.from && topic.from.id!=0) {
         content = topic.from.content;
         
         _repostLabel = [UILabel new];
@@ -149,13 +151,13 @@
                 [self.contentView addSubview:scrollView];
                 
                 //添加图片
-                for (int i=0; i<topic.images.count; i++) {
+                for (int i=0; i<topic.from.images.count; i++) {
                     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(129)*i, 0, ROUND_WIDTH_FLOAT(121), ROUND_WIDTH_FLOAT(121))];
                     imageView.tag = 100+i;
                     imageView.layer.cornerRadius = 3;
                     imageView.layer.masksToBounds = YES;
                     imageView.contentMode = UIViewContentModeScaleAspectFill;
-                    if (topic.from.images.count >0) {
+                    if (topic.from.images.count > 0) {
                         [imageView sd_setImageWithURL:[NSURL URLWithString:topic.from.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                     }
                     [scrollView addSubview:imageView];
@@ -178,7 +180,7 @@
                 break;
             }
             case SKHomepageTableViewCellTypeArticle:{
-                _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _repostLabel.bottom+ROUND_WIDTH_FLOAT(15)+ROUND_WIDTH_FLOAT(42), ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(75))];
+                _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _repostLabel.bottom+ROUND_WIDTH_FLOAT(15)+ROUND_WIDTH_FLOAT(42), ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(150))];
                 _imageViewArticle.contentMode = UIViewContentModeScaleAspectFill;
                 _imageViewArticle.layer.cornerRadius = 5;
                 _imageViewArticle.layer.masksToBounds = YES;
@@ -188,19 +190,20 @@
                 [self.contentView addSubview:_imageViewArticle];
                 
                 _articleLabel = [UILabel new];
-                _articleLabel.text = topic.from.content;
+                _articleLabel.text = topic.from.title;
                 _articleLabel.textColor = [UIColor whiteColor];
-                _articleLabel.font = PINGFANG_FONT_OF_SIZE(14);
-                CGSize labelSize = [topic.from.content boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+                _articleLabel.shadowOffset = CGSizeMake(1, 1);
+                _articleLabel.shadowColor = [UIColor lightGrayColor];
+                CGSize labelSize = [topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _articleLabel.size = labelSize;
                 _articleLabel.left = _imageViewArticle.left+ROUND_WIDTH_FLOAT(10);
-                _articleLabel.centerY = _imageViewArticle.centerY;
+                _articleLabel.bottom = _imageViewArticle.bottom-ROUND_WIDTH_FLOAT(10);
                 [self.contentView addSubview:_articleLabel];
                 
                 UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_label_article"]];
                 view.size = CGSizeMake(ROUND_WIDTH_FLOAT(38), ROUND_WIDTH_FLOAT(19));
                 view.right = _imageViewArticle.width;
-                view.centerY = _imageViewArticle.height/2;
+                view.top = 30;
                 [_imageViewArticle addSubview:view];
                 
                 underLine.top = _imageViewArticle.bottom+8;
@@ -210,7 +213,9 @@
             default:
                 break;
         }
-    } else {
+    }
+    //原创
+    else {
         content = topic.content;
         switch (type) {
             case SKHomepageTableViewCellTypeOnePic:{
@@ -277,7 +282,7 @@
                 break;
             }
             case SKHomepageTableViewCellTypeArticle:{
-                _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _baseInfoView.bottom, ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(75))];
+                _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _baseInfoView.bottom, ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(150))];
                 _imageViewArticle.contentMode = UIViewContentModeScaleAspectFill;
                 _imageViewArticle.layer.cornerRadius = 5;
                 _imageViewArticle.layer.masksToBounds = YES;
@@ -287,20 +292,20 @@
                 [self.contentView addSubview:_imageViewArticle];
                 
                 _articleLabel = [UILabel new];
-                _articleLabel.text = topic.content;
+                _articleLabel.text = topic.title;
                 _articleLabel.textColor = [UIColor whiteColor];
                 _articleLabel.shadowOffset = CGSizeMake(1, 1);
                 _articleLabel.shadowColor = [UIColor lightGrayColor];
-                CGSize labelSize = [topic.content boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+                CGSize labelSize = [topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _articleLabel.size = labelSize;
                 _articleLabel.left = _imageViewArticle.left+ROUND_WIDTH_FLOAT(10);
-                _articleLabel.centerY = _imageViewArticle.centerY;
+                _articleLabel.bottom = _imageViewArticle.bottom-ROUND_WIDTH_FLOAT(10);
                 [self.contentView addSubview:_articleLabel];
                 
                 UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_label_article"]];
                 view.size = CGSizeMake(ROUND_WIDTH_FLOAT(38), ROUND_WIDTH_FLOAT(19));
                 view.right = _imageViewArticle.width;
-                view.centerY = _imageViewArticle.height/2;
+                view.top = 30;
                 [_imageViewArticle addSubview:view];
                 
                 underLine.top = _imageViewArticle.bottom+8;
