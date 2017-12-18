@@ -36,5 +36,6 @@
 
 - (NSDictionary *)dictionaryWithJsonString;
 
++ (NSString *)filterHTML:(NSString *)html;
 @end
 
