@@ -284,7 +284,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [titleBackView addSubview:saveButton];
     saveButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(44), ROUND_WIDTH_FLOAT(44));
     saveButton.right = titleBackView.width -ROUND_WIDTH_FLOAT(15);
-    saveButton.centerY = titleBackView.height/2;
+    saveButton.top = kDevice_Is_iPhoneX?44:20;
 
     [[saveButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         if ([_textView.text isEqualToString:@""]) {

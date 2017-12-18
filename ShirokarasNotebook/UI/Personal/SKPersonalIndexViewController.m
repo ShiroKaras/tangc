@@ -19,6 +19,8 @@
 #define AUTH_BACK_VIEW_TAG 100
 #define AUTH_LABEL 101
 
+#define TITLEVIEW_HEIGHT ROUND_HEIGHT_FLOAT(44)
+
 @interface SKPersonalIndexViewController ()
 @property (nonatomic, strong) UIView *authBackView;
 @property (nonatomic, strong) UIImageView *avatarImageView;
@@ -75,7 +77,7 @@
     tLabel.centerX = tView.width/2;
     tLabel.centerY = tView.height/2;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20 +ROUND_WIDTH_FLOAT(44), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?44:20 +ROUND_WIDTH_FLOAT(44)))];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?(44+TITLEVIEW_HEIGHT):(20+TITLEVIEW_HEIGHT)), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?(44+TITLEVIEW_HEIGHT):(20+TITLEVIEW_HEIGHT)))];
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(566));
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;

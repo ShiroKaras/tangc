@@ -71,7 +71,7 @@
         }
     }
     
-    CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(40));
+    CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(50));
     
     //按钮、内容的透明分割线
     UIView *underLine = [UIView new];
@@ -89,9 +89,9 @@
         _repostLabel = [UILabel new];
         _repostLabel.text = topic.content;
         _repostLabel.textColor = COMMON_TEXT_COLOR;
-        _repostLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+        _repostLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
         _repostLabel.numberOfLines = 2;
-        CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+        CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
         _repostLabel.size = labelSize;
         _repostLabel.left = ROUND_WIDTH_FLOAT(15);
         _repostLabel.top = _baseInfoView.bottom;
@@ -140,8 +140,8 @@
                     _introduceLabel.text = topic.from.content;
                     _introduceLabel.textColor = COMMON_TEXT_COLOR;
                     _introduceLabel.numberOfLines = 2;
-                    _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
-                    CGSize labelSize = [topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+                    _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+                    CGSize labelSize = [topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                     _introduceLabel.size = labelSize;
                     _introduceLabel.top = _imageViewOnePic.bottom+15;
                     _introduceLabel.left = 15;
@@ -180,8 +180,8 @@
                     _introduceLabel.text = topic.from.content;
                     _introduceLabel.textColor = COMMON_TEXT_COLOR;
                     _introduceLabel.numberOfLines = 0;
-                    _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
-                    CGSize labelSize = [topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+                    _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+                    CGSize labelSize = [topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                     _introduceLabel.size = labelSize;
                     _introduceLabel.top = scrollView.bottom+15;
                     _introduceLabel.left = 15;
@@ -246,8 +246,8 @@
                 _introduceLabel.text = topic.content;
                 _introduceLabel.textColor = COMMON_TEXT_COLOR;
                 _introduceLabel.numberOfLines = 2;
-                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
-                CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+                CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _introduceLabel.size = labelSize;
                 _introduceLabel.top = _imageViewOnePic.bottom+15;
                 _introduceLabel.left = 15;
@@ -284,8 +284,8 @@
                 _introduceLabel.text = topic.content;
                 _introduceLabel.textColor = COMMON_TEXT_COLOR;
                 _introduceLabel.numberOfLines = 0;
-                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
-                CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+                CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _introduceLabel.size = labelSize;
                 _introduceLabel.top = scrollView.bottom+15;
                 _introduceLabel.left = 15;
@@ -349,7 +349,7 @@
     [_repeaterButton setTitle:topic.transmit_num forState:UIControlStateNormal];
     [_repeaterButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
-    _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [_repeaterButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _repeaterButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _repeaterButton.left = 0;
@@ -361,7 +361,7 @@
     [_commentButton setTitle:topic.comment_num forState:UIControlStateNormal];
     [_commentButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
-    _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [_commentButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _commentButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _commentButton.left = _repeaterButton.right;
@@ -373,7 +373,7 @@
     [_favButton setTitle:topic.thumb_num forState:UIControlStateNormal];
     [_favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
-    _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [_favButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _favButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _favButton.left = _commentButton.right;
@@ -408,11 +408,11 @@
                                                                        documentAttributes:nil error:nil];
     // 3.遍历结果
     for (NSTextCheckingResult *result in results) {
-        //set font
-        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(12) range:NSMakeRange(0, content.length)];
         // 设置颜色
         [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
     }
+    //set font
+    [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(14) range:NSMakeRange(0, content.length)];
     label.attributedText = attrStr;
 }
 

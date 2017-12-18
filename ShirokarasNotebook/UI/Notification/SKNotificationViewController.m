@@ -94,7 +94,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 //    tLabel.centerY = tView.height/2;
     
     //TableView
-    _tableView_notification = [[UITableView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?44:20)+TITLEVIEW_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT-49-((kDevice_Is_iPhoneX?44:20)+TITLEVIEW_HEIGHT)) style:UITableViewStylePlain];
+    _tableView_notification = [[UITableView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?(44+TITLEVIEW_HEIGHT):(20+TITLEVIEW_HEIGHT)), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?(44+TITLEVIEW_HEIGHT):(20+TITLEVIEW_HEIGHT))) style:UITableViewStylePlain];
     _tableView_notification.delegate = self;
     _tableView_notification.dataSource = self;
     _tableView_notification.separatorStyle = UITableViewCellSeparatorStyleNone;

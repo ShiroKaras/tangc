@@ -241,7 +241,7 @@
     [_repeaterButton setTitle:@"转发" forState:UIControlStateNormal];
     [_repeaterButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_repeaterButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
-    _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _repeaterButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [_repeaterButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _repeaterButton.size = CGSizeMake(self.view.width/3, 49);
     _repeaterButton.left = 0;
@@ -253,7 +253,7 @@
     [_commentButton setTitle:@"评论" forState:UIControlStateNormal];
     [_commentButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_commentButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
-    _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [_commentButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _commentButton.size = CGSizeMake(self.view.width/3, 49);
     _commentButton.left = _repeaterButton.right;
@@ -265,7 +265,7 @@
     [_favButton setTitle:@"赞" forState:UIControlStateNormal];
     [_favButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
     [_favButton setBackgroundImage:[UIImage imageWithColor:COMMON_HIGHLIGHT_BG_COLOR] forState:UIControlStateHighlighted];
-    _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+    _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [_favButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _favButton.size = CGSizeMake(self.view.width/3, 49);
     _favButton.left = _commentButton.right;
