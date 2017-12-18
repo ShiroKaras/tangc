@@ -227,7 +227,7 @@ typedef void (^SKUpdateCallback)(NSString *string);
     UIButton *saveButton = [UIButton new];
     [saveButton setTitle:@"保存" forState:UIControlStateNormal];
     [saveButton setTitleColor:[UIColor colorWithHex:0x6B827A] forState:UIControlStateNormal];
-    saveButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(15);
+    saveButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     [titleBackView addSubview:saveButton];
     saveButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(30), ROUND_WIDTH_FLOAT(21));
     saveButton.right = titleBackView.width -ROUND_WIDTH_FLOAT(15);

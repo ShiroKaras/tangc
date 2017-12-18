@@ -409,7 +409,7 @@
     // 3.遍历结果
     for (NSTextCheckingResult *result in results) {
         //set font
-        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(12) range:NSMakeRange(0, content.length)];
+        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(12) range:NSMakeRange(0, content.length)];
         // 设置颜色
         [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
     }

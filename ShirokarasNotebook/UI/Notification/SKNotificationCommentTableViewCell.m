@@ -58,7 +58,7 @@
         _usernameLabel = [UILabel new];
         _usernameLabel.text = @"---";
         _usernameLabel.textColor = COMMON_TEXT_COLOR;
-        _usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         [_usernameLabel sizeToFit];
         _usernameLabel.left = _avatarImageView.right+10;
         _usernameLabel.centerY = _avatarImageView.centerY;
@@ -97,7 +97,7 @@
         _contentLabel = [UILabel new];
         _contentLabel.text = @"----------";
         _contentLabel.textColor = COMMON_TEXT_CONTENT_COLOR;
-        _contentLabel.font = PINGFANG_FONT_OF_SIZE(11);
+        _contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(11);
         _contentLabel.numberOfLines = 0;
         _contentLabel.size = CGSizeMake(ROUND_WIDTH_FLOAT(197), ROUND_WIDTH_FLOAT(50));
         [_contentLabel sizeToFit];
@@ -113,7 +113,7 @@
         _dateLabel = [UILabel new];
         _dateLabel.text = @"2017/11/11";
         _dateLabel.textColor = COMMON_TEXT_PLACEHOLDER_COLOR;
-        _dateLabel.font = PINGFANG_FONT_OF_SIZE(9);
+        _dateLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(9);
         [_dateLabel sizeToFit];
         _dateLabel.left = _usernameLabel.left;
         _dateLabel.top = _contentLabel.bottom+10;

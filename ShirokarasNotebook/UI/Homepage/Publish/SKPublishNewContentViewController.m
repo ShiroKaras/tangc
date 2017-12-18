@@ -115,7 +115,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     //=========================文本部分=========================
 
     self.textView = [[UITextView alloc] initWithFrame:CGRectMake(15, ROUND_WIDTH_FLOAT(15), self.view.width-30, ROUND_WIDTH_FLOAT(105))];
-    _textView.font = PINGFANG_FONT_OF_SIZE(14);
+    _textView.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
     _textView.backgroundColor = [UIColor whiteColor];
     [self.scrollView addSubview:_textView];
     
@@ -181,7 +181,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
         UILabel *usernameLabel = [UILabel new];
         usernameLabel.text = self.topic.from?self.topic.from.userinfo.nickname:self.topic.userinfo.nickname;
         usernameLabel.textColor = COMMON_TEXT_COLOR;
-        usernameLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         [usernameLabel sizeToFit];
         usernameLabel.top = imageView.top;
         usernameLabel.left = imageView.right+ROUND_WIDTH_FLOAT(12);
@@ -190,7 +190,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
         UILabel *contentLabel = [UILabel new];
         contentLabel.text = self.topic.from?self.topic.from.content:self.topic.content;
         contentLabel.textColor = COMMON_TEXT_COLOR;
-        contentLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         contentLabel.numberOfLines = 2;
         contentLabel.size = CGSizeMake(ROUND_WIDTH_FLOAT(206), ROUND_WIDTH_FLOAT(36));
         contentLabel.bottom = imageView.bottom;
@@ -280,20 +280,42 @@ static const CGFloat kPhotoViewMargin = 12.0;
     UIButton *saveButton = [UIButton new];
     [saveButton setTitle:@"发布" forState:UIControlStateNormal];
     [saveButton setTitleColor:COMMON_TEXT_CONTENT_COLOR forState:UIControlStateNormal];
-    saveButton.titleLabel.font = PINGFANG_FONT_OF_SIZE(15);
+    saveButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     [titleBackView addSubview:saveButton];
     saveButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(44), ROUND_WIDTH_FLOAT(44));
     saveButton.right = titleBackView.width -ROUND_WIDTH_FLOAT(15);
     saveButton.centerY = titleBackView.height/2;
 
     [[saveButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if ([_textView.text isEqualToString:@""]) {
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                           message:@"内容不能为空"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      [self.navigationController popViewControllerAnimated:YES];
+                                                                  }];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            return;
+        }
         if (_type == SKPublishTypeNew) {
             SKUserPost *userpost = [SKUserPost new];
             if ([self.textView.text isEqualToString:@""]||self.textView.text==nil)  userpost.content = @"转发";
             else   userpost.content = self.textView.text;
 
             if (self.postImageArray.count == 0) {
-                NSLog(@"添加图片");
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                               message:@"图片不能为空"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                                      handler:^(UIAlertAction * action) {
+                                                                          [self.navigationController popViewControllerAnimated:YES];
+                                                                      }];
+                [alert addAction:defaultAction];
+                [self presentViewController:alert animated:YES completion:nil];
                 return;
             } else if (self.postImageArray.count==1)
                 userpost.type = 1;
@@ -304,7 +326,9 @@ static const CGFloat kPhotoViewMargin = 12.0;
             
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
-                [self.navigationController popViewControllerAnimated:YES];
+                if (response.errcode==0) {
+                    [self success];
+                }
             }];
         } else if (_type == SKPublishTypeRepost) {
             SKUserPost *userpost = [SKUserPost new];
@@ -315,7 +339,9 @@ static const CGFloat kPhotoViewMargin = 12.0;
             
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
-                [self.navigationController popViewControllerAnimated:YES];
+                if (response.errcode==0) {
+                    [self success];
+                }
             }];
         } else if (_type == SKPublishTypeComment) {
             SKComment *comment = [SKComment new];
@@ -324,11 +350,26 @@ static const CGFloat kPhotoViewMargin = 12.0;
             
             [[[SKServiceManager sharedInstance] topicService] postCommentWithComment:comment callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
-                [self.navigationController popViewControllerAnimated:YES];
+                if (response.errcode==0) {
+                    [self success];
+                }
             }];
         }
 
     }];
+}
+
+- (void)success {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:@"确认删除？"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [self.navigationController popViewControllerAnimated:YES];
+                                                          }];
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)updateTextViewWithString:(NSString*)x {
@@ -358,7 +399,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
         NSLog(@"%@  %@",NSStringFromRange(result.range),[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]);
         [self.to_users addObject:[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]];
         //set font
-        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
+        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
         // 设置颜色
         [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
     }
