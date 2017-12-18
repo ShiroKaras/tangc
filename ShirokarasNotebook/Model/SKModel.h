@@ -86,6 +86,7 @@
 @property (nonatomic, copy) NSString *source_id;
 @property (nonatomic, strong) NSArray<SKUserInfo*>* at_users;
 @property (nonatomic, strong) SKUserInfo *userinfo;
+@property (nonatomic, assign) BOOL is_del;
 @end
 
 //内容Item
@@ -104,8 +105,9 @@
 @property (nonatomic, assign) NSInteger is_thumb;
 @property (nonatomic, strong) NSArray<SKUserInfo*>* at_users;
 @property (nonatomic, strong) SKUserInfo *userinfo;
-@property (nonatomic, strong) SKTopicFrom *from;
+@property (nonatomic, strong) SKTopic *from;
 @property (nonatomic, strong) NSArray *topics;
+@property (nonatomic, assign) BOOL is_del;
 @end
 
 //标签
