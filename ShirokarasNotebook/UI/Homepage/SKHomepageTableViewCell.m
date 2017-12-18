@@ -132,7 +132,7 @@
                     _imageViewOnePic.layer.masksToBounds = YES;
                     _imageViewOnePic.contentMode = UIViewContentModeScaleAspectFill;
                     if (topic.from.images.count>0) {
-                        [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                        [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                     }
                     [self.contentView addSubview:_imageViewOnePic];
                     
