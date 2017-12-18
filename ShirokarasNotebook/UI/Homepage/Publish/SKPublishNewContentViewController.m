@@ -169,7 +169,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
 
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(54), ROUND_WIDTH_FLOAT(54))];
         if (self.topic.images.count >0) {
-            [imageView sd_setImageWithURL:[NSURL URLWithString:self.topic.from?self.topic.from.images[0]:self.topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:self.topic.from.id!=0?self.topic.from.images[0]:self.topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
         }
         imageView.layer.cornerRadius = 3;
         imageView.layer.masksToBounds = YES;
@@ -179,7 +179,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
         imageView.centerY = repostBackView.height/2;
 
         UILabel *usernameLabel = [UILabel new];
-        usernameLabel.text = self.topic.from?self.topic.from.userinfo.nickname:self.topic.userinfo.nickname;
+        usernameLabel.text = self.topic.from.id!=0?self.topic.from.userinfo.nickname:self.topic.userinfo.nickname;
         usernameLabel.textColor = COMMON_TEXT_COLOR;
         usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         [usernameLabel sizeToFit];
@@ -188,7 +188,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
         [repostBackView addSubview:usernameLabel];
 
         UILabel *contentLabel = [UILabel new];
-        contentLabel.text = self.topic.from?self.topic.from.content:self.topic.content;
+        contentLabel.text = self.topic.from.id!=0?self.topic.from.content:self.topic.content;
         contentLabel.textColor = COMMON_TEXT_COLOR;
         contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         contentLabel.numberOfLines = 2;
@@ -294,7 +294,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
             
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
-                                                                      [self.navigationController popViewControllerAnimated:YES];
+                                                                      
                                                                   }];
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
@@ -312,7 +312,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
                 
                 UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
                                                                       handler:^(UIAlertAction * action) {
-                                                                          [self.navigationController popViewControllerAnimated:YES];
+                                                                          
                                                                       }];
                 [alert addAction:defaultAction];
                 [self presentViewController:alert animated:YES completion:nil];
@@ -361,7 +361,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
 
 - (void)success {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
-                                                                   message:@"确认删除？"
+                                                                   message:@"发布成功"
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault

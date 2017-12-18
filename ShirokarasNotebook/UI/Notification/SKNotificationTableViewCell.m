@@ -42,6 +42,7 @@
         _avatarImageView.backgroundColor = COMMON_SEPARATOR_COLOR;
         _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(15);
         _avatarImageView.layer.masksToBounds = YES;
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
         _avatarImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(30), ROUND_WIDTH_FLOAT(30));
         _avatarImageView.left = ROUND_WIDTH_FLOAT(15);
         _avatarImageView.top = ROUND_WIDTH_FLOAT(17.5);

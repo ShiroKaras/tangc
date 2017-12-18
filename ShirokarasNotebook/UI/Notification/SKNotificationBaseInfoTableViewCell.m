@@ -43,6 +43,7 @@
         _avatarImageView.backgroundColor = COMMON_SEPARATOR_COLOR;
         _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(15);
         _avatarImageView.layer.masksToBounds = YES;
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
         _avatarImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(30), ROUND_WIDTH_FLOAT(30));
         _avatarImageView.left = ROUND_WIDTH_FLOAT(15);
         _avatarImageView.top = ROUND_WIDTH_FLOAT(17.5);
@@ -82,6 +83,7 @@
         _thumbImageView.image = [UIImage imageNamed:@"MaskCopy"];
         _thumbImageView.layer.cornerRadius = 3;
         _thumbImageView.layer.masksToBounds = YES;
+        _thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
         _thumbImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(43), ROUND_WIDTH_FLOAT(43));
         _thumbImageView.top = ROUND_WIDTH_FLOAT(15);
         _thumbImageView.right = SCREEN_WIDTH -ROUND_WIDTH_FLOAT(15);
@@ -94,7 +96,7 @@
         _dateLabel = [UILabel new];
         _dateLabel.text = @"2017/11/11";
         _dateLabel.textColor = COMMON_TEXT_PLACEHOLDER_COLOR;
-        _dateLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(9);
+        _dateLabel.font = PINGFANG_FONT_OF_SIZE(9);
         [_dateLabel sizeToFit];
         _dateLabel.left = _usernameLabel.left;
         _dateLabel.top = _usernameLabel.bottom+10;

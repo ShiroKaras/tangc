@@ -84,7 +84,7 @@
     }
 #endif
     
-    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.from?_topic.from.id:_topic.id callback:^(BOOL success, SKTopic *topic) {
+    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.from.id!=0?_topic.from.id:_topic.id callback:^(BOOL success, SKTopic *topic) {
         self.topic = topic;
         [self createUI];
     }];
@@ -103,14 +103,18 @@
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.headerView.width-10, self.headerView.height-ROUND_WIDTH_FLOAT(20))];
         backView.backgroundColor = [UIColor whiteColor];
         [self.headerView addSubview:backView];
+        
+        //用户信息
         _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
         _baseInfoView.backgroundColor = [UIColor whiteColor];
-        _baseInfoView.userInfo = _topic.from?_topic.from.userinfo:_topic.userinfo;
+        _baseInfoView.userInfo = _topic.from.id!=0?_topic.from.userinfo:_topic.userinfo;
+        _baseInfoView.dateLabel.text = self.topic.add_time;
+        [_baseInfoView.dateLabel sizeToFit];
         [backView addSubview:_baseInfoView];
         
         CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(40));
         
-        NSString *contentText = _topic.from?_topic.from.content:_topic.content;
+        NSString *contentText = _topic.from.id!=0?_topic.from.content:_topic.content;
         UILabel *contentLabel = [UILabel new];
         contentLabel.text = contentText;
         contentLabel.textColor = COMMON_TEXT_COLOR;
@@ -122,7 +126,7 @@
         contentLabel.left = ROUND_WIDTH_FLOAT(15);
         [backView addSubview:contentLabel];
         
-        NSArray *imagesArray = _topic.from?_topic.from.images:_topic.images;
+        NSArray *imagesArray = _topic.from.id!=0?_topic.from.images:_topic.images;
         float width = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(30+11))/3;
         for (int i=0; i<imagesArray.count; i++) {
             int j = i%3;
@@ -144,6 +148,7 @@
         self.tableView.top = 0;
         self.tableView.height = self.view.height-10;
         
+        //文章头图
         _articleHeaderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(155))];
         _articleHeaderImageView.contentMode = UIViewContentModeScaleAspectFill;
         if (self.topic.images.count >0) {
@@ -152,13 +157,15 @@
         _articleHeaderImageView.layer.masksToBounds = YES;
         [self.headerView addSubview:_articleHeaderImageView];
         
+        //用户信息
         _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, _articleHeaderImageView.bottom, _headerView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
-        _baseInfoView.userInfo = _topic.from?_topic.from.userinfo:_topic.userinfo;
+        _baseInfoView.userInfo = _topic.from.id!=0?_topic.from.userinfo:_topic.userinfo;
         [self.headerView addSubview:_baseInfoView];
+        _baseInfoView.dateLabel.text = self.topic.add_time;
+        [_baseInfoView.dateLabel sizeToFit];
         _headerView.height = _baseInfoView.bottom;
         
-        
-        
+        //文章
         _articleView = [[UITextView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), self.baseInfoView.bottom, self.view.frame.size.width-ROUND_WIDTH_FLOAT(30), 400)];
         _articleView.backgroundColor = [UIColor clearColor];
         // 获取html数据

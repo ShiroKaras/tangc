@@ -63,6 +63,8 @@
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
     self.usernameLabel.text = userInfo.nickname;
     [self.usernameLabel sizeToFit];
+    _followButton.hidden = [[SKStorageManager sharedInstance].loginUser.nickname isEqualToString:userInfo.nickname];
+    
 //    [_followButton setBackgroundImage:userInfo.is_follow?[UIImage imageNamed:@"btn_homepage_follow_highlight"]:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
 }
 
