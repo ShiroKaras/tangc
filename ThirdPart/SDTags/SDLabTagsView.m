@@ -44,6 +44,8 @@
     sdTagsView = [[UIScrollView alloc] init];
     sdTagsView.frame  = CGRectMake(0, 0, mDeviceWidth, ROUND_WIDTH_FLOAT(68));
     sdTagsView.contentSize = CGSizeMake(1000, LABEL_HEIGHT*2+ROUND_WIDTH_FLOAT(8));
+    sdTagsView.showsHorizontalScrollIndicator = NO;
+    sdTagsView.showsVerticalScrollIndicator = NO;
 //    sdTagsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self addSubview:sdTagsView];
 }
@@ -68,22 +70,15 @@
         CGFloat labWidth = [SDHelper widthForLabel:model.name fontSize:ROUND_WIDTH_FLOAT(12)]+ROUND_WIDTH_FLOAT(30);
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(PADDING_WIDTH*j + width, row * (LABEL_HEIGHT+PADDING_WIDTH), labWidth, LABEL_HEIGHT)];
-        view.backgroundColor = [UIColor colorWithHex:0x98cb99];
+        view.backgroundColor = [UIColor whiteColor];
         view.layer.cornerRadius = LABEL_HEIGHT/2;
         view.layer.masksToBounds = YES;
         [sdTagsView addSubview:view];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-        [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
-            if ([self.delegate respondsToSelector:@selector(didClickTagAtIndex:)]) {
-                [self.delegate didClickTagAtIndex:i];
-            }
-        }];
-        [view addGestureRecognizer:tap];
         
         //文本1
         UILabel *label = [[UILabel alloc] init];
-        label.textColor = [UIColor colorWithHex:0xF0F4F8];
+        label.textColor = COMMON_TEXT_COLOR;
         label.text = [NSString stringWithFormat:@"#%@#",model.name];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
@@ -91,22 +86,40 @@
         [label sizeToFit];
         label.centerY = view.height/2;
         label.centerX = view.width/2;
-
         [view addSubview:label];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+            if ([self.delegate respondsToSelector:@selector(didClickTagAtIndex:)]) {
+                for (UIView *mView in sdTagsView.subviews) {
+                    mView.backgroundColor = [UIColor whiteColor];
+                    for (UILabel *mLabel in mView.subviews) {
+                        mLabel.textColor = COMMON_TEXT_COLOR;
+                    }
+                }
+                
+                view.backgroundColor = [UIColor colorWithHex:0x98cb99];
+                label.textColor = [UIColor whiteColor];
+                [self.delegate didClickTagAtIndex:i];
+            }
+        }];
+        [view addGestureRecognizer:tap];
         
         width = width + labWidth;
         
         j++;
         
         //换行条件
-        if (width > mDeviceWidth - ROUND_WIDTH_FLOAT(30)) {
-            j = 0;
-            width = ROUND_WIDTH_FLOAT(15);
-            row++;
-            view.frame = CGRectMake(PADDING_WIDTH*j + width,row * (LABEL_HEIGHT+PADDING_WIDTH), labWidth, LABEL_HEIGHT);
-            width = width + labWidth;
-            j++;
+        if (row2<row1) {
+            row = 1;
+            view.frame = CGRectMake(row2+PADDING_WIDTH,row * (LABEL_HEIGHT+PADDING_WIDTH), labWidth, LABEL_HEIGHT);
+            row2 = view.right;
+        } else {
+            row = 0;
+            view.frame = CGRectMake(row1+PADDING_WIDTH,row * (LABEL_HEIGHT+PADDING_WIDTH), labWidth, LABEL_HEIGHT);
+            row1 = view.right;
         }
+        sdTagsView.contentSize = CGSizeMake(MAX(row1, row2)+ROUND_WIDTH_FLOAT(15), LABEL_HEIGHT*2+PADDING_WIDTH);
     }
 }
 

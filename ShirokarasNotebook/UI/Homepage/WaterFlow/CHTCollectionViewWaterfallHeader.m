@@ -30,11 +30,9 @@
           
           SDLabTagsView *sdTagsView =[SDLabTagsView sdLabTagsViewWithTagsArr:self.dataArray];
           sdTagsView.delegate = self;
-          sdTagsView.frame =CGRectMake(0,_mImageView.bottom+ROUND_WIDTH_FLOAT(22+15),self.width,ROUND_WIDTH_FLOAT(100));
+          sdTagsView.frame =CGRectMake(0,_mImageView.bottom+ROUND_WIDTH_FLOAT(22+15),self.width,ROUND_WIDTH_FLOAT(68));
           [self addSubview:sdTagsView];
       }];
-      
-//      NSArray *array = @[@"#最美手账#", @"最萌摆拍小物", @"每天一张生活日常", @"好物分享"];
   }
   return self;
 }
