@@ -51,6 +51,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     isJuhua = NO;
     self.dataArray = [NSMutableArray array];
     self.view.backgroundColor = COMMON_BG_COLOR;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
  
@@ -91,7 +92,6 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     [headerView addSubview:blankView];
     self.tableView.tableHeaderView = headerView;
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
 #ifdef __IPHONE_11_0
     if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
         if (@available(iOS 11.0, *)) {

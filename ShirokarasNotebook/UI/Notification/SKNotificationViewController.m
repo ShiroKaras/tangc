@@ -316,7 +316,7 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
-        if (_selectedType!=SKNotificationSelectedTypeNotification) {
+        if (_selectedType==SKNotificationSelectedTypeNotification) {
             [[[SKServiceManager sharedInstance] profileService] getUserQueueListWithType:self.selectedType+1 callback:^(BOOL success, NSArray<SKNotification *> *queueList, NSInteger totalPage) {
                 _totalPage = totalPage;
                 self.dataArray = [NSMutableArray arrayWithArray:queueList];
