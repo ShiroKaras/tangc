@@ -14,7 +14,7 @@
  */
 + (CGFloat )widthForLabel:(NSString *)text fontSize:(CGFloat)font
 {
-    CGSize size = [text boundingRectWithSize:CGSizeMake(MAXFLOAT, ROUND_WIDTH_FLOAT(46)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+    CGSize size = [text boundingRectWithSize:CGSizeMake(MAXFLOAT, ROUND_WIDTH_FLOAT(30)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
 //    CGSize size = [text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:font], NSFontAttributeName, nil]];
     return size.width;
 }

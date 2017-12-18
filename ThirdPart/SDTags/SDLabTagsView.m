@@ -9,9 +9,13 @@
 #import "SDLabTagsView.h"
 #import "SDHeader.h"
 #import "SDHelper.h"
+
+#define LABEL_HEIGHT ROUND_WIDTH_FLOAT(30)
+#define PADDING_WIDTH ROUND_WIDTH_FLOAT(8)
+
 @interface SDLabTagsView ()
 {
-    UIView *sdTagsView;
+    UIScrollView *sdTagsView;
 }
 @property (nonatomic,strong)UILabel *tagsLab;
 @end
@@ -37,10 +41,10 @@
 
 -(void)setUP{
     // 创建标签容器
-    sdTagsView = [[UIView alloc] init];
-    sdTagsView.frame  = CGRectMake(0, 0, mDeviceWidth, ROUND_WIDTH_FLOAT(100));
-    
-    sdTagsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    sdTagsView = [[UIScrollView alloc] init];
+    sdTagsView.frame  = CGRectMake(0, 0, mDeviceWidth, ROUND_WIDTH_FLOAT(68));
+    sdTagsView.contentSize = CGSizeMake(1000, LABEL_HEIGHT*2+ROUND_WIDTH_FLOAT(8));
+//    sdTagsView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self addSubview:sdTagsView];
 }
 
@@ -56,12 +60,16 @@
     int j = 0;
     int row = 0;
     
+    int row1 = 0;
+    int row2 = 0;
+    
     for (int i = 0 ; i < arr.count; i++) {
         SKTag *model =arr[i];
-        CGFloat labWidth = [SDHelper widthForLabel:model.name fontSize:ROUND_WIDTH_FLOAT(12)]+ROUND_WIDTH_FLOAT(40);
+        CGFloat labWidth = [SDHelper widthForLabel:model.name fontSize:ROUND_WIDTH_FLOAT(12)]+ROUND_WIDTH_FLOAT(30);
         
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5*j + width, row * ROUND_WIDTH_FLOAT(46+8), labWidth, ROUND_WIDTH_FLOAT(46))];
-        view.layer.cornerRadius =3;
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(PADDING_WIDTH*j + width, row * (LABEL_HEIGHT+PADDING_WIDTH), labWidth, LABEL_HEIGHT)];
+        view.backgroundColor = [UIColor colorWithHex:0x98cb99];
+        view.layer.cornerRadius = LABEL_HEIGHT/2;
         view.layer.masksToBounds = YES;
         [sdTagsView addSubview:view];
         
@@ -83,27 +91,19 @@
         [label sizeToFit];
         label.centerY = view.height/2;
         label.centerX = view.width/2;
-        
-        //添加渐变
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = view.bounds;
-        gradient.colors = [NSArray arrayWithObjects:
-                           (id)[UIColor colorWithHex:0x72AFD3].CGColor,
-                           (id)[UIColor colorWithHex:0x37ECBA].CGColor, nil];
-        gradient.startPoint = CGPointMake(0, 1);
-        gradient.endPoint = CGPointMake(1, 0);
-        gradient.locations = @[@0.0, @1];
-        [view.layer addSublayer:gradient];
+
         [view addSubview:label];
         
         width = width + labWidth;
         
         j++;
+        
+        //换行条件
         if (width > mDeviceWidth - ROUND_WIDTH_FLOAT(30)) {
             j = 0;
             width = ROUND_WIDTH_FLOAT(15);
             row++;
-            view.frame = CGRectMake(5*j + width,row * ROUND_WIDTH_FLOAT(46+8), labWidth, ROUND_WIDTH_FLOAT(46));
+            view.frame = CGRectMake(PADDING_WIDTH*j + width,row * (LABEL_HEIGHT+PADDING_WIDTH), labWidth, LABEL_HEIGHT);
             width = width + labWidth;
             j++;
         }
