@@ -72,6 +72,10 @@
     return [NSString stringWithFormat:@"%@/api/article/add", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)deleteArticle {
+    return [NSString stringWithFormat:@"%@/api/article/delete", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)postLogin {
     return [NSString stringWithFormat:@"%@/api/post_login", [[ServerConfiguration sharedInstance] appHost]];
 }

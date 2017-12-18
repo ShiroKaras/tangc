@@ -37,4 +37,6 @@ typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
 - (void)getCommentListWithArticleID:(NSInteger)articleID page:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKCommentListCallback)callback;
 //发送评论
 - (void)postCommentWithComment:(SKComment*)comment callback:(SKResponseCallback)callback;
+//删除
+- (void)deleteArticleWithArticleID:(NSInteger)aid callback:(SKResponseCallback)callback;
 @end

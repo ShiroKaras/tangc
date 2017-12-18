@@ -191,4 +191,13 @@
     }];
 }
 
+- (void)deleteArticleWithArticleID:(NSInteger)aid callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"article_id" : @(aid),
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager deleteArticle] callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
+    }];
+}
+
 @end

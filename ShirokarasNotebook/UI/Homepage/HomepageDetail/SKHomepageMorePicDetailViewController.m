@@ -25,6 +25,8 @@
 @property (nonatomic, strong) UIButton *commentButton;
 @property (nonatomic, strong) UIButton *favButton;
 
+@property (nonatomic, strong) UIButton *delButton;
+
 @end
 
 @implementation SKHomepageMorePicDetailViewController {
@@ -32,6 +34,8 @@
     NSInteger     _totalPage;//总页数
     BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
     BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
+    
+    BOOL isShowDelButton;
 }
 
 - (instancetype)initWithTopic:(SKTopic*)topic {
@@ -293,6 +297,68 @@
         }
     }];
     
+    isShowDelButton = NO;
+    
+    UIButton *moreButton = [UIButton new];
+    [moreButton setImage:[UIImage imageNamed:@"btn_detailpage_share"] forState:UIControlStateNormal];
+    [moreButton setImage:[UIImage imageNamed:@"btn_detailpage_share_highlight"] forState:UIControlStateHighlighted];
+    moreButton.size = CGSizeMake(44, 44);
+    moreButton.top = 20;
+    moreButton.right = self.view.right-10;
+    [self.view addSubview:moreButton];
+    [[moreButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if (!isShowDelButton) {
+            [UIView animateWithDuration:0.2 animations:^{
+                _delButton.height = 44;
+            } completion:^(BOOL finished) {
+                isShowDelButton = YES;
+            }];
+        } else {
+            [UIView animateWithDuration:0.2 animations:^{
+                _delButton.height = 0;
+            } completion:^(BOOL finished) {
+                isShowDelButton = NO;
+            }];
+        }
+    }];
+    
+    moreButton.hidden = ![[SKStorageManager sharedInstance].loginUser.nickname isEqualToString:self.topic.userinfo.nickname];
+    
+    _delButton = [UIButton new];
+    _delButton.backgroundColor = COMMON_TEXT_COLOR;
+    _delButton.layer.masksToBounds = YES;
+    [_delButton setTitle:@"删除" forState:UIControlStateNormal];
+    [_delButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _delButton.layer.cornerRadius = 5;
+    _delButton.size = CGSizeMake(80, 0);
+    _delButton.top = moreButton.bottom+5;
+    _delButton.right = moreButton.right;
+    [self.view addSubview:_delButton];
+    [[_delButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _delButton.height = 0;
+        } completion:^(BOOL finished) {
+            isShowDelButton = NO;
+        }];
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                       message:@"确认删除？"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  [[[SKServiceManager sharedInstance] topicService] deleteArticleWithArticleID:self.topic.id callback:^(BOOL success, SKResponsePackage *response) {
+                                                                      if (response.errcode==0) {
+                                                                          [self.navigationController popoverPresentationController];
+                                                                      }
+                                                                  }];
+                                                              }];
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * action) { }];
+        [alert addAction:defaultAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -55,6 +55,9 @@
 //发布文章
 + (NSString *)postArticle;
 
+//删除文章
++ (NSString *)deleteArticle;
+
 //电脑发文登录
 + (NSString *)postLogin;
 
