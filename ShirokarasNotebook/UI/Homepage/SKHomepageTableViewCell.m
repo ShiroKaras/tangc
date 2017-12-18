@@ -359,6 +359,10 @@
 }
 
 - (void)regxWithContent:(NSString*)content label:(UILabel*)label {
+    if (label.text == nil) {
+        return;
+    }
+    
     // 话题的规则
     NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
     // @的规则

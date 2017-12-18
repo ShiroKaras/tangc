@@ -22,6 +22,8 @@
         [self.contentView addSubview:self.mTitleLabel];
         [self.contentView addSubview:self.mAvatarImageView];
         [self.contentView addSubview:self.mUsernameLabel];
+        [self.contentView addSubview:self.mTopicLabel];
+        [self.contentView addSubview:self.favButton];
     }
     return self;
 }
@@ -47,13 +49,24 @@
     return _mTitleLabel;
 }
 
+- (UILabel *)mTopicLabel {
+    if (!_mTopicLabel) {
+        _mTopicLabel = [[UILabel alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(10), _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(6), self.width-ROUND_WIDTH_FLOAT(20), ROUND_WIDTH_FLOAT(15))];
+        _mTopicLabel.textColor = COMMON_TEXT_PLACEHOLDER_COLOR;
+        _mTopicLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+        _mTopicLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _mTopicLabel.numberOfLines = 1;
+    }
+    return _mTopicLabel;
+}
+
 - (UIImageView *)mAvatarImageView {
     if (!_mAvatarImageView) {
         _mAvatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(6, _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(25), ROUND_WIDTH_FLOAT(20), ROUND_WIDTH_FLOAT(20))];
         _mAvatarImageView.contentMode = UIViewContentModeScaleAspectFill;
         _mAvatarImageView.layer.masksToBounds = YES;
         _mAvatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(10);
-        _mAvatarImageView.image = [UIImage imageNamed:@"img_personalpage_headimage_default"];
+        _mAvatarImageView.image = COMMON_AVATAR_PLACEHOLDER_IMAGE;
     }
     return _mAvatarImageView;
 }
@@ -67,40 +80,70 @@
     return _mUsernameLabel;
 }
 
-- (void)setTopic:(NSString *)topic {
-    _mTitleLabel.text = topic;
-    CGSize maxSize = CGSizeMake(CELL_WIDTH-20, ROUND_WIDTH_FLOAT(45));//labelsize的最大值
-    CGSize labelSize = [topic boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
-    _mTitleLabel.size = labelSize;
+- (UIButton *)favButton {
+    if (!_favButton) {
+        //点赞
+        _favButton = [UIButton new];
+        [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
+        [_favButton setTitle:@"999" forState:UIControlStateNormal];
+        [_favButton setTitleColor:COMMON_TEXT_PLACEHOLDER_COLOR forState:UIControlStateNormal];
+        _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+        [_favButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
+        [self.contentView addSubview:_favButton];
+    }
+    return _favButton;
+}
+
+
+- (void)setTopic:(SKTopic *)topic {
+    [_mCoverImageView sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+    [_mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:topic.userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
+    _mUsernameLabel.text = topic.userinfo.nickname;
     
-//    // 话题的规则
-//    NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
-//    // @的规则
-//    NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5\\_\\-]+";
-//
-//    NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
-//    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
-//    //匹配集合
-//    NSArray *results = [regex matchesInString:topic options:0 range:NSMakeRange(0, topic.length)];
-//
-//    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[topic dataUsingEncoding:NSUnicodeStringEncoding]
-//                                                                                  options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType}
-//                                                                       documentAttributes:nil error:nil];
-//    // 3.遍历结果
-//    for (NSTextCheckingResult *result in results) {
-//        //set font
-//        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, topic.length)];
-//        // 设置颜色
-//        [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
-//    }
-//    _mTitleLabel.attributedText = attrStr;
+    _mTitleLabel.text = topic.content;
+    CGSize maxSize = CGSizeMake(CELL_WIDTH-20, ROUND_WIDTH_FLOAT(45));//labelsize的最大值
+    CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
+    _mTitleLabel.size = labelSize;
+    [_favButton setTitle:topic.thumb_num forState:UIControlStateNormal];
+    
+    // 话题的规则
+    NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
+    // @的规则
+    NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5\\_\\-]+";
+    
+    NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+    //匹配集合
+    NSArray *results = [regex matchesInString:topic.content options:0 range:NSMakeRange(0, topic.content.length)];
+    
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[topic.content dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                                  options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType}
+                                                                       documentAttributes:nil error:nil];
+    // 3.遍历结果
+    for (NSTextCheckingResult *result in results) {
+        //set font
+        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, topic.content.length)];
+        // 设置颜色
+        [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
+    }
+    _mTitleLabel.attributedText = attrStr;
+    
+    _mTopicLabel.text = [NSString stringWithFormat:@"#%@#",topic.topics[0][@"name"]];
     [self layoutSubviews];
 }
 
 - (void)layoutSubviews {
     _mAvatarImageView.top = _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(25);
+    _mTitleLabel.width = CELL_WIDTH-ROUND_WIDTH_FLOAT(20);
+    
     _mUsernameLabel.centerY = _mAvatarImageView.centerY;
     _mUsernameLabel.width = ROUND_WIDTH_FLOAT(60);
     self.cellHeight = _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(51);
+    
+    _mTopicLabel.top = _mTitleLabel.bottom +ROUND_WIDTH_FLOAT(3);
+    
+    _favButton.size = CGSizeMake(40, 20);
+    _favButton.right = CELL_WIDTH-ROUND_WIDTH_FLOAT(6);
+    _favButton.centerY = _mAvatarImageView.centerY;
 }
 @end

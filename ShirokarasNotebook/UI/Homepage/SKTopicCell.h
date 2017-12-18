@@ -10,12 +10,15 @@
 
 @interface SKTopicCell : UICollectionViewCell
 
+@property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, strong) UIImageView *mCoverImageView;
 @property (nonatomic, strong) UILabel *mTitleLabel;
 @property (nonatomic, strong) UIImageView *mAvatarImageView;
 @property (nonatomic, strong) UILabel *mUsernameLabel;
+@property (nonatomic, strong) UILabel *mTopicLabel;
+@property (nonatomic, strong) UIButton *favButton;
 @property (nonatomic, assign) float cellHeight;
 
-- (void)setTopic:(NSString *)topic;
+//- (void)setTopic:(NSString *)topic;
 
 @end

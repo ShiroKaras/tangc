@@ -105,6 +105,7 @@
 @property (nonatomic, strong) NSArray<SKUserInfo*>* at_users;
 @property (nonatomic, strong) SKUserInfo *userinfo;
 @property (nonatomic, strong) SKTopicFrom *from;
+@property (nonatomic, strong) NSArray *topics;
 @end
 
 //标签
