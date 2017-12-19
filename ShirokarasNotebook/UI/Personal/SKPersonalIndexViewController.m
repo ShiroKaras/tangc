@@ -26,6 +26,10 @@
 @interface SKPersonalIndexViewController ()
 @property (nonatomic, strong) UIView *authBackView;
 @property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UILabel *mTitleLabel;
+@property (nonatomic, strong) UILabel *label_follow;
+@property (nonatomic, strong) UILabel *label_fans;
+
 @property (nonatomic, strong) UILabel *loginLabel;
 @property (nonatomic, strong) UILabel *authTextLabel;
 @property (nonatomic, strong) UILabel *cacheLabel;
@@ -48,15 +52,9 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
-        if ([SKStorageManager sharedInstance].loginUser.uuid) {
-            self.loginLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
-            [self.loginLabel sizeToFit];
-            _logoutButton.hidden = NO;
-        } else {
-            self.loginLabel.text = @"点击登录";
-            [self.loginLabel sizeToFit];
-            _logoutButton.hidden = YES;
-        }
+        [self.authBackView removeFromSuperview];
+        self.authBackView = nil;
+        [self.scrollView addSubview:self.authBackView];
         self.loginLabel.centerY = self.avatarImageView.centerY;
         self.loginLabel.left = self.avatarImageView.right +10;
     });
@@ -65,25 +63,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, 200, ROUND_WIDTH_FLOAT(44))];
-    tView.backgroundColor = [UIColor clearColor];
-    tView.centerX = self.view.centerX;
-    [self.view addSubview:tView];
-    UILabel *tLabel = [UILabel new];
-    tLabel.text = @"我的";
-    tLabel.textColor = COMMON_TEXT_COLOR;
-    tLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
-    [tLabel sizeToFit];
-    [tView addSubview:tLabel];
-    tLabel.centerX = tView.width/2;
-    tLabel.centerY = tView.height/2;
-    
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?(44+TITLEVIEW_HEIGHT):(20+TITLEVIEW_HEIGHT)), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?(44+TITLEVIEW_HEIGHT):(20+TITLEVIEW_HEIGHT)))];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?24:0), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?24:0))];
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(566));
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
     [self.view addSubview:_scrollView];
+    
+#ifdef __IPHONE_11_0
+    if ([_scrollView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+        if (@available(iOS 11.0, *)) {
+            _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
+    }
+#endif
     
     [_scrollView addSubview:self.authBackView];
     [_scrollView addSubview:self.cellsView];
@@ -125,15 +121,9 @@
                                                                   [SKStorageManager sharedInstance].userInfo = [SKUserInfo new];
                                                                   [SKStorageManager sharedInstance].loginUser = [SKLoginUser new];
                                                                   [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
-                                                                  if ([SKStorageManager sharedInstance].loginUser.uuid) {
-                                                                      self.loginLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
-                                                                      [self.loginLabel sizeToFit];
-                                                                      _logoutButton.hidden = NO;
-                                                                  } else {
-                                                                      self.loginLabel.text = @"点击登录";
-                                                                      [self.loginLabel sizeToFit];
-                                                                      _logoutButton.hidden = YES;
-                                                                  }
+                                                                  [self.authBackView removeFromSuperview];
+                                                                  self.authBackView = nil;
+                                                                  [self.scrollView addSubview:self.authBackView];
                                                                   self.loginLabel.centerY = self.avatarImageView.centerY;
                                                                   self.loginLabel.left = self.avatarImageView.right +10;
                                                               }];
@@ -151,52 +141,8 @@
 
 - (UIView *)authBackView {
     if (!_authBackView) {
-        _authBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(153))];
+        _authBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(180))];
         _authBackView.backgroundColor = [UIColor whiteColor];
-        
-        self.avatarImageView = [UIImageView new];
-        self.avatarImageView.backgroundColor = [UIColor colorWithHex:0xd8d8d8];
-        self.avatarImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(55), ROUND_WIDTH_FLOAT(55));
-        self.avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(55)/2;
-        self.avatarImageView.layer.masksToBounds = YES;
-        self.avatarImageView.top = ROUND_WIDTH_FLOAT(15);
-        self.avatarImageView.left = ROUND_WIDTH_FLOAT(15);
-        [_authBackView addSubview:self.avatarImageView];
-        
-        self.loginLabel = [UILabel new];
-        self.loginLabel.textColor = COMMON_TEXT_COLOR;
-        self.loginLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
-        [_authBackView addSubview:self.loginLabel];
-        
-        UIImageView *arrow = [self arrowImageView];
-        arrow.centerY = self.avatarImageView.centerY;
-        arrow.right = _authBackView.width-20;
-        [_authBackView addSubview:arrow];
-        
-        _authBackView.height = self.avatarImageView.bottom+ROUND_WIDTH_FLOAT(15);
-//        //认证背景
-//        UIView *orangeView = [[UIView alloc] initWithFrame:CGRectMake(self.avatarImageView.left, self.avatarImageView.bottom+10, _authBackView.width-30, _authBackView.height-self.avatarImageView.bottom-20)];
-//        orangeView.backgroundColor = [UIColor colorWithHex:0xFFF7F0];
-//        orangeView.layer.cornerRadius = 3;
-//        [_authBackView addSubview:orangeView];
-//
-//        UIButton *goAuthButton = [UIButton new];
-//        [goAuthButton setBackgroundImage:[UIImage imageNamed:@"btn_personalpage_authentication"] forState:UIControlStateNormal];
-//        goAuthButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(30));
-//        goAuthButton.centerY = orangeView.height/2;
-//        goAuthButton.right = orangeView.width-10;
-//        [orangeView addSubview:goAuthButton];
-//
-//        self.authTextLabel = [UILabel new];
-//        self.authTextLabel.text = @"身份认证（品牌、团体、画师认证，秀出你的不同）";
-//        self.authTextLabel.textColor = [UIColor colorWithHex:0xFA7716];
-//        self.authTextLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(11);
-//        self.authTextLabel.numberOfLines = 2;
-//        self.authTextLabel.size = CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(50));
-//        [self.authTextLabel sizeToFit];
-//        self.authTextLabel.left = 10;
-//        self.authTextLabel.centerY = orangeView.height/2;
-//        [orangeView addSubview:self.authTextLabel];
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
         [[tapGesture rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
@@ -207,6 +153,91 @@
             }
         }];
         [_authBackView addGestureRecognizer:tapGesture];
+        
+        UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(180))];
+        headerImageView.image = [UIImage imageNamed:@"img_personalpage_brand"];
+        headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        headerImageView.layer.masksToBounds = YES;
+        [_authBackView addSubview:headerImageView];
+        if ([SKStorageManager sharedInstance].loginUser.uuid) {
+            
+            _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(66), ROUND_WIDTH_FLOAT(66))];
+            [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:COMMON_AVATAR_PLACEHOLDER_IMAGE];
+            _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(33);
+            _avatarImageView.layer.masksToBounds = YES;
+            _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+            _avatarImageView.top = ROUND_WIDTH_FLOAT(38);
+            _avatarImageView.centerX = _authBackView.centerX;
+            [_authBackView addSubview:_avatarImageView];
+            
+            _mTitleLabel = [UILabel new];
+            _mTitleLabel.text = [SKStorageManager sharedInstance].userInfo.nickname;
+            _mTitleLabel.textColor = [UIColor whiteColor];
+            _mTitleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+            [_mTitleLabel sizeToFit];
+            _mTitleLabel.top = _avatarImageView.bottom +ROUND_WIDTH_FLOAT(7);
+            _mTitleLabel.centerX = self.view.centerX;
+            [_authBackView addSubview:_mTitleLabel];
+            
+            _label_follow = [UILabel new];
+            _label_follow.text = [NSString stringWithFormat:@"关注 %ld", [SKStorageManager sharedInstance].userInfo.follows];
+            _label_follow.textColor = [UIColor whiteColor];
+            _label_follow.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+            [_label_follow sizeToFit];
+            _label_follow.right = _authBackView.width/2-5;
+            _label_follow.top = _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(3);
+            [_authBackView addSubview:_label_follow];
+            
+            _label_fans = [UILabel new];
+            _label_fans.text = [NSString stringWithFormat:@"粉丝 %ld", [SKStorageManager sharedInstance].userInfo.follows];
+            _label_fans.textColor = [UIColor whiteColor];
+            _label_fans.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+            [_label_fans sizeToFit];
+            _label_fans.left = _authBackView.width/2+5;
+            _label_fans.top = _mTitleLabel.bottom +ROUND_WIDTH_FLOAT(3);
+            [_authBackView addSubview:_label_fans];
+            
+            UILabel *editLabel = [UILabel new];
+            editLabel.text = @"编辑个人页";
+            editLabel.textColor = [UIColor whiteColor];
+            editLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(9);
+            editLabel.layer.cornerRadius = 8;
+            editLabel.layer.borderWidth = 1;
+            editLabel.layer.borderColor = [UIColor whiteColor].CGColor;
+            editLabel.textAlignment = NSTextAlignmentCenter;
+            [editLabel sizeToFit];
+            [_authBackView addSubview:editLabel];
+            editLabel.width = ROUND_WIDTH_FLOAT(73);
+            editLabel.height = ROUND_WIDTH_FLOAT(16);
+            editLabel.centerX = _authBackView.centerX;
+            editLabel.top = _label_follow.bottom+ROUND_WIDTH_FLOAT(3);
+        }
+        else {
+            UILabel *loginLabel = [UILabel new];
+            loginLabel.text = @"您还没有登录";
+            loginLabel.textColor = [UIColor whiteColor];
+            loginLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+            [_authBackView addSubview:loginLabel];
+            [loginLabel sizeToFit];
+            loginLabel.centerX = _authBackView.centerX;
+            loginLabel.top = ROUND_WIDTH_FLOAT(64);
+            
+            UILabel *login = [UILabel new];
+            login.text = @"登录";
+            login.textColor = [UIColor whiteColor];
+            login.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
+            login.layer.cornerRadius = ROUND_WIDTH_FLOAT(17);
+            login.layer.borderColor = [UIColor whiteColor].CGColor;
+            login.layer.borderWidth = 1;
+            login.textAlignment = NSTextAlignmentCenter;
+            [_authBackView addSubview:login];
+            login.width = ROUND_WIDTH_FLOAT(150);
+            login.height = ROUND_WIDTH_FLOAT(34);
+            login.centerX = _authBackView.centerX;
+            login.top = loginLabel.bottom+ROUND_WIDTH_FLOAT(33);
+        }
+        
+        
     }
     return _authBackView;
 }
