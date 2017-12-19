@@ -234,8 +234,6 @@
         [_cellsView addSubview:cell_push];
         cell_push.top = cell_fans.bottom+10;
         _isPushOff = [[UD objectForKey:@"PushModeForOff"] boolValue];       //初始为NO，默认打开通知
-        //TODO 刷新按钮状态
-        
         UITapGestureRecognizer *tapGesture_push = [[UITapGestureRecognizer alloc] init];
         [[tapGesture_push rac_gestureSignal] subscribeNext:^(id x) {
             NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];

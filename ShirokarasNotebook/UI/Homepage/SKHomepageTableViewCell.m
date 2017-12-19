@@ -85,7 +85,7 @@
     NSString *content = @"";
     
     //转发
-    if (topic.from && topic.from.id!=0) {
+    if ((topic.from && topic.from.id!=0)||(topic.from.is_del==1)) {
         content = topic.from.content;
         
         _repostLabel = [UILabel new];
@@ -106,7 +106,7 @@
         _baseContentView.backgroundColor = COMMON_HIGHLIGHT_BG_COLOR;
         [self.contentView addSubview:_baseContentView];
         
-        if (topic.is_del) {
+        if (topic.from.is_del) {
             UILabel *errLabel = [UILabel new];
             errLabel.text = @"抱歉，该内容已被作者删除";
             errLabel.textColor = COMMON_TEXT_COLOR;

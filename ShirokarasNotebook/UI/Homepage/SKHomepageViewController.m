@@ -607,10 +607,9 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (self.dataArray[indexPath.row].type == 3) {
-//        SKTextWebViewController *c = [[SKTextWebViewController alloc] initWithTopic:self.dataArray[indexPath.row]];
-//        [self.navigationController pushViewController:c animated:YES];
-//    } else { }
+    //原文已删除
+    if(self.dataArray[indexPath.row].from.is_del)   return;
+    //
     SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray[indexPath.row]];
     [self.navigationController pushViewController:controller animated:YES];
 }
