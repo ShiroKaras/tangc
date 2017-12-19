@@ -141,9 +141,11 @@
 
 - (void)postArticleWith:(SKUserPost *)topic callback:(SKResponseCallback)callback {
     NSMutableDictionary *param = [topic mj_keyValues];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:topic.images options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    [param setValue:jsonString forKey:@"images"];
+    if (topic.parent_id==0) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:topic.images options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [param setValue:jsonString forKey:@"images"];
+    }
     if (topic.to_user_id!=nil) {
         NSData *data_users = [NSJSONSerialization dataWithJSONObject:topic.to_user_id options:NSJSONWritingPrettyPrinted error:nil];
         NSString *jsonString_users = [[NSString alloc] initWithData:data_users encoding:NSUTF8StringEncoding];

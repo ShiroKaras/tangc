@@ -425,6 +425,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
         NSSLog(@"requestIds - image : %@ \nsessions - video : %@",imageRequestIds,videoSessions);
     } completion:^(NSArray<NSURL *> *allUrl, NSArray<NSURL *> *imageUrls, NSArray<NSURL *> *videoUrls) {
         NSSLog(@"allUrl - %@\nimageUrls - %@\nvideoUrls - %@",allUrl,imageUrls,videoUrls);
+        [self.postImageArray removeAllObjects];
         for (NSString *path in imageUrls) {
             NSData *imageData = [NSData dataWithContentsOfFile:path];
             NSString *postImage = [NSString postImageName];
@@ -432,7 +433,6 @@ static const CGFloat kPhotoViewMargin = 12.0;
             [[[SKServiceManager sharedInstance] qiniuService] putData:imageData key:postImage token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
                 if (info.statusCode == 200) {
-                    [self.postImageArray removeAllObjects];
                     [self.postImageArray insertObject:[NSString qiniuDownloadURLWithFileName:key] atIndex:0];
                 } else {
                     
