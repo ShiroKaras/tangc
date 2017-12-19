@@ -164,11 +164,18 @@ static const CGFloat kPhotoViewMargin = 12.0;
 //        _addImageButton.left = ROUND_WIDTH_FLOAT(15);
 //        _addImageButton.top = 0;
     } else if (_type == SKPublishTypeRepost) {
-        UIView *repostBackView = [[UIView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _textCountLabel.bottom+ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(74))];
+        UIView *repostBackView = [UIView new];
         repostBackView.layer.cornerRadius = 3;
         repostBackView.backgroundColor = COMMON_HIGHLIGHT_BG_COLOR;
         [self.view addSubview:repostBackView];
-
+        [repostBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_textCountLabel.mas_bottom).offset(ROUND_WIDTH_FLOAT(10));
+            make.left.equalTo(_textView);
+            make.right.equalTo(_textView);
+            make.height.equalTo(ROUND_WIDTH(74));
+        }];
+        [self.view layoutIfNeeded];
+        
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(54), ROUND_WIDTH_FLOAT(54))];
         if (self.topic.images.count >0) {
             [imageView sd_setImageWithURL:[NSURL URLWithString:self.topic.from.id!=0?self.topic.from.images[0]:self.topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
@@ -276,7 +283,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
 }
 
 - (void)createTitleView {
-    UIView *titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, ROUND_WIDTH_FLOAT(44))];
+    UIView *titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
     [self.view addSubview:titleBackView];
 
     UIButton *saveButton = [UIButton new];
@@ -286,7 +293,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [titleBackView addSubview:saveButton];
     saveButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(44), ROUND_WIDTH_FLOAT(44));
     saveButton.right = titleBackView.width -ROUND_WIDTH_FLOAT(15);
-    saveButton.top = kDevice_Is_iPhoneX?44:20;
+    saveButton.top = 0;
 
     [[saveButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         if ([_textView.text isEqualToString:@""]) {
