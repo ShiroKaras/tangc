@@ -432,8 +432,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
             [[[SKServiceManager sharedInstance] qiniuService] putData:imageData key:postImage token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
                 if (info.statusCode == 200) {
+                    [self.postImageArray removeAllObjects];
                     [self.postImageArray insertObject:[NSString qiniuDownloadURLWithFileName:key] atIndex:0];
-//                    [self updateImagesArrayView];
                 } else {
                     
                 }
