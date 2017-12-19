@@ -12,6 +12,7 @@
 typedef void (^SKTopicListCallback)(BOOL success, NSArray<SKTopic*>* topicList, NSInteger totalPage);
 typedef void (^SKTagListCallback)(BOOL success, NSArray<SKTag*>* tagList);
 typedef void (^SKCommentListCallback)(BOOL success, NSArray<SKComment*>* commentList, NSInteger totalPage);
+typedef void (^SKThumbListCallback)(BOOL success, NSArray<SKUserInfo*>* list, NSInteger totalPage);
 
 typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
 
@@ -35,6 +36,8 @@ typedef void (^SKTopicCallback) (BOOL success, SKTopic *topic);
 - (void)postLoginWithToken:(NSString*)token callback:(SKResponseCallback)callback;
 //获取评论列表
 - (void)getCommentListWithArticleID:(NSInteger)articleID page:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKCommentListCallback)callback;
+//点赞列表
+- (void)getThumbListWithArticleID:(NSInteger)articleID page:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKThumbListCallback)callback;
 //发送评论
 - (void)postCommentWithComment:(SKComment*)comment callback:(SKResponseCallback)callback;
 //删除

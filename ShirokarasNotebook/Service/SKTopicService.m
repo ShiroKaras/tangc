@@ -184,6 +184,24 @@
     }];
 }
 
+- (void)getThumbListWithArticleID:(NSInteger)articleID page:(NSInteger)page pagesize:(NSInteger)pagesize callback:(SKThumbListCallback)callback {
+    NSDictionary *param = @{
+                            @"article_id" : @(articleID),
+                            @"page" : @(page),
+                            @"pagesize" : @(pagesize)
+                            };
+    [self baseRequestWithParam:param url:[SKCGIManager getThumbList] callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKUserInfo*>*list = [NSMutableArray array];
+        if ([response.data isKindOfClass:[NSDictionary class]]) {
+            for (int i = 0; i < [response.data[@"lists"] count]; i++) {
+                SKUserInfo *item = [SKUserInfo mj_objectWithKeyValues:response.data[@"lists"][i]];
+                [list addObject:item];
+            }
+        }
+        callback(success, list, [response.data[@"totalPage"] integerValue]);
+    }];
+}
+
 - (void)postCommentWithComment:(SKComment *)comment callback:(SKResponseCallback)callback {
     NSDictionary *param = [comment mj_keyValues];
 //    NSData *data_users = [NSJSONSerialization dataWithJSONObject:comment.to_comuser_id options:NSJSONWritingPrettyPrinted error:nil];

@@ -49,6 +49,9 @@
 //评论列表
 + (NSString *)getCommentList;
 
+//点赞列表
++ (NSString *)getThumbList;
+
 //发布评论
 + (NSString *)postComment;
 

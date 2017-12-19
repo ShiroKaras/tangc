@@ -11,12 +11,19 @@
 #import "SKTitleBaseView.h"
 #import "HTWebController.h"
 #import "SKPublishNewContentViewController.h"
+#import "SKThumbTableViewCell.h"
 
 #define CELL_WIDTH (SCREEN_WIDTH)
 
+typedef NS_ENUM(NSInteger, SKDetailListType) {
+    SKDetailListTypeComment,
+    SKDetailListTypeThumb
+};
+
 @interface SKHomepageMorePicDetailViewController () <UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray<SKComment*> *dataArray;
+@property (nonatomic, strong) NSMutableArray<SKComment*> *dataArray_comment;
+@property (nonatomic, strong) NSMutableArray<SKUserInfo*> *dataArray_thumb;
 @property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) SKTitleBaseView *baseInfoView;
@@ -41,6 +48,9 @@
 @property (nonatomic, strong) UIImageView *imageViewArticle;
 @property (nonatomic, strong) UILabel *articleLabel;
 
+@property (nonatomic, strong) UIView *pointView;
+
+@property (nonatomic, assign) SKDetailListType listType;
 @end
 
 @implementation SKHomepageMorePicDetailViewController {
@@ -69,6 +79,9 @@
     return self;
 }
 
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"listType"];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,8 +90,9 @@
     _totalPage = 1;
     isFirstCome = YES;
     isJuhua = NO;
-    self.dataArray = [NSMutableArray array];
-    
+    self.dataArray_comment = [NSMutableArray array];
+    self.dataArray_thumb = [NSMutableArray array];
+    [self addObserver:self forKeyPath:@"listType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     self.view.backgroundColor = COMMON_BG_COLOR;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(64+22):64, self.view.width, self.view.height-(kDevice_Is_iPhoneX?(64+22):64)-viewBottomHeight) style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -86,6 +100,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[SKHomepageDetaillTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
+    [self.tableView registerClass:[SKThumbTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKThumbTableViewCell class])];
     [self.view addSubview:_tableView];
     
 #ifdef __IPHONE_11_0
@@ -101,11 +116,8 @@
         self.topic = topic;
         [self createUI];
     }];
-    [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList, NSInteger totalPage) {
-        _totalPage = totalPage;
-        self.dataArray = [NSMutableArray arrayWithArray:commentList];
-        [self.tableView reloadData];
-    }];
+    
+    self.listType = SKDetailListTypeComment;
 }
 
 - (void)createUI {
@@ -155,6 +167,7 @@
                 [backView addSubview:imageView];
                 imageView.left = ROUND_WIDTH_FLOAT(15)+j*ROUND_WIDTH_FLOAT(93+5.5);
                 imageView.top = k*(ROUND_WIDTH_FLOAT(5.5)+ROUND_WIDTH_FLOAT(93+5.5)) +contentLabel.bottom+ROUND_WIDTH_FLOAT(15);
+                [self showPicWithImageView:imageView url:[NSURL URLWithString:imagesArray[i]]];
                 
                 self.headerView.height = imageView.bottom +ROUND_WIDTH_FLOAT(56);
                 backView.height = self.headerView.height-ROUND_WIDTH_FLOAT(20);
@@ -346,24 +359,39 @@
                 break;
         }
         _baseContentView.height = _underLine.bottom-_repostLabel.bottom-ROUND_WIDTH_FLOAT(15);
+        self.headerView.height = _baseContentView.bottom + ROUND_WIDTH_FLOAT(20);
     }
-    self.headerView.height = _baseContentView.bottom;
     self.tableView.tableHeaderView = self.headerView;
     
     //加载更多
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         page++;
-        [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:page pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList, NSInteger totalPage) {
-            _totalPage = totalPage;
-            if (page>totalPage) {
-                page = totalPage;
-                return;
-            }
-            for (int i=0; i<commentList.count; i++) {
-                [self.dataArray addObject:commentList[i]];
-            }
-            [self.tableView reloadData];
-        }];
+        if (_listType==SKDetailListTypeComment) {
+            [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:page pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList, NSInteger totalPage) {
+                _totalPage = totalPage;
+                if (page>totalPage) {
+                    page = totalPage;
+                    return;
+                }
+                for (int i=0; i<commentList.count; i++) {
+                    [self.dataArray_comment addObject:commentList[i]];
+                }
+                [self.tableView reloadData];
+            }];
+        } else if (_listType == SKDetailListTypeThumb) {
+            [[[SKServiceManager sharedInstance] topicService] getThumbListWithArticleID:self.topic.id page:page pagesize:10 callback:^(BOOL success, NSArray<SKUserInfo *> *list, NSInteger totalPage) {
+                _totalPage = totalPage;
+                if (page>totalPage) {
+                    page = totalPage;
+                    return;
+                }
+                for (int i=0; i<list.count; i++) {
+                    [self.dataArray_thumb addObject:list[i]];
+                }
+                [self.tableView reloadData];
+            }];
+        }
+        
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.tableView.mj_footer endRefreshing];
@@ -564,46 +592,173 @@
 #pragma mark - UITableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKHomepageDetaillTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
-    if (cell==nil) {
-        cell = [[SKHomepageDetaillTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
+    switch (_listType) {
+        case SKDetailListTypeComment:{
+            SKHomepageDetaillTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
+            if (cell==nil) {
+                cell = [[SKHomepageDetaillTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageDetaillTableViewCell class])];
+            }
+            cell.comment = self.dataArray_comment[indexPath.row];
+            return cell;
+        }
+        case SKDetailListTypeThumb:{
+            SKThumbTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([SKThumbTableViewCell class])];
+            if (cell==nil) {
+                cell = [[SKThumbTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKThumbTableViewCell class])];
+            }
+            cell.userInfo = self.dataArray_thumb[indexPath.row];
+            return cell;
+        }
+        default:
+            return nil;
     }
-    cell.comment = self.dataArray[indexPath.row];
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SKHomepageDetaillTableViewCell *cell = (SKHomepageDetaillTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-    return cell.cellHeight;
+    switch (_listType) {
+        case SKDetailListTypeComment:{
+            SKHomepageDetaillTableViewCell *cell = (SKHomepageDetaillTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+            return cell.cellHeight;
+        }
+        case SKDetailListTypeThumb: {
+            return 60;
+        }
+        default:
+            return 0;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(37))];
     headerView.backgroundColor = [UIColor whiteColor];
-
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = [NSString stringWithFormat:@"评论 %ld", self.dataArray.count];
-    titleLabel.textColor = COMMON_TEXT_COLOR;
-    titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
-    [titleLabel sizeToFit];
-    titleLabel.left = ROUND_WIDTH_FLOAT(15);
-    titleLabel.centerY = 37/2;
-    [headerView addSubview:titleLabel];
+    
+    //评论
+    UIButton *commentButton = [UIButton new];
+    [commentButton setTitle:@"评论" forState:UIControlStateNormal];
+    [commentButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
+    commentButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+    [headerView addSubview:commentButton];
+    [commentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(40), ROUND_WIDTH_FLOAT(37)));
+        make.left.equalTo(@5);
+        make.centerY.equalTo(headerView);
+    }];
+    [[commentButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        [self.view layoutIfNeeded];
+        [_pointView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(20), 1));
+            make.bottom.equalTo(headerView);
+            make.centerX.equalTo(commentButton);
+        }];
+        
+        self.listType = SKDetailListTypeComment;
+    }];
+    
+    UILabel *commentLabel = [UILabel new];
+    commentLabel.text = [NSString stringWithFormat:@"%@", self.topic.comment_num];
+    commentLabel.textColor = COMMON_TEXT_CONTENT_COLOR;
+    commentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+    [commentLabel sizeToFit];
+    [headerView addSubview:commentLabel];
+    [commentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(commentButton.mas_right);
+        make.centerY.equalTo(commentButton);
+    }];
+    
+    //赞
+    UILabel *thumbLabel = [UILabel new];
+    thumbLabel.text = [NSString stringWithFormat:@"%@", self.topic.thumb_num];
+    thumbLabel.textColor = COMMON_TEXT_CONTENT_COLOR;
+    thumbLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+    [thumbLabel sizeToFit];
+    [headerView addSubview:thumbLabel];
+    [thumbLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(headerView.mas_right).offset(ROUND_WIDTH_FLOAT(-15));
+        make.centerY.equalTo(commentButton);
+    }];
+    
+    UIButton *thumbButton = [UIButton new];
+    [thumbButton setTitle:@"赞" forState:UIControlStateNormal];
+    [thumbButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
+    thumbButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+    [headerView addSubview:thumbButton];
+    [thumbButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(40), ROUND_WIDTH_FLOAT(37)));
+        make.right.equalTo(thumbLabel.mas_left);
+        make.centerY.equalTo(headerView);
+    }];
+    [[thumbButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        [self.view layoutIfNeeded];
+        [_pointView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(20), 1));
+            make.bottom.equalTo(headerView);
+            make.centerX.equalTo(thumbButton);
+        }];
+        self.listType = SKDetailListTypeThumb;
+    }];
+    
+    _pointView = [UIView new];
+    _pointView.backgroundColor = COMMON_GREEN_COLOR;
+    [headerView addSubview:_pointView];
+    [_pointView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(20), 1));
+        make.bottom.equalTo(headerView);
+        if (_listType==SKDetailListTypeComment) {
+            make.centerX.equalTo(commentButton);
+        } else if (_listType == SKDetailListTypeThumb) {
+            make.centerX.equalTo(thumbButton);
+        }
+    }];
+    
     return headerView;
 }
 
 #pragma mark - UITableView DataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 37;
+    return ROUND_WIDTH_FLOAT(37);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _dataArray.count;
+    switch (_listType) {
+        case SKDetailListTypeComment:
+            return self.dataArray_comment.count;
+        case SKDetailListTypeThumb:
+            return self.dataArray_thumb.count;
+        default:
+            return 0;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+#pragma mark -
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"listType"]) {
+        switch (_listType) {
+            case SKDetailListTypeComment:{
+                [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList, NSInteger totalPage) {
+                    _totalPage = totalPage;
+                    self.dataArray_comment = [NSMutableArray arrayWithArray:commentList];
+                    [self.tableView reloadData];
+                }];
+                break;
+            }
+            case SKDetailListTypeThumb: {
+                [[[SKServiceManager sharedInstance] topicService] getThumbListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserInfo *> *list, NSInteger totalPage) {
+                    _totalPage = totalPage;
+                    self.dataArray_thumb = [NSMutableArray arrayWithArray:list];
+                    [self.tableView reloadData];
+                }];
+                break;
+            }
+            default:
+                break;
+        }
+    }
 }
 
 @end

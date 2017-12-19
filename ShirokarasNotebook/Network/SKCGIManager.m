@@ -64,6 +64,10 @@
     return [NSString stringWithFormat:@"%@/api/comment/article_comments", [[ServerConfiguration sharedInstance] appHost]];
 }
 
++ (NSString *)getThumbList {
+    return [NSString stringWithFormat:@"%@/api/article/thumb_list", [[ServerConfiguration sharedInstance] appHost]];
+}
+
 + (NSString *)postComment {
     return [NSString stringWithFormat:@"%@/api/comment/post_comment", [[ServerConfiguration sharedInstance] appHost]];
 }

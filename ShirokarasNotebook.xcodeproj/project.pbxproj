@@ -183,6 +183,7 @@
 		11D9AA311FB06142008D32E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA301FB06142008D32E9 /* main.m */; };
 		11D9AA3B1FB06143008D32E9 /* ShirokarasNotebookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA3A1FB06143008D32E9 /* ShirokarasNotebookTests.m */; };
 		11D9AA461FB06143008D32E9 /* ShirokarasNotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA451FB06143008D32E9 /* ShirokarasNotebookUITests.m */; };
+		11DE16071FE9066A002F9A26 /* SKThumbTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE16061FE9066A002F9A26 /* SKThumbTableViewCell.m */; };
 		11EE40931FCED10400039E3F /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE40871FCED10300039E3F /* NSData+Encryption.m */; };
 		11EE40941FCED10400039E3F /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE40881FCED10300039E3F /* NSString+AES256.m */; };
 		11EE40951FCED10400039E3F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE408B1FCED10300039E3F /* NSString+Base64.m */; };
@@ -562,6 +563,8 @@
 		11D9AA411FB06143008D32E9 /* ShirokarasNotebookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShirokarasNotebookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA451FB06143008D32E9 /* ShirokarasNotebookUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShirokarasNotebookUITests.m; sourceTree = "<group>"; };
 		11D9AA471FB06143008D32E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11DE16051FE9066A002F9A26 /* SKThumbTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKThumbTableViewCell.h; sourceTree = "<group>"; };
+		11DE16061FE9066A002F9A26 /* SKThumbTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKThumbTableViewCell.m; sourceTree = "<group>"; };
 		11EE40861FCED10300039E3F /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AES256.h"; sourceTree = "<group>"; };
 		11EE40871FCED10300039E3F /* NSData+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Encryption.m"; sourceTree = "<group>"; };
 		11EE40881FCED10300039E3F /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES256.m"; sourceTree = "<group>"; };
@@ -985,6 +988,8 @@
 				11B82D991FBAE79D006D9A26 /* SKHomepageMorePicDetailViewController.m */,
 				11B82D9B1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.h */,
 				11B82D9C1FBAE912006D9A26 /* SKHomepageDetaillTableViewCell.m */,
+				11DE16051FE9066A002F9A26 /* SKThumbTableViewCell.h */,
+				11DE16061FE9066A002F9A26 /* SKThumbTableViewCell.m */,
 				11CECB831FE7A06500EECF10 /* SKTextWebViewController.h */,
 				11CECB841FE7A06500EECF10 /* SKTextWebViewController.m */,
 			);
@@ -1824,6 +1829,7 @@
 				11A1E5DD1FCEC041000D4D5B /* SKCGIManager.m in Sources */,
 				11BAF20C1FE25235007816A8 /* JFLocation.m in Sources */,
 				1120B1061FC459E3003FF376 /* SKMypageArticleTableViewCell.m in Sources */,
+				11DE16071FE9066A002F9A26 /* SKThumbTableViewCell.m in Sources */,
 				11A1E6001FCEC43F000D4D5B /* SKImageHelper.m in Sources */,
 				1120B0F21FC2DC5A003FF376 /* SKPersonalIndexViewController.m in Sources */,
 				11BAF1511FDE66E9007816A8 /* SDHelper.m in Sources */,
