@@ -564,7 +564,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [self invokeLoginViewController];
             return;
         }
-        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeComment withUserPost:self.dataArray[indexPath.row]];
+        SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray[indexPath.row]];
         [self.navigationController pushViewController:controller animated:YES];
     }];
     //关注
