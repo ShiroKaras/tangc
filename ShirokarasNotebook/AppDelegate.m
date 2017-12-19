@@ -253,7 +253,7 @@
                  [appInfo SSDKSetupSinaWeiboByAppKey:@"2564292504"
                                            appSecret:@"68c05dd1bc3a7a29003352d4de903ef7"
                                          redirectUri:@"http://www.sharesdk.cn"
-                                            authType:SSDKAuthTypeSSO];
+                                            authType:SSDKAuthTypeBoth];
                  break;
              case SSDKPlatformTypeWechat:
                  [appInfo SSDKSetupWeChatByAppId:@"wxb584395fb2e50f8c"
@@ -262,7 +262,7 @@
              case SSDKPlatformTypeQQ:
                  [appInfo SSDKSetupQQByAppId:@"1106454935"
                                       appKey:@"bRyuSQx0YbIdUgMb"
-                                    authType:SSDKAuthTypeSSO];
+                                    authType:SSDKAuthTypeBoth];
                  break;
             
              default:
