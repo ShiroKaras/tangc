@@ -51,6 +51,8 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
 @property (nonatomic, strong) UIView *pointView;
 
 @property (nonatomic, assign) SKDetailListType listType;
+
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation SKHomepageMorePicDetailViewController {
@@ -60,6 +62,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
     
     BOOL isShowDelButton;
+    BOOL isShowNoMessage;
 }
 
 - (instancetype)initWithTopic:(SKTopic*)topic {
@@ -90,6 +93,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     _totalPage = 1;
     isFirstCome = YES;
     isJuhua = NO;
+    
     self.dataArray_comment = [NSMutableArray array];
     self.dataArray_thumb = [NSMutableArray array];
     [self addObserver:self forKeyPath:@"listType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -127,7 +131,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     //原创
     if (self.topic.from.id==0) {
         if (self.topic.type == SKHomepageDetailTypeOnePic || self.topic.type == SKHomepageDetailTypeMorePic) {
-            UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.headerView.width-10, self.headerView.height-ROUND_WIDTH_FLOAT(20))];
+            UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.headerView.width, self.headerView.height-ROUND_WIDTH_FLOAT(20))];
             backView.backgroundColor = [UIColor whiteColor];
             [self.headerView addSubview:backView];
             
@@ -362,6 +366,12 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
         self.headerView.height = _baseContentView.bottom + ROUND_WIDTH_FLOAT(20);
     }
     self.tableView.tableHeaderView = self.headerView;
+    
+    _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoComment];
+    [self.tableView addSubview:_blankView];
+    _blankView.top = self.headerView.height+80;
+    _blankView.centerX = SCREEN_WIDTH/2;
+    _blankView.hidden = !isShowNoMessage;
     
     //加载更多
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -743,6 +753,11 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                 [[[SKServiceManager sharedInstance] topicService] getCommentListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKComment *> *commentList, NSInteger totalPage) {
                     _totalPage = totalPage;
                     self.dataArray_comment = [NSMutableArray arrayWithArray:commentList];
+                    if (commentList.count==0) {
+                        isShowNoMessage = YES;
+                    } else {
+                        isShowNoMessage = NO;
+                    }
                     [self.tableView reloadData];
                 }];
                 break;
