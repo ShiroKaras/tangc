@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 @property (nonatomic, strong) SKSegmentView *titleView;
 @property (nonatomic, strong) SKSegmentView *titleView_collectionV;
+@property (nonatomic, strong) SKSegmentView *titleView_top;
 @property (nonatomic, assign) SKHomepageSelectedType selectedType;
 
 @property (nonatomic, strong) SKTopicsView *topoicsView;
@@ -72,6 +73,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     
     NSInteger   page_collection;
     NSInteger   _totalPage_collection;
+    
+    CGPoint contentOffSet;
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -244,6 +247,15 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     _titleView_collectionV.centerX = self.view.centerX;
     _titleView_collectionV.userInteractionEnabled = YES;
     [_collectionView addSubview:_titleView_collectionV];
+    
+    //TitleView 置顶
+    _titleView_top = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, TITLEVIEW_HEIGHT)  titleNameArray:@[@"关注", @"热门", @"话题"]];
+    _titleView_top.delegate = self;
+    _titleView_top.backgroundColor = [UIColor whiteColor];
+    _titleView_top.top = 0;
+    _titleView_top.centerX = self.view.centerX;
+    _titleView_top.userInteractionEnabled = YES;
+//    [self.view addSubview:_titleView_top];
     
     if ([SKStorageManager sharedInstance].loginUser.uuid==nil||[[SKStorageManager sharedInstance].loginUser.uuid isEqualToString:@""]) {
         self.selectedType = SKHomepageSelectedTypeHot;
@@ -649,14 +661,17 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    contentOffSet = scrollView.contentOffset;
     if(scrollLock) return;
     if (scrollView==self.tableView) {
         self.collectionView.contentOffset = scrollView.contentOffset;
     } else if (scrollView == self.collectionView) {
         self.tableView.contentOffset = scrollView.contentOffset;
     }
+
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
         [UIView animateWithDuration:0.2 animations:^{
+//            [self.view sendSubviewToBack:_titleView_top];
             _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
             _titleView.height = TITLEVIEW_HEIGHT;
             _titleView.width = TITLEVIEW_WIDTH;
@@ -666,24 +681,23 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             _titleView_collectionV.height = TITLEVIEW_HEIGHT;
             _titleView_collectionV.width = TITLEVIEW_WIDTH;
             _titleView_collectionV.layer.cornerRadius = 3;
-            
         } completion:^(BOOL finished) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
-            
+
             [_titleView_collectionV removeFromSuperview];
             _titleView_collectionV.frame = CGRectMake((self.view.width-_titleView_collectionV.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
             [self.tableView addSubview:_titleView];
             [self.collectionView addSubview:_titleView_collectionV];
-            
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
+//            [self.view bringSubviewToFront:_titleView_top];
             _titleView.left = 0;
             _titleView.height = 20+TITLEVIEW_HEIGHT;
             _titleView.width = SCREEN_WIDTH;
             _titleView.layer.cornerRadius = 0;
-           
+
             _titleView_collectionV.left = 0;
             _titleView_collectionV.height = 20+TITLEVIEW_HEIGHT;
             _titleView_collectionV.width = SCREEN_WIDTH;
@@ -692,7 +706,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [_titleView removeFromSuperview];
             _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
             [self.view addSubview:_titleView];
-            
+
             [_titleView_collectionV removeFromSuperview];
             _titleView_collectionV.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
             [self.view addSubview:_titleView_collectionV];
