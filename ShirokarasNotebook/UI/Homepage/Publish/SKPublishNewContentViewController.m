@@ -115,8 +115,10 @@ static const CGFloat kPhotoViewMargin = 12.0;
     //=========================文本部分=========================
 
     self.textView = [[UITextView alloc] initWithFrame:CGRectMake(15, ROUND_WIDTH_FLOAT(15), self.view.width-30, ROUND_WIDTH_FLOAT(105))];
-    _textView.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
     _textView.backgroundColor = [UIColor whiteColor];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    NSDictionary *attributes = @{ NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14), NSParagraphStyleAttributeName:paragraphStyle};
+    _textView.attributedText = [[NSAttributedString alloc]initWithString:_textView.text attributes:attributes];
     [self.scrollView addSubview:_textView];
     
     _textCountLabel = [UILabel new];

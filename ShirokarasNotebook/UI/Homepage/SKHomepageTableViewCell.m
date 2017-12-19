@@ -137,6 +137,7 @@
                         [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                     }
                     [self.contentView addSubview:_imageViewOnePic];
+                    [self showPicWithImageView:_imageViewOnePic url:topic.from.images[0]];
                     
                     _introduceLabel = [UILabel new];
                     _introduceLabel.text = topic.from.content;
@@ -149,7 +150,7 @@
                     _introduceLabel.left = 15;
                     [self.contentView addSubview:_introduceLabel];
                     
-                    underLine.top = _introduceLabel.bottom+10;
+                    _underLine.top = _introduceLabel.bottom+10;
                     [self regxWithContent:content label:_introduceLabel];
                     break;
                 }
@@ -175,6 +176,7 @@
                             [imageView sd_setImageWithURL:[NSURL URLWithString:topic.from.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                         }
                         [scrollView addSubview:imageView];
+                        [self showPicWithImageView:imageView url:topic.from.images[i]];
                     }
                     
                     //文字介绍
@@ -189,7 +191,7 @@
                     _introduceLabel.left = 15;
                     [self.contentView addSubview:_introduceLabel];
                     
-                    underLine.top = _introduceLabel.bottom+10;
+                    _underLine.top = _introduceLabel.bottom+10;
                     [self regxWithContent:content label:_introduceLabel];
                     break;
                 }
@@ -221,7 +223,7 @@
                     view.top = 30;
                     [_imageViewArticle addSubview:view];
                     
-                    underLine.top = _imageViewArticle.bottom+8;
+                    _underLine.top = _imageViewArticle.bottom+8;
                     
                     break;
                 }
@@ -243,6 +245,7 @@
                     [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                 }
                 [self.contentView addSubview:_imageViewOnePic];
+                [self showPicWithImageView:_imageViewOnePic url:topic.images[0]];
                 
                 _introduceLabel = [UILabel new];
                 _introduceLabel.text = topic.content;
@@ -255,7 +258,7 @@
                 _introduceLabel.left = 15;
                 [self.contentView addSubview:_introduceLabel];
                 
-                underLine.top = _introduceLabel.bottom+10;
+                _underLine.top = _introduceLabel.bottom+10;
                 [self regxWithContent:content label:_introduceLabel];
                 break;
             }
@@ -279,6 +282,7 @@
                     imageView.contentMode = UIViewContentModeScaleAspectFill;
                     [imageView sd_setImageWithURL:[NSURL URLWithString:topic.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                     [scrollView addSubview:imageView];
+                    [self showPicWithImageView:imageView url:topic.images[i]];
                 }
                 
                 //文字介绍
@@ -293,7 +297,7 @@
                 _introduceLabel.left = 15;
                 [self.contentView addSubview:_introduceLabel];
                 
-                underLine.top = _introduceLabel.bottom+10;
+                _underLine.top = _introduceLabel.bottom+10;
                 [self regxWithContent:content label:_introduceLabel];
                 break;
             }
@@ -325,7 +329,7 @@
                 view.top = 30;
                 [_imageViewArticle addSubview:view];
                 
-                underLine.top = _imageViewArticle.bottom+8;
+                _underLine.top = _imageViewArticle.bottom+8;
                 
                 break;
             }
