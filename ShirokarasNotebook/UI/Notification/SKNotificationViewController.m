@@ -37,6 +37,8 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 @property (nonatomic, strong) UIButton *button_hot;
 @property (nonatomic, strong) UIView *markLine;
 @property (nonatomic, assign) SKNotificationSelectedType selectedType;
+
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation SKNotificationViewController {
@@ -66,6 +68,12 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
     isJuhua = NO;
     self.dataArray = [NSMutableArray array];
     
+    _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoMessage];
+    [self.view addSubview:_blankView];
+    _blankView.centerY = SCREEN_HEIGHT/2;
+    _blankView.centerX = SCREEN_WIDTH/2;
+    _blankView.hidden = YES;
+    
     self.view.backgroundColor = COMMON_BG_COLOR;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
@@ -81,18 +89,6 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
 }
 
 - (void)createUI {
-//    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
-//    tView.backgroundColor = [UIColor clearColor];
-//    [self.view addSubview:tView];
-//    UILabel *tLabel = [UILabel new];
-//    tLabel.text = @"消息";
-//    tLabel.textColor = COMMON_TEXT_COLOR;
-//    tLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
-//    [tLabel sizeToFit];
-//    [tView addSubview:tLabel];
-//    tLabel.centerX = tView.width/2;
-//    tLabel.centerY = tView.height/2;
-    
     //TableView
     _tableView_notification = [[UITableView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?(44+TITLEVIEW_HEIGHT):(20+TITLEVIEW_HEIGHT)), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?(44+TITLEVIEW_HEIGHT):(20+TITLEVIEW_HEIGHT))) style:UITableViewStylePlain];
     _tableView_notification.delegate = self;
@@ -321,6 +317,15 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
                 _totalPage = totalPage;
                 self.dataArray = [NSMutableArray arrayWithArray:queueList];
                 [self.tableView_notification reloadData];
+                
+                if (queueList.count==0) {
+                    _blankView.hidden = NO;
+                    [self.view bringSubviewToFront:_blankView];
+                } else {
+                    _blankView.hidden = YES;
+                    [self.view sendSubviewToBack:_blankView];
+                }
+                
             }];
         } else {
             if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
@@ -331,6 +336,14 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
                 _totalPage = totalPage;
                 self.dataArray = [NSMutableArray arrayWithArray:queueList];
                 [self.tableView_notification reloadData];
+                
+                if (queueList.count==0) {
+                    _blankView.hidden = NO;
+                    [self.view bringSubviewToFront:_blankView];
+                } else {
+                    _blankView.hidden = YES;
+                    [self.view sendSubviewToBack:_blankView];
+                }
             }];            
         }
     }

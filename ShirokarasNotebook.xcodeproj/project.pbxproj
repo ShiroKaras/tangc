@@ -184,6 +184,7 @@
 		11D9AA3B1FB06143008D32E9 /* ShirokarasNotebookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA3A1FB06143008D32E9 /* ShirokarasNotebookTests.m */; };
 		11D9AA461FB06143008D32E9 /* ShirokarasNotebookUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA451FB06143008D32E9 /* ShirokarasNotebookUITests.m */; };
 		11DE16071FE9066A002F9A26 /* SKThumbTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE16061FE9066A002F9A26 /* SKThumbTableViewCell.m */; };
+		11DE160A1FE9497E002F9A26 /* HTBlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DE16091FE9497D002F9A26 /* HTBlankView.m */; };
 		11EE40931FCED10400039E3F /* NSData+Encryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE40871FCED10300039E3F /* NSData+Encryption.m */; };
 		11EE40941FCED10400039E3F /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE40881FCED10300039E3F /* NSString+AES256.m */; };
 		11EE40951FCED10400039E3F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE408B1FCED10300039E3F /* NSString+Base64.m */; };
@@ -565,6 +566,8 @@
 		11D9AA471FB06143008D32E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11DE16051FE9066A002F9A26 /* SKThumbTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKThumbTableViewCell.h; sourceTree = "<group>"; };
 		11DE16061FE9066A002F9A26 /* SKThumbTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKThumbTableViewCell.m; sourceTree = "<group>"; };
+		11DE16081FE9497C002F9A26 /* HTBlankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTBlankView.h; sourceTree = "<group>"; };
+		11DE16091FE9497D002F9A26 /* HTBlankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTBlankView.m; sourceTree = "<group>"; };
 		11EE40861FCED10300039E3F /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AES256.h"; sourceTree = "<group>"; };
 		11EE40871FCED10300039E3F /* NSData+Encryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Encryption.m"; sourceTree = "<group>"; };
 		11EE40881FCED10300039E3F /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES256.m"; sourceTree = "<group>"; };
@@ -1275,6 +1278,8 @@
 		11CDDE901FB59784004A0812 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				11DE16081FE9497C002F9A26 /* HTBlankView.h */,
+				11DE16091FE9497D002F9A26 /* HTBlankView.m */,
 				11B82DBF1FBED5AC006D9A26 /* SKSegmentView.h */,
 				11B82DC01FBED5AC006D9A26 /* SKSegmentView.m */,
 				11CDDE911FB597A9004A0812 /* SKNavigationController.h */,
@@ -1840,6 +1845,7 @@
 				11BAF1791FDEBB02007816A8 /* SKTopicListTableViewController.m in Sources */,
 				11BAF1D11FE007E2007816A8 /* HXPhoto3DTouchViewController.m in Sources */,
 				11B82DA01FBAF56A006D9A26 /* SKTitleBaseView.m in Sources */,
+				11DE160A1FE9497E002F9A26 /* HTBlankView.m in Sources */,
 				11A1E5DB1FCEC041000D4D5B /* SKServiceManager.m in Sources */,
 				117BDDB81FDBC2EB00CC3936 /* HTWebController.m in Sources */,
 				11BAF15F1FDE6B00007816A8 /* SKTagsView.m in Sources */,
