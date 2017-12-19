@@ -24,6 +24,8 @@
 @property (nonatomic, strong) UILabel *articleLabel;
 //是否关注
 @property (nonatomic, assign) BOOL isFollow;
+
+@property (nonatomic, strong) UIView *underLine;
 @end
 
 @implementation SKHomepageTableViewCell
@@ -74,11 +76,11 @@
     CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(50));
     
     //按钮、内容的透明分割线
-    UIView *underLine = [UIView new];
-    [self.contentView addSubview:underLine];
-    underLine.backgroundColor = [UIColor clearColor];
-    underLine.size = CGSizeMake(CELL_WIDTH -20, 0.5);
-    underLine.left = 10;
+    _underLine = [UIView new];
+    [self.contentView addSubview:_underLine];
+    _underLine.backgroundColor = [UIColor clearColor];
+    _underLine.size = CGSizeMake(CELL_WIDTH -20, 0.5);
+    _underLine.left = 10;
     
     NSString *content = @"";
     
@@ -98,7 +100,7 @@
         [self.contentView addSubview:_repostLabel];
         [self regxWithContent:topic.content label:_repostLabel];
         
-        underLine.top = _repostLabel.bottom+10;
+        _underLine.top = _repostLabel.bottom+10;
         
         _baseContentView = [[UIView alloc] initWithFrame:CGRectMake(0, _repostLabel.bottom+ROUND_WIDTH_FLOAT(15), SCREEN_WIDTH, 0)];
         _baseContentView.backgroundColor = COMMON_HIGHLIGHT_BG_COLOR;
@@ -114,7 +116,7 @@
             errLabel.top = _repostLabel.bottom +ROUND_WIDTH_FLOAT(30);
             [self.contentView addSubview:errLabel];
             
-            underLine.top = errLabel.bottom +ROUND_WIDTH_FLOAT(15);
+            _underLine.top = errLabel.bottom +ROUND_WIDTH_FLOAT(15);
         } else {
             UILabel *oriNameLabel = [UILabel new];
             oriNameLabel.text = [NSString stringWithFormat:@"@%@", topic.from.userinfo.nickname];
@@ -332,7 +334,7 @@
         }
     }
     
-    _baseContentView.height = underLine.bottom-_repostLabel.bottom-ROUND_WIDTH_FLOAT(15);
+    _baseContentView.height = _underLine.bottom-_repostLabel.bottom-ROUND_WIDTH_FLOAT(15);
     
     //关注
     _followButton = [UIButton new];
@@ -353,7 +355,7 @@
     [_repeaterButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _repeaterButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _repeaterButton.left = 0;
-    _repeaterButton.top = underLine.bottom;
+    _repeaterButton.top = _underLine.bottom;
     [self.contentView addSubview:_repeaterButton];
     //评论
     _commentButton = [UIButton new];
@@ -365,7 +367,7 @@
     [_commentButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _commentButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _commentButton.left = _repeaterButton.right;
-    _commentButton.top = underLine.bottom;
+    _commentButton.top = _underLine.bottom;
     [self.contentView addSubview:_commentButton];
     //点赞
     _favButton = [UIButton new];
@@ -377,7 +379,7 @@
     [_favButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
     _favButton.size = CGSizeMake(CELL_WIDTH/3, 44);
     _favButton.left = _commentButton.right;
-    _favButton.top = underLine.bottom;
+    _favButton.top = _underLine.bottom;
     [self.contentView addSubview:_favButton];
     
     UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, _repeaterButton.bottom, SCREEN_WIDTH, 1)];
