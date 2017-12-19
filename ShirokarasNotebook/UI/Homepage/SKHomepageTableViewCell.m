@@ -390,6 +390,29 @@
     self.cellHeight = sepLine.bottom;
 }
 
+- (void)showPicWithImageView:(UIImageView*)mImageView url:(NSURL*)url {
+    mImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        view.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.8];
+        view.userInteractionEnabled = YES;
+        [KEY_WINDOW addSubview:view];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_HEIGHT_FLOAT(22), ROUND_WIDTH_FLOAT(22), SCREEN_WIDTH-ROUND_WIDTH_FLOAT(44), SCREEN_HEIGHT-ROUND_HEIGHT_FLOAT(44))];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [view addSubview:imageView];
+        [imageView sd_setImageWithURL:url];
+        
+        UITapGestureRecognizer *removeTap = [[UITapGestureRecognizer alloc] init];
+        [[removeTap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+            [view removeFromSuperview];
+        }];
+        [view addGestureRecognizer:removeTap];
+    }];
+    [mImageView addGestureRecognizer:tap];
+}
+
 - (void)regxWithContent:(NSString*)content label:(UILabel*)label {
     if (label.text == nil) {
         return;
