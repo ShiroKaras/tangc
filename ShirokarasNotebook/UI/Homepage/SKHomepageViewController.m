@@ -57,6 +57,9 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 @property (nonatomic, assign) NSInteger selectedTopicID; //被选中的话题id
 
+@property (assign, nonatomic)   UIStatusBarStyle            statusBarStyle;  /**< 状态栏样式 */
+@property (assign, nonatomic)   BOOL                        statusBarHidden;  /**< 状态栏隐藏 */
+
 @end
 
 @implementation SKHomepageViewController {
@@ -71,11 +74,16 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     NSInteger   _totalPage_collection;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return _statusBarHidden;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    _statusBarHidden = NO;
     if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
         self.selectedType = SKHomepageSelectedTypeHot;
         self.titleView.selectedIndex = SKHomepageSelectedTypeHot;
@@ -177,9 +185,19 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     
     __weak typeof(self) weakSelf = self;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+            _statusBarHidden = YES;
+            [self prefersStatusBarHidden];
+            [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+        }
         [weakSelf getNetworkData:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.tableView.mj_header endRefreshing];
+            if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+                _statusBarHidden = NO;
+                [self prefersStatusBarHidden];
+                [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+            }
         });
     }];
     
