@@ -53,7 +53,6 @@ typedef NS_ENUM(NSInteger, SKNotificationSelectedType) {
     [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    self.selectedType = SKNotificationSelectedTypeNotification;
     
     [UD setValue:@(NO) forKey:@"isNewNotification"];
     ((SKTabbarViewController*)self.tabBarController).redPoint.hidden = YES;

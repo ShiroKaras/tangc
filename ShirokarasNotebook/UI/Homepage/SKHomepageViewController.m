@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 @property (assign, nonatomic)   UIStatusBarStyle            statusBarStyle;  /**< 状态栏样式 */
 @property (assign, nonatomic)   BOOL                        statusBarHidden;  /**< 状态栏隐藏 */
 
+@property (nonatomic, strong) NSIndexPath *indxCut; // 用来记录被点击的cell
 @end
 
 @implementation SKHomepageViewController {
@@ -68,7 +69,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     
     NSInteger     page;
     NSInteger     _totalPage;//总页数
-    BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
+//    BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
     BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
     
     NSInteger   page_collection;
@@ -87,19 +88,17 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     _statusBarHidden = NO;
-    if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+    if ([SKStorageManager sharedInstance].loginUser.uuid==nil&&self.selectedType!=SKHomepageSelectedTypeHot) {
         self.selectedType = SKHomepageSelectedTypeHot;
         self.titleView.selectedIndex = SKHomepageSelectedTypeHot;
-    } else {
-        self.selectedType = SKHomepageSelectedTypeFollow;
-        self.titleView.selectedIndex = SKHomepageSelectedTypeFollow;
     }
     ((SKTabbarViewController*)self.tabBarController).redPoint.hidden = ![[UD objectForKey:@"isNewNotification"] integerValue];
+    
+    [self.tableView scrollToRowAtIndexPath:self.indxCut atScrollPosition:UITableViewScrollPositionTop animated:NO]; // tableView的方法 一行代码 他会滚动到你指定的CELL的位置
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    isFirstCome = YES;
 }
 
 - (void)viewDidLoad {
@@ -107,7 +106,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.view.backgroundColor = COMMON_BG_COLOR;
     page = 1;
     _totalPage = 1;
-    isFirstCome = YES;
     isJuhua = NO;
     
     page_collection =1;
@@ -289,7 +287,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)getNetworkData:(BOOL)isRefresh {
     if (isRefresh) {
         page = 1;
-        isFirstCome = YES;
     }else{
         page++;
     }
@@ -313,7 +310,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 
             }
             [self.tableView reloadData];
-            isFirstCome = NO;
             scrollLock = NO;
         }];
     } else if (self.selectedType == SKHomepageSelectedTypeHot) {
@@ -337,7 +333,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             
             [self.tableView reloadData];
             
-            isFirstCome = NO;
             scrollLock = NO;
         }];
     } else if (self.selectedType == SKHomepageSelectedTypeTopics) {
@@ -361,7 +356,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             
             [self.collectionView reloadData];
             
-            isFirstCome = NO;
             scrollLock = NO;
         }];
     } else {
@@ -409,7 +403,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                     
                 }
                 [self.collectionView reloadData];
-                isFirstCome = NO;
                 scrollLock = NO;
             }];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -433,7 +426,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                     
                 }
                 [self.collectionView reloadData];
-                isFirstCome = NO;
                 scrollLock = NO;
             }];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -637,11 +629,13 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //原文已删除
-    if(self.dataArray[indexPath.row].from.is_del)   return;
-    //
-    SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray[indexPath.row]];
-    [self.navigationController pushViewController:controller animated:YES];
+    if(self.dataArray[indexPath.row].from.is_del){
+        //原文已删除
+    } else {
+        self.indxCut = indexPath;
+        SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray[indexPath.row]];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 - (void)didClickfollowButtonWithTopic:(SKTopic *)topic {
@@ -661,7 +655,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    contentOffSet = scrollView.contentOffset;
     if(scrollLock) return;
     if (scrollView==self.tableView) {
         self.collectionView.contentOffset = scrollView.contentOffset;
