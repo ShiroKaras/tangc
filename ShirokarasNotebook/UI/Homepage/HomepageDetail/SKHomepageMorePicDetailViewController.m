@@ -12,6 +12,8 @@
 #import "HTWebController.h"
 #import "SKPublishNewContentViewController.h"
 
+#define CELL_WIDTH (SCREEN_WIDTH)
+
 @interface SKHomepageMorePicDetailViewController () <UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<SKComment*> *dataArray;
@@ -26,6 +28,18 @@
 @property (nonatomic, strong) UIButton *favButton;
 
 @property (nonatomic, strong) UIButton *delButton;
+
+@property (nonatomic, strong) UILabel *repostLabel;
+@property (nonatomic, strong) UIView *baseContentView;
+@property (nonatomic, strong) UIView *underLine;
+//OnePic
+@property (nonatomic, strong) UIImageView *imageViewOnePic;
+//MorePic
+@property (nonatomic, strong) UILabel *introduceLabel;
+@property (nonatomic, strong) NSArray<NSString*>* imageUrlArray;
+//Article
+@property (nonatomic, strong) UIImageView *imageViewArticle;
+@property (nonatomic, strong) UILabel *articleLabel;
 
 @end
 
@@ -83,8 +97,7 @@
         }
     }
 #endif
-    
-    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.from.id!=0?_topic.from.id:_topic.id callback:^(BOOL success, SKTopic *topic) {
+    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.id callback:^(BOOL success, SKTopic *topic) {
         self.topic = topic;
         [self createUI];
     }];
@@ -99,10 +112,106 @@
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(220))];
     self.headerView.backgroundColor = [UIColor clearColor];
     
-    if (self.topic.type == SKHomepageDetailTypeOnePic || self.topic.type == SKHomepageDetailTypeMorePic) {
+    //原创
+    if (self.topic.from.id==0) {
+        if (self.topic.type == SKHomepageDetailTypeOnePic || self.topic.type == SKHomepageDetailTypeMorePic) {
+            UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.headerView.width-10, self.headerView.height-ROUND_WIDTH_FLOAT(20))];
+            backView.backgroundColor = [UIColor whiteColor];
+            [self.headerView addSubview:backView];
+            
+            //用户信息
+            _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
+            _baseInfoView.backgroundColor = [UIColor whiteColor];
+            _baseInfoView.userInfo = _topic.from.id!=0?_topic.from.userinfo:_topic.userinfo;
+            _baseInfoView.dateLabel.text = self.topic.add_time;
+            [_baseInfoView.dateLabel sizeToFit];
+            [backView addSubview:_baseInfoView];
+            
+            CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(40));
+            
+            NSString *contentText = _topic.from.id!=0?_topic.from.content:_topic.content;
+            UILabel *contentLabel = [UILabel new];
+            contentLabel.text = contentText;
+            contentLabel.textColor = COMMON_TEXT_COLOR;
+            contentLabel.numberOfLines = 2;
+            contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+            CGSize labelSize = [contentText boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+            contentLabel.size = labelSize;
+            contentLabel.top = _baseInfoView.bottom;
+            contentLabel.left = ROUND_WIDTH_FLOAT(15);
+            [backView addSubview:contentLabel];
+            
+            NSArray *imagesArray = _topic.from.id!=0?_topic.from.images:_topic.images;
+            float width = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(30+11))/3;
+            for (int i=0; i<imagesArray.count; i++) {
+                int j = i%3;
+                int k = floor(i/3);
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+                imageView.userInteractionEnabled = YES;
+                [imageView sd_setImageWithURL:[NSURL URLWithString:imagesArray[i]]];
+                imageView.contentMode = UIViewContentModeScaleAspectFill;
+                imageView.layer.masksToBounds = YES;
+                imageView.layer.cornerRadius = 3;
+                [backView addSubview:imageView];
+                imageView.left = ROUND_WIDTH_FLOAT(15)+j*ROUND_WIDTH_FLOAT(93+5.5);
+                imageView.top = k*(ROUND_WIDTH_FLOAT(5.5)+ROUND_WIDTH_FLOAT(93+5.5)) +contentLabel.bottom+ROUND_WIDTH_FLOAT(15);
+                
+                self.headerView.height = imageView.bottom +ROUND_WIDTH_FLOAT(56);
+                backView.height = self.headerView.height-ROUND_WIDTH_FLOAT(20);
+            }
+        } else if (self.topic.type == SKHomepageDetailTypeArticle) {
+            self.tableView.top = 0;
+            self.tableView.height = self.view.height-10;
+            
+            //文章头图
+            _articleHeaderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(155))];
+            _articleHeaderImageView.contentMode = UIViewContentModeScaleAspectFill;
+            if (self.topic.images.count >0) {
+                [_articleHeaderImageView sd_setImageWithURL:[NSURL URLWithString:self.topic.images[0]] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
+            }
+            _articleHeaderImageView.layer.masksToBounds = YES;
+            [self.headerView addSubview:_articleHeaderImageView];
+            
+            //用户信息
+            _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, _articleHeaderImageView.bottom, _headerView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
+            _baseInfoView.userInfo = _topic.from.id!=0?_topic.from.userinfo:_topic.userinfo;
+            [self.headerView addSubview:_baseInfoView];
+            _baseInfoView.dateLabel.text = self.topic.add_time;
+            [_baseInfoView.dateLabel sizeToFit];
+            _headerView.height = _baseInfoView.bottom;
+            
+            //文章
+            _articleView = [[UITextView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), self.baseInfoView.bottom, self.view.frame.size.width-ROUND_WIDTH_FLOAT(30), 400)];
+            _articleView.backgroundColor = [UIColor clearColor];
+            // 获取html数据
+            NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}</style></head>%@",_articleView.width,_topic.content];
+            // 利用可变属性字符串来接收html数据
+            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+            // 给textView赋值的时候就得用attributedText来赋了
+            _articleView.attributedText = attributedString;
+            _articleView.height = _articleView.contentSize.height;
+            [self.headerView addSubview:_articleView];
+            
+            [self.tableView beginUpdates];
+            self.headerView.height = self.baseInfoView.bottom+_articleView.contentSize.height;
+            [self.tableView setTableHeaderView:self.headerView];
+            [self.tableView endUpdates];
+        }
+    }
+    //转发
+    else {
+        CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(50));
+        
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.headerView.width-10, self.headerView.height-ROUND_WIDTH_FLOAT(20))];
         backView.backgroundColor = [UIColor whiteColor];
         [self.headerView addSubview:backView];
+        
+        //按钮、内容的透明分割线
+        _underLine = [UIView new];
+        [backView addSubview:_underLine];
+        _underLine.backgroundColor = [UIColor clearColor];
+        _underLine.size = CGSizeMake(self.view.width -20, 0.5);
+        _underLine.left = 10;
         
         //用户信息
         _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
@@ -112,77 +221,133 @@
         [_baseInfoView.dateLabel sizeToFit];
         [backView addSubview:_baseInfoView];
         
-        CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(40));
+        _repostLabel = [UILabel new];
+        _repostLabel.text = self.topic.content;
+        _repostLabel.textColor = COMMON_TEXT_COLOR;
+        _repostLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+        _repostLabel.numberOfLines = 2;
+        CGSize labelSize = [self.topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+        _repostLabel.size = labelSize;
+        _repostLabel.left = ROUND_WIDTH_FLOAT(15);
+        _repostLabel.top = _baseInfoView.bottom;
+        [backView addSubview:_repostLabel];
         
-        NSString *contentText = _topic.from.id!=0?_topic.from.content:_topic.content;
-        UILabel *contentLabel = [UILabel new];
-        contentLabel.text = contentText;
-        contentLabel.textColor = COMMON_TEXT_COLOR;
-        contentLabel.numberOfLines = 2;
-        contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
-        CGSize labelSize = [contentText boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
-        contentLabel.size = labelSize;
-        contentLabel.top = _baseInfoView.bottom;
-        contentLabel.left = ROUND_WIDTH_FLOAT(15);
-        [backView addSubview:contentLabel];
+        _baseContentView = [[UIView alloc] initWithFrame:CGRectMake(0, _repostLabel.bottom+ROUND_WIDTH_FLOAT(15), SCREEN_WIDTH, 0)];
+        _baseContentView.backgroundColor = COMMON_HIGHLIGHT_BG_COLOR;
+        [backView addSubview:_baseContentView];
         
-        NSArray *imagesArray = _topic.from.id!=0?_topic.from.images:_topic.images;
-        float width = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(30+11))/3;
-        for (int i=0; i<imagesArray.count; i++) {
-            int j = i%3;
-            int k = floor(i/3);
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
-            imageView.userInteractionEnabled = YES;
-            [imageView sd_setImageWithURL:[NSURL URLWithString:imagesArray[i]]];
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            imageView.layer.masksToBounds = YES;
-            imageView.layer.cornerRadius = 3;
-            [backView addSubview:imageView];
-            imageView.left = ROUND_WIDTH_FLOAT(15)+j*ROUND_WIDTH_FLOAT(93+5.5);
-            imageView.top = k*(ROUND_WIDTH_FLOAT(5.5)+ROUND_WIDTH_FLOAT(93+5.5)) +contentLabel.bottom+ROUND_WIDTH_FLOAT(15);
-            
-            self.headerView.height = imageView.bottom +ROUND_WIDTH_FLOAT(56);
-            backView.height = self.headerView.height-ROUND_WIDTH_FLOAT(20);
+        UILabel *oriNameLabel = [UILabel new];
+        oriNameLabel.text = [NSString stringWithFormat:@"@%@", self.topic.from.userinfo.nickname];
+        oriNameLabel.textColor = COMMON_TEXT_COLOR;
+        oriNameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+        [oriNameLabel sizeToFit];
+        oriNameLabel.top = _baseContentView.top +ROUND_WIDTH_FLOAT(15);
+        oriNameLabel.left = ROUND_WIDTH_FLOAT(15);
+        [backView addSubview:oriNameLabel];
+        
+        switch (self.topic.from.type) {
+            case SKHomepageDetailTypeOnePic:{
+                _imageViewOnePic = [[UIImageView alloc] initWithFrame:CGRectMake(15, _repostLabel.bottom+ROUND_WIDTH_FLOAT(15)+ROUND_WIDTH_FLOAT(42), self.view.width-30, (self.view.width-30)/4*3)];
+                _imageViewOnePic.layer.cornerRadius = 3;
+                _imageViewOnePic.layer.masksToBounds = YES;
+                _imageViewOnePic.contentMode = UIViewContentModeScaleAspectFill;
+                if (self.topic.from.images.count>0) {
+                    [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:self.topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                }
+                [backView addSubview:_imageViewOnePic];
+                [self showPicWithImageView:_imageViewOnePic url:self.topic.from.images[0]];
+                
+                _introduceLabel = [UILabel new];
+                _introduceLabel.text = self.topic.from.content;
+                _introduceLabel.textColor = COMMON_TEXT_COLOR;
+                _introduceLabel.numberOfLines = 2;
+                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+                CGSize labelSize = [self.topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+                _introduceLabel.size = labelSize;
+                _introduceLabel.top = _imageViewOnePic.bottom+15;
+                _introduceLabel.left = 15;
+                [backView addSubview:_introduceLabel];
+                
+                _underLine.top = _introduceLabel.bottom+10;
+                break;
+            }
+            case SKHomepageDetailTypeMorePic:{
+                UIScrollView *scrollView = [UIScrollView new];
+                scrollView.backgroundColor = [UIColor clearColor];
+                scrollView.top = _repostLabel.bottom+ROUND_WIDTH_FLOAT(15)+ROUND_WIDTH_FLOAT(42);
+                scrollView.left = 15;
+                scrollView.size = CGSizeMake(CELL_WIDTH-30, ROUND_WIDTH_FLOAT(121));
+                scrollView.contentSize = CGSizeMake(self.topic.from.images.count*ROUND_WIDTH_FLOAT(129)-ROUND_WIDTH_FLOAT(8), ROUND_WIDTH_FLOAT(121));
+                scrollView.showsVerticalScrollIndicator = NO;
+                scrollView.showsHorizontalScrollIndicator = NO;
+                [backView addSubview:scrollView];
+                
+                //添加图片
+                for (int i=0; i<self.topic.from.images.count; i++) {
+                    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(129)*i, 0, ROUND_WIDTH_FLOAT(121), ROUND_WIDTH_FLOAT(121))];
+                    imageView.tag = 100+i;
+                    imageView.layer.cornerRadius = 3;
+                    imageView.layer.masksToBounds = YES;
+                    imageView.contentMode = UIViewContentModeScaleAspectFill;
+                    if (self.topic.from.images.count > 0) {
+                        [imageView sd_setImageWithURL:[NSURL URLWithString:self.topic.from.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                    }
+                    [scrollView addSubview:imageView];
+                    [self showPicWithImageView:imageView url:self.topic.from.images[i]];
+                }
+                
+                //文字介绍
+                _introduceLabel = [UILabel new];
+                _introduceLabel.text = self.topic.from.content;
+                _introduceLabel.textColor = COMMON_TEXT_COLOR;
+                _introduceLabel.numberOfLines = 0;
+                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+                CGSize labelSize = [self.topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+                _introduceLabel.size = labelSize;
+                _introduceLabel.top = scrollView.bottom+15;
+                _introduceLabel.left = 15;
+                [backView addSubview:_introduceLabel];
+                
+                _underLine.top = _introduceLabel.bottom+10;
+                break;
+            }
+            case SKHomepageDetailTypeArticle:{
+                _imageViewArticle = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _repostLabel.bottom+ROUND_WIDTH_FLOAT(15)+ROUND_WIDTH_FLOAT(42), ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(150))];
+                _imageViewArticle.contentMode = UIViewContentModeScaleAspectFill;
+                _imageViewArticle.layer.cornerRadius = 5;
+                _imageViewArticle.layer.masksToBounds = YES;
+                if (self.topic.from.images.count>0) {
+                    [_imageViewArticle sd_setImageWithURL:[NSURL URLWithString:self.topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
+                }
+                [backView addSubview:_imageViewArticle];
+                
+                _articleLabel = [UILabel new];
+                _articleLabel.text = self.topic.from.title;
+                _articleLabel.textColor = [UIColor whiteColor];
+                _articleLabel.shadowOffset = CGSizeMake(1, 1);
+                _articleLabel.shadowColor = [UIColor lightGrayColor];
+                CGSize labelSize = [self.topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+                _articleLabel.size = labelSize;
+                _articleLabel.width = ROUND_WIDTH_FLOAT(200);
+                _articleLabel.left = _imageViewArticle.left+ROUND_WIDTH_FLOAT(10);
+                _articleLabel.bottom = _imageViewArticle.bottom-ROUND_WIDTH_FLOAT(10);
+                [backView addSubview:_articleLabel];
+                
+                UIImageView *view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_label_article"]];
+                view.size = CGSizeMake(ROUND_WIDTH_FLOAT(38), ROUND_WIDTH_FLOAT(19));
+                view.right = _imageViewArticle.width;
+                view.top = 30;
+                [_imageViewArticle addSubview:view];
+                
+                _underLine.top = _imageViewArticle.bottom+8;
+                break;
+            }
+            default:
+                break;
         }
-    } else if (self.topic.type == SKHomepageDetailTypeArticle) {
-        self.tableView.top = 0;
-        self.tableView.height = self.view.height-10;
-        
-        //文章头图
-        _articleHeaderImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, ROUND_WIDTH_FLOAT(155))];
-        _articleHeaderImageView.contentMode = UIViewContentModeScaleAspectFill;
-        if (self.topic.images.count >0) {
-            [_articleHeaderImageView sd_setImageWithURL:[NSURL URLWithString:self.topic.images[0]] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
-        }
-        _articleHeaderImageView.layer.masksToBounds = YES;
-        [self.headerView addSubview:_articleHeaderImageView];
-        
-        //用户信息
-        _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, _articleHeaderImageView.bottom, _headerView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
-        _baseInfoView.userInfo = _topic.from.id!=0?_topic.from.userinfo:_topic.userinfo;
-        [self.headerView addSubview:_baseInfoView];
-        _baseInfoView.dateLabel.text = self.topic.add_time;
-        [_baseInfoView.dateLabel sizeToFit];
-        _headerView.height = _baseInfoView.bottom;
-        
-        //文章
-        _articleView = [[UITextView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), self.baseInfoView.bottom, self.view.frame.size.width-ROUND_WIDTH_FLOAT(30), 400)];
-        _articleView.backgroundColor = [UIColor clearColor];
-        // 获取html数据
-        NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}</style></head>%@",_articleView.width,_topic.content];
-        // 利用可变属性字符串来接收html数据
-        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
-        // 给textView赋值的时候就得用attributedText来赋了
-        _articleView.attributedText = attributedString;
-        _articleView.height = _articleView.contentSize.height;
-        [self.headerView addSubview:_articleView];
-        
-        [self.tableView beginUpdates];
-        self.headerView.height = self.baseInfoView.bottom+_articleView.contentSize.height;
-        [self.tableView setTableHeaderView:self.headerView];
-        [self.tableView endUpdates];
+        _baseContentView.height = _underLine.bottom-_repostLabel.bottom-ROUND_WIDTH_FLOAT(15);
     }
-    
+    self.headerView.height = _baseContentView.bottom;
     self.tableView.tableHeaderView = self.headerView;
     
     //加载更多
@@ -372,6 +537,30 @@
     [super didReceiveMemoryWarning];
 }
 
+
+- (void)showPicWithImageView:(UIImageView*)mImageView url:(NSURL*)url {
+    mImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        view.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.8];
+        view.userInteractionEnabled = YES;
+        [KEY_WINDOW addSubview:view];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_HEIGHT_FLOAT(22), ROUND_WIDTH_FLOAT(22), SCREEN_WIDTH-ROUND_WIDTH_FLOAT(44), SCREEN_HEIGHT-ROUND_HEIGHT_FLOAT(44))];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [view addSubview:imageView];
+        [imageView sd_setImageWithURL:url];
+        
+        UITapGestureRecognizer *removeTap = [[UITapGestureRecognizer alloc] init];
+        [[removeTap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+            [view removeFromSuperview];
+        }];
+        [view addGestureRecognizer:removeTap];
+    }];
+    [mImageView addGestureRecognizer:tap];
+}
+
 #pragma mark - UITableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -390,25 +579,15 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(37))];
-    headerView.backgroundColor = [UIColor clearColor];
-    
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, 0, SCREEN_WIDTH-10, 30)];
-//    view.backgroundColor = [UIColor whiteColor];
-//    [headerView addSubview:view];
-//    //指定圆角
-//    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5,5)];
-//    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-//    maskLayer.frame = view.bounds;
-//    maskLayer.path = maskPath.CGPath;
-//    view.layer.mask = maskLayer;
+    headerView.backgroundColor = [UIColor whiteColor];
 
     UILabel *titleLabel = [UILabel new];
-    titleLabel.text = [NSString stringWithFormat:@"评论（%ld）", self.dataArray.count];
+    titleLabel.text = [NSString stringWithFormat:@"评论 %ld", self.dataArray.count];
     titleLabel.textColor = COMMON_TEXT_COLOR;
     titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
     [titleLabel sizeToFit];
-    titleLabel.left = 10;
-    titleLabel.centerY = 15;
+    titleLabel.left = ROUND_WIDTH_FLOAT(15);
+    titleLabel.centerY = 37/2;
     [headerView addSubview:titleLabel];
     return headerView;
 }
@@ -416,7 +595,7 @@
 #pragma mark - UITableView DataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
+    return 37;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
