@@ -10,6 +10,8 @@
 #import "SKPersonalMyPageViewController.h"
 #import "SKAboutViewController.h"
 #import <GTSDK/GeTuiSdk.h>     // GetuiSdk头文件应用
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
 
 #import "SKPublishNewContentViewController.h"
 #import "SKUserListViewController.h"
@@ -107,6 +109,19 @@
         
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {
+                                                                  SSDKPlatformType type = 0;
+                                                                  NSLog(@"%@", [SKStorageManager sharedInstance].loginUser.login_type);
+                                                                  if ([[SKStorageManager sharedInstance].loginUser.login_type isEqualToString:@"weibo"]) {
+                                                                      type = SSDKPlatformTypeSinaWeibo;
+                                                                  } else if ([[SKStorageManager sharedInstance].loginUser.login_type isEqualToString:@"qq"]) {
+                                                                      type = SSDKPlatformTypeQQ;
+                                                                  } else if ([[SKStorageManager sharedInstance].loginUser.login_type isEqualToString:@"weixin"]) {
+                                                                      type = SSDKPlatformTypeWechat;
+                                                                  } else {
+                                                                      type = SSDKPlatformTypeUnknown;
+                                                                  }
+                                                                  [ShareSDK cancelAuthorize:type];
+                                                                  
                                                                   [SKStorageManager sharedInstance].userInfo = [SKUserInfo new];
                                                                   [SKStorageManager sharedInstance].loginUser = [SKLoginUser new];
                                                                   [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].userInfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];

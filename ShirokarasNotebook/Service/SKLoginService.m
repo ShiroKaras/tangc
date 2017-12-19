@@ -44,6 +44,7 @@
                             };
     [self baseRequestWithParam:param url:[SKCGIManager login_thirdLogin] callback:^(BOOL success, SKResponsePackage *response) {
         SKLoginUser *userInfo = [SKLoginUser mj_objectWithKeyValues:response.data];
+        userInfo.login_type = user.login_type;
         [[SKStorageManager sharedInstance] setLoginUser:userInfo];
         callback(success, response);
     }];
