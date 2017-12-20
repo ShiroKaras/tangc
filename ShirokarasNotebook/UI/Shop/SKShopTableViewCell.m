@@ -44,21 +44,21 @@
         _mMoneyLabel.left = dollar.right+ROUND_WIDTH_FLOAT(2);
         _mMoneyLabel.bottom = dollar.bottom;
         
-        _mCountLabel = [UILabel new];
-        _mCountLabel.text = @"共999999件";
-        _mCountLabel.textColor = COMMON_TEXT_PLACEHOLDER_COLOR;
-        _mCountLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
-        [self addSubview:_mCountLabel];
-        [_mCountLabel sizeToFit];
-        _mCountLabel.right = frame.size.width-ROUND_WIDTH_FLOAT(6);
-        _mCountLabel.bottom = _mMoneyLabel.bottom;
+//        _mCountLabel = [UILabel new];
+//        _mCountLabel.text = @"共999999件";
+//        _mCountLabel.textColor = COMMON_TEXT_PLACEHOLDER_COLOR;
+//        _mCountLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
+//        [self addSubview:_mCountLabel];
+//        [_mCountLabel sizeToFit];
+//        _mCountLabel.right = frame.size.width-ROUND_WIDTH_FLOAT(6);
+//        _mCountLabel.bottom = _mMoneyLabel.bottom;
     }
     return self;
 }
 
 - (void)layoutSubviews {
-    _mCountLabel.right = self.size.width-ROUND_WIDTH_FLOAT(6);
-    _mCountLabel.bottom = _mMoneyLabel.bottom;
+//    _mCountLabel.right = self.size.width-ROUND_WIDTH_FLOAT(6);
+//    _mCountLabel.bottom = _mMoneyLabel.bottom;
 }
 
 @end
@@ -97,8 +97,8 @@
     [_view_left.mImageView sd_setImageWithURL:[NSURL URLWithString:leftData.image] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
     _view_left.mContentLabel.text = leftData.name;
     _view_left.mMoneyLabel.text = leftData.price;
-    _view_left.mCountLabel.text = [NSString stringWithFormat:@"共%@件", leftData.click_num];
-    [_view_left.mCountLabel sizeToFit];
+//    _view_left.mCountLabel.text = [NSString stringWithFormat:@"共%@件", leftData.click_num];
+//    [_view_left.mCountLabel sizeToFit];
     [_view_left layoutSubviews];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -124,8 +124,8 @@
     [_view_right.mImageView sd_setImageWithURL:[NSURL URLWithString:rightData.image] placeholderImage:COMMON_PLACEHOLDER_IMAGE];
     _view_right.mContentLabel.text = rightData.name;
     _view_right.mMoneyLabel.text = rightData.price;
-    _view_right.mCountLabel.text = [NSString stringWithFormat:@"共%@件", rightData.click_num];
-    [_view_right.mCountLabel sizeToFit];
+//    _view_right.mCountLabel.text = [NSString stringWithFormat:@"共%@件", rightData.click_num];
+//    [_view_right.mCountLabel sizeToFit];
     [_view_right layoutSubviews];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
