@@ -175,6 +175,7 @@
 		11CECB851FE7A06500EECF10 /* SKTextWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CECB841FE7A06500EECF10 /* SKTextWebViewController.m */; };
 		11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5D66F1FB9511500ACB521 /* SKLoginRootViewController.m */; };
 		11D5D6731FB9512C00ACB521 /* SKLoginVerifyMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5D6721FB9512B00ACB521 /* SKLoginVerifyMobileViewController.m */; };
+		11D839AF1FEA292000F739CA /* SKLaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D839AE1FEA292000F739CA /* SKLaunchView.m */; };
 		11D9AA201FB06142008D32E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA1F1FB06142008D32E9 /* AppDelegate.m */; };
 		11D9AA231FB06142008D32E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AA221FB06142008D32E9 /* ViewController.m */; };
 		11D9AA261FB06142008D32E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D9AA241FB06142008D32E9 /* Main.storyboard */; };
@@ -548,6 +549,8 @@
 		11D5D6711FB9512B00ACB521 /* SKLoginVerifyMobileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLoginVerifyMobileViewController.h; sourceTree = "<group>"; };
 		11D5D6721FB9512B00ACB521 /* SKLoginVerifyMobileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLoginVerifyMobileViewController.m; sourceTree = "<group>"; };
 		11D5D6741FB953D900ACB521 /* SKLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLog.h; sourceTree = "<group>"; };
+		11D839AD1FEA292000F739CA /* SKLaunchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKLaunchView.h; sourceTree = "<group>"; };
+		11D839AE1FEA292000F739CA /* SKLaunchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKLaunchView.m; sourceTree = "<group>"; };
 		11D9AA1B1FB06141008D32E9 /* ShirokarasNotebook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShirokarasNotebook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AA1E1FB06142008D32E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		11D9AA1F1FB06142008D32E9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1340,6 +1343,8 @@
 				11D9AA221FB06142008D32E9 /* ViewController.m */,
 				11D9AA241FB06142008D32E9 /* Main.storyboard */,
 				11D9AA2C1FB06142008D32E9 /* LaunchScreen.storyboard */,
+				11D839AD1FEA292000F739CA /* SKLaunchView.h */,
+				11D839AE1FEA292000F739CA /* SKLaunchView.m */,
 				11D9AA2F1FB06142008D32E9 /* Info.plist */,
 				11D9AA301FB06142008D32E9 /* main.m */,
 				11D9AA271FB06142008D32E9 /* ShirokarasNotebook.xcdatamodeld */,
@@ -1894,6 +1899,7 @@
 				11A1E5E81FCEC352000D4D5B /* NSString+Utility.m in Sources */,
 				11A1E5DC1FCEC041000D4D5B /* ServerConfiguration.m in Sources */,
 				111C5CB71FCC1AC200581AE0 /* SKUserListTableViewCell.m in Sources */,
+				11D839AF1FEA292000F739CA /* SKLaunchView.m in Sources */,
 				11BAF1D61FE007E2007816A8 /* HXDatePhotoInteractiveTransition.m in Sources */,
 				11A1E5DA1FCEC041000D4D5B /* SKLoginService.m in Sources */,
 				11D5D6701FB9511500ACB521 /* SKLoginRootViewController.m in Sources */,
@@ -2071,6 +2077,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShirokarasNotebook/ShirokarasNotebook.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				ENABLE_BITCODE = NO;
@@ -2114,6 +2121,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShirokarasNotebook/ShirokarasNotebook.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zac Yang (6H2SM536G6)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				ENABLE_BITCODE = NO;

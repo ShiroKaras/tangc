@@ -24,6 +24,7 @@
 
 #import "ClientConfiguration.h"
 
+#import "SKLaunchView.h"
 
 /// 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
 #define kGtAppId           @"VAT8HvVvMn7Ws65jB016N8"
@@ -54,6 +55,17 @@
     [[SKNavigationController alloc] initWithRootViewController:_mainController];
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
+    
+    
+    SKLaunchView *launchView = [[SKLaunchView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window addSubview:launchView];
+    
+    [UIView animateWithDuration:3 animations:^{
+        launchView.height+=1;
+    } completion:^(BOOL finished) {
+        // 动画结束，移除imageView，呈现主界面
+        [launchView removeFromSuperview];
+    }];
     
     NSDictionary *remoteNotification =
     [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
