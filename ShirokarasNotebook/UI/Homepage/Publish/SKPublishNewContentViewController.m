@@ -107,7 +107,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     
     [self createTitleView];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(44+ROUND_WIDTH_FLOAT(44)):20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44))];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-(kDevice_Is_iPhoneX?44:20+ROUND_WIDTH_FLOAT(44)))];
     scrollView.alwaysBounceVertical = YES;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;

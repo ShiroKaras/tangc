@@ -84,7 +84,7 @@ typedef void (^SKUpdateCallback)(NSString *string);
     [self createTitleView];
     
     //头像
-    UIView *view0 = [[UIView alloc] initWithFrame:CGRectMake(0, 20+ROUND_WIDTH_FLOAT(44), self.view.width, ROUND_WIDTH_FLOAT(60))];
+    UIView *view0 = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20 +ROUND_WIDTH_FLOAT(44), self.view.width, ROUND_WIDTH_FLOAT(60))];
     view0.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view0];
     
@@ -212,7 +212,7 @@ typedef void (^SKUpdateCallback)(NSString *string);
 }
 
 - (void)createTitleView {
-    UIView *titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, ROUND_WIDTH_FLOAT(44))];
+    UIView *titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
     [self.view addSubview:titleBackView];
     
     UILabel *mTitleLabel = [UILabel new];

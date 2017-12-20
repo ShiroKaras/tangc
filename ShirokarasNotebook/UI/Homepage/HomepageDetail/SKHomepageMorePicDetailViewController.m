@@ -233,7 +233,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
         //用户信息
         _baseInfoView = [[SKTitleBaseView alloc] initWithFrame:CGRectMake(0, 0, backView.width, ROUND_WIDTH_FLOAT(60)) withTopic:self.topic];
         _baseInfoView.backgroundColor = [UIColor whiteColor];
-        _baseInfoView.userInfo = _topic.from.id!=0?_topic.from.userinfo:_topic.userinfo;
+        _baseInfoView.userInfo = self.topic.userinfo;
         _baseInfoView.dateLabel.text = self.topic.add_time;
         [_baseInfoView.dateLabel sizeToFit];
         [backView addSubview:_baseInfoView];
@@ -513,7 +513,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     [moreButton setImage:[UIImage imageNamed:@"btn_detailpage_share"] forState:UIControlStateNormal];
     [moreButton setImage:[UIImage imageNamed:@"btn_detailpage_share_highlight"] forState:UIControlStateHighlighted];
     moreButton.size = CGSizeMake(44, 44);
-    moreButton.top = 20;
+    moreButton.top = kDevice_Is_iPhoneX?44:20;
     moreButton.right = self.view.right-10;
     [self.view addSubview:moreButton];
     [[moreButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {

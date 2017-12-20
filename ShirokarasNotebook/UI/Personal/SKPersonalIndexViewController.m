@@ -65,7 +65,7 @@
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?24:0), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?24:0))];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?44:0), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?44:0))];
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(566));
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;

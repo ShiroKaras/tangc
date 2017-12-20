@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)createUI {
     //TableView
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83):(self.view.height-49)) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83+20):(self.view.height-49)) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -375,7 +375,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         layout.minimumColumnSpacing = SPACE;
         layout.minimumInteritemSpacing = SPACE;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83):(self.view.height-49)) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83+20):(self.view.height-49)) collectionViewLayout:layout];
 //        _collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
