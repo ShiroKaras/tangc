@@ -712,6 +712,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray_follow[indexPath.row]];
                 [self.navigationController pushViewController:controller animated:YES];
             }
+            break;
         }
         case SKHomepageSelectedTypeHot: {
             if(self.dataArray_hot[indexPath.row].from.is_del){
@@ -721,6 +722,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray_hot[indexPath.row]];
                 [self.navigationController pushViewController:controller animated:YES];
             }
+            break;
         }
         default:
             break;

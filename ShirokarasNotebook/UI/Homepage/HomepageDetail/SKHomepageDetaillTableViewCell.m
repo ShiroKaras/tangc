@@ -37,11 +37,11 @@
     if (!_avatarImageView) {
         _avatarImageView = [UIImageView new];
         _avatarImageView.backgroundColor = [UIColor greenColor];
-        _avatarImageView.layer.cornerRadius = 20;
+        _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(12.5);
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.top = 15;
         _avatarImageView.left = 15;
-        _avatarImageView.size = CGSizeMake(25, 25);
+        _avatarImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(25), ROUND_WIDTH_FLOAT(25));
     }
     return _avatarImageView;
 }
