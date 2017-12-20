@@ -41,7 +41,7 @@
         _markLine = [UIView new];
         _markLine.backgroundColor = [UIColor colorWithHex:0x98cb99];
         _markLine.size = CGSizeMake(ROUND_WIDTH_FLOAT(20), 2);
-        _markLine.bottom = frame.size.height;
+        _markLine.bottom = frame.size.height-10;
         _markLine.centerX = [self viewWithTag:100].centerX;
         [self addSubview:_markLine];
         [self addObserver:self forKeyPath:@"selectedIndex" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -58,7 +58,7 @@
             [self viewWithTag:100+i].bottom = self.height;
         }
         _markLine.centerX = [self viewWithTag:100+self.selectedIndex].centerX;
-        _markLine.bottom = self.height;
+        _markLine.bottom = self.height-10;
     }];
 }
 

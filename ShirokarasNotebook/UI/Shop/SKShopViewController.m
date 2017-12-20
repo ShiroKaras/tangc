@@ -79,7 +79,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     [self.view addSubview:_tableView];
     
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(202))];
     headerView.backgroundColor = [UIColor clearColor];
     
     UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];

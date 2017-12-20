@@ -77,7 +77,7 @@
 
 - (UIView *)view_left {
     if (!_view_left) {
-        _view_left = [[SKShopTableViewCellChildView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), 0, ROUND_WIDTH_FLOAT(137.5), ROUND_WIDTH_FLOAT(199))];
+        _view_left = [[SKShopTableViewCellChildView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), ROUND_WIDTH_FLOAT(15), ROUND_WIDTH_FLOAT(137.5), ROUND_WIDTH_FLOAT(199))];
         _view_left.backgroundColor = [UIColor whiteColor];
         _view_left.layer.cornerRadius =3;
     }
@@ -86,7 +86,7 @@
 
 - (UIView *)view_right {
     if (!_view_right) {
-        _view_right = [[SKShopTableViewCellChildView alloc] initWithFrame:CGRectMake(_view_left.right+ROUND_WIDTH_FLOAT(15), 0, ROUND_WIDTH_FLOAT(137.5), ROUND_WIDTH_FLOAT(199))];
+        _view_right = [[SKShopTableViewCellChildView alloc] initWithFrame:CGRectMake(_view_left.right+ROUND_WIDTH_FLOAT(15), ROUND_WIDTH_FLOAT(15), ROUND_WIDTH_FLOAT(137.5), ROUND_WIDTH_FLOAT(199))];
         _view_right.backgroundColor = [UIColor whiteColor];
         _view_right.layer.cornerRadius =3;
     }
