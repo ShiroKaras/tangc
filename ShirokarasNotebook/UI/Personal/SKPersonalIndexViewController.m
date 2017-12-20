@@ -144,16 +144,6 @@
         _authBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(180))];
         _authBackView.backgroundColor = [UIColor whiteColor];
         
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
-        [[tapGesture rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
-            if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
-                [self invokeLoginViewController];
-            } else {
-                [self enterMyPage:tapGesture];
-            }
-        }];
-        [_authBackView addGestureRecognizer:tapGesture];
-        
         UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(180))];
         headerImageView.image = [UIImage imageNamed:@"img_personalpage_brand"];
         headerImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -162,6 +152,20 @@
         [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
             [headerImageView sd_setImageWithURL:response.data[@"personal_detail_top"]];
         }];
+        
+        UIView *alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _authBackView.width, _authBackView.height)];
+        alphaView.backgroundColor = [UIColor colorWithHex:0x3b3b3b alpha:0.6];
+        [_authBackView addSubview:alphaView];
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+        [[tapGesture rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
+            if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+                [self invokeLoginViewController];
+            } else {
+                [self enterMyPage:tapGesture];
+            }
+        }];
+        [alphaView addGestureRecognizer:tapGesture];
         
         if ([SKStorageManager sharedInstance].loginUser.uuid) {
             
