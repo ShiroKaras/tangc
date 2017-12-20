@@ -145,7 +145,6 @@
         _authBackView.backgroundColor = [UIColor whiteColor];
         
         UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(180))];
-        headerImageView.image = [UIImage imageNamed:@"img_personalpage_brand"];
         headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         headerImageView.layer.masksToBounds = YES;
         [_authBackView addSubview:headerImageView];

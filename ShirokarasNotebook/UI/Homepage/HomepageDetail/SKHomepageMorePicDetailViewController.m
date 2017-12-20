@@ -94,11 +94,13 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     isFirstCome = YES;
     isJuhua = NO;
     
+    [self createTitleView];
+    
     self.dataArray_comment = [NSMutableArray array];
     self.dataArray_thumb = [NSMutableArray array];
     [self addObserver:self forKeyPath:@"listType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?(64+22):64, self.view.width, self.view.height-(kDevice_Is_iPhoneX?(64+22):64)-viewBottomHeight) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44)), self.view.width, self.view.height-((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44))-viewBottomHeight) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -123,6 +125,23 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     
     self.listType = SKDetailListTypeComment;
 }
+
+- (void)createTitleView {
+    UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, 200, ROUND_WIDTH_FLOAT(44))];
+    tView.backgroundColor = [UIColor clearColor];
+    tView.centerX = self.view.centerX;
+    [self.view addSubview:tView];
+    
+    UILabel *mTitleLabel = [UILabel new];
+    mTitleLabel.text = @"正文";
+    mTitleLabel.textColor = COMMON_TEXT_COLOR;
+    mTitleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
+    [mTitleLabel sizeToFit];
+    [tView addSubview:mTitleLabel];
+    mTitleLabel.centerX = tView.width/2;
+    mTitleLabel.centerY = tView.height/2;
+}
+
 
 - (void)createUI {
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(220))];
@@ -475,6 +494,10 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     _favButton.top = 0;
     [view addSubview:_favButton];
     
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
+    line.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [view addSubview:line];
+    
     //转发
     [[_repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.topic];
@@ -767,6 +790,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                 [[[SKServiceManager sharedInstance] topicService] getThumbListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserInfo *> *list, NSInteger totalPage) {
                     _totalPage = totalPage;
                     self.dataArray_thumb = [NSMutableArray arrayWithArray:list];
+                    isShowNoMessage = NO;
                     [self.tableView reloadData];
                 }];
                 break;

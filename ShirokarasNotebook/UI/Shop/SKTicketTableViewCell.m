@@ -102,10 +102,10 @@
 }
 
 -(void)setFrame:(CGRect)frame {
-    frame.origin.x +=15;
-    frame.origin.y += 15;
-    frame.size.height -=15;
-    frame.size.width -=30;
+    frame.origin.x +=ROUND_WIDTH_FLOAT(15);
+    frame.origin.y += ROUND_WIDTH_FLOAT(15);
+    frame.size.height -=ROUND_WIDTH_FLOAT(15);
+    frame.size.width -=ROUND_WIDTH_FLOAT(30);
     [super setFrame:frame];
 }
 
@@ -118,5 +118,6 @@
     _timeLabel.text = [NSString stringWithFormat:@"使用期限：%@-%@", ticket.begin_time, ticket.end_time];
     [_timeLabel sizeToFit];
     _rightImageView.height = _rightImageView.superview.height;
+    _rightImageView.centerY = _rightImageView.superview.centerY;
 }
 @end

@@ -76,7 +76,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = COMMON_BG_COLOR;
+    self.view.backgroundColor = [UIColor whiteColor];
     self.postImageArray = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"postImageArray" object:self.postImageArray];
 
@@ -107,7 +107,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     
     [self createTitleView];
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-(kDevice_Is_iPhoneX?44:20+ROUND_WIDTH_FLOAT(44)))];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, ((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44)), self.view.width, self.view.height-((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44)))];
     scrollView.alwaysBounceVertical = YES;
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
@@ -129,7 +129,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     _textCountLabel.top = _textView.bottom+ROUND_WIDTH_FLOAT(15);
     _textCountLabel.right = _textView.right;
     [self.scrollView addSubview:_textCountLabel];
-
+    
     [[_textView.rac_textSignal filter:^BOOL(NSString *value) {
         return value;
     }]
@@ -138,12 +138,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
      }];
 
     [_textView becomeFirstResponder];
-
     //=========================图片组=========================
-
-//    _imagesArrayBackView = [[UIView alloc] initWithFrame:CGRectMake(0, _textCountLabel.bottom+ROUND_WIDTH_FLOAT(15), self.view.width, 1000)];
-//    [self.scrollView addSubview:_imagesArrayBackView];
-
+    
     if (_type == SKPublishTypeNew) {
 
         CGFloat width = scrollView.frame.size.width;
@@ -154,20 +150,12 @@ static const CGFloat kPhotoViewMargin = 12.0;
         photoView.backgroundColor = [UIColor clearColor];
         [scrollView addSubview:photoView];
         self.photoView = photoView;
-
-//        float width = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(30+11))/3;
-//        _addImageButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, width)];
-//        [_addImageButton setBackgroundImage:[UIImage imageNamed:@"btn_releasepage_addphoto"] forState:UIControlStateNormal];
-//        [_addImageButton setBackgroundImage:[UIImage imageNamed:@"btn_releasepage_addphoto_highlight"] forState:UIControlStateHighlighted];
-//        [_addImageButton addTarget:self action:@selector(presentSystemPhotoLibraryController) forControlEvents:UIControlEventTouchUpInside];
-//        [_imagesArrayBackView addSubview:_addImageButton];
-//        _addImageButton.left = ROUND_WIDTH_FLOAT(15);
-//        _addImageButton.top = 0;
+        
     } else if (_type == SKPublishTypeRepost) {
         UIView *repostBackView = [UIView new];
         repostBackView.layer.cornerRadius = 3;
         repostBackView.backgroundColor = COMMON_HIGHLIGHT_BG_COLOR;
-        [self.view addSubview:repostBackView];
+        [self.scrollView addSubview:repostBackView];
         [repostBackView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_textCountLabel.mas_bottom).offset(ROUND_WIDTH_FLOAT(10));
             make.left.equalTo(_textView);
@@ -285,7 +273,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
 - (void)createTitleView {
     UIView *titleBackView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, self.view.width, ROUND_WIDTH_FLOAT(44))];
     [self.view addSubview:titleBackView];
-
+    
     UIButton *saveButton = [UIButton new];
     [saveButton setTitle:@"发布" forState:UIControlStateNormal];
     [saveButton setTitleColor:COMMON_TEXT_CONTENT_COLOR forState:UIControlStateNormal];
@@ -408,10 +396,10 @@ static const CGFloat kPhotoViewMargin = 12.0;
         NSLog(@"%@  %@",NSStringFromRange(result.range),[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]);
         [self.to_users addObject:[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]];
         //set font
-        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
         // 设置颜色
         [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
     }
+    [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
     self.textView.attributedText = attrStr;
 }
 

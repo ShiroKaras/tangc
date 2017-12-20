@@ -64,7 +64,7 @@
             [_backButton setImage:[UIImage imageNamed:@"btn_detailpage_back"] forState:UIControlStateHighlighted];
         }
         [_backButton sizeToFit];
-        _backButton.top += kDevice_Is_iPhoneX? (32+22):32;
+        _backButton.top += kDevice_Is_iPhoneX? (44+ROUND_WIDTH_FLOAT(12)):(20+ROUND_WIDTH_FLOAT(12));
         _backButton.left += 15;
         [_backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
         //        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
