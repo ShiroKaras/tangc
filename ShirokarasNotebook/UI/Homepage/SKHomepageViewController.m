@@ -573,7 +573,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     }];
     //关注
     cell.followButton.hidden = [[SKStorageManager sharedInstance].userInfo.nickname isEqualToString:self.dataArray[indexPath.row].userinfo.nickname];
-    
+    cell.baseInfoView.followButton.hidden = YES;
     [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
             [self invokeLoginViewController];
