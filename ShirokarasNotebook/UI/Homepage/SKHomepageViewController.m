@@ -177,8 +177,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     headerImageView.image = [UIImage imageNamed:@"img_homepage_brand"];
     headerImageView.layer.masksToBounds = YES;
     headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
     [headerView addSubview:headerImageView];
+    [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
+        [headerImageView sd_setImageWithURL:response.data[@"index_top"]];
+    }];
     
     UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
     [headerView addSubview:blankView];

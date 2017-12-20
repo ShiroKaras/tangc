@@ -87,6 +87,9 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
     headerView.contentMode = UIViewContentModeScaleAspectFill;
     headerView.layer.masksToBounds = YES;
     [headerView addSubview:headerImageView];
+    [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
+        [headerImageView sd_setImageWithURL:response.data[@"shop_top"]];
+    }];
     
     UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
     [headerView addSubview:blankView];

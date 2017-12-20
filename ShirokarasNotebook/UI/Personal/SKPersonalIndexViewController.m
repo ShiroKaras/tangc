@@ -65,7 +65,7 @@
     self.view.backgroundColor = COMMON_BG_COLOR;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?44:0), SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?44:0))];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49-(kDevice_Is_iPhoneX?44:0))];
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(566));
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
@@ -159,6 +159,10 @@
         headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         headerImageView.layer.masksToBounds = YES;
         [_authBackView addSubview:headerImageView];
+        [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
+            [headerImageView sd_setImageWithURL:response.data[@"personal_detail_top"]];
+        }];
+        
         if ([SKStorageManager sharedInstance].loginUser.uuid) {
             
             _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ROUND_WIDTH_FLOAT(66), ROUND_WIDTH_FLOAT(66))];
