@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSUInteger, HTBlankViewType) {
     HTBlankViewTypeNetworkError,
     HTBlankViewTypeNoMessage,
+    HTBlankViewTypeNoMessage2,
     HTBlankViewTypeNoComment,
     HTBlankViewTypeNoThumb,
     HTBlankViewTypeNoFollow,

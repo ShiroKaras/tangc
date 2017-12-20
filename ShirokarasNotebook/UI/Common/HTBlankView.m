@@ -28,6 +28,9 @@
             case HTBlankViewTypeNoMessage:
                 _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_messagelpage_empty"]];;
                 break;
+            case HTBlankViewTypeNoMessage2:
+                _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_empty2"]];;
+                break;
             case HTBlankViewTypeNoComment:
                 _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailpage_empty"]];;
                 break;

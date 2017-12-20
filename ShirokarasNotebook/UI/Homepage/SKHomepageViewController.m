@@ -65,6 +65,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 @property (nonatomic, strong) NSIndexPath *indxCut_hot; // 用来记录被点击的cell
 @property (nonatomic, strong) NSIndexPath *indxCut_follow; // 用来记录被点击的cell
+
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation SKHomepageViewController {
@@ -230,7 +232,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         }
         [weakSelf getNetworkData:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_tableView_hot.mj_header endRefreshing];
+            [_tableView_follow.mj_header endRefreshing];
             if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
                 _statusBarHidden = NO;
                 [self prefersStatusBarHidden];
@@ -242,7 +244,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     _tableView_follow.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakSelf getNetworkData:NO];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_tableView_hot.mj_footer endRefreshing];
+            [_tableView_follow.mj_footer endRefreshing];
         });
     }];
     
@@ -345,7 +347,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             _totalPage = totalPage;
             if (page>totalPage) {
                 page = totalPage;
-                return;
             }
             if (isRefresh) {
                 self.dataArray_follow = [NSMutableArray arrayWithArray:topicList];
@@ -354,8 +355,13 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                     [self.dataArray_follow addObject:topicList[i]];
                 }
             }
-            if (topicList.count==0&&page==1) {
-                
+            if (topicList.count==0) {
+                _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoMessage2];
+                [_tableView_follow addSubview:_blankView];
+                _blankView.centerY = SCREEN_HEIGHT/2+100;
+                _blankView.centerX = SCREEN_WIDTH/2;
+            } else {
+                [_blankView removeFromSuperview];
             }
             [_tableView_follow reloadData];
             scrollLock = NO;
