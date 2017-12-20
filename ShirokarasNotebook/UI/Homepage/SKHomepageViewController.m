@@ -41,8 +41,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 };
 
 @interface SKHomepageViewController () <UITableViewDelegate, UITableViewDataSource, PSCarouselDelegate, SKSegmentViewDelegate, SKHomepageTableCellDelegate,UICollectionViewDataSource, CHTCollectionViewDelegateWaterfallLayout, CHTCollectionViewWaterfallHeaderDelegate>
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray<SKTopic *> *dataArray;
+@property (nonatomic, strong) UITableView *tableView_hot;
+@property (nonatomic, strong) UITableView *tableView_follow;
+@property (nonatomic, strong) NSMutableArray<SKTopic *> *dataArray_follow;
+@property (nonatomic, strong) NSMutableArray<SKTopic *> *dataArray_hot;
 @property (nonatomic, strong) NSMutableArray<SKTopic *> *dataArray_collection;
 
 @property (strong, nonatomic) PSCarouselView *carouselView;
@@ -61,7 +63,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 @property (assign, nonatomic)   UIStatusBarStyle            statusBarStyle;  /**< 状态栏样式 */
 @property (assign, nonatomic)   BOOL                        statusBarHidden;  /**< 状态栏隐藏 */
 
-@property (nonatomic, strong) NSIndexPath *indxCut; // 用来记录被点击的cell
+@property (nonatomic, strong) NSIndexPath *indxCut_hot; // 用来记录被点击的cell
+@property (nonatomic, strong) NSIndexPath *indxCut_follow; // 用来记录被点击的cell
 @end
 
 @implementation SKHomepageViewController {
@@ -94,11 +97,14 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     }
     ((SKTabbarViewController*)self.tabBarController).redPoint.hidden = ![[UD objectForKey:@"isNewNotification"] integerValue];
     
-    [self.tableView scrollToRowAtIndexPath:self.indxCut atScrollPosition:UITableViewScrollPositionTop animated:NO]; // tableView的方法 一行代码 他会滚动到你指定的CELL的位置
+    [self.tableView_hot scrollToRowAtIndexPath:self.indxCut_hot atScrollPosition:UITableViewScrollPositionTop animated:NO]; // tableView的方法 一行代码 他会滚动到你指定的CELL的位置
+    [self.tableView_follow scrollToRowAtIndexPath:self.indxCut_follow atScrollPosition:UITableViewScrollPositionTop animated:NO]; // tableView的方法 一行代码 他会滚动到你指定的CELL的位置
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    self.dataArray_follow = nil;
+    self.dataArray_hot = nil;
 }
 
 - (void)viewDidLoad {
@@ -111,7 +117,8 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     page_collection =1;
     _totalPage_collection =1;
     
-    self.dataArray = [NSMutableArray array];
+    self.dataArray_follow = [NSMutableArray array];
+    self.dataArray_hot = [NSMutableArray array];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -122,7 +129,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         if ([response.data[@"banners"] count]==0){
             return;
         } else {
-            self.tableView.tableHeaderView.height = ROUND_WIDTH_FLOAT(282);
+            self.tableView_hot.tableHeaderView.height = ROUND_WIDTH_FLOAT(282);
             self.carouselView = [[PSCarouselView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(10), ROUND_WIDTH_FLOAT(212), ROUND_WIDTH_FLOAT(300), ROUND_WIDTH_FLOAT(60))];
             self.carouselView.placeholder = [UIImage imageNamed:@"img_banner_loading"];
             self.carouselView.layer.cornerRadius = 3;
@@ -135,14 +142,14 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             }
             self.carouselView.imageURLs = imageUrls;
             self.carouselView.pageDelegate = self;
-            [self.tableView.tableHeaderView addSubview:self.carouselView];
+            [self.tableView_hot.tableHeaderView addSubview:self.carouselView];
         }
     }];
 }
 
 - (SKTopicsView *)topoicsView {
     if (!_topoicsView) {
-        _topoicsView = [[SKTopicsView alloc] initWithFrame:self.tableView.frame];
+        _topoicsView = [[SKTopicsView alloc] initWithFrame:self.tableView_hot.frame];
     }
     return _topoicsView;
 }
@@ -156,38 +163,66 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 }
 
 - (void)createUI {
-    //TableView
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83+20):(self.view.height-49)) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = COMMON_BG_COLOR;
-    self.tableView.showsVerticalScrollIndicator = NO;
-    [self.tableView registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
+    //TableView follow
+    _tableView_follow = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83+20):(self.view.height-49)) style:UITableViewStylePlain];
+    _tableView_follow.delegate = self;
+    _tableView_follow.dataSource = self;
+    _tableView_follow.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView_follow.backgroundColor = COMMON_BG_COLOR;
+    _tableView_follow.showsVerticalScrollIndicator = NO;
+    [_tableView_follow registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     
-    [self.view addSubview:self.tableView];
+    //TableView hot
+    _tableView_hot = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, kDevice_Is_iPhoneX?(self.view.height-83+20):(self.view.height-49)) style:UITableViewStylePlain];
+    _tableView_hot.delegate = self;
+    _tableView_hot.dataSource = self;
+    _tableView_hot.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView_hot.backgroundColor = COMMON_BG_COLOR;
+    _tableView_hot.showsVerticalScrollIndicator = NO;
+    [_tableView_hot registerClass:[SKHomepageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
+    
+    [self.view addSubview:_tableView_follow];
+    [self.view addSubview:_tableView_hot];
     //话题列表
     [self.view addSubview:self.collectionView];
-    [self.view bringSubviewToFront:self.tableView];
+    [self.view bringSubviewToFront:_tableView_hot];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
-    headerView.backgroundColor = [UIColor clearColor];
+    //follow header
+    UIView *headerView_follow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
+    headerView_follow.backgroundColor = [UIColor clearColor];
     
-    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
-    headerImageView.image = [UIImage imageNamed:@"img_homepage_brand"];
-    headerImageView.layer.masksToBounds = YES;
-    headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [headerView addSubview:headerImageView];
+    UIImageView *headerImageView_follow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
+    headerImageView_follow.image = [UIImage imageNamed:@"img_homepage_brand"];
+    headerImageView_follow.layer.masksToBounds = YES;
+    headerImageView_follow.contentMode = UIViewContentModeScaleAspectFill;
+    [headerView_follow addSubview:headerImageView_follow];
     [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
-        [headerImageView sd_setImageWithURL:response.data[@"index_top"]];
+        [headerImageView_follow sd_setImageWithURL:response.data[@"index_top"]];
     }];
     
-    UIView *blankView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
-    [headerView addSubview:blankView];
-    self.tableView.tableHeaderView = headerView;
+    UIView *blankView_follow = [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
+    [headerView_follow addSubview:blankView_follow];
+    _tableView_follow.tableHeaderView = headerView_follow;
+    
+    //hot header
+    UIView *headerView_hot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(212))];
+    headerView_hot.backgroundColor = [UIColor clearColor];
+    
+    UIImageView *headerImageView_hot = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADERVIEW_HEIGHT)];
+    headerImageView_hot.image = [UIImage imageNamed:@"img_homepage_brand"];
+    headerImageView_hot.layer.masksToBounds = YES;
+    headerImageView_hot.contentMode = UIViewContentModeScaleAspectFill;
+    [headerView_hot addSubview:headerImageView_hot];
+    [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
+        [headerImageView_hot sd_setImageWithURL:response.data[@"index_top"]];
+    }];
+    
+    UIView *blankView_hot= [[UIView alloc] initWithFrame:CGRectMake(0, HEADERVIEW_HEIGHT, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(22))];
+    [headerView_hot addSubview:blankView_hot];
+    _tableView_hot.tableHeaderView = headerView_hot;
     
     __weak typeof(self) weakSelf = self;
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    _tableView_follow.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
             _statusBarHidden = YES;
             [self prefersStatusBarHidden];
@@ -195,7 +230,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         }
         [weakSelf getNetworkData:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.tableView.mj_header endRefreshing];
+            [_tableView_hot.mj_header endRefreshing];
             if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
                 _statusBarHidden = NO;
                 [self prefersStatusBarHidden];
@@ -204,17 +239,48 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         });
     }];
     
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    _tableView_follow.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakSelf getNetworkData:NO];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.tableView.mj_footer endRefreshing];
+            [_tableView_hot.mj_footer endRefreshing];
+        });
+    }];
+    
+    _tableView_hot.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+            _statusBarHidden = YES;
+            [self prefersStatusBarHidden];
+            [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+        }
+        [weakSelf getNetworkData:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_tableView_hot.mj_header endRefreshing];
+            if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+                _statusBarHidden = NO;
+                [self prefersStatusBarHidden];
+                [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+            }
+        });
+    }];
+    
+    _tableView_hot.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf getNetworkData:NO];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_tableView_hot.mj_footer endRefreshing];
         });
     }];
     
 #ifdef __IPHONE_11_0
-    if ([self.tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+    if ([_tableView_hot respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
         if (@available(iOS 11.0, *)) {
-            self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _tableView_hot.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+        }
+    }
+    if ([_tableView_follow respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+        if (@available(iOS 11.0, *)) {
+            _tableView_follow.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
@@ -273,7 +339,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     }
 
     if (self.selectedType==SKHomepageSelectedTypeFollow) {
-        [self.view bringSubviewToFront:self.tableView];
+        [self.view bringSubviewToFront:_tableView_follow];
         [self.view bringSubviewToFront:_titleView_top];
         [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
             _totalPage = totalPage;
@@ -282,20 +348,20 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 return;
             }
             if (isRefresh) {
-                self.dataArray = [NSMutableArray arrayWithArray:topicList];
+                self.dataArray_follow = [NSMutableArray arrayWithArray:topicList];
             } else {
                 for (int i=0; i<topicList.count; i++) {
-                    [self.dataArray addObject:topicList[i]];
+                    [self.dataArray_follow addObject:topicList[i]];
                 }
             }
             if (topicList.count==0&&page==1) {
                 
             }
-            [self.tableView reloadData];
+            [_tableView_follow reloadData];
             scrollLock = NO;
         }];
     } else if (self.selectedType == SKHomepageSelectedTypeHot) {
-        [self.view bringSubviewToFront:self.tableView];
+        [self.view bringSubviewToFront:_tableView_hot];
         [self.view bringSubviewToFront:_titleView_top];
         [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
             _totalPage = totalPage;
@@ -304,17 +370,17 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 return;
             }
             if (isRefresh) {
-                self.dataArray = [NSMutableArray arrayWithArray:topicList];
+                self.dataArray_hot = [NSMutableArray arrayWithArray:topicList];
             } else {
                 for (int i=0; i<topicList.count; i++) {
-                    [self.dataArray addObject:topicList[i]];
+                    [self.dataArray_hot addObject:topicList[i]];
                 }
             }
             if (topicList.count==0&&page==1) {
                 
             }
             
-            [self.tableView reloadData];
+            [_tableView_hot reloadData];
             
             scrollLock = NO;
         }];
@@ -514,8 +580,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)segmentView:(SKSegmentView *)view didClickIndex:(NSInteger)index {
     NSLog(@"index: %ld", index);
     if (index == SKHomepageSelectedTypeFollow && [SKStorageManager sharedInstance].loginUser.uuid==nil) {
-        self.dataArray = [NSMutableArray array];
-        [self.tableView reloadData];
         [self invokeLoginViewController];
         return;
     } else {
@@ -530,7 +594,21 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     if (cell==nil) {
         cell = [[SKHomepageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([SKHomepageTableViewCell class])];
     }
-    cell.topic = self.dataArray[indexPath.row];
+    
+    switch (self.selectedType) {
+        case SKHomepageSelectedTypeFollow:{
+            return [self contentWithCell:cell dataArray:self.dataArray_follow indexPath:indexPath];
+        }
+        case SKHomepageSelectedTypeHot:{
+            return [self contentWithCell:cell dataArray:self.dataArray_hot indexPath:indexPath];
+        }
+        default:
+            return nil;
+    }
+}
+
+- (SKHomepageTableViewCell *)contentWithCell:(SKHomepageTableViewCell*)cell dataArray:(NSMutableArray<SKTopic*>*)dataArray indexPath:(NSIndexPath*)indexPath{
+    cell.topic = dataArray[indexPath.row];
     
     //转发
     [[cell.repeaterButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
@@ -538,7 +616,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [self invokeLoginViewController];
             return;
         }
-        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:self.dataArray[indexPath.row]];
+        SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeRepost withUserPost:dataArray[indexPath.row]];
         [self.navigationController pushViewController:controller animated:YES];
     }];
     //评论
@@ -547,30 +625,30 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [self invokeLoginViewController];
             return;
         }
-        SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray[indexPath.row]];
+        SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:dataArray[indexPath.row]];
         [self.navigationController pushViewController:controller animated:YES];
     }];
     //关注
-    cell.followButton.hidden = [[SKStorageManager sharedInstance].userInfo.nickname isEqualToString:self.dataArray[indexPath.row].userinfo.nickname];
+    cell.followButton.hidden = [[SKStorageManager sharedInstance].userInfo.nickname isEqualToString:dataArray[indexPath.row].userinfo.nickname];
     cell.baseInfoView.followButton.hidden = YES;
     [[cell.followButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
             [self invokeLoginViewController];
             return;
         }
-        if (self.dataArray[indexPath.row].is_follow) {
-            [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+        if (dataArray[indexPath.row].is_follow) {
+            [[[SKServiceManager sharedInstance] profileService] unFollowsUserID:[NSString stringWithFormat:@"%ld", (long)dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
                 if (success) {
                     NSLog(@"取消关注");
-                    self.dataArray[indexPath.row].is_follow = 0;
+                    dataArray[indexPath.row].is_follow = 0;
                     [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow"] forState:UIControlStateNormal];
                 }
             }];
         } else {
-            [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)self.dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
+            [[[SKServiceManager sharedInstance] profileService] doFollowsUserID:[NSString stringWithFormat:@"%ld", (long)dataArray[indexPath.row].userinfo.id] callback:^(BOOL success, SKResponsePackage *response) {
                 if (success) {
                     NSLog(@"成功关注");
-                    self.dataArray[indexPath.row].is_follow = 1;
+                    dataArray[indexPath.row].is_follow = 1;
                     [cell.followButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_follow_highlight"] forState:UIControlStateNormal];
                 }
             }];
@@ -582,23 +660,22 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             [self invokeLoginViewController];
             return;
         }
-        if (self.dataArray[indexPath.row].is_thumb) {
-            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
+        if (dataArray[indexPath.row].is_thumb) {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"取消点赞");
-                self.dataArray[indexPath.row].is_thumb = 0;
+                dataArray[indexPath.row].is_thumb = 0;
                 [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
                 [cell.favButton setTitle:[NSString stringWithFormat:@"%ld", [cell.favButton.titleLabel.text integerValue]-1] forState:UIControlStateNormal];
             }];
         } else {
-            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:dataArray[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"成功点赞");
-                self.dataArray[indexPath.row].is_thumb = 1;
+                dataArray[indexPath.row].is_thumb = 1;
                 [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
                 [cell.favButton setTitle:[NSString stringWithFormat:@"%ld", [cell.favButton.titleLabel.text integerValue]+1] forState:UIControlStateNormal];
             }];
         }
     }];
-    
     return cell;
 }
 
@@ -608,12 +685,27 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(self.dataArray[indexPath.row].from.is_del){
-        //原文已删除
-    } else {
-        self.indxCut = indexPath;
-        SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray[indexPath.row]];
-        [self.navigationController pushViewController:controller animated:YES];
+    switch (self.selectedType) {
+        case SKHomepageSelectedTypeFollow:{
+            if(self.dataArray_follow[indexPath.row].from.is_del){
+                //原文已删除
+            } else {
+                self.indxCut_follow = indexPath;
+                SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray_follow[indexPath.row]];
+                [self.navigationController pushViewController:controller animated:YES];
+            }
+        }
+        case SKHomepageSelectedTypeHot: {
+            if(self.dataArray_hot[indexPath.row].from.is_del){
+                //原文已删除
+            } else {
+                self.indxCut_hot = indexPath;
+                SKHomepageMorePicDetailViewController *controller = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.dataArray_hot[indexPath.row]];
+                [self.navigationController pushViewController:controller animated:YES];
+            }
+        }
+        default:
+            break;
     }
 }
 
@@ -624,7 +716,14 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 #pragma mark - UITableView DataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataArray.count;
+    switch (self.selectedType) {
+        case SKHomepageSelectedTypeFollow:
+            return self.dataArray_follow.count;
+        case SKHomepageSelectedTypeHot:
+            return  self.dataArray_hot.count;
+        default:
+            return 0;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
