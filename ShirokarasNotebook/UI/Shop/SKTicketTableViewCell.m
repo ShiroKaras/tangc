@@ -117,5 +117,6 @@
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:ticket.image] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
     _timeLabel.text = [NSString stringWithFormat:@"使用期限：%@-%@", ticket.begin_time, ticket.end_time];
     [_timeLabel sizeToFit];
+    _rightImageView.height = _rightImageView.superview.height;
 }
 @end
