@@ -95,7 +95,6 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     isJuhua = NO;
     
     _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoComment];
-    _blankView.top = self.headerView.height+80;
     _blankView.centerX = SCREEN_WIDTH/2;
     
     [self createTitleView];
@@ -125,9 +124,8 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.id callback:^(BOOL success, SKTopic *topic) {
         self.topic = topic;
         [self createUI];
+        self.listType = SKDetailListTypeComment;
     }];
-    
-    self.listType = SKDetailListTypeComment;
 }
 
 - (void)createTitleView {
@@ -787,6 +785,12 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                         [_blankView removeFromSuperview];
                     }
                     [self.tableView reloadData];
+                    [self.tableView layoutIfNeeded];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //刷新完成
+                        _blankView.top = self.headerView.height+80;
+                    });
                 }];
                 break;
             }
@@ -794,7 +798,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                 [[[SKServiceManager sharedInstance] topicService] getThumbListWithArticleID:self.topic.id page:1 pagesize:10 callback:^(BOOL success, NSArray<SKUserInfo *> *list, NSInteger totalPage) {
                     _totalPage = totalPage;
                     self.dataArray_thumb = [NSMutableArray arrayWithArray:list];
-                    isShowNoMessage = NO;
+                    [_blankView removeFromSuperview];
                     [self.tableView reloadData];
                 }];
                 break;
