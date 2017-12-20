@@ -137,14 +137,14 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
     
     
     //TitleView
-    _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"图片", @"文章"]];
+    _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, (HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2), TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"图片", @"文章"]];
     _titleView.delegate = self;
     _titleView.layer.cornerRadius = 3;
     _titleView.backgroundColor = [UIColor whiteColor];
     _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
     _titleView.centerX = self.view.centerX;
     _titleView.userInteractionEnabled = YES;
-    [_tableView addSubview:_titleView];
+    [self.view addSubview:_titleView];
     self.selectedType = SKMyPageSelectedTypePic;
     
     //编辑资料
@@ -262,42 +262,25 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if(scrollLock) return;
+    
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
+        _titleView.top = ROUND_WIDTH_FLOAT(158)- scrollView.contentOffset.y;
+    } else {
+        _titleView.top = 0;
+    }
+    if (_titleView.top==0) {
         [UIView animateWithDuration:0.2 animations:^{
-            _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
-            _titleView.height = TITLEVIEW_HEIGHT;
-            _titleView.width = TITLEVIEW_WIDTH;
-            _titleView.layer.cornerRadius = 3;
-        } completion:^(BOOL finished) {
-            [_titleView removeFromSuperview];
-            _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
-            [_tableView addSubview:_titleView];
-            
-            [self.nameLabel removeFromSuperview];
-            [_editInfoButton removeFromSuperview];
-            [self.view addSubview:_editInfoButton];
-            _editInfoButton.top = ROUND_WIDTH_FLOAT(31.5);
-            _editInfoButton.right = self.view.right -ROUND_WIDTH_FLOAT(15);
-            [_editInfoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            _titleView.width = self.view.width;
+            _titleView.left = 0;
+            _titleView.height = TITLEVIEW_HEIGHT+(kDevice_Is_iPhoneX?44:20);
+            _titleView.layer.cornerRadius = 0;
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
-            _titleView.left = 0;
-            _titleView.width = SCREEN_WIDTH;
-            _titleView.layer.cornerRadius = 0;
-        } completion:^(BOOL finished) {
-            [_titleView removeFromSuperview];
-            _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT*2);
-            [self.view addSubview:_titleView];
-            
-            [_titleView addSubview:self.nameLabel];
-            self.nameLabel.centerX = self.view.centerX;
-            self.nameLabel.top = 20+ROUND_WIDTH_FLOAT(9.5);
-            
-            [_titleView addSubview:_editInfoButton];
-            [_editInfoButton setTitleColor:COMMON_TEXT_COLOR forState:UIControlStateNormal];
-            _editInfoButton.centerY = self.nameLabel.centerY;
-            _editInfoButton.right = self.view.width-ROUND_WIDTH_FLOAT(15);
+            _titleView.width = TITLEVIEW_WIDTH;
+            _titleView.centerX = self.view.centerX;
+            _titleView.height = TITLEVIEW_HEIGHT;
+            _titleView.layer.cornerRadius = 3;
         }];
     }
 }
@@ -306,6 +289,7 @@ typedef NS_ENUM(NSInteger, SKMyPageSelectedType) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
         scrollLock = YES;
+        _titleView.selectedIndex = _selectedType;
         switch (_selectedType) {
             case SKMyPageSelectedTypePic:{
                 [[[SKServiceManager sharedInstance] profileService] getPicListWithPage:1 pagesize:10 callback:^(BOOL success, NSArray<SKPicture *> *picList) {
