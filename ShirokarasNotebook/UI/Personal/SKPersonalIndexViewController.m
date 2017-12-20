@@ -57,6 +57,7 @@
         [self.scrollView addSubview:self.authBackView];
         self.loginLabel.centerY = self.avatarImageView.centerY;
         self.loginLabel.left = self.avatarImageView.right +10;
+        self.logoutButton.hidden = [SKStorageManager sharedInstance].loginUser.uuid==nil?YES:NO;
     });
 }
 
@@ -126,6 +127,7 @@
                                                                   [self.scrollView addSubview:self.authBackView];
                                                                   self.loginLabel.centerY = self.avatarImageView.centerY;
                                                                   self.loginLabel.left = self.avatarImageView.right +10;
+                                                                  self.logoutButton.hidden = YES;
                                                               }];
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) { }];

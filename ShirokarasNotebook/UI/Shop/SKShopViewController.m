@@ -183,16 +183,22 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
                 [self invokeLoginViewController];
                 if ([SKStorageManager sharedInstance].loginUser.uuid) {
                     NSString *u = [self.dataArray[indexPath.row].url componentsSeparatedByString:@"://"][1];
-                    // 构建淘宝客户端协议的 URL
-                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"taobao://%@",u]];
-                    // 判断当前系统是否有安装淘宝客户端
-                    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                        // 如果已经安装淘宝客户端，就使用客户端打开链接
-                        [[UIApplication sharedApplication] openURL:url];
+                    
+                    //淘宝链接
+                    if ([u containsString:@"taobao"]) {
+                        // 构建淘宝客户端协议的 URL
+                        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"taobao://%@",u]];
+                        // 判断当前系统是否有安装淘宝客户端
+                        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                            // 如果已经安装淘宝客户端，就使用客户端打开链接
+                            [[UIApplication sharedApplication] openURL:url];
+                        } else {
+                            // 否则使用 Mobile Safari 或者内嵌 WebView 来显示
+                            url=[NSURL URLWithString:self.dataArray[indexPath.row].url];
+                            [[UIApplication sharedApplication] openURL:url];
+                        }
                     } else {
-                        // 否则使用 Mobile Safari 或者内嵌 WebView 来显示
-                        url=[NSURL URLWithString:self.dataArray[indexPath.row].url];
-                        [[UIApplication sharedApplication] openURL:url];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.dataArray[indexPath.row].url]];   
                     }
                 }
             }];
