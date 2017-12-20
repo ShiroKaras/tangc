@@ -112,6 +112,8 @@
     [GeTuiSdk handleRemoteNotification:response.notification.request.content.userInfo];
     
     completionHandler();
+    [GeTuiSdk resetBadge]; //重置角标计数
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // APP 清空角标
 }
 
 #endif
@@ -153,7 +155,8 @@
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    
+    [GeTuiSdk resetBadge]; //重置角标计数
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; // APP 清空角标
 }
 
 
