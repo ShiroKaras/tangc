@@ -90,18 +90,41 @@
         _favButton.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(10);
         [_favButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10, 0.0, 0.0)];
         [self.contentView addSubview:_favButton];
+        //点赞
+        [[_favButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+                [[self viewController] invokeLoginViewController];
+            } else {
+                if (_topic.is_thumb) {
+                    [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:_topic.id callback:^(BOOL success, SKResponsePackage *response) {
+                        DLog(@"取消点赞Collection");
+                        _topic.is_thumb = 0;
+                        [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
+                        [_favButton setTitle:[NSString stringWithFormat:@"%ld", [_favButton.titleLabel.text integerValue]-1] forState:UIControlStateNormal];
+                    }];
+                } else {
+                    [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:_topic.id callback:^(BOOL success, SKResponsePackage *response) {
+                        DLog(@"成功点赞Collection");
+                        _topic.is_thumb = 1;
+                        [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
+                        [_favButton setTitle:[NSString stringWithFormat:@"%ld", [_favButton.titleLabel.text integerValue]+1] forState:UIControlStateNormal];
+                    }];
+                }
+            }
+        }];
     }
     return _favButton;
 }
 
 
 - (void)setTopic:(SKTopic *)topic {
+    _topic = topic;
     if (topic.images.count >0) {
         [_mCoverImageView sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
     }
     [_mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:topic.userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
     _mUsernameLabel.text = topic.userinfo.nickname;
-    
+    [_favButton setImage:_topic.is_thumb==1?[UIImage imageNamed:@"btn_homepage_like_highlight"]:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
     _mTitleLabel.text = topic.content;
     CGSize maxSize = CGSizeMake(CELL_WIDTH-20, ROUND_WIDTH_FLOAT(45));//labelsize的最大值
     CGSize labelSize = [topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
@@ -147,5 +170,15 @@
     _favButton.size = CGSizeMake(40, 20);
     _favButton.right = CELL_WIDTH-ROUND_WIDTH_FLOAT(6);
     _favButton.centerY = _mAvatarImageView.centerY;
+}
+
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
 }
 @end

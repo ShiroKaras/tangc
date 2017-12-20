@@ -526,28 +526,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     [cell.mAvatarImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArray_collection[indexPath.row].userinfo.avatar] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
     cell.mUsernameLabel.text = self.dataArray_collection[indexPath.row].userinfo.nickname;
     cell.topic = self.dataArray_collection[indexPath.row];
-    //点赞
-    [[cell.favButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
-            [self invokeLoginViewController];
-            return;
-        }
-        if (self.dataArray_collection[indexPath.row].is_thumb) {
-            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray_collection[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
-                DLog(@"取消点赞");
-                self.dataArray_collection[indexPath.row].is_thumb = 0;
-                [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
-                [cell.favButton setTitle:[NSString stringWithFormat:@"%ld", [cell.favButton.titleLabel.text integerValue]-1] forState:UIControlStateNormal];
-            }];
-        } else {
-            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:self.dataArray_collection[indexPath.row].id callback:^(BOOL success, SKResponsePackage *response) {
-                DLog(@"成功点赞");
-                self.dataArray_collection[indexPath.row].is_thumb = 1;
-                [cell.favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
-                [cell.favButton setTitle:[NSString stringWithFormat:@"%ld", [cell.favButton.titleLabel.text integerValue]+1] forState:UIControlStateNormal];
-            }];
-        }
-    }];
+    
     return cell;
 }
 

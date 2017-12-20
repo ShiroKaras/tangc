@@ -94,6 +94,10 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     isFirstCome = YES;
     isJuhua = NO;
     
+    _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoComment];
+    _blankView.top = self.headerView.height+80;
+    _blankView.centerX = SCREEN_WIDTH/2;
+    
     [self createTitleView];
     
     self.dataArray_comment = [NSMutableArray array];
@@ -385,12 +389,6 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
         self.headerView.height = _baseContentView.bottom + ROUND_WIDTH_FLOAT(20);
     }
     self.tableView.tableHeaderView = self.headerView;
-    
-    _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoComment];
-    [self.tableView addSubview:_blankView];
-    _blankView.top = self.headerView.height+80;
-    _blankView.centerX = SCREEN_WIDTH/2;
-    _blankView.hidden = !isShowNoMessage;
     
     //加载更多
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -783,9 +781,10 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                     _totalPage = totalPage;
                     self.dataArray_comment = [NSMutableArray arrayWithArray:commentList];
                     if (commentList.count==0) {
-                        isShowNoMessage = YES;
+                        [_tableView addSubview:_blankView];
                     } else {
-                        isShowNoMessage = NO;
+                        [self.view sendSubviewToBack:_blankView];
+                        [_blankView removeFromSuperview];
                     }
                     [self.tableView reloadData];
                 }];

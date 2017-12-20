@@ -45,8 +45,8 @@
         [[postImageButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             SKPublishNewContentViewController *controller = [[SKPublishNewContentViewController alloc] initWithType:SKPublishTypeNew withUserPost:nil];
             [[self viewController].navigationController pushViewController:controller animated:YES];
-        } completed:^{
             [self removeFromSuperview];
+        } completed:^{
         }];
         
         UIButton *postPcButton = [UIButton new];
@@ -58,8 +58,8 @@
         [[postPcButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
             HWScanViewController *controller = [[HWScanViewController alloc] init];
             [[self viewController].navigationController pushViewController:controller animated:YES];
-        } completed:^{
             [self removeFromSuperview];
+        } completed:^{
         }];
     }
     return self;
