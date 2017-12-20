@@ -126,6 +126,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     self.dataArray_follow = [NSMutableArray array];
     self.dataArray_hot = [NSMutableArray array];
     
+    _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoMessage2];
+    _blankView.centerY = SCREEN_HEIGHT/2+100;
+    _blankView.centerX = SCREEN_WIDTH/2;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self addObserver:self forKeyPath:@"selectedType" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [self createUI];
@@ -368,10 +372,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 }
             }
             if (topicList.count==0) {
-                _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoMessage2];
                 [_tableView_follow addSubview:_blankView];
-                _blankView.centerY = SCREEN_HEIGHT/2+100;
-                _blankView.centerX = SCREEN_WIDTH/2;
             } else {
                 [self.view sendSubviewToBack:_blankView];
                 [_blankView removeFromSuperview];

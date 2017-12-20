@@ -45,6 +45,10 @@
         _rightImageView.contentMode = UIViewContentModeScaleAspectFill;
         _rightImageView.backgroundColor = COMMON_GREEN_COLOR;
         _rightImageView.userInteractionEnabled = YES;
+        _rightImageView.width = ROUND_WIDTH_FLOAT(100);
+        _rightImageView.height = ROUND_WIDTH_FLOAT(91);
+        _rightImageView.top = 0;
+        _rightImageView.right = ROUND_WIDTH_FLOAT(290);
     }
     return _rightImageView;
 }
@@ -117,7 +121,9 @@
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:ticket.image] placeholderImage:[UIImage imageNamed:@"img_personalpage_headimage_default"]];
     _timeLabel.text = [NSString stringWithFormat:@"使用期限：%@-%@", ticket.begin_time, ticket.end_time];
     [_timeLabel sizeToFit];
-    _rightImageView.height = _rightImageView.superview.height;
-    _rightImageView.centerY = _rightImageView.superview.centerY;
+    _rightImageView.width = ROUND_WIDTH_FLOAT(100);
+    _rightImageView.height = ROUND_WIDTH_FLOAT(91);
+    _rightImageView.top = 0;
+    _rightImageView.right = ROUND_WIDTH_FLOAT(290);
 }
 @end

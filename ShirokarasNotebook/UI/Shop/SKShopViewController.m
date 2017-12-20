@@ -220,8 +220,7 @@ typedef NS_ENUM(NSInteger, SKMarketSelectedType) {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.selectedType==SKMarketSelectedTypeTicket) {
-        SKTicketTableViewCell *cell = (SKTicketTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-        return cell.cellHeight+ROUND_WIDTH_FLOAT(15);
+        return ROUND_WIDTH_FLOAT(91+15);
     } else if (self.selectedType==SKMarketSelectedTypeShop) {
         return ROUND_WIDTH_FLOAT(199+15);
     } else

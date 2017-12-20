@@ -110,7 +110,7 @@
             UILabel *errLabel = [UILabel new];
             errLabel.text = @"抱歉，该内容已被作者删除";
             errLabel.textColor = COMMON_TEXT_COLOR;
-            errLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
+            errLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
             [errLabel sizeToFit];
             errLabel.centerX = SCREEN_WIDTH/2;
             errLabel.top = _repostLabel.bottom +ROUND_WIDTH_FLOAT(30);
