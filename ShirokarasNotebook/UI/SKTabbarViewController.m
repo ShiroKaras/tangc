@@ -58,7 +58,7 @@
     addButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     addButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(60), 49);
     addButton.centerX = self.view.width/2;
-    addButton.top = kDevice_Is_iPhoneX?(self.tabBar.top-4-34):(self.tabBar.top-4);
+    addButton.top = kDevice_Is_iPhoneX?(self.tabBar.top-34):(self.tabBar.top);
     [self.view addSubview:addButton];
     
     [[addButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
