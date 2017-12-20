@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20+ROUND_WIDTH_FLOAT(44), self.view.width, self.view.height-20-ROUND_WIDTH_FLOAT(44)) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44)), self.view.width, self.view.height-((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44))) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;

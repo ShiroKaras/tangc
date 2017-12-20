@@ -1508,7 +1508,7 @@
 				TargetAttributes = {
 					11D9AA1A1FB06141008D32E9 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2014,7 +2014,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2063,7 +2063,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2079,7 +2079,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShirokarasNotebook/ShirokarasNotebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2108,7 +2108,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.tangcao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "16f1dfa1-a434-4af0-bc17-3c4b22d4d077";
+				PROVISIONING_PROFILE_SPECIFIER = "tangcao Development";
 				QQ_URL_SCHEMES_SUFFIX = 41f32997;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WEIBO_URL_SCHEMES_SUFFIX = 2564292504;
@@ -2124,8 +2125,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShirokarasNotebook/ShirokarasNotebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2154,7 +2155,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.tangcao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9b4b4723-c045-46f9-9665-2b8608071269";
+				PROVISIONING_PROFILE_SPECIFIER = "tangcao Distribution Appstore";
 				QQ_URL_SCHEMES_SUFFIX = 41f32997;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WEIBO_URL_SCHEMES_SUFFIX = 2564292504;

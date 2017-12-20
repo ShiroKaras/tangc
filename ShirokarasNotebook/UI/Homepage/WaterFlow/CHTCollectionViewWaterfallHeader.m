@@ -22,8 +22,10 @@
       _mImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, ROUND_WIDTH_FLOAT(180))];
       _mImageView.contentMode = UIViewContentModeScaleAspectFill;
       _mImageView.layer.masksToBounds = YES;
-      _mImageView.image = COMMON_PLACEHOLDER_IMAGE;
       [self addSubview:_mImageView];
+      [[[SKServiceManager sharedInstance] topicService] getIndexHeaderImagesArrayWithCallback:^(BOOL success, SKResponsePackage *response) {
+          [_mImageView sd_setImageWithURL:response.data[@"index_top"]];
+      }];
       
       [[[SKServiceManager sharedInstance] topicService] getTopicNameListWithCallback:^(BOOL success, NSArray<SKTag *> *tagList) {
           self.dataArray = [NSMutableArray arrayWithArray:tagList];
