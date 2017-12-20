@@ -137,7 +137,6 @@
                         [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.from.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                     }
                     [self.contentView addSubview:_imageViewOnePic];
-                    [self showPicWithImageView:_imageViewOnePic url:topic.from.images[0]];
                     
                     _introduceLabel = [UILabel new];
                     _introduceLabel.text = topic.from.content;
@@ -176,7 +175,7 @@
                             [imageView sd_setImageWithURL:[NSURL URLWithString:topic.from.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                         }
                         [scrollView addSubview:imageView];
-                        [self showPicWithImageView:imageView url:topic.from.images[i]];
+                        //[self showPicWithImageView:imageView url:topic.from.images[i]];
                     }
                     
                     //文字介绍
@@ -245,7 +244,7 @@
                     [_imageViewOnePic sd_setImageWithURL:[NSURL URLWithString:topic.images[0]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                 }
                 [self.contentView addSubview:_imageViewOnePic];
-                [self showPicWithImageView:_imageViewOnePic url:topic.images[0]];
+                //[self showPicWithImageView:_imageViewOnePic url:topic.images[0]];
                 
                 _introduceLabel = [UILabel new];
                 _introduceLabel.text = topic.content;
@@ -282,7 +281,7 @@
                     imageView.contentMode = UIViewContentModeScaleAspectFill;
                     [imageView sd_setImageWithURL:[NSURL URLWithString:topic.images[i]] placeholderImage:[UIImage imageNamed:@"MaskCopy"]];
                     [scrollView addSubview:imageView];
-                    [self showPicWithImageView:imageView url:topic.images[i]];
+                    //[self showPicWithImageView:imageView url:topic.images[i]];
                 }
                 
                 //文字介绍
@@ -399,11 +398,12 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
     [[tap rac_gestureSignal] subscribeNext:^(__kindof UIGestureRecognizer * _Nullable x) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        view.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.8];
+        view.backgroundColor = [UIColor colorWithHex:0x000000];
         view.userInteractionEnabled = YES;
         [KEY_WINDOW addSubview:view];
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_HEIGHT_FLOAT(22), ROUND_WIDTH_FLOAT(22), SCREEN_WIDTH-ROUND_WIDTH_FLOAT(44), SCREEN_HEIGHT-ROUND_HEIGHT_FLOAT(44))];
+//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ROUND_HEIGHT_FLOAT(22), ROUND_WIDTH_FLOAT(22), SCREEN_WIDTH-ROUND_WIDTH_FLOAT(44), SCREEN_HEIGHT-ROUND_HEIGHT_FLOAT(44))];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [view addSubview:imageView];
         [imageView sd_setImageWithURL:url];
