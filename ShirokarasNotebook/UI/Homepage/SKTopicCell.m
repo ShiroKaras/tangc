@@ -22,7 +22,7 @@
         [self.contentView addSubview:self.mTitleLabel];
         [self.contentView addSubview:self.mAvatarImageView];
         [self.contentView addSubview:self.mUsernameLabel];
-        [self.contentView addSubview:self.mTopicLabel];
+//        [self.contentView addSubview:self.mTopicLabel];
         [self.contentView addSubview:self.favButton];
     }
     return self;
@@ -123,19 +123,19 @@
                                                                        documentAttributes:nil error:nil];
     // 3.遍历结果
     for (NSTextCheckingResult *result in results) {
-        //set font
-        [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(14) range:NSMakeRange(0, topic.content.length)];
         // 设置颜色
         [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
     }
+    //set font
+    [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(10) range:NSMakeRange(0, topic.content.length)];
     _mTitleLabel.attributedText = attrStr;
     
-    _mTopicLabel.text = [NSString stringWithFormat:@"#%@#",topic.topics[0][@"name"]];
+//    _mTopicLabel.text = [NSString stringWithFormat:@"#%@#",topic.topics[0][@"name"]];
     [self layoutSubviews];
 }
 
 - (void)layoutSubviews {
-    _mAvatarImageView.top = _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(25);
+    _mAvatarImageView.top = _mTitleLabel.bottom+ROUND_WIDTH_FLOAT(5);
     _mTitleLabel.width = CELL_WIDTH-ROUND_WIDTH_FLOAT(20);
     
     _mUsernameLabel.centerY = _mAvatarImageView.centerY;

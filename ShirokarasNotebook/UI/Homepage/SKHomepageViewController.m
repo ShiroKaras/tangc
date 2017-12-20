@@ -514,7 +514,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGSize maxSize = CGSizeMake(CELL_WIDTH-20, ROUND_WIDTH_FLOAT(45));//labelsize的最大值
     CGSize labelSize = [self.dataArray_collection[indexPath.row].content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(10)} context:nil].size;
-    return CGSizeMake(CELL_WIDTH, CELL_WIDTH+ROUND_WIDTH_FLOAT(6)+labelSize.height+ROUND_WIDTH_FLOAT(51));
+    return CGSizeMake(CELL_WIDTH, CELL_WIDTH+ROUND_WIDTH_FLOAT(6)+labelSize.height+ROUND_WIDTH_FLOAT(31));
 }
 
 #pragma mark - PSCarouselDelegate
