@@ -16,4 +16,4 @@ set -e
 set -u
 
 # 密码写死，客户端内采用拼接的方式保存
-$SRCROOT/$TARGET_NAME/environment/AES256Encrypt "-e" "X6(rhw998,*" $clientConfig $CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/ClientConfigs.plist
+# $SRCROOT/$TARGET_NAME/environment/AES256Encrypt "-e" "X6(rhw998,*" $clientConfig $CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/ClientConfigs.plist

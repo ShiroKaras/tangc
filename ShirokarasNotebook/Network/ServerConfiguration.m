@@ -34,7 +34,8 @@
 - (NSString *)appHost {
 	static NSString *appHost;
 	if (!appHost) {
-		appHost = [self stringValueWithKey:@"APPHOST"];
+        appHost = @"https://tangcao.zhuang-ji.cn";
+//        appHost = [self stringValueWithKey:@"APPHOST"];
 	}
 	return appHost;
 }
