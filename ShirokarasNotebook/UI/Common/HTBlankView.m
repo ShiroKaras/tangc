@@ -31,6 +31,15 @@
             case HTBlankViewTypeNoComment:
                 _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailpage_empty"]];;
                 break;
+            case HTBlankViewTypeNoThumb:
+                _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_detailpage_empty2"]];;
+                break;
+            case HTBlankViewTypeNoFollow:
+                _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_personalpage_empty3"]];;
+                break;
+            case HTBlankViewTypeNoFans:
+                _imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_personalpage_empty4"]];;
+                break;
             default:
                 break;
         }

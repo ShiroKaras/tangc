@@ -12,6 +12,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKUserInfo*> *dataArray;
 @property (nonatomic, assign) SKUserListType type;
+
+@property (nonatomic, strong) HTBlankView *blankView;
 @end
 
 @implementation SKUserListViewController
@@ -28,6 +30,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
+    if (self.type == SKUserListTypeFollow) {
+        _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoFollow];
+    } else if (self.type == SKUserListTypeFans) {
+        _blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoFans];
+    }
+    [self.view addSubview:_blankView];
+    _blankView.centerY = SCREEN_HEIGHT/2;
+    _blankView.centerX = SCREEN_WIDTH/2;
+    _blankView.hidden = YES;
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44)), self.view.width, self.view.height-((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44))) style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
@@ -43,12 +54,26 @@
         [[[SKServiceManager sharedInstance] profileService] comuserFollowsWithCallback:^(BOOL success, NSArray<SKUserInfo *> *topicList) {
             self.dataArray = topicList;
             [self createTitleView];
+            if (topicList.count==0) {
+                _blankView.hidden = NO;
+                [self.view bringSubviewToFront:_blankView];
+            } else {
+                _blankView.hidden = YES;
+                [self.view sendSubviewToBack:_blankView];
+            }
             [self.tableView reloadData];
         }];
     } else {
         [[[SKServiceManager sharedInstance] profileService] comuserFansWithCallback:^(BOOL success, NSArray<SKUserInfo *> *topicList) {
             self.dataArray = topicList;
             [self createTitleView];
+            if (topicList.count==0) {
+                _blankView.hidden = NO;
+                [self.view bringSubviewToFront:_blankView];
+            } else {
+                _blankView.hidden = YES;
+                [self.view sendSubviewToBack:_blankView];
+            }
             [self.tableView reloadData];
         }];
     }
