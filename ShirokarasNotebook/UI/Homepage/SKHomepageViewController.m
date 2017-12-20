@@ -72,8 +72,11 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 @implementation SKHomepageViewController {
     BOOL scrollLock;
     
-    NSInteger     page;
-    NSInteger     _totalPage;//总页数
+    NSInteger     page_follow;
+    NSInteger     _totalPage_follow;//总页数
+    
+    NSInteger     page_hot;
+    NSInteger     _totalPage_hot;//总页数
 //    BOOL    isFirstCome; //第一次加载帖子时候不需要传入此关键字，当需要加载下一页时：需要传入加载上一页时返回值字段“maxtime”中的内容。
     BOOL    isJuhua;//是否正在下拉刷新或者上拉加载。default NO。
     
@@ -110,8 +113,11 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    page = 1;
-    _totalPage = 1;
+    page_follow = 1;
+    _totalPage_follow = 1;
+    page_hot = 1;
+    _totalPage_hot = 1;
+    
     isJuhua = NO;
     
     page_collection =1;
@@ -333,18 +339,26 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)getNetworkData:(BOOL)isRefresh {
     if (isRefresh) {
-        page = 1;
+        if (self.selectedType==SKHomepageSelectedTypeFollow) {
+            page_follow = 1;
+        } else if (self.selectedType==SKHomepageSelectedTypeHot) {
+            page_hot = 1;
+        }
     }else{
-        page++;
+        if (self.selectedType==SKHomepageSelectedTypeFollow) {
+            page_follow++;
+        } else if (self.selectedType==SKHomepageSelectedTypeHot) {
+            page_hot++;
+        }
     }
 
     if (self.selectedType==SKHomepageSelectedTypeFollow) {
         [self.view bringSubviewToFront:_tableView_follow];
         [self.view bringSubviewToFront:_titleView_top];
-        [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
-            _totalPage = totalPage;
-            if (page>totalPage) {
-                page = totalPage;
+        [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:page_follow pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+            _totalPage_follow = totalPage;
+            if (page_follow>totalPage) {
+                page_follow = totalPage;
             }
             if (isRefresh) {
                 self.dataArray_follow = [NSMutableArray arrayWithArray:topicList];
@@ -368,10 +382,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     } else if (self.selectedType == SKHomepageSelectedTypeHot) {
         [self.view bringSubviewToFront:_tableView_hot];
         [self.view bringSubviewToFront:_titleView_top];
-        [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
-            _totalPage = totalPage;
-            if (page>totalPage) {
-                page = totalPage;
+        [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:page_hot pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+            _totalPage_hot = totalPage;
+            if (page_hot>totalPage) {
+                page_hot = totalPage;
                 return;
             }
             if (isRefresh) {
@@ -381,7 +395,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                     [self.dataArray_hot addObject:topicList[i]];
                 }
             }
-            if (topicList.count==0&&page==1) {
+            if (topicList.count==0&&page_hot==1) {
                 
             }
             
@@ -391,10 +405,10 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     } else if (self.selectedType == SKHomepageSelectedTypeTopics) {
         [self.view bringSubviewToFront:self.collectionView];
         [self.view bringSubviewToFront:_titleView_top];
-        [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
-            _totalPage = totalPage;
-            if (page>totalPage) {
-                page = totalPage;
+        [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page_collection pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+            _totalPage_collection = totalPage;
+            if (page_collection>totalPage) {
+                page_collection = totalPage;
                 return;
             }
             if (isRefresh) {
@@ -404,7 +418,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                     [self.dataArray_collection addObject:topicList[i]];
                 }
             }
-            if (topicList.count==0&&page==1) {
+            if (topicList.count==0&&page_collection==1) {
                 
             }
             
@@ -446,7 +460,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                    withReuseIdentifier:FOOTER_IDENTIFIER];
         _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             page_collection =1;
-            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page_collection pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
                 _totalPage_collection = totalPage;
                 if (_totalPage_collection>totalPage) {
                     _totalPage_collection = totalPage;
@@ -467,7 +481,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         //加载更多
         _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             page_collection++;
-            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
+            [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page_collection pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
                 _totalPage_collection = totalPage;
                 if (page_collection>totalPage) {
                     page_collection = totalPage;
