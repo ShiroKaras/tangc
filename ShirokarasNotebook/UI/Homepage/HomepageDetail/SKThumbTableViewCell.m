@@ -35,7 +35,7 @@
         _avatarImageView.layer.cornerRadius = 20;
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.top = 10;
-        _avatarImageView.left = 10;
+        _avatarImageView.left = 15;
         _avatarImageView.size = CGSizeMake(40, 40);
     }
     return _avatarImageView;

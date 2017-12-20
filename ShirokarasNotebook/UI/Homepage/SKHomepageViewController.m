@@ -105,8 +105,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.dataArray_follow = nil;
-    self.dataArray_hot = nil;
 }
 
 - (void)viewDidLoad {
@@ -361,6 +359,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 _blankView.centerY = SCREEN_HEIGHT/2+100;
                 _blankView.centerX = SCREEN_WIDTH/2;
             } else {
+                [self.view sendSubviewToBack:_blankView];
                 [_blankView removeFromSuperview];
             }
             [_tableView_follow reloadData];
@@ -387,7 +386,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
             }
             
             [_tableView_hot reloadData];
-            
             scrollLock = NO;
         }];
     } else if (self.selectedType == SKHomepageSelectedTypeTopics) {
