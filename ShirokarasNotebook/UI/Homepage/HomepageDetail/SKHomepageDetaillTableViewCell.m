@@ -53,7 +53,7 @@
         _usernameLabel.textColor = COMMON_TEXT_COLOR;
         _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         [_usernameLabel sizeToFit];
-        _usernameLabel.left = _avatarImageView.right +20;
+        _usernameLabel.left = _avatarImageView.right +10;
         _usernameLabel.centerY = _avatarImageView.centerY;
     }
     return _usernameLabel;
@@ -107,13 +107,14 @@
     
     self.dateLabel.text = comment.updated_at;
     [self.dateLabel sizeToFit];
-    self.dateLabel.right = SCREEN_WIDTH-30;
+    self.dateLabel.right = SCREEN_WIDTH-15;
     
     self.contentLabel.text = comment.content;
     CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(255), ROUND_WIDTH_FLOAT(33));
     CGSize labelSize = [comment.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(11)} context:nil].size;
     self.contentLabel.size = labelSize;
     self.underLine.top = self.contentLabel.bottom+ROUND_WIDTH_FLOAT(10);
+    self.underLine.right = SCREEN_WIDTH - 15;
     self.cellHeight = self.underLine.bottom;
 }
 

@@ -32,11 +32,11 @@
     if (!_avatarImageView) {
         _avatarImageView = [UIImageView new];
         _avatarImageView.backgroundColor = [UIColor greenColor];
-        _avatarImageView.layer.cornerRadius = 20;
+        _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(12.5);
         _avatarImageView.layer.masksToBounds = YES;
-        _avatarImageView.top = 10;
+        _avatarImageView.top = 15;
         _avatarImageView.left = 15;
-        _avatarImageView.size = CGSizeMake(40, 40);
+        _avatarImageView.size = CGSizeMake(ROUND_WIDTH_FLOAT(25), ROUND_WIDTH_FLOAT(25));
     }
     return _avatarImageView;
 }
@@ -48,7 +48,7 @@
         _usernameLabel.textColor = COMMON_TEXT_COLOR;
         _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
         [_usernameLabel sizeToFit];
-        _usernameLabel.left = _avatarImageView.right +20;
+        _usernameLabel.left = _avatarImageView.right +10;
         _usernameLabel.centerY = _avatarImageView.centerY;
     }
     return _usernameLabel;
