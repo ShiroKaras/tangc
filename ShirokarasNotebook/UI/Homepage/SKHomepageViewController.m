@@ -90,7 +90,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
     _statusBarHidden = NO;
     if ([SKStorageManager sharedInstance].loginUser.uuid==nil&&self.selectedType!=SKHomepageSelectedTypeHot) {
         self.selectedType = SKHomepageSelectedTypeHot;
-        self.titleView.selectedIndex = SKHomepageSelectedTypeHot;
+        self.titleView_top.selectedIndex = SKHomepageSelectedTypeHot;
     }
     ((SKTabbarViewController*)self.tabBarController).redPoint.hidden = ![[UD objectForKey:@"isNewNotification"] integerValue];
     
@@ -227,44 +227,23 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         }
     }
 #endif
-    
-    //TitleView
-    _titleView = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"关注", @"热门", @"话题"]];
-    _titleView.delegate = self;
-    _titleView.layer.cornerRadius = 3;
-    _titleView.backgroundColor = [UIColor whiteColor];
-    _titleView.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
-    _titleView.centerX = self.view.centerX;
-    _titleView.userInteractionEnabled = YES;
-    [_tableView addSubview:_titleView];
-    
-    //TitleView 话题
-    _titleView_collectionV = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"关注", @"热门", @"话题"]];
-    _titleView_collectionV.delegate = self;
-    _titleView_collectionV.layer.cornerRadius = 3;
-    _titleView_collectionV.backgroundColor = [UIColor whiteColor];
-    _titleView_collectionV.top = HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2;
-    _titleView_collectionV.centerX = self.view.centerX;
-    _titleView_collectionV.userInteractionEnabled = YES;
-    [_collectionView addSubview:_titleView_collectionV];
-    
+
     //TitleView 置顶
-    _titleView_top = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, TITLEVIEW_HEIGHT)  titleNameArray:@[@"关注", @"热门", @"话题"]];
+    _titleView_top = [[SKSegmentView alloc] initWithFrame:CGRectMake(0, 0, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT)  titleNameArray:@[@"关注", @"热门", @"话题"]];
+    _titleView_top.layer.cornerRadius = 3;
     _titleView_top.delegate = self;
     _titleView_top.backgroundColor = [UIColor whiteColor];
-    _titleView_top.top = 0;
+    _titleView_top.top = ROUND_WIDTH_FLOAT(158);
     _titleView_top.centerX = self.view.centerX;
     _titleView_top.userInteractionEnabled = YES;
-//    [self.view addSubview:_titleView_top];
+    [self.view addSubview:_titleView_top];
     
     if ([SKStorageManager sharedInstance].loginUser.uuid==nil||[[SKStorageManager sharedInstance].loginUser.uuid isEqualToString:@""]) {
         self.selectedType = SKHomepageSelectedTypeHot;
-        _titleView.selectedIndex = SKHomepageSelectedTypeHot;
-        _titleView_collectionV.selectedIndex = SKHomepageSelectedTypeHot;
+        _titleView_top.selectedIndex = SKHomepageSelectedTypeHot;
     } else {
         self.selectedType = SKHomepageSelectedTypeFollow;
-        _titleView.selectedIndex = SKHomepageSelectedTypeFollow;
-        _titleView_collectionV.selectedIndex = SKHomepageSelectedTypeFollow;
+        _titleView_top.selectedIndex = SKHomepageSelectedTypeFollow;
     }
 }
 
@@ -295,6 +274,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
     if (self.selectedType==SKHomepageSelectedTypeFollow) {
         [self.view bringSubviewToFront:self.tableView];
+        [self.view bringSubviewToFront:_titleView_top];
         [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
             _totalPage = totalPage;
             if (page>totalPage) {
@@ -316,6 +296,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         }];
     } else if (self.selectedType == SKHomepageSelectedTypeHot) {
         [self.view bringSubviewToFront:self.tableView];
+        [self.view bringSubviewToFront:_titleView_top];
         [[[SKServiceManager sharedInstance] topicService] getIndexHotListWithPageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
             _totalPage = totalPage;
             if (page>totalPage) {
@@ -339,6 +320,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         }];
     } else if (self.selectedType == SKHomepageSelectedTypeTopics) {
         [self.view bringSubviewToFront:self.collectionView];
+        [self.view bringSubviewToFront:_titleView_top];
         [[[SKServiceManager sharedInstance] topicService] getIndexTopicListWithTopicID:self.selectedTopicID PageIndex:page pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
             _totalPage = totalPage;
             if (page>totalPage) {
@@ -538,11 +520,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         return;
     } else {
         self.selectedType = index;
-        if (view==_titleView) {
-            _titleView_collectionV.selectedIndex = index;
-        } else if (view == _titleView_collectionV) {
-            _titleView.selectedIndex = index;
-        }
     }
 }
 
@@ -658,53 +635,25 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if(scrollLock) return;
-    if (scrollView==self.tableView) {
-        self.collectionView.contentOffset = scrollView.contentOffset;
-    } else if (scrollView == self.collectionView) {
-        self.tableView.contentOffset = scrollView.contentOffset;
-    }
-
+    
     if (scrollView.contentOffset.y<HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2) {
+        _titleView_top.top = ROUND_WIDTH_FLOAT(158)- scrollView.contentOffset.y;
+    } else {
+        _titleView_top.top = 0;
+    }
+    if (_titleView_top.top==0) {
         [UIView animateWithDuration:0.2 animations:^{
-//            [self.view sendSubviewToBack:_titleView_top];
-            _titleView.left = (self.view.width-TITLEVIEW_WIDTH)/2;
-            _titleView.height = TITLEVIEW_HEIGHT;
-            _titleView.width = TITLEVIEW_WIDTH;
-            _titleView.layer.cornerRadius = 3;
-
-            _titleView_collectionV.left = (self.view.width-TITLEVIEW_WIDTH)/2;
-            _titleView_collectionV.height = TITLEVIEW_HEIGHT;
-            _titleView_collectionV.width = TITLEVIEW_WIDTH;
-            _titleView_collectionV.layer.cornerRadius = 3;
-        } completion:^(BOOL finished) {
-            [_titleView removeFromSuperview];
-            _titleView.frame = CGRectMake((self.view.width-_titleView.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
-
-            [_titleView_collectionV removeFromSuperview];
-            _titleView_collectionV.frame = CGRectMake((self.view.width-_titleView_collectionV.width)/2, HEADERVIEW_HEIGHT-TITLEVIEW_HEIGHT/2, TITLEVIEW_WIDTH, TITLEVIEW_HEIGHT);
-            [self.tableView addSubview:_titleView];
-            [self.collectionView addSubview:_titleView_collectionV];
+            _titleView_top.width = self.view.width;
+            _titleView_top.left = 0;
+            _titleView_top.height = TITLEVIEW_HEIGHT+(kDevice_Is_iPhoneX?44:20);
+            _titleView_top.layer.cornerRadius = 0;
         }];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
-//            [self.view bringSubviewToFront:_titleView_top];
-            _titleView.left = 0;
-            _titleView.height = 20+TITLEVIEW_HEIGHT;
-            _titleView.width = SCREEN_WIDTH;
-            _titleView.layer.cornerRadius = 0;
-
-            _titleView_collectionV.left = 0;
-            _titleView_collectionV.height = 20+TITLEVIEW_HEIGHT;
-            _titleView_collectionV.width = SCREEN_WIDTH;
-            _titleView_collectionV.layer.cornerRadius = 0;
-        } completion:^(BOOL finished) {
-            [_titleView removeFromSuperview];
-            _titleView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
-            [self.view addSubview:_titleView];
-
-            [_titleView_collectionV removeFromSuperview];
-            _titleView_collectionV.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20+TITLEVIEW_HEIGHT);
-            [self.view addSubview:_titleView_collectionV];
+            _titleView_top.width = TITLEVIEW_WIDTH;
+            _titleView_top.centerX = self.view.centerX;
+            _titleView_top.height = TITLEVIEW_HEIGHT;
+            _titleView_top.layer.cornerRadius = 3;
         }];
     }
 }
@@ -712,7 +661,7 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectedType"]) {
         scrollLock = YES;
-        _titleView.selectedIndex = self.selectedType;
+        _titleView_top.selectedIndex = self.selectedType;
         [self refresh];
     }
 }
