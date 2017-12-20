@@ -166,7 +166,11 @@
         SKLoginUser *use = [SKLoginUser new];
         use.open_id = user.uid;
         use.nickname = user.nickname;
-        use.avatar = user.icon;
+        if ([type isEqualToString:@"weibo"] ) {
+            use.avatar = [user.icon stringByReplacingOccurrencesOfString:@".50/" withString:@".180/"];
+        } else {
+            use.avatar = user.icon;
+        }
         use.login_type = type;
     
         [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:use callback:^(BOOL success, SKResponsePackage *response) {
