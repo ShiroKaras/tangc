@@ -383,6 +383,14 @@
     [cell addSubview:arrow];
     arrow.hidden = !isShow;
     
+    UIView *line = [UIView new];
+    line.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [cell addSubview:line];
+    line.width = SCREEN_WIDTH - ROUND_WIDTH_FLOAT(30);
+    line.height = 0.5;
+    line.left = ROUND_WIDTH_FLOAT(15);
+    line.bottom = cell.bottom;
+    
     return cell;
 }
 

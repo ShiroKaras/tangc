@@ -666,6 +666,11 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, ROUND_WIDTH_FLOAT(37))];
     headerView.backgroundColor = [UIColor whiteColor];
     
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
+    line.backgroundColor = COMMON_SEPARATOR_COLOR;
+    [headerView addSubview:line];
+    line.bottom = headerView.height;
+ 
     //评论
     UIButton *commentButton = [UIButton new];
     [commentButton setTitle:@"评论" forState:UIControlStateNormal];
@@ -736,7 +741,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     [headerView addSubview:_pointView];
     [_pointView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(20), 1));
-        make.bottom.equalTo(headerView);
+        make.bottom.equalTo(headerView).offset(-1);
         if (_listType==SKDetailListTypeComment) {
             make.centerX.equalTo(commentButton);
         } else if (_listType == SKDetailListTypeThumb) {

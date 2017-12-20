@@ -93,6 +93,7 @@
         _underLine.size = CGSizeMake(SCREEN_WIDTH-_usernameLabel.left-10, 0.5);
         _underLine.left = _contentLabel.left;
         _underLine.top = _contentLabel.bottom+5;
+        _underLine.bottom = ROUND_WIDTH_FLOAT(37)-0.5;
         [self.contentView addSubview:_underLine];
     }
     return _underLine;

@@ -11,6 +11,7 @@
 @interface SKThumbTableViewCell ()
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UIView *underLine;
 @end
 
 @implementation SKThumbTableViewCell
@@ -22,7 +23,7 @@
         
         [self.contentView addSubview:self.avatarImageView];
         [self.contentView addSubview:self.usernameLabel];
-        
+        [self.contentView addSubview:self.underLine];
     }
     return self;
 }
@@ -51,6 +52,17 @@
         _usernameLabel.centerY = _avatarImageView.centerY;
     }
     return _usernameLabel;
+}
+
+- (UIView *)underLine {
+    if (!_underLine) {
+        _underLine = [UIView new];
+        _underLine.backgroundColor = COMMON_SEPARATOR_COLOR;
+        _underLine.size = CGSizeMake(SCREEN_WIDTH-_usernameLabel.left-10, 0.5);
+        _underLine.left = _usernameLabel.left;
+        [self.contentView addSubview:_underLine];
+    }
+    return _underLine;
 }
 
 - (void)setUserInfo:(SKUserInfo *)userInfo {

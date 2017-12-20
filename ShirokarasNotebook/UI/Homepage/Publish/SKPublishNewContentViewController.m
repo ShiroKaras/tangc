@@ -131,7 +131,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [self.scrollView addSubview:_textCountLabel];
     
     [[_textView.rac_textSignal filter:^BOOL(NSString *value) {
-        return value;
+        return [value substringWithRange:NSMakeRange(0, 200)];;
     }]
      subscribeNext:^(NSString *x) {
          [self updateTextViewWithString:x];
@@ -370,8 +370,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
 }
 
 - (void)updateTextViewWithString:(NSString*)x {
-    if (x.length>=140) {
-        _textView.text = [x substringWithRange:NSMakeRange(0, 140)];
+    if (x.length>=200) {
+        _textView.text = [x substringWithRange:NSMakeRange(0, 200)];
     }
 
     //更新字数
