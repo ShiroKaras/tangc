@@ -30,6 +30,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
 @property (strong, nonatomic) HXDatePhotoToolManager *toolManager;
 
 @property (nonatomic, strong) NSMutableArray *to_users;
+@property (nonatomic, strong) NSMutableArray *tags;
 @end
 
 @implementation SKPublishNewContentViewController
@@ -78,6 +79,8 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.postImageArray = [NSMutableArray array];
+    self.to_users = [NSMutableArray array];
+    self.tags = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"postImageArray" object:self.postImageArray];
 
     UIView *tView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX?44:20, 200, ROUND_WIDTH_FLOAT(44))];
@@ -320,6 +323,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
                 userpost.type = 2;
             userpost.images = self.postImageArray;
             userpost.to_user_id = self.to_users;
+            userpost.tags = self.tags;
             
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
@@ -333,6 +337,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
             userpost.parent_id = self.topic.id;
             userpost.type = self.topic.type;
             userpost.to_user_id = self.to_users;
+            userpost.tags = self.tags;
             
             [[[SKServiceManager sharedInstance] topicService] postArticleWith:userpost callback:^(BOOL success, SKResponsePackage *response) {
                 DLog(@"response errorcode: %ld", response.errcode);
@@ -394,11 +399,10 @@ static const CGFloat kPhotoViewMargin = 12.0;
     // 3.遍历结果
     for (NSTextCheckingResult *result in results) {
         NSLog(@"%@  %@",NSStringFromRange(result.range),[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]);
-        [self.to_users addObject:[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]];
-        //set font
         // 设置颜色
         [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
     }
+    //set font
     [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
     self.textView.attributedText = attrStr;
 }
@@ -448,6 +452,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     for (SKTag *tag in array) {
         if (tag.is_check) {
             _textView.text = [_textView.text stringByAppendingString:[NSString stringWithFormat:@"#%@# ", tag.name]];
+            [self.tags addObject:@(tag.id)];
         }
     }
     [self updateTextViewWithString:self.textView.text];
@@ -458,6 +463,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     for (SKUserInfo *userinfo in array) {
         if (userinfo.is_check) {
             _textView.text = [_textView.text stringByAppendingString:[NSString stringWithFormat:@"@%@ ", userinfo.nickname]];
+            [self.to_users addObject:[NSString stringWithFormat:@"%@", userinfo.nickname]];
         }
     }
     [self updateTextViewWithString:self.textView.text];

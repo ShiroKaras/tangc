@@ -151,6 +151,11 @@
         NSString *jsonString_users = [[NSString alloc] initWithData:data_users encoding:NSUTF8StringEncoding];
         [param setValue:jsonString_users forKey:@"to_user_id"];        
     }
+    if (topic.tags!=nil) {
+        NSData *data_tags = [NSJSONSerialization dataWithJSONObject:topic.tags options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *jsonString_tags = [[NSString alloc] initWithData:data_tags encoding:NSUTF8StringEncoding];
+        [param setValue:jsonString_tags forKey:@"tags"];
+    }
     
     [self baseRequestWithParam:param url:[SKCGIManager postArticle] callback:^(BOOL success, SKResponsePackage *response) {
         callback(success, response);
