@@ -28,7 +28,9 @@
 @property (nonatomic, strong) UIView *underLine;
 @end
 
-@implementation SKHomepageTableViewCell
+@implementation SKHomepageTableViewCell {
+    BOOL fav_lock;
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -72,7 +74,7 @@
             [view removeFromSuperview];
         }
     }
-    
+    _topic = topic;
     CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(50));
     
     //按钮、内容的透明分割线
@@ -384,6 +386,34 @@
     _favButton.left = _commentButton.right;
     _favButton.top = _underLine.bottom;
     [self.contentView addSubview:_favButton];
+    //点赞
+    [[_favButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        if (fav_lock) {
+            return;
+        } else
+            fav_lock = YES;
+        if ([SKStorageManager sharedInstance].loginUser.uuid==nil) {
+            [[self viewController] invokeLoginViewController];
+            return;
+        }
+        if (_topic.is_thumb) {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:topic.id callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"取消点赞");
+                _topic.is_thumb = 0;
+                [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like"] forState:UIControlStateNormal];
+                [_favButton setTitle:[NSString stringWithFormat:@"%ld", [_favButton.titleLabel.text integerValue]-1] forState:UIControlStateNormal];
+                fav_lock = NO;
+            }];
+        } else {
+            [[[SKServiceManager sharedInstance] topicService] postThumbUpWithArticleID:_topic.id callback:^(BOOL success, SKResponsePackage *response) {
+                DLog(@"成功点赞");
+                _topic.is_thumb = 1;
+                [_favButton setImage:[UIImage imageNamed:@"btn_homepage_like_highlight"] forState:UIControlStateNormal];
+                [_favButton setTitle:[NSString stringWithFormat:@"%ld", [_favButton.titleLabel.text integerValue]+1] forState:UIControlStateNormal];
+                fav_lock = NO;
+            }];
+        }
+    }];
     
     UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, _repeaterButton.bottom, SCREEN_WIDTH, 1)];
     sepLine.backgroundColor = COMMON_BG_COLOR;
@@ -445,4 +475,13 @@
     label.attributedText = attrStr;
 }
 
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
 @end

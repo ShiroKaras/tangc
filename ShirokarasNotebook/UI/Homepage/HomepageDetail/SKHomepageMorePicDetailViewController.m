@@ -86,6 +86,15 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     [self removeObserver:self forKeyPath:@"listType"];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.id callback:^(BOOL success, SKTopic *topic) {
+        self.topic = topic;
+        [self createUI];
+        self.listType = SKDetailListTypeComment;
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     float viewBottomHeight = kDevice_Is_iPhoneX?83:49;
@@ -121,11 +130,6 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
         }
     }
 #endif
-    [[[SKServiceManager sharedInstance] topicService] getArticleDetailWithArticleID:_topic.id callback:^(BOOL success, SKTopic *topic) {
-        self.topic = topic;
-        [self createUI];
-        self.listType = SKDetailListTypeComment;
-    }];
 }
 
 - (void)createTitleView {

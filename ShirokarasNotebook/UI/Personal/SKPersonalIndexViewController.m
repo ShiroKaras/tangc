@@ -198,7 +198,7 @@
             [_authBackView addSubview:_label_follow];
             
             _label_fans = [UILabel new];
-            _label_fans.text = [NSString stringWithFormat:@"粉丝 %ld", [SKStorageManager sharedInstance].userInfo.follows];
+            _label_fans.text = [NSString stringWithFormat:@"粉丝 %ld", [SKStorageManager sharedInstance].userInfo.fans];
             _label_fans.textColor = [UIColor whiteColor];
             _label_fans.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
             [_label_fans sizeToFit];
