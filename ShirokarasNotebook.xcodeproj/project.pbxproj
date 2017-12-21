@@ -1508,7 +1508,7 @@
 				TargetAttributes = {
 					11D9AA1A1FB06141008D32E9 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2014,7 +2014,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2063,7 +2063,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2079,7 +2079,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShirokarasNotebook/ShirokarasNotebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zac Yang (5P67F5SADB)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2097,7 +2097,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/ShirokarasNotebook-prefix.pch";
 				INFOPLIST_FILE = ShirokarasNotebook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2108,8 +2108,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.tangcao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "1c410078-c0fb-4f4a-86aa-b91ead8ee4a6";
+				PROVISIONING_PROFILE_SPECIFIER = "tangcao Development";
 				QQ_URL_SCHEMES_SUFFIX = 41f32997;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WEIBO_URL_SCHEMES_SUFFIX = 2564292504;
@@ -2126,7 +2126,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShirokarasNotebook/ShirokarasNotebook.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Zac Yang (6H2SM536G6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2144,7 +2144,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/ShirokarasNotebook-prefix.pch";
 				INFOPLIST_FILE = ShirokarasNotebook/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2155,8 +2155,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.tangcao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "dfa89061-8990-4c67-85a1-57b6596aaf9d";
+				PROVISIONING_PROFILE_SPECIFIER = "tangcao AppStrore";
 				QQ_URL_SCHEMES_SUFFIX = 41f32997;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WEIBO_URL_SCHEMES_SUFFIX = 2564292504;
