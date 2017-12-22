@@ -386,6 +386,13 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                 view.top = 30;
                 [_imageViewArticle addSubview:view];
                 
+                UIButton *enterArticle = [[UIButton alloc] initWithFrame:_imageViewArticle.frame];
+                [backView addSubview:enterArticle];
+                [[enterArticle rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+                    SKHomepageMorePicDetailViewController *c = [[SKHomepageMorePicDetailViewController alloc] initWithTopic:self.topic.from];
+                    [self.navigationController pushViewController:c animated:YES];
+                }];
+                
                 _underLine.top = _imageViewArticle.bottom+8;
                 break;
             }
