@@ -138,6 +138,10 @@
         case 102: {
             [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
                    onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+                       //以新浪微博为例子，在客户端授权时有效，网页授权无效，另外如果用户已经关注了，那么客户端授权时那个关注选项是会被隐藏掉的
+                       [ShareSDK authorize:SSDKPlatformTypeSinaWeibo settings: @{SSDKAuthSettingKeyScopes : @[@"follow_app_official_microblog"]} onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+                           // 处理回调
+                       }];
                        if (state == SSDKResponseStateSuccess) {
                            DLog(@"uid=%@", user.uid);
                            DLog(@"%@", user.credential);

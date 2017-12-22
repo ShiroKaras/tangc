@@ -263,13 +263,15 @@
          
          switch (platformType)
          {
-             case SSDKPlatformTypeSinaWeibo:
+             case SSDKPlatformTypeSinaWeibo: {
                  //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+                 [appInfo SSDKSetAuthSettings:@[@"follow_app_official_microblog"]];
                  [appInfo SSDKSetupSinaWeiboByAppKey:@"2564292504"
                                            appSecret:@"68c05dd1bc3a7a29003352d4de903ef7"
                                          redirectUri:@"http://www.sharesdk.cn"
                                             authType:SSDKAuthTypeBoth];
-                 break;
+                 break;                 
+             }
              case SSDKPlatformTypeWechat:
                  [appInfo SSDKSetupWeChatByAppId:@"wxb584395fb2e50f8c"
                                        appSecret:@"fa57ec44c1dcc9216fb9b620ee5d1267"];
