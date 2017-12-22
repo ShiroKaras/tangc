@@ -68,7 +68,7 @@
     followUs.layer.masksToBounds = YES;
     followUs.layer.borderWidth = 1;
     followUs.layer.borderColor = [UIColor colorWithHex:0x6b827a].CGColor;
-    [followUs setTitle:@"去逛逛的糖草官微" forState:UIControlStateNormal];
+    [followUs setTitle:@"去逛逛糖草的官微" forState:UIControlStateNormal];
     [followUs setTitleColor:[UIColor colorWithHex:0x6b827a] forState:UIControlStateNormal];
     followUs.titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(15);
     [self.view addSubview:followUs];

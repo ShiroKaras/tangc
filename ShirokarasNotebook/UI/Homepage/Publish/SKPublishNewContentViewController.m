@@ -239,7 +239,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [[topicButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         SKTopicListTableViewController *controller = [[SKTopicListTableViewController alloc] init];
         controller.delegate = self;
-        [self presentViewController:controller animated:YES completion:nil];
+        [self.navigationController pushViewController:controller animated:YES];
     }];
 
     UIButton *repeatButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -251,7 +251,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     [[repeatButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         SKFollowListTableViewController *controller = [[SKFollowListTableViewController alloc] init];
         controller.delegate = self;
-        [self presentViewController:controller animated:YES completion:nil];
+        [self.navigationController pushViewController:controller animated:YES];
     }];
 
     UIButton *hideKeyboardButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];

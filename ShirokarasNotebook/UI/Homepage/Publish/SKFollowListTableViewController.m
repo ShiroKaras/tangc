@@ -21,7 +21,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     _selectIndexs = [NSMutableArray new];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, (kDevice_Is_iPhoneX?44:20)+44, SCREEN_WIDTH, SCREEN_HEIGHT-((kDevice_Is_iPhoneX?44:20)+44)) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, ((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44)), SCREEN_WIDTH, SCREEN_HEIGHT-((kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(44))) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -37,7 +37,7 @@
     [self.view addSubview:nextButton];
     nextButton.size = CGSizeMake(44, 44);
     nextButton.right = self.view.right-ROUND_WIDTH_FLOAT(10);
-    nextButton.top = kDevice_Is_iPhoneX?44:20;
+    nextButton.centerY = (kDevice_Is_iPhoneX?44:20)+ROUND_WIDTH_FLOAT(22);
     [[nextButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         [self dismissViewControllerAnimated:YES completion:^{
             if ([_delegate respondsToSelector:@selector(didClickBackButtonInFollowListController:selectedArray:)]) {

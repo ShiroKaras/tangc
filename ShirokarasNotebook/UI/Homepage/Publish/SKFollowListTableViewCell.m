@@ -8,6 +8,10 @@
 
 #import "SKFollowListTableViewCell.h"
 
+@interface SKFollowListTableViewCell ()
+@property (nonatomic, strong) UIView *underLine;
+@end
+
 @implementation SKFollowListTableViewCell
 
 
@@ -18,6 +22,7 @@
         [self.contentView addSubview:self.avatarImageView];
         [self.contentView addSubview:self.usernameLabel];
         [self.contentView addSubview:self.checkButton];
+        [self.contentView addSubview:self.underLine];
     }
     return self;
 }
@@ -55,6 +60,17 @@
         _checkButton.right = SCREEN_WIDTH -ROUND_WIDTH_FLOAT(15);
     }
     return _checkButton;
+}
+
+- (UIView *)underLine {
+    if (!_underLine) {
+        _underLine = [UIView new];
+        _underLine.backgroundColor = COMMON_SEPARATOR_COLOR;
+        _underLine.size = CGSizeMake(ROUND_WIDTH_FLOAT(290), 0.5);
+        _underLine.left = ROUND_WIDTH_FLOAT(15);
+        _underLine.bottom = ROUND_WIDTH_FLOAT(60);
+    }
+    return _underLine;
 }
 
 - (void)setIsCheck:(BOOL)isCheck {

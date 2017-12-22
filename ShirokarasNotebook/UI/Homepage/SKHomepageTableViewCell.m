@@ -213,8 +213,6 @@
                     _articleLabel = [UILabel new];
                     _articleLabel.text = topic.from.title;
                     _articleLabel.textColor = [UIColor whiteColor];
-                    _articleLabel.shadowOffset = CGSizeMake(1, 1);
-                    _articleLabel.shadowColor = [UIColor lightGrayColor];
                     _articleLabel.numberOfLines = 2;
                     CGSize labelSize = [topic.from.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(270), ROUND_WIDTH_FLOAT(60)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                     _articleLabel.size = labelSize;
@@ -324,8 +322,6 @@
                 _articleLabel = [UILabel new];
                 _articleLabel.text = topic.title;
                 _articleLabel.textColor = [UIColor whiteColor];
-                _articleLabel.shadowOffset = CGSizeMake(1, 1);
-                _articleLabel.shadowColor = [UIColor lightGrayColor];
                 _articleLabel.numberOfLines = 2;
                 CGSize labelSize = [topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(270), ROUND_WIDTH_FLOAT(60)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _articleLabel.size = labelSize;

@@ -27,8 +27,6 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
 @property (nonatomic, strong) SKTopic *topic;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) SKTitleBaseView *baseInfoView;
-@property (nonatomic, strong) UITextView *articleView;
-@property (nonatomic, strong) UIImageView *articleHeaderImageView;
 
 @property (nonatomic, strong) UIButton *repeaterButton;
 @property (nonatomic, strong) UIButton *commentButton;
@@ -45,8 +43,11 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
 @property (nonatomic, strong) UILabel *introduceLabel;
 @property (nonatomic, strong) NSArray<NSString*>* imageUrlArray;
 //Article
-@property (nonatomic, strong) UIImageView *imageViewArticle;
-@property (nonatomic, strong) UILabel *articleLabel;
+@property (nonatomic, strong) UIImageView *articleHeaderImageView;  //原创头图
+@property (nonatomic, strong) UILabel *articleTitleLabel;           //原创标题
+@property (nonatomic, strong) UITextView *articleView;              //原创正文
+@property (nonatomic, strong) UIImageView *imageViewArticle;        //转发头图
+@property (nonatomic, strong) UILabel *articleLabel;                //转发标题
 
 @property (nonatomic, strong) UIView *pointView;
 
@@ -222,15 +223,34 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
             [_baseInfoView.dateLabel sizeToFit];
             _headerView.height = _baseInfoView.bottom;
             
+            //文章标题
+            _articleTitleLabel = [UILabel new];
+            _articleTitleLabel.text = self.topic.title;
+            _articleTitleLabel.textColor = COMMON_TEXT_COLOR;
+            _articleTitleLabel.numberOfLines = 2;
+            CGSize labelSize = [self.topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(60)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(18)} context:nil].size;
+            _articleTitleLabel.size = labelSize;
+            _articleTitleLabel.width = ROUND_WIDTH_FLOAT(290);
+            _articleTitleLabel.left = ROUND_WIDTH_FLOAT(15);
+            _articleTitleLabel.top = _baseInfoView.bottom +ROUND_WIDTH_FLOAT(5);
+            [self.headerView addSubview:_articleTitleLabel];
+            
             //文章
-            _articleView = [[UITextView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), self.baseInfoView.bottom, self.view.frame.size.width-ROUND_WIDTH_FLOAT(30), 400)];
+            _articleView = [[UITextView alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(15), _articleTitleLabel.bottom, self.view.frame.size.width-ROUND_WIDTH_FLOAT(30), 400)];
             _articleView.backgroundColor = [UIColor clearColor];
             // 获取html数据
             NSString *htmlString = [NSString stringWithFormat:@"<head><style>img{width:%f !important;height:auto}</style></head>%@",_articleView.width,_topic.content];
+
             // 利用可变属性字符串来接收html数据
-            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            [paragraphStyle setLineSpacing:7];
+            [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributedString length])];
+            [attributedString addAttribute:NSFontAttributeName value:PINGFANG_FONT_OF_SIZE(14) range:NSMakeRange(0, [attributedString length])];
+            
             // 给textView赋值的时候就得用attributedText来赋了
             _articleView.attributedText = attributedString;
+            
             _articleView.height = _articleView.contentSize.height;
             [self.headerView addSubview:_articleView];
             
@@ -370,8 +390,6 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                 _articleLabel = [UILabel new];
                 _articleLabel.text = self.topic.from.title;
                 _articleLabel.textColor = [UIColor whiteColor];
-                _articleLabel.shadowOffset = CGSizeMake(1, 1);
-                _articleLabel.shadowColor = [UIColor lightGrayColor];
                 _articleLabel.numberOfLines = 2;
                 CGSize labelSize = [self.topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(270), ROUND_WIDTH_FLOAT(60)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _articleLabel.size = labelSize;
