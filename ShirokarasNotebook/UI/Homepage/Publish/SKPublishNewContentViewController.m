@@ -133,6 +133,11 @@ static const CGFloat kPhotoViewMargin = 12.0;
     _textCountLabel.right = _textView.right;
     [self.scrollView addSubview:_textCountLabel];
     
+    if (self.type ==SKPublishTypeRepost) {
+        _textView.text = [NSString stringWithFormat:@"//%@", self.topic.content];
+        [_textView setSelectedRange:NSMakeRange(0, 0)];
+    }
+    
     [[_textView.rac_textSignal filter:^BOOL(NSString *value) {
         return value;
     }]
@@ -141,6 +146,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
      }];
 
     [_textView becomeFirstResponder];
+    
     //=========================图片组=========================
     
     if (_type == SKPublishTypeNew) {
