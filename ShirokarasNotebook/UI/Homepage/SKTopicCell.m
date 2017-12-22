@@ -147,7 +147,7 @@
     // 3.遍历结果
     for (NSTextCheckingResult *result in results) {
         // 设置颜色
-        [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:0x417DC1] range:result.range];
     }
     //set font
     [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(10) range:NSMakeRange(0, topic.content.length)];

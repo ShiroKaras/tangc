@@ -406,7 +406,7 @@ static const CGFloat kPhotoViewMargin = 12.0;
     for (NSTextCheckingResult *result in results) {
         NSLog(@"%@  %@",NSStringFromRange(result.range),[[x substringWithRange:result.range] stringByReplacingOccurrencesOfString:@"@" withString:@""]);
         // 设置颜色
-        [attrStr addAttribute:NSForegroundColorAttributeName value:COMMON_GREEN_COLOR range:result.range];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:0x417DC1] range:result.range];
     }
     //set font
     [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(14) range:NSMakeRange(0, x.length)];
