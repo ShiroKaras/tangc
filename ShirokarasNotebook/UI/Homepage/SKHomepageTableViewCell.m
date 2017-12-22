@@ -206,14 +206,19 @@
                     }
                     [self.contentView addSubview:_imageViewArticle];
                     
+                    UIView *alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _imageViewArticle.width, _imageViewArticle.height)];
+                    alphaView.backgroundColor = [UIColor colorWithHex:0x3b3b3b alpha:0.6];
+                    [_imageViewArticle addSubview:alphaView];
+                    
                     _articleLabel = [UILabel new];
                     _articleLabel.text = topic.from.title;
                     _articleLabel.textColor = [UIColor whiteColor];
                     _articleLabel.shadowOffset = CGSizeMake(1, 1);
                     _articleLabel.shadowColor = [UIColor lightGrayColor];
-                    CGSize labelSize = [topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+                    _articleLabel.numberOfLines = 2;
+                    CGSize labelSize = [topic.from.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(270), ROUND_WIDTH_FLOAT(60)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                     _articleLabel.size = labelSize;
-                    _articleLabel.width = ROUND_WIDTH_FLOAT(200);
+                    _articleLabel.width = ROUND_WIDTH_FLOAT(270);
                     _articleLabel.left = _imageViewArticle.left+ROUND_WIDTH_FLOAT(10);
                     _articleLabel.bottom = _imageViewArticle.bottom-ROUND_WIDTH_FLOAT(10);
                     [self.contentView addSubview:_articleLabel];
@@ -312,14 +317,19 @@
                 }
                 [self.contentView addSubview:_imageViewArticle];
                 
+                UIView *alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _imageViewArticle.width, _imageViewArticle.height)];
+                alphaView.backgroundColor = [UIColor colorWithHex:0x3b3b3b alpha:0.6];
+                [_imageViewArticle addSubview:alphaView];
+                
                 _articleLabel = [UILabel new];
                 _articleLabel.text = topic.title;
                 _articleLabel.textColor = [UIColor whiteColor];
                 _articleLabel.shadowOffset = CGSizeMake(1, 1);
                 _articleLabel.shadowColor = [UIColor lightGrayColor];
-                CGSize labelSize = [topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(200), ROUND_WIDTH_FLOAT(40)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
+                _articleLabel.numberOfLines = 2;
+                CGSize labelSize = [topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(270), ROUND_WIDTH_FLOAT(60)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _articleLabel.size = labelSize;
-                _articleLabel.width = ROUND_WIDTH_FLOAT(200);
+                _articleLabel.width = ROUND_WIDTH_FLOAT(270);
                 _articleLabel.left = _imageViewArticle.left+ROUND_WIDTH_FLOAT(10);
                 _articleLabel.bottom = _imageViewArticle.bottom-ROUND_WIDTH_FLOAT(10);
                 [self.contentView addSubview:_articleLabel];
