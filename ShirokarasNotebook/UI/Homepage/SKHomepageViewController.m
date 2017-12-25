@@ -361,8 +361,17 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
         [self.view bringSubviewToFront:_titleView_top];
         [[[SKServiceManager sharedInstance] topicService] getIndexFollowListWithPageIndex:page_follow pagesize:10 callback:^(BOOL success, NSArray<SKTopic *> *topicList, NSInteger totalPage) {
             _totalPage_follow = totalPage;
+            
+            if (topicList.count==0) {
+                [_tableView_follow addSubview:_blankView];
+            } else {
+                [self.view sendSubviewToBack:_blankView];
+                [_blankView removeFromSuperview];
+            }
+            
             if (page_follow>totalPage) {
                 page_follow = totalPage;
+                return;
             }
             if (isRefresh) {
                 self.dataArray_follow = [NSMutableArray arrayWithArray:topicList];
@@ -370,12 +379,6 @@ typedef NS_ENUM(NSInteger, SKHomepageSelectedType) {
                 for (int i=0; i<topicList.count; i++) {
                     [self.dataArray_follow addObject:topicList[i]];
                 }
-            }
-            if (topicList.count==0) {
-                [_tableView_follow addSubview:_blankView];
-            } else {
-                [self.view sendSubviewToBack:_blankView];
-                [_blankView removeFromSuperview];
             }
             [_tableView_follow reloadData];
             scrollLock = NO;
