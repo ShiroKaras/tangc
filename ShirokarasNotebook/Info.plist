@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>1.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -80,7 +80,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>10</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sinaweibo</string>
@@ -111,13 +111,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>是否允许糖草访问您的相机</string>
+	<string>是否允许糖草访问您的相机用于扫描二维码</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>是否允许糖草定位您的位置</string>
+	<string>是否允许糖草定位您的位置用于修改个人资料</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>是否允许糖草定位您的位置</string>
+	<string>是否允许糖草定位您的位置用于修改个人资料</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>是否允许糖草访问您的相册</string>
+	<string>是否允许糖草访问您的相册用于添加附图</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
