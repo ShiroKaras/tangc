@@ -169,15 +169,14 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
             [_baseInfoView.dateLabel sizeToFit];
             [backView addSubview:_baseInfoView];
             
-            CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(40));
+            CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), MAXFLOAT);
             
             NSString *contentText = _topic.from.id!=0?_topic.from.content:_topic.content;
             UILabel *contentLabel = [UILabel new];
             contentLabel.text = contentText;
-            contentLabel.textColor = COMMON_TEXT_COLOR;
-            contentLabel.numberOfLines = 2;
-            contentLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
-            CGSize labelSize = [contentText boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(12)} context:nil].size;
+            [self regxWithContent:contentText label:contentLabel];
+            contentLabel.numberOfLines = 0;
+            CGSize labelSize = [contentText boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
             contentLabel.size = labelSize;
             contentLabel.top = _baseInfoView.bottom;
             contentLabel.left = ROUND_WIDTH_FLOAT(15);
@@ -262,7 +261,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     }
     //转发
     else {
-        CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), ROUND_WIDTH_FLOAT(50));
+        CGSize maxSize = CGSizeMake(ROUND_WIDTH_FLOAT(290), MAXFLOAT);
         
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.headerView.width-10, self.headerView.height-ROUND_WIDTH_FLOAT(20))];
         backView.backgroundColor = [UIColor whiteColor];
@@ -285,9 +284,10 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
         
         _repostLabel = [UILabel new];
         _repostLabel.text = self.topic.content;
-        _repostLabel.textColor = COMMON_TEXT_COLOR;
+        [self regxWithContent:self.topic.content label:_repostLabel];
+        //        _repostLabel.textColor = COMMON_TEXT_COLOR;
+        //        _repostLabel.numberOfLines = 0;
         _repostLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
-        _repostLabel.numberOfLines = 2;
         CGSize labelSize = [self.topic.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
         _repostLabel.size = labelSize;
         _repostLabel.left = ROUND_WIDTH_FLOAT(15);
@@ -321,9 +321,10 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                 
                 _introduceLabel = [UILabel new];
                 _introduceLabel.text = self.topic.from.content;
-                _introduceLabel.textColor = COMMON_TEXT_COLOR;
-                _introduceLabel.numberOfLines = 2;
-                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+                [self regxWithContent:self.topic.from.content label:_introduceLabel];
+                //                _introduceLabel.textColor = COMMON_TEXT_COLOR;
+                //                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+                _introduceLabel.numberOfLines = 0;
                 CGSize labelSize = [self.topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _introduceLabel.size = labelSize;
                 _introduceLabel.top = _imageViewOnePic.bottom+15;
@@ -361,9 +362,10 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                 //文字介绍
                 _introduceLabel = [UILabel new];
                 _introduceLabel.text = self.topic.from.content;
-                _introduceLabel.textColor = COMMON_TEXT_COLOR;
+                [self regxWithContent:self.topic.from.content label:_introduceLabel];
+                //                _introduceLabel.textColor = COMMON_TEXT_COLOR;
+                //                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
                 _introduceLabel.numberOfLines = 0;
-                _introduceLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
                 CGSize labelSize = [self.topic.from.content boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _introduceLabel.size = labelSize;
                 _introduceLabel.top = scrollView.bottom+15;
@@ -390,7 +392,7 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
                 _articleLabel = [UILabel new];
                 _articleLabel.text = self.topic.from.title;
                 _articleLabel.textColor = [UIColor whiteColor];
-                _articleLabel.numberOfLines = 2;
+                _articleLabel.numberOfLines = 0;
                 CGSize labelSize = [self.topic.title boundingRectWithSize:CGSizeMake(ROUND_WIDTH_FLOAT(270), ROUND_WIDTH_FLOAT(60)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:PINGFANG_ROUND_FONT_OF_SIZE(14)} context:nil].size;
                 _articleLabel.size = labelSize;
                 _articleLabel.width = ROUND_WIDTH_FLOAT(270);
@@ -628,6 +630,34 @@ typedef NS_ENUM(NSInteger, SKDetailListType) {
     [super didReceiveMemoryWarning];
 }
 
+
+- (void)regxWithContent:(NSString*)content label:(UILabel*)label {
+    if (label.text == nil) {
+        return;
+    }
+    
+    // 话题的规则
+    NSString *topicPattern = @"#[0-9a-zA-Z\\u4e00-\\u9fa5]+#";
+    // @的规则
+    NSString *atPattern = @"\\@[0-9a-zA-Z\\u4e00-\\u9fa5]+";
+    
+    NSString *pattern = [NSString stringWithFormat:@"%@|%@",topicPattern,atPattern];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+    //匹配集合
+    NSArray *results = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)];
+    
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[content dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                                  options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType}
+                                                                       documentAttributes:nil error:nil];
+    // 3.遍历结果
+    for (NSTextCheckingResult *result in results) {
+        // 设置颜色
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:0x417DC1] range:result.range];
+    }
+    //set font
+    [attrStr addAttribute:NSFontAttributeName value:PINGFANG_ROUND_FONT_OF_SIZE(14) range:NSMakeRange(0, content.length)];
+    label.attributedText = attrStr;
+}
 
 - (void)showPicWithImageView:(UIImageView*)mImageView url:(NSURL*)url {
     mImageView.userInteractionEnabled = YES;
